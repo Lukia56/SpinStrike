@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{1306d92a-1a77-4b19-8b33-7ce52caa833a}</ProjectGuid>
+    <RootNamespace>DxLibFramework</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\DxLib;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)Include\DxLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\DxLib;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)Include\DxLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\DxLib;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)Include\DxLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\DxLib;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)Include\DxLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Camera\CameraStatic.cpp" />
+    <ClCompile Include="Camera\CameraDebugFree.cpp" />
+    <ClCompile Include="Camera\CameraManager.cpp" />
+    <ClCompile Include="System\Input\Mouse.cpp" />
+    <ClCompile Include="System\ResourceManager.cpp" />
+    <ClCompile Include="System\Resource\Resource.cpp" />
+    <ClCompile Include="System\TimeManager.cpp" />
+    <ClCompile Include="Utility\Color.cpp" />
+    <ClCompile Include="World\Components\Rendering\SpriteRenderer.cpp" />
+    <ClCompile Include="World\Components\Rendering\TextRenderer.cpp" />
+    <ClCompile Include="World\Components\Rendering\ModelRenderer.cpp" />
+    <ClCompile Include="World\Components\Transform.cpp" />
+    <ClCompile Include="Utility\Random.cpp" />
+    <ClCompile Include="Scene\SceneInit.cpp" />
+    <ClCompile Include="System\InputManager.cpp" />
+    <ClCompile Include="System\Input\Device\InputDeviceBase.cpp" />
+    <ClCompile Include="System\Input\Device\InputDeviceGamepad.cpp" />
+    <ClCompile Include="System\Input\Device\InputDeviceKeyboard.cpp" />
+    <ClCompile Include="System\Input\Device\InputDeviceMouse.cpp" />
+    <ClCompile Include="System\Input\Format\InputFormatBase.cpp" />
+    <ClCompile Include="System\Input\Format\InputFormatGamepadButton.cpp" />
+    <ClCompile Include="System\Input\Format\InputFormatGamepadThumb.cpp" />
+    <ClCompile Include="System\Input\Format\InputFormatGamepadTrigger.cpp" />
+    <ClCompile Include="System\Input\Format\InputFormatKeyboard.cpp" />
+    <ClCompile Include="System\Input\Format\InputFormatMouseButton.cpp" />
+    <ClCompile Include="System\Input\Format\InputFormatMouseDelta.cpp" />
+    <ClCompile Include="System\Input\Format\InputFormatMouseWheel.cpp" />
+    <ClCompile Include="System\Input\Gamepad.cpp" />
+    <ClCompile Include="System\Input\Keyboard.cpp" />
+    <ClCompile Include="System\Input\Modifier\InputModifierDeadzone.cpp" />
+    <ClCompile Include="System\Input\Modifier\InputModifierNegate.cpp" />
+    <ClCompile Include="System\Input\Modifier\InputModifierSwizzleAxis.cpp" />
+    <ClCompile Include="World\Components\Collision3D.cpp" />
+    <ClCompile Include="World\Characters\Player.cpp" />
+    <ClCompile Include="Scene\SceneTest.cpp" />
+    <ClCompile Include="Utility\Vector.cpp" />
+    <ClCompile Include="World\GameObject.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Scene\SceneBase.cpp" />
+    <ClCompile Include="Scene\SceneManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="Camera\CameraStatic.h" />
+    <ClInclude Include="Camera\CameraDebugFree.h" />
+    <ClInclude Include="Camera\CameraManager.h" />
+    <ClInclude Include="Camera\CameraProperty.h" />
+    <ClInclude Include="Camera\ICamera.h" />
+    <ClInclude Include="System\Input\Literal\InputActionMaps.h" />
+    <ClInclude Include="System\Input\Modifier\InputModifierDeadzone.h" />
+    <ClInclude Include="System\TimeManager.h" />
+    <ClInclude Include="World\Components\Rendering\Renderer.h" />
+    <ClInclude Include="System\ResourceManager.h" />
+    <ClInclude Include="System\Resource\Resource.h" />
+    <ClInclude Include="World\Components\Rendering\SpriteRenderer.h" />
+    <ClInclude Include="World\Components\Rendering\TextRenderer.h" />
+    <ClInclude Include="World\Components\Rendering\ModelRenderer.h" />
+    <ClInclude Include="World\Components\Transform.h" />
+    <ClInclude Include="Utility\Random.h" />
+    <ClInclude Include="Scene\SceneInit.h" />
+    <ClInclude Include="System\InputManager.h" />
+    <ClInclude Include="System\Input\Device\InputDeviceBase.h" />
+    <ClInclude Include="System\Input\Device\InputDeviceGamepad.h" />
+    <ClInclude Include="System\Input\Device\InputDeviceKeyboard.h" />
+    <ClInclude Include="System\Input\Device\InputDeviceMouse.h" />
+    <ClInclude Include="System\Input\Format\InputFormatBase.h" />
+    <ClInclude Include="System\Input\Format\InputFormatGamepadButton.h" />
+    <ClInclude Include="System\Input\Format\InputFormatGamepadThumb.h" />
+    <ClInclude Include="System\Input\Format\InputFormatGamepadTrigger.h" />
+    <ClInclude Include="System\Input\Format\InputFormatKeyboard.h" />
+    <ClInclude Include="System\Input\Format\InputFormatMouseButton.h" />
+    <ClInclude Include="System\Input\Format\InputFormatMouseDelta.h" />
+    <ClInclude Include="System\Input\Format\InputFormatMouseWheel.h" />
+    <ClInclude Include="System\Input\Gamepad.h" />
+    <ClInclude Include="System\Input\Keyboard.h" />
+    <ClInclude Include="System\Input\Literal\InputActions.h" />
+    <ClInclude Include="System\Input\Literal\InputProperty.h" />
+    <ClInclude Include="System\Input\Literal\KeyCodes.h" />
+    <ClInclude Include="System\Input\Modifier\IInputModifier.h" />
+    <ClInclude Include="System\Input\Modifier\InputModifierNegate.h" />
+    <ClInclude Include="System\Input\Modifier\InputModifierSwizzleAxis.h" />
+    <ClInclude Include="System\Input\Mouse.h" />
+    <ClInclude Include="World\Components\Collision3D.h" />
+    <ClInclude Include="World\Characters\Player.h" />
+    <ClInclude Include="Scene\SceneTest.h" />
+    <ClInclude Include="Utility\Color.h" />
+    <ClInclude Include="Utility\Math.h" />
+    <ClInclude Include="Utility\Vector.h" />
+    <ClInclude Include="World\GameObject.h" />
+    <ClInclude Include="Scene\SceneBase.h" />
+    <ClInclude Include="Scene\SceneManager.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
