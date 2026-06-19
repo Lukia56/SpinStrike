@@ -22,6 +22,7 @@ namespace Camera
 	{
 		Static,
 		DebugFree,
+		Follow,
 		Max,
 	};
 }

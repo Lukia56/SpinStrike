@@ -39,9 +39,9 @@ protected:
 	virtual std::unique_ptr<SceneBase> Update() = 0;
 
 	/// <returns>追加したゲームオブジェクトの生ポインタ</returns>
-	template <class T>
+	template <class T, class... Args>
 	requires std::derived_from<T, GameObject>
-	T* AddToRoot(std::unique_ptr<T> root);
+	T* AddToRoot(Args&&... args);
 
 private:
 
@@ -58,12 +58,16 @@ private:
 	std::unique_ptr<CameraManager> mCameraManager;
 };
 
-template <class T>
+template<class T, class ...Args>
 requires std::derived_from<T, GameObject>
-inline T* SceneBase::AddToRoot(std::unique_ptr<T> root)
+inline T* SceneBase::AddToRoot(Args&&... args)
 {
-	T* ptr = root.get();
+	auto ptr = std::make_unique<T>(std::forward<Args>(args)...);
 	ptr->Init();
-	mRootObjects.emplace_back(std::move(root));
-	return ptr;
+
+	T* rawPtr = ptr.get();
+
+	mRootObjects.emplace_back(std::move(ptr));
+
+	return rawPtr;
 }

@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Camera\CameraFollow.cpp" />
     <ClCompile Include="Camera\CameraStatic.cpp" />
     <ClCompile Include="Camera\CameraDebugFree.cpp" />
     <ClCompile Include="Camera\CameraManager.cpp" />
@@ -183,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Camera\CameraFollow.h" />
     <ClInclude Include="Camera\CameraStatic.h" />
     <ClInclude Include="Camera\CameraDebugFree.h" />
     <ClInclude Include="Camera\CameraManager.h" />
