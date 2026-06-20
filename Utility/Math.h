@@ -104,11 +104,13 @@ namespace Math
 	template <std::floating_point T>
 	constexpr T Leap(const T a, const T b, const T t)
 	{
+		t = Math::Clamp(t, 0.0f, 1.0f);
 		return a + (b - a) * t;
 	}
 	template <std::floating_point T>
 	constexpr T LerpDelta(const T a, const T b, const T t, const float delta)
 	{
+		t = Math::Clamp(t, 0.0f, 1.0f);
 		T time = Math::Clamp(t * delta, 0.0f, 1.0f);
 		return a + (b - a) * time;
 	}
