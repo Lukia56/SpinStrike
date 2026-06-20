@@ -4,6 +4,9 @@
 
 class Transform;
 
+/// <summary>
+/// ターゲットを追従し、視点操作が出来るカメラ
+/// </summary>
 class CameraFollow : public ICamera
 {
 public:
@@ -15,7 +18,9 @@ public:
 
 private:
 
-	Vector3 mPosition;
+	Vector3 mEyePosition;
+
+	Vector3 mRotation;
 
 	Transform* mTarget;
 };
