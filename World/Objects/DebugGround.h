@@ -12,5 +12,8 @@ public:
 	DebugGround() = default;
 	~DebugGround() = default;
 
+	void Init() override {};
+	void Update() override {};
+
 	void Draw() override;
 };
