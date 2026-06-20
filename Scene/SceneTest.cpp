@@ -10,7 +10,7 @@ SceneTest::SceneTest() :
 {
 	mPlayer = AddToRoot<Player>();
 
-	GetCameraManager()->AddCamera(Camera::Type::Follow, std::make_unique<CameraFollow>());
+	GetCameraManager()->AddCamera(Camera::Type::Follow, std::make_unique<CameraFollow>(&mPlayer->GetTransform()));
 	GetCameraManager()->SetCurrentCameraType(Camera::Type::Follow);
 }
 

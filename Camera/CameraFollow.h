@@ -8,14 +8,14 @@ class CameraFollow : public ICamera
 {
 public:
 
-	CameraFollow() = default;
+	CameraFollow(Transform* target);
 	~CameraFollow() = default;
 
 	void Update(Camera::View& view) override;
 
 private:
 
-	Transform* mTarget;
-
 	Vector3 mPosition;
+
+	Transform* mTarget;
 };
