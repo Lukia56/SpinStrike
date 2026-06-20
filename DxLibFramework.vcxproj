@@ -144,6 +144,7 @@
     <ClCompile Include="Camera\CameraStatic.cpp" />
     <ClCompile Include="Camera\CameraDebugFree.cpp" />
     <ClCompile Include="Camera\CameraManager.cpp" />
+    <ClCompile Include="World\Objects\DebugGround.cpp" />
     <ClCompile Include="System\Input\Mouse.cpp" />
     <ClCompile Include="System\ResourceManager.cpp" />
     <ClCompile Include="System\Resource\Resource.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Camera\CameraManager.h" />
     <ClInclude Include="Camera\CameraProperty.h" />
     <ClInclude Include="Camera\ICamera.h" />
+    <ClInclude Include="World\Objects\DebugGround.h" />
     <ClInclude Include="System\Input\Literal\InputActionMaps.h" />
     <ClInclude Include="System\Input\Modifier\InputModifierDeadzone.h" />
     <ClInclude Include="System\TimeManager.h" />
