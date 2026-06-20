@@ -40,9 +40,9 @@ public:
 protected:
 
 	/// <returns>追加したゲームオブジェクトの生ポインタ</returns>
-	template <class T>
+	template <class T, class... Args>
 	requires std::derived_from<T, GameObject>
-	T* AddToChild(std::unique_ptr<T> child);
+	T* AddToChild(Args&&... args);
 
 	/// <summary>
 	/// ゲームオブジェクトを削除する
@@ -65,12 +65,16 @@ private:
 	bool mIsActive;
 };
 
-template <class T>
+template <class T, class... Args>
 requires std::derived_from<T, GameObject>
-inline T* GameObject::AddToChild(std::unique_ptr<T> child)
+inline T* GameObject::AddToChild(Args&&... args)
 {
-	T* ptr = child.get();
+	auto ptr = std::make_unique<T>(std::forward<Args>(args)...);
 	ptr->Init();
-	ptr->GetTransform().SetupParent(std::move(child), &mTransform);
-	return ptr;
+
+	T* rawPtr = ptr.get();
+
+	rawPtr->GetTransform().SetupParent(std::move(ptr), &mTransform);
+
+	return rawPtr;
 }
