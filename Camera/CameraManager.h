@@ -35,6 +35,8 @@ public:
 
 	void SetCurrentCameraType(Camera::Type type) { mCurrentCameraType = type; }
 
+	const Camera::View& GetCameraView() const { return mView; }
+
 private:
 
 	Camera::Type mCurrentCameraType;
