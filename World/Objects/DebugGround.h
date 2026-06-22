@@ -16,4 +16,10 @@ public:
 	void Update() override {};
 
 	void Draw() override;
+
+private:
+
+	void DrawXAxis(const Vector3& centerPos);
+
+	void DrawZAxis(const Vector3& centerPos);
 };

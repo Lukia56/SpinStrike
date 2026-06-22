@@ -14,13 +14,21 @@ namespace
 
 void DebugGround::Draw()
 {
-	Vector3 pos = mTransform.CalculateWorldPosition();
+	Vector3 centerPos = mTransform.CalculateWorldPosition();
 
+	DrawXAxis(centerPos);
+	DrawZAxis(centerPos);
+}
+
+void DebugGround::DrawXAxis(const Vector3& centerPos)
+{
 	Vector3 start, end;
 
-	start	= Vector3(pos.x - kAreaHalfSize, 0.0f, std::round((pos.z - kAreaHalfSize) * 0.01f) * 100);
-	end		= Vector3(pos.x + kAreaHalfSize, 0.0f, std::round((pos.z - kAreaHalfSize) * 0.01f) * 100);
+	// XŽ²‚Ì’[‚ðŒvŽZ
+	start = Vector3(centerPos.x - kAreaHalfSize, 0.0f, std::round((centerPos.z - kAreaHalfSize) / kLineDistance) * kLineDistance);
+	end = Vector3(centerPos.x + kAreaHalfSize, 0.0f, std::round((centerPos.z - kAreaHalfSize) / kLineDistance) * kLineDistance);
 
+	// XŽ²‚ð•`‰æ
 	for (int i = 0; i < kLineNum; i++)
 	{
 		DrawLine3D(start.GetAsDxLibVector(), end.GetAsDxLibVector(), Color::red.GetAsHexRGB());
@@ -28,12 +36,19 @@ void DebugGround::Draw()
 		start.z += kLineDistance;
 		end.z += kLineDistance;
 
-		if (start.x > pos.x + kAreaHalfSize) break;
+		if (start.x > centerPos.x + kAreaHalfSize) break;
 	}
+}
 
-	start	= Vector3(std::round((pos.x - kAreaHalfSize) * 0.01f) * 100, 0.0f, pos.z - kAreaHalfSize);
-	end		= Vector3(std::round((pos.x - kAreaHalfSize) * 0.01f) * 100, 0.0f, pos.z + kAreaHalfSize);
+void DebugGround::DrawZAxis(const Vector3& centerPos)
+{
+	Vector3 start, end;
 
+	// ZŽ²‚Ì’[‚ðŒvŽZ
+	start = Vector3(std::round((centerPos.x - kAreaHalfSize) / kLineDistance) * kLineDistance, 0.0f, centerPos.z - kAreaHalfSize);
+	end = Vector3(std::round((centerPos.x - kAreaHalfSize) / kLineDistance) * kLineDistance, 0.0f, centerPos.z + kAreaHalfSize);
+
+	// ZŽ²‚ð•`‰æ
 	for (int i = 0; i < kLineNum; i++)
 	{
 		DrawLine3D(start.GetAsDxLibVector(), end.GetAsDxLibVector(), Color::blue.GetAsHexRGB());
@@ -41,6 +56,6 @@ void DebugGround::Draw()
 		start.x += kLineDistance;
 		end.x += kLineDistance;
 
-		if (start.x > pos.x + kAreaHalfSize) break;
+		if (start.x > centerPos.x + kAreaHalfSize) break;
 	}
 }

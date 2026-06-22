@@ -89,7 +89,6 @@ void Player::Draw()
 	//mModel->Draw();
 
 	printfDx("Position(%.2f, %.2f, %.2f)\n", pos.x, pos.y, pos.z);
-
 	printfDx("Velocity(%.2f, %.2f, %.2f)\n", mVelocity.x, mVelocity.y, mVelocity.z);
 
 	mCollider->DebugDraw();
