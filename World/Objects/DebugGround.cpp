@@ -1,36 +1,46 @@
 #include "DebugGround.h"
 #include <DxLib.h>
 #include "Utility/Color.h"
+#include "Utility/Vector.h"
 
 namespace
 {
-	constexpr float kLineAreaSize = 10000.0f;
+	constexpr float kAreaHalfSize = 1000.0f;
 
-	constexpr int kLineNum = 50;
+	constexpr float kLineDistance = 100.0f;
+
+	constexpr int kLineNum = (kAreaHalfSize * 2.0f) / kLineDistance;
 }
 
 void DebugGround::Draw()
 {
-	VECTOR pos1;
-	VECTOR pos2;
+	Vector3 pos = mTransform.CalculateWorldPosition();
 
-	pos1 = VGet(-kLineAreaSize / 2.0f, 0.0f, -kLineAreaSize / 2.0f);
-	pos2 = VGet(-kLineAreaSize / 2.0f, 0.0f, kLineAreaSize / 2.0f);
+	Vector3 start, end;
+
+	start	= Vector3(pos.x - kAreaHalfSize, 0.0f, std::round((pos.z - kAreaHalfSize) * 0.01f) * 100);
+	end		= Vector3(pos.x + kAreaHalfSize, 0.0f, std::round((pos.z - kAreaHalfSize) * 0.01f) * 100);
 
 	for (int i = 0; i < kLineNum; i++)
 	{
-		DrawLine3D(pos1, pos2, Color::white.GetAsHexRGB());
-		pos1.x += kLineAreaSize / static_cast<float>(kLineNum);
-		pos2.x += kLineAreaSize / static_cast<float>(kLineNum);
+		DrawLine3D(start.GetAsDxLibVector(), end.GetAsDxLibVector(), Color::red.GetAsHexRGB());
+
+		start.z += kLineDistance;
+		end.z += kLineDistance;
+
+		if (start.x > pos.x + kAreaHalfSize) break;
 	}
 
-	pos1 = VGet(-kLineAreaSize / 2.0f, 0.0f, -kLineAreaSize / 2.0f);
-	pos2 = VGet(kLineAreaSize / 2.0f, 0.0f, -kLineAreaSize / 2.0f);
+	start	= Vector3(std::round((pos.x - kAreaHalfSize) * 0.01f) * 100, 0.0f, pos.z - kAreaHalfSize);
+	end		= Vector3(std::round((pos.x - kAreaHalfSize) * 0.01f) * 100, 0.0f, pos.z + kAreaHalfSize);
 
 	for (int i = 0; i < kLineNum; i++)
 	{
-		DrawLine3D(pos1, pos2, Color::white.GetAsHexRGB());
-		pos1.z += kLineAreaSize / static_cast<float>(kLineNum);
-		pos2.z += kLineAreaSize / static_cast<float>(kLineNum);
+		DrawLine3D(start.GetAsDxLibVector(), end.GetAsDxLibVector(), Color::blue.GetAsHexRGB());
+
+		start.x += kLineDistance;
+		end.x += kLineDistance;
+
+		if (start.x > pos.x + kAreaHalfSize) break;
 	}
 }

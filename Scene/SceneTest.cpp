@@ -1,7 +1,6 @@
 #include "SceneTest.h"
 #include <DxLib.h>
 #include "../World/Characters/Player.h"
-#include "../World/Objects/DebugGround.h"
 #include "Camera/CameraDebugFree.h"
 #include "Camera/CameraFollow.h"
 #include "Camera/CameraManager.h"
@@ -11,7 +10,6 @@ SceneTest::SceneTest() :
 	mPlayer(nullptr)
 {
 	mPlayer = AddToRoot<Player>();
-	AddToRoot<DebugGround>();
 
 	GetCameraManager()->AddCamera(Camera::Type::Follow, std::make_unique<CameraFollow>(&mPlayer->GetTransform()));
 	GetCameraManager()->SetCurrentCameraType(Camera::Type::Follow);

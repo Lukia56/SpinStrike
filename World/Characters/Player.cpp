@@ -4,6 +4,7 @@
 #include <DxLib.h>
 #include "../Components/Collision3D.h"
 #include "../Components/Rendering/ModelRenderer.h"
+#include "../Objects/DebugGround.h"
 #include "System/InputManager.h"
 #include "System/TimeManager.h"
 #include "Utility/Math.h"
@@ -36,6 +37,8 @@ Player::Player() :
 {
 	//mModel = std::make_unique<ModelRenderer>(this);
 	mCollider = std::make_unique<Collision3D::AABB3D>(Vector3::Zero, kCollisionSize);
+
+	AddToChild<DebugGround>();
 }
 
 Player::~Player()
@@ -81,11 +84,13 @@ void Player::Update()
 
 void Player::Draw()
 {
+	Vector3 pos = mTransform.CalculateWorldPosition();
+
 	//mModel->Draw();
 
-	printfDx("Velocity.x = %f\n", mVelocity.x);
-	printfDx("Velocity.y = %f\n", mVelocity.y);
-	printfDx("Velocity.z = %f\n", mVelocity.z);
+	printfDx("Position(%.2f, %.2f, %.2f)\n", pos.x, pos.y, pos.z);
+
+	printfDx("Velocity(%.2f, %.2f, %.2f)\n", mVelocity.x, mVelocity.y, mVelocity.z);
 
 	mCollider->DebugDraw();
 }
