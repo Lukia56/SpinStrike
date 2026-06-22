@@ -23,6 +23,8 @@ namespace
 
 	constexpr Vector3 kCollisionSize{ 60.0f, 100.0f, 60.0f };
 
+	constexpr Vector3 kCollisionOffsetPos{ 0.0f, kCollisionSize.y / 2.0f, 0.0f };
+
 	const char* const kModelHandlePath = "";
 }
 
@@ -74,7 +76,7 @@ void Player::Update()
 		mOnGround = false;
 	}
 
-	mCollider->SetPosition(mTransform.CalculateWorldPosition());
+	mCollider->SetPosition(mTransform.CalculateWorldPosition() + kCollisionOffsetPos);
 }
 
 void Player::Draw()
@@ -99,8 +101,13 @@ void Player::MoveHorizontal(float deltaTime)
 		moveVec *= kDashCoef;
 	}
 
-	mVelocity.x = Math::Approach(mVelocity.x, kWalkSpeed * moveVec.x, kWalkAccel);
-	mVelocity.z = Math::Approach(mVelocity.z, kWalkSpeed * moveVec.z, kWalkAccel);
+	// ÉJÉÅÉâÇê≥ñ Ç…à⁄ìÆ
+	Vector3 forward = mCameraView.CalculatePlaneVecForward();
+	Vector3 right = mCameraView.CalculatePlaneVecRight();
+	Vector3 worldMoveVec = right * moveVec.x + forward * moveVec.z;
+
+	mVelocity.x = Math::Approach(mVelocity.x, kWalkSpeed * worldMoveVec.x, kWalkAccel);
+	mVelocity.z = Math::Approach(mVelocity.z, kWalkSpeed * worldMoveVec.z, kWalkAccel);
 }
 
 void Player::MoveVertical(float deltaTime)

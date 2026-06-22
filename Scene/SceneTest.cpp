@@ -32,5 +32,7 @@ void SceneTest::Finalize()
 
 std::unique_ptr<SceneBase> SceneTest::Update()
 {
+	mPlayer->SetCameraView(GetCameraManager()->GetCameraView());
+
 	return nullptr;
 }
