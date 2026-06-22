@@ -24,6 +24,7 @@
     <ProjectGuid>{1306d92a-1a77-4b19-8b33-7ce52caa833a}</ProjectGuid>
     <RootNamespace>DxLibFramework</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>SpinStrike</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
