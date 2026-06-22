@@ -7,6 +7,9 @@
 namespace
 {
 	constexpr float kDistance = 400.0f;
+
+	constexpr float kMaxPitch = 80.0f;
+	constexpr float kMinPitch = -80.0f;
 }
 
 CameraFollow::CameraFollow(Transform* target) :
@@ -21,6 +24,9 @@ void CameraFollow::Update(Camera::View& view)
 	// 視点を移動する
 	Vector2 relative = Mouse::GetInstance().GetRelative();
 	mRotation += Vector3(relative.y, relative.x, 0.0f) * Math::ToRadian(1.0f);
+
+	// ピッチを制限する
+	mRotation.x = Math::Clamp(mRotation.x, Math::ToRadian(kMinPitch), Math::ToRadian(kMaxPitch));
 
 	Vector3 targetPos = mTarget->CalculateWorldPosition();
 

@@ -5,6 +5,7 @@
 #include "Camera/CameraDebugFree.h"
 #include "Camera/CameraFollow.h"
 #include "Camera/CameraManager.h"
+#include "System/Input/Mouse.h"
 
 SceneTest::SceneTest() :
 	mPlayer(nullptr)
@@ -24,6 +25,8 @@ SceneTest::~SceneTest()
 void SceneTest::Init()
 {
 	SetGlobalAmbientLight(GetColorF(1.0f, 1.0f, 1.0f, 1.0f));
+
+	Mouse::GetInstance().SetMode(Mouse::Mode::Relative);
 }
 
 void SceneTest::Finalize()
