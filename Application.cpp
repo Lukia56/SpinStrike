@@ -2,6 +2,7 @@
 #include <chrono>
 #include <memory>
 #include <DxLib.h>
+#include <imgui.h>
 #include <Psapi.h>
 #include "Scene/SceneManager.h"
 #include "System/ImGuiRenderer.h"
@@ -107,17 +108,25 @@ void Application::ProcessOutput()
 	ClearDrawScreen();
 	clsDx();
 
-#ifdef _DEBUG
-	printfDx("RealFPS: %.1f\n", 1 / TimeManager::GetRawDeltaTime());
-
-	PROCESS_MEMORY_COUNTERS_EX pmc;
-	GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
-	printfDx("Memory: %.3f MB\n", pmc.WorkingSetSize / 1024.0f / 1024.0f);
-#endif
-
 	mSceneManager->Draw();
 
-	mImGuiRenderer->Draw([this]() { mSceneManager->DebugDraw(); });
+#ifdef _DEBUG
+	mImGuiRenderer->Draw([this]()
+		{
+			if (ImGui::Begin("System"))
+			{
+				ImGui::Text("RealFPS %.1f", 1.0f / TimeManager::GetRawDeltaTime());
+
+				PROCESS_MEMORY_COUNTERS_EX pmc;
+				GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
+				ImGui::Text("Memory %.3f MB", pmc.WorkingSetSize / 1024.0f / 1024.0f);
+
+				ImGui::End();
+			}
+
+			mSceneManager->DebugDraw();
+		});
+#endif
 
 	// ‰æ–Ê‚É•\Ž¦
 	ScreenFlip();

@@ -92,14 +92,16 @@ void Player::DebugDraw()
 {
 	Vector3 pos = mTransform.CalculateWorldPosition();
 
-	printfDx("Position(%.2f, %.2f, %.2f)\n", pos.x, pos.y, pos.z);
-	printfDx("Velocity(%.2f, %.2f, %.2f)\n", mVelocity.x, mVelocity.y, mVelocity.z);
-
-	float p[3] = {pos.x, pos.y, pos.z};
-
 	if (ImGui::Begin("Player"))
 	{
-		ImGui::SliderFloat3("Position", p, -10000.0f, 10000.0f);
+		float posPtr[] = {pos.x, pos.y, pos.z};
+		ImGui::InputFloat3("Position", posPtr, "%.1f");
+		
+		float velPtr[] = { mVelocity.x, mVelocity.y, mVelocity.z};
+		ImGui::InputFloat3("Velocity", velPtr, "%.1f");
+
+		ImGui::Text("IsJumping: %d", mIsJumping);
+		ImGui::Text("OnGround: %d", mOnGround);
 
 		ImGui::End();
 	}
