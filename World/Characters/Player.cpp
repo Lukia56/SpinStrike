@@ -2,6 +2,7 @@
 #include <cassert>
 #include <memory>
 #include <DxLib.h>
+#include <imgui.h>
 #include "../Components/Collision3D.h"
 #include "../Components/Rendering/ModelRenderer.h"
 #include "../Objects/DebugGround.h"
@@ -93,6 +94,15 @@ void Player::DebugDraw()
 
 	printfDx("Position(%.2f, %.2f, %.2f)\n", pos.x, pos.y, pos.z);
 	printfDx("Velocity(%.2f, %.2f, %.2f)\n", mVelocity.x, mVelocity.y, mVelocity.z);
+
+	float p[3] = {pos.x, pos.y, pos.z};
+
+	if (ImGui::Begin("Player"))
+	{
+		ImGui::SliderFloat3("Position", p, -10000.0f, 10000.0f);
+
+		ImGui::End();
+	}
 
 	mCollider->DebugDraw();
 }

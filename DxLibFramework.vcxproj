@@ -77,7 +77,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\DxLib;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -95,7 +95,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\DxLib;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -111,7 +111,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\DxLib;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -129,7 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\DxLib;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -145,6 +145,14 @@
     <ClCompile Include="Camera\CameraStatic.cpp" />
     <ClCompile Include="Camera\CameraDebugFree.cpp" />
     <ClCompile Include="Camera\CameraManager.cpp" />
+    <ClCompile Include="Include\ImGui\imgui.cpp" />
+    <ClCompile Include="Include\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="Include\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="Include\ImGui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="Include\ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="Include\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="Include\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="System\ImGuiRenderer.cpp" />
     <ClCompile Include="World\Objects\DebugGround.cpp" />
     <ClCompile Include="System\Input\Mouse.cpp" />
     <ClCompile Include="System\ResourceManager.cpp" />
@@ -192,6 +200,15 @@
     <ClInclude Include="Camera\CameraManager.h" />
     <ClInclude Include="Camera\CameraProperty.h" />
     <ClInclude Include="Camera\ICamera.h" />
+    <ClInclude Include="Include\ImGui\imconfig.h" />
+    <ClInclude Include="Include\ImGui\imgui.h" />
+    <ClInclude Include="Include\ImGui\imgui_impl_dx11.h" />
+    <ClInclude Include="Include\ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="Include\ImGui\imgui_internal.h" />
+    <ClInclude Include="Include\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="Include\ImGui\imstb_textedit.h" />
+    <ClInclude Include="Include\ImGui\imstb_truetype.h" />
+    <ClInclude Include="System\ImGuiRenderer.h" />
     <ClInclude Include="World\Objects\DebugGround.h" />
     <ClInclude Include="System\Input\Literal\InputActionMaps.h" />
     <ClInclude Include="System\Input\Modifier\InputModifierDeadzone.h" />

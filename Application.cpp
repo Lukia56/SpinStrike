@@ -4,12 +4,15 @@
 #include <DxLib.h>
 #include <Psapi.h>
 #include "Scene/SceneManager.h"
+#include "System/ImGuiRenderer.h"
 #include "System/InputManager.h"
 #include "System/ResourceManager.h"
 #include "System/TimeManager.h"
 #include "Utility/Random.h"
 
-Application::Application()
+Application::Application() :
+	mSceneManager(nullptr),
+	mImGuiRenderer(nullptr)
 {
 }
 
@@ -40,6 +43,9 @@ bool Application::Initialize()
 	mSceneManager = std::make_unique<SceneManager>();
 	mSceneManager->Initialize();
 
+	mImGuiRenderer = std::make_unique<ImGuiRenderer>();
+	mImGuiRenderer->Initialize();
+
 	TimeManager::Initialize();
 
 	// 入力マネージャーを初期化
@@ -57,6 +63,7 @@ bool Application::Initialize()
 void Application::Finalize()
 {
 	// メンバの後処理
+	mImGuiRenderer->Finalize();
 	mSceneManager->Finalize();
 
 	ResourceManager::GetInstance().Finalize();
@@ -110,7 +117,7 @@ void Application::ProcessOutput()
 
 	mSceneManager->Draw();
 
-	mSceneManager->DebugDraw();
+	mImGuiRenderer->Draw([this]() { mSceneManager->DebugDraw(); });
 
 	// 画面に表示
 	ScreenFlip();

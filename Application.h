@@ -3,6 +3,7 @@
 #include <memory>
 
 class SceneManager;
+class ImGuiRenderer;
 
 /// <summary>
 /// アプリ全体で必要なものを管理して、
@@ -41,4 +42,6 @@ private:
 private:
 
 	std::unique_ptr<SceneManager> mSceneManager;
+
+	std::unique_ptr<ImGuiRenderer> mImGuiRenderer;
 };
