@@ -84,9 +84,12 @@ void Player::Update()
 
 void Player::Draw()
 {
-	Vector3 pos = mTransform.CalculateWorldPosition();
-
 	//mModel->Draw();
+}
+
+void Player::DebugDraw()
+{
+	Vector3 pos = mTransform.CalculateWorldPosition();
 
 	printfDx("Position(%.2f, %.2f, %.2f)\n", pos.x, pos.y, pos.z);
 	printfDx("Velocity(%.2f, %.2f, %.2f)\n", mVelocity.x, mVelocity.y, mVelocity.z);

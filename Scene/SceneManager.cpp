@@ -38,3 +38,8 @@ void SceneManager::Draw()
 {
 	mCurrentScene->DrawBase();
 }
+
+void SceneManager::DebugDraw()
+{
+	mCurrentScene->DebugDrawBase();
+}

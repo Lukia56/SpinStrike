@@ -29,6 +29,8 @@ public:
 
 	void Draw();
 
+	void DebugDraw();
+
 private:
 
 	template <class T>

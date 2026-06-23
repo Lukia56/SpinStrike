@@ -110,6 +110,8 @@ void Application::ProcessOutput()
 
 	mSceneManager->Draw();
 
+	mSceneManager->DebugDraw();
+
 	// ‰æ–Ê‚É•\Ž¦
 	ScreenFlip();
 }

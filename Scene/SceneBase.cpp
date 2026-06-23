@@ -39,6 +39,11 @@ void SceneBase::DrawBase()
 	mCameraManager->Bind();
 
 	DrawRootObjects();
+}
+
+void SceneBase::DebugDrawBase()
+{
+	DebugDrawRootObjects();
 
 	mCameraManager->DebugDraw();
 }
@@ -65,6 +70,14 @@ void SceneBase::DrawRootObjects()
 	}
 }
 
+void SceneBase::DebugDrawRootObjects()
+{
+	for (const auto& it : mRootObjects)
+	{
+		DebugDrawGameObject(it.get());
+	}
+}
+
 void SceneBase::UpdateGameObject(GameObject* gameObject)
 {
 	if (!gameObject->IsActive()) return;
@@ -88,5 +101,18 @@ void SceneBase::DrawGameObject(GameObject* gameObject)
 	for (const auto& it : gameObject->GetTransform().GetChildren())
 	{
 		DrawGameObject(it.get());
+	}
+}
+
+void SceneBase::DebugDrawGameObject(GameObject* gameObject)
+{
+	if (!gameObject->IsActive()) return;
+
+	gameObject->DebugDraw();
+
+	// 子オブジェクトについて再帰
+	for (const auto& it : gameObject->GetTransform().GetChildren())
+	{
+		DebugDrawGameObject(it.get());
 	}
 }

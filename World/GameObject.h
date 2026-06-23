@@ -24,6 +24,11 @@ public:
 	virtual void Draw() {};
 
 	/// <summary>
+	/// ImGuiなどのデバッグ用描画処理
+	/// </summary>
+	virtual void DebugDraw() {};
+
+	/// <summary>
 	/// 削除処理が呼ばれているかチェックし
 	/// 呼ばれていたら削除を行う
 	/// </summary>

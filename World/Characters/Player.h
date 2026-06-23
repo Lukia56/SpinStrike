@@ -25,6 +25,8 @@ public:
 
 	void Draw() override;
 
+	void DebugDraw() override;
+
 	void SetCameraView(const Camera::View& view) { mCameraView = view; }
 
 private:

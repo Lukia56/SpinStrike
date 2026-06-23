@@ -25,6 +25,7 @@ public:
 	/// <returns>次のシーンのポインタ</returns>
 	std::unique_ptr<SceneBase> UpdateBase();
 	void DrawBase();
+	void DebugDrawBase();
 
 public:
 
@@ -47,9 +48,11 @@ private:
 
 	void UpdateRootObjects();
 	void DrawRootObjects();
+	void DebugDrawRootObjects();
 
 	void UpdateGameObject(GameObject* gameObject);
 	void DrawGameObject(GameObject* gameObject);
+	void DebugDrawGameObject(GameObject* gameObject);
 
 private:
 	
