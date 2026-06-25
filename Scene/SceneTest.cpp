@@ -24,7 +24,7 @@ void SceneTest::Init()
 {
 	SetGlobalAmbientLight(GetColorF(1.0f, 1.0f, 1.0f, 1.0f));
 
-	Mouse::GetInstance().SetMode(Mouse::Mode::Relative);
+	//Mouse::GetInstance().SetMode(Mouse::Mode::Relative);
 }
 
 void SceneTest::Finalize()
