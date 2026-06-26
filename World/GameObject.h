@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 #include "Components/Transform.h"
+#include "Components/CollisionResult.h"
 
 /// <summary>
 /// ゲームで扱うオブジェクトの基底クラス
@@ -34,6 +35,8 @@ public:
 	/// </summary>
 	/// <returns>自身を削除するならtrue</returns>
 	bool CheckDestroy();
+
+	virtual void OnCollision(GameObject* other, const Collision3D::Result& result) {};
 
 public:
 

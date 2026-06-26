@@ -3,6 +3,10 @@
 #include <vector>
 
 class GameObject;
+namespace Collision3D
+{
+	class ICollider3D;
+}
 
 /// <summary>
 /// 衝突を検知し結果を送信するクラス
@@ -23,13 +27,21 @@ public:
 
 	void CheckAllCollision();
 
-	void Register(GameObject* object);
+	void Register(GameObject* owner, Collision3D::ICollider3D* collider);
 
-	void Unregister(GameObject* object);
+	void Unregister(Collision3D::ICollider3D* collider);
 
 	static CollisionManager& GetInstance();
 
 private:
 
-	std::vector<GameObject*> mObjects;
+	struct CollisionActor
+	{
+		GameObject* owner = nullptr;
+		Collision3D::ICollider3D* collider = nullptr;
+	};
+
+private:
+
+	std::vector<CollisionActor> mCollisionActors;
 };
