@@ -5,6 +5,7 @@
 #include <imgui.h>
 #include <Psapi.h>
 #include "Scene/SceneManager.h"
+#include "System/CollisionManager.h"
 #include "System/ImGuiRenderer.h"
 #include "System/InputManager.h"
 #include "System/ResourceManager.h"
@@ -98,6 +99,8 @@ void Application::Update()
 	using namespace std::chrono;
 	while (duration_cast<microseconds>(steady_clock::now() - TimeManager::GetPrevTime()) < microseconds(TimeManager::GetFixedDeltaTimeMs())) {}
 	TimeManager::Update();
+
+	CollisionManager::GetInstance().CheckAllCollision();
 
 	mSceneManager->Update();
 }
