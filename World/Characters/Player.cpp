@@ -6,6 +6,7 @@
 #include "../Components/Collision3D.h"
 #include "../Components/Rendering/ModelRenderer.h"
 #include "../Objects/DebugGround.h"
+#include "System/CollisionManager.h"
 #include "System/InputManager.h"
 #include "System/TimeManager.h"
 #include "Utility/Math.h"
@@ -38,12 +39,14 @@ Player::Player() :
 {
 	//mModel = std::make_unique<ModelRenderer>(this);
 	mCollider = std::make_unique<Collision3D::AABB3D>(Vector3::Zero, kCollisionSize);
+	CollisionManager::GetInstance().Register(this, mCollider.get());
 
 	AddToChild<DebugGround>();
 }
 
 Player::~Player()
 {
+	CollisionManager::GetInstance().Unregister(mCollider.get());
 	mCollider = nullptr;
 	mModel = nullptr;
 }
@@ -107,6 +110,11 @@ void Player::DebugDraw()
 	}
 
 	mCollider->DebugDraw();
+}
+
+void Player::OnCollision(GameObject* other, const Collision3D::Result& result)
+{
+	mTransform.localPosition += result.normal * result.penetration;
 }
 
 void Player::MoveHorizontal(float deltaTime)

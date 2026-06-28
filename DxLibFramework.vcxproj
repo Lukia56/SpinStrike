@@ -154,6 +154,7 @@
     <ClCompile Include="Include\ImGui\imgui_tables.cpp" />
     <ClCompile Include="Include\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="System\ImGuiRenderer.cpp" />
+    <ClCompile Include="World\Objects\TestBox.cpp" />
     <ClCompile Include="World\Objects\DebugGround.cpp" />
     <ClCompile Include="System\Input\Mouse.cpp" />
     <ClCompile Include="System\ResourceManager.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="Include\ImGui\imstb_textedit.h" />
     <ClInclude Include="Include\ImGui\imstb_truetype.h" />
     <ClInclude Include="System\ImGuiRenderer.h" />
+    <ClInclude Include="World\Objects\TestBox.h" />
     <ClInclude Include="World\Components\CollisionResult.h" />
     <ClInclude Include="World\Objects\DebugGround.h" />
     <ClInclude Include="System\Input\Literal\InputActionMaps.h" />

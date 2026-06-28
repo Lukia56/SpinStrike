@@ -29,6 +29,8 @@ public:
 
 	void SetCameraView(const Camera::View& view) { mCameraView = view; }
 
+	void OnCollision(GameObject* other, const Collision3D::Result& result) override;
+
 private:
 
 	void MoveHorizontal(float deltaTime);
