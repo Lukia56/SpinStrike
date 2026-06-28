@@ -16,6 +16,9 @@ void CollisionManager::CheckAllCollision()
 			if (actor.collider == otherActor.collider) continue;
 
 			Collision3D::Result result = actor.collider->CheckCollision(otherActor.collider);
+
+			if (!result.isHit) continue;
+
 			actor.owner->OnCollision(otherActor.owner, result);
 		}
 	}
