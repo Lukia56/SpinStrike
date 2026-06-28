@@ -41,3 +41,10 @@ void CollisionManager::Unregister(Collision3D::ICollider3D* collider)
 	std::iter_swap(iter, mCollisionActors.end() - 1);
 	mCollisionActors.pop_back();
 }
+
+CollisionManager& CollisionManager::GetInstance()
+{
+	static CollisionManager instance;
+
+	return instance;
+}
