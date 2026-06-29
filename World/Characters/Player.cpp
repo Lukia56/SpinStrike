@@ -124,6 +124,10 @@ void Player::OnCollision(GameObject* other, const Collision3D::Result& result, C
 			mOnGround = true;
 			mIsJumping = false;
 		}
+		if (result.normal.y < -0.5f)
+		{
+			mVelocity.y = 0.0f;
+		}
 		break;
 	}
 }

@@ -12,7 +12,9 @@ SceneTest::SceneTest() :
 {
 	mPlayer = AddToRoot<Player>();
 
-	AddToRoot<TestBox>();
+	auto floorBox = AddToRoot<TestBox>();
+	auto ceilingBox = AddToRoot<TestBox>();
+	ceilingBox->GetTransform().Translate(Vector3(0.0f, 350.0f, 0.0f));
 
 	GetCameraManager()->AddCamera(Camera::Type::Follow, std::make_unique<CameraFollow>(&mPlayer->GetTransform()));
 	GetCameraManager()->SetCurrentCameraType(Camera::Type::Follow);
