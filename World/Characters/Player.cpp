@@ -114,7 +114,18 @@ void Player::DebugDraw()
 
 void Player::OnCollision(GameObject* other, const Collision3D::Result& result, Collision::Tag tag)
 {
-	mTransform.localPosition += result.normal * result.penetration;
+	switch (tag)
+	{
+	case Collision::Tag::Terrain:
+		mTransform.localPosition += result.normal * result.penetration;
+		if (result.normal.y > 0.5f)
+		{
+			mVelocity.y = 0.0f;
+			mOnGround = true;
+			mIsJumping = false;
+		}
+		break;
+	}
 }
 
 void Player::MoveHorizontal(float deltaTime)
