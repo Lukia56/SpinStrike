@@ -29,7 +29,7 @@ public:
 
 	void SetCameraView(const Camera::View& view) { mCameraView = view; }
 
-	void OnCollision(GameObject* other, const Collision3D::Result& result) override;
+	void OnCollision(GameObject* other, const Collision3D::Result& result, Collision::Tag tag) override;
 
 private:
 

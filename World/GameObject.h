@@ -4,6 +4,7 @@
 #include <vector>
 #include "Components/Transform.h"
 #include "Components/CollisionResult.h"
+#include "System/Collision/CollisionTag.h"
 
 /// <summary>
 /// ゲームで扱うオブジェクトの基底クラス
@@ -36,7 +37,7 @@ public:
 	/// <returns>自身を削除するならtrue</returns>
 	bool CheckDestroy();
 
-	virtual void OnCollision(GameObject* other, const Collision3D::Result& result) {};
+	virtual void OnCollision(GameObject* other, const Collision3D::Result& result, Collision::Tag tag) {};
 
 public:
 

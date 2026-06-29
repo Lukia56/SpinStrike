@@ -211,6 +211,7 @@
     <ClInclude Include="Include\ImGui\imstb_rectpack.h" />
     <ClInclude Include="Include\ImGui\imstb_textedit.h" />
     <ClInclude Include="Include\ImGui\imstb_truetype.h" />
+    <ClInclude Include="System\Collision\CollisionTag.h" />
     <ClInclude Include="System\ImGuiRenderer.h" />
     <ClInclude Include="World\Objects\TestBox.h" />
     <ClInclude Include="World\Components\CollisionResult.h" />

@@ -19,14 +19,14 @@ void CollisionManager::CheckAllCollision()
 
 			if (!result.isHit) continue;
 
-			actor.owner->OnCollision(otherActor.owner, result);
+			actor.owner->OnCollision(otherActor.owner, result, otherActor.tag);
 		}
 	}
 }
 
-void CollisionManager::Register(GameObject* owner, Collision3D::ICollider3D* collider)
+void CollisionManager::Register(GameObject* owner, Collision3D::ICollider3D* collider, Collision::Tag tag)
 {
-	mCollisionActors.emplace_back(CollisionActor{ .owner = owner, .collider = collider });
+	mCollisionActors.emplace_back(CollisionActor{ .owner = owner, .collider = collider, .tag = tag });
 }
 
 void CollisionManager::Unregister(Collision3D::ICollider3D* collider)

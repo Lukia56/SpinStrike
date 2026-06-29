@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "Collision/CollisionTag.h"
 
 class GameObject;
 namespace Collision3D
@@ -27,7 +28,7 @@ public:
 
 	void CheckAllCollision();
 
-	void Register(GameObject* owner, Collision3D::ICollider3D* collider);
+	void Register(GameObject* owner, Collision3D::ICollider3D* collider, Collision::Tag tag = Collision::Tag::None);
 
 	void Unregister(Collision3D::ICollider3D* collider);
 
@@ -39,6 +40,7 @@ private:
 	{
 		GameObject* owner = nullptr;
 		Collision3D::ICollider3D* collider = nullptr;
+		Collision::Tag tag;
 	};
 
 private:
