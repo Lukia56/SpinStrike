@@ -120,13 +120,13 @@ void Player::OnCollision(GameObject* other, const Collision3D::Result& result, C
 		mTransform.localPosition += result.normal * result.penetration;
 		if (result.normal.y > 0.5f)
 		{
-			mVelocity.y = 0.0f;
+			mVelocity.y = Math::Max(mVelocity.y, 0.0f);
 			mOnGround = true;
 			mIsJumping = false;
 		}
 		if (result.normal.y < -0.5f)
 		{
-			mVelocity.y = 0.0f;
+			mVelocity.y = Math::Min(mVelocity.y, 0.0f);
 		}
 		break;
 	}
