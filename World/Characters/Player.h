@@ -37,9 +37,15 @@ private:
 
 	void MoveVertical(float deltaTime);
 
+	bool CanJump();
+
+	bool CanCancelJump();
+
 private:
 
 	Vector3 mVelocity;
+
+	float mCanJumpTimer;
 
 	bool mIsJumping;
 

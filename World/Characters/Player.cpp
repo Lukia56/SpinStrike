@@ -19,8 +19,8 @@ namespace
 	constexpr float kDashCoef = 2.5f;
 
 	constexpr float kJumpForce = 500.0f;
-
 	constexpr float kJumpCancelThreshold = 50.0f;
+	constexpr float kJumpBufferTime = 0.15f;
 
 	constexpr float kGravity = 980.0f;
 
@@ -32,6 +32,7 @@ namespace
 }
 
 Player::Player() :
+	mCanJumpTimer(0.0f),
 	mIsJumping(false),
 	mOnGround(false),
 	mModel(nullptr),
@@ -69,11 +70,14 @@ void Player::Update()
 
 	mTransform.localPosition += mVelocity * deltaTime;
 
+	if (mCanJumpTimer > 0.0f) mCanJumpTimer -= TimeManager::GetDeltaTime();
+
 	// 地面がないため仮
 	if (mTransform.CalculateWorldPosition().y < 0.0f)
 	{
 		mTransform.localPosition.y -= mTransform.CalculateWorldPosition().y;
 		mVelocity.y = 0.0f;
+		mCanJumpTimer = kJumpBufferTime;
 
 		mOnGround = true;
 		mIsJumping = false;
@@ -103,6 +107,8 @@ void Player::DebugDraw()
 		float velPtr[] = { mVelocity.x, mVelocity.y, mVelocity.z};
 		ImGui::InputFloat3("Velocity", velPtr, "%.1f");
 
+		ImGui::Text("CanJumpTimer: %f", mCanJumpTimer);
+
 		ImGui::Text("IsJumping: %d", mIsJumping);
 		ImGui::Text("OnGround: %d", mOnGround);
 
@@ -121,6 +127,7 @@ void Player::OnCollision(GameObject* other, const Collision3D::Result& result, C
 		if (result.normal.y > 0.5f)
 		{
 			mVelocity.y = Math::Max(mVelocity.y, 0.0f);
+			mCanJumpTimer = kJumpBufferTime;
 			mOnGround = true;
 			mIsJumping = false;
 		}
@@ -155,17 +162,28 @@ void Player::MoveHorizontal(float deltaTime)
 void Player::MoveVertical(float deltaTime)
 {
 	// ジャンプ
-	if (InputManager::GetInstance().IsPressed(Input::Action::Jump) && mOnGround)
+	if (InputManager::GetInstance().IsPressed(Input::Action::Jump) && CanJump())
 	{
 		mVelocity.y = kJumpForce;
 		mIsJumping = true;
+		mCanJumpTimer = 0.0f;
 	}
 	// ジャンプキャンセル
-	if (InputManager::GetInstance().IsReleased(Input::Action::Jump) && mIsJumping && mVelocity.y > kJumpCancelThreshold)
+	if (InputManager::GetInstance().IsReleased(Input::Action::Jump) && CanCancelJump())
 	{
 		mVelocity.y = kJumpCancelThreshold;
 		mIsJumping = false;
 	}
 
 	mVelocity.y -= kGravity * deltaTime;
+}
+
+bool Player::CanJump()
+{
+	return mOnGround || mCanJumpTimer > 0.0f;
+}
+
+bool Player::CanCancelJump()
+{
+	return mIsJumping && mVelocity.y > kJumpCancelThreshold;
 }
