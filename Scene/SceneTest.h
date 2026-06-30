@@ -20,5 +20,9 @@ public:
 
 private:
 
+	int mPointLight;
+
 	Player* mPlayer;
+
+	Crate* mCrate;
 };
