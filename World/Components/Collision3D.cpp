@@ -11,9 +11,9 @@ namespace
 	/// <summary>
 	/// AABBと球の衝突判定
 	/// </summary>
-	Collision3D::Result Check(const Collision3D::AABB3D* aabb, const Collision3D::Sphere3D* sphere)
+	Collision::Result Check(const Collision::AABB3D* aabb, const Collision::Sphere3D* sphere)
 	{
-		Collision3D::Result result;
+		Collision::Result result;
 
 		// 座標をキャッシュ
 		Vector3 aabbMinPos = aabb->GetPosition() - aabb->GetHalfSize();
@@ -79,7 +79,7 @@ namespace
 	}
 }
 
-namespace Collision3D
+namespace Collision
 {
 	// 球
 
@@ -88,9 +88,9 @@ namespace Collision3D
 		DrawSphere3D(mCenterPos.GetAsDxLibVector(), mRadius, 10, Color::white.GetAsHexRGB(), Color::white.GetAsHexRGB(), false);
 	}
 
-	Collision3D::Result Sphere3D::Check(const Sphere3D* other) const
+	Collision::Result Sphere3D::Check(const Sphere3D* other) const
 	{
-		Collision3D::Result result;
+		Collision::Result result;
 
 		// 距離を計算
 		Vector3 dist = this->GetPosition() - other->GetPosition();
@@ -114,16 +114,16 @@ namespace Collision3D
 		return result;
 	}
 
-	Collision3D::Result Sphere3D::Check(const AABB3D* other) const
+	Collision::Result Sphere3D::Check(const AABB3D* other) const
 	{
-		Collision3D::Result result = ::Check(other, this);
+		Collision::Result result = ::Check(other, this);
 		result.normal *= -1;
 		return result;
 	}
 
-	Collision3D::Result Sphere3D::Check(const Capsule3D* other) const
+	Collision::Result Sphere3D::Check(const Capsule3D* other) const
 	{
-		return Collision3D::Result();
+		return Collision::Result();
 	}
 
 	// AABB
@@ -136,14 +136,14 @@ namespace Collision3D
 		DrawCube3D(minPos.GetAsDxLibVector(), maxPos.GetAsDxLibVector(), Color::white.GetAsHexRGB(), Color::white.GetAsHexRGB(), false);
 	}
 
-	Collision3D::Result AABB3D::Check(const Sphere3D* other) const
+	Collision::Result AABB3D::Check(const Sphere3D* other) const
 	{
 		return ::Check(this, other);
 	}
 
-	Collision3D::Result AABB3D::Check(const AABB3D* other) const
+	Collision::Result AABB3D::Check(const AABB3D* other) const
 	{
-		Collision3D::Result result;
+		Collision::Result result;
 
 		// 角の座標をキャッシュ
 		Vector3 myMinPos = this->GetPosition() - this->GetHalfSize();
@@ -202,27 +202,27 @@ namespace Collision3D
 		return result;
 	}
 
-	Collision3D::Result AABB3D::Check(const Capsule3D* other) const
+	Collision::Result AABB3D::Check(const Capsule3D* other) const
 	{
-		return Collision3D::Result();
+		return Collision::Result();
 	}
 
 	void Capsule3D::DebugDraw() const
 	{
 	}
 
-	Collision3D::Result Capsule3D::Check(const Sphere3D* other) const
+	Collision::Result Capsule3D::Check(const Sphere3D* other) const
 	{
-		return Collision3D::Result();
+		return Collision::Result();
 	}
 
-	Collision3D::Result Capsule3D::Check(const AABB3D* other) const
+	Collision::Result Capsule3D::Check(const AABB3D* other) const
 	{
-		return Collision3D::Result();
+		return Collision::Result();
 	}
 
-	Collision3D::Result Capsule3D::Check(const Capsule3D* other) const
+	Collision::Result Capsule3D::Check(const Capsule3D* other) const
 	{
-		return Collision3D::Result();
+		return Collision::Result();
 	}
 }

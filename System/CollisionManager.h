@@ -4,7 +4,7 @@
 #include "Collision/CollisionTag.h"
 
 class GameObject;
-namespace Collision3D
+namespace Collision
 {
 	class ICollider3D;
 }
@@ -28,9 +28,9 @@ public:
 
 	void CheckAllCollision();
 
-	void Register(GameObject* owner, Collision3D::ICollider3D* collider, Collision::Tag tag = Collision::Tag::None);
+	void Register(GameObject* owner, Collision::ICollider3D* collider, Collision::Tag tag = Collision::Tag::None);
 
-	void Unregister(Collision3D::ICollider3D* collider);
+	void Unregister(Collision::ICollider3D* collider);
 
 	static CollisionManager& GetInstance();
 
@@ -39,7 +39,7 @@ private:
 	struct CollisionActor
 	{
 		GameObject* owner = nullptr;
-		Collision3D::ICollider3D* collider = nullptr;
+		Collision::ICollider3D* collider = nullptr;
 		Collision::Tag tag;
 	};
 

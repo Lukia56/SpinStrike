@@ -15,7 +15,7 @@ void CollisionManager::CheckAllCollision()
 		{
 			if (actor.collider == otherActor.collider) continue;
 
-			Collision3D::Result result = actor.collider->CheckCollision(otherActor.collider);
+			Collision::Result result = actor.collider->CheckCollision(otherActor.collider);
 
 			if (!result.isHit) continue;
 
@@ -24,12 +24,12 @@ void CollisionManager::CheckAllCollision()
 	}
 }
 
-void CollisionManager::Register(GameObject* owner, Collision3D::ICollider3D* collider, Collision::Tag tag)
+void CollisionManager::Register(GameObject* owner, Collision::ICollider3D* collider, Collision::Tag tag)
 {
 	mCollisionActors.emplace_back(CollisionActor{ .owner = owner, .collider = collider, .tag = tag });
 }
 
-void CollisionManager::Unregister(Collision3D::ICollider3D* collider)
+void CollisionManager::Unregister(Collision::ICollider3D* collider)
 {
 	auto iter = std::find_if(mCollisionActors.begin(), mCollisionActors.end(),
 		[&](const CollisionActor& actor) { return actor.collider == collider; });

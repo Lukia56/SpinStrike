@@ -3,7 +3,7 @@
 #include "CollisionResult.h"
 #include "Utility/Vector.h"
 
-namespace Collision3D
+namespace Collision
 {
 	// ダブルディスパッチ用に前方宣言
 	class Sphere3D;
@@ -25,7 +25,7 @@ namespace Collision3D
 		/// </summary>
 		/// <param name="other">衝突判定を調べるコライダー　コピーでなく、読み取り専用になっていたら参照でもポインタでもOK</param>
 		/// <returns>衝突情報</returns>
-		virtual Collision3D::Result CheckCollision(const ICollider3D* other) const = 0;
+		virtual Collision::Result CheckCollision(const ICollider3D* other) const = 0;
 
 		/// <summary>
 		/// 形状のデバッグ描画
@@ -40,11 +40,11 @@ namespace Collision3D
 	protected:
 
 		friend Sphere3D;
-		virtual Collision3D::Result Check(const Sphere3D* other) const = 0;
+		virtual Collision::Result Check(const Sphere3D* other) const = 0;
 		friend AABB3D;
-		virtual Collision3D::Result Check(const AABB3D* other) const = 0;
+		virtual Collision::Result Check(const AABB3D* other) const = 0;
 		friend Capsule3D;
-		virtual Collision3D::Result Check(const Capsule3D* other) const = 0;
+		virtual Collision::Result Check(const Capsule3D* other) const = 0;
 	};
 
 	/// <summary>
@@ -63,7 +63,7 @@ namespace Collision3D
 		/// </summary>
 		/// <param name="other">衝突判定を調べるコライダー</param>
 		/// <returns>衝突情報</returns>
-		Collision3D::Result CheckCollision(const ICollider3D* other) const override { return other->Check(this); }
+		Collision::Result CheckCollision(const ICollider3D* other) const override { return other->Check(this); }
 
 		/// <summary>
 		/// 形状のデバッグ描画
@@ -82,17 +82,17 @@ namespace Collision3D
 		/// <summary>
 		/// 球 vs 球の衝突判定
 		/// </summary>
-		Collision3D::Result Check(const Sphere3D* other) const override;
+		Collision::Result Check(const Sphere3D* other) const override;
 
 		/// <summary>
 		/// 球 vs AABBの衝突判定
 		/// </summary>
-		Collision3D::Result Check(const AABB3D* other) const override;
+		Collision::Result Check(const AABB3D* other) const override;
 
 		/// <summary>
 		/// 球 vs カプセルの衝突判定
 		/// </summary>
-		Collision3D::Result Check(const Capsule3D* other) const override;
+		Collision::Result Check(const Capsule3D* other) const override;
 
 	private:
 		
@@ -117,7 +117,7 @@ namespace Collision3D
 		/// </summary>
 		/// <param name="other">衝突判定を調べるコライダー</param>
 		/// <returns>衝突情報</returns>
-		Collision3D::Result CheckCollision(const ICollider3D* other) const override { return other->Check(this); }
+		Collision::Result CheckCollision(const ICollider3D* other) const override { return other->Check(this); }
 
 		/// <summary>
 		/// 形状のデバッグ描画
@@ -136,17 +136,17 @@ namespace Collision3D
 		/// <summary>
 		/// AABB vs 球の衝突判定
 		/// </summary>
-		Collision3D::Result Check(const Sphere3D* other) const override;
+		Collision::Result Check(const Sphere3D* other) const override;
 
 		/// <summary>
 		/// AABB vs AABBの衝突判定
 		/// </summary>
-		Collision3D::Result Check(const AABB3D* other) const override;
+		Collision::Result Check(const AABB3D* other) const override;
 
 		/// <summary>
 		/// AABB vs カプセルの衝突判定
 		/// </summary>
-		Collision3D::Result Check(const Capsule3D* other) const override;
+		Collision::Result Check(const Capsule3D* other) const override;
 
 	private:
 
@@ -167,7 +167,7 @@ namespace Collision3D
 		/// </summary>
 		/// <param name="other">衝突判定を調べるコライダー</param>
 		/// <returns>衝突情報</returns>
-		Collision3D::Result CheckCollision(const ICollider3D* other) const override { return other->Check(this); }
+		Collision::Result CheckCollision(const ICollider3D* other) const override { return other->Check(this); }
 
 		/// <summary>
 		/// 形状のデバッグ描画
@@ -179,17 +179,17 @@ namespace Collision3D
 		/// <summary>
 		/// AABB vs 球の衝突判定
 		/// </summary>
-		Collision3D::Result Check(const Sphere3D* other) const override;
+		Collision::Result Check(const Sphere3D* other) const override;
 
 		/// <summary>
 		/// AABB vs AABBの衝突判定
 		/// </summary>
-		Collision3D::Result Check(const AABB3D* other) const override;
+		Collision::Result Check(const AABB3D* other) const override;
 
 		/// <summary>
 		/// カプセル vs カプセルの衝突判定
 		/// </summary>
-		Collision3D::Result Check(const Capsule3D* other) const override;
+		Collision::Result Check(const Capsule3D* other) const override;
 
 	private:
 

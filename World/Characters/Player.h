@@ -5,7 +5,7 @@
 
 class ModelRenderer;
 
-namespace Collision3D
+namespace Collision
 {
 	class AABB3D;
 }
@@ -29,7 +29,7 @@ public:
 
 	void SetCameraView(const Camera::View& view) { mCameraView = view; }
 
-	void OnCollision(GameObject* other, const Collision3D::Result& result, Collision::Tag tag) override;
+	void OnCollision(GameObject* other, const Collision::Result& result, Collision::Tag tag) override;
 
 private:
 
@@ -53,7 +53,7 @@ private:
 
 	std::unique_ptr<ModelRenderer> mModel;
 
-	std::unique_ptr<Collision3D::AABB3D> mCollider;
+	std::unique_ptr<Collision::AABB3D> mCollider;
 
 	Camera::View mCameraView;
 };

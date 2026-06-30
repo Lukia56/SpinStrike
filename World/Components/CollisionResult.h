@@ -2,7 +2,7 @@
 
 #include "Utility/Vector.h"
 
-namespace Collision3D
+namespace Collision
 {
 	/// <summary>
 		/// Õ“ËŒ‹‰Ê‚Ìƒf[ƒ^ŒQ

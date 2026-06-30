@@ -10,7 +10,7 @@ namespace
 
 TestBox::TestBox()
 {
-	mCollider = std::make_unique<Collision3D::AABB3D>(Vector3::Zero, kCollisionSize);
+	mCollider = std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize);
 	CollisionManager::GetInstance().Register(this, mCollider.get(), Collision::Tag::Terrain);
 }
 

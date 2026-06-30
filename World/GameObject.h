@@ -37,7 +37,7 @@ public:
 	/// <returns>©g‚ğíœ‚·‚é‚È‚çtrue</returns>
 	bool CheckDestroy();
 
-	virtual void OnCollision(GameObject* other, const Collision3D::Result& result, Collision::Tag tag) {};
+	virtual void OnCollision(GameObject* other, const Collision::Result& result, Collision::Tag tag) {};
 
 public:
 

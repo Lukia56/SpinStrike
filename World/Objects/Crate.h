@@ -4,7 +4,7 @@
 
 class ModelRenderer;
 
-namespace Collision3D
+namespace Collision
 {
 	class AABB3D;
 }
@@ -25,5 +25,5 @@ private:
 
 	std::unique_ptr<ModelRenderer> mModel;
 
-	std::unique_ptr<Collision3D::AABB3D> mCollider;
+	std::unique_ptr<Collision::AABB3D> mCollider;
 };

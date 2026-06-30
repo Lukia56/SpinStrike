@@ -39,7 +39,7 @@ Player::Player() :
 	mCollider(nullptr)
 {
 	//mModel = std::make_unique<ModelRenderer>(this);
-	mCollider = std::make_unique<Collision3D::AABB3D>(Vector3::Zero, kCollisionSize);
+	mCollider = std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize);
 	CollisionManager::GetInstance().Register(this, mCollider.get(), Collision::Tag::Player);
 
 	AddToChild<DebugGround>();
@@ -118,7 +118,7 @@ void Player::DebugDraw()
 	mCollider->DebugDraw();
 }
 
-void Player::OnCollision(GameObject* other, const Collision3D::Result& result, Collision::Tag tag)
+void Player::OnCollision(GameObject* other, const Collision::Result& result, Collision::Tag tag)
 {
 	switch (tag)
 	{
