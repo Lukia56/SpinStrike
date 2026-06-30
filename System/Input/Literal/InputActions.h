@@ -11,6 +11,7 @@ namespace Input
 		Look,
 		Jump,
 		Dash,
+		Spin,
 		Up,
 		Down,
 		Left,

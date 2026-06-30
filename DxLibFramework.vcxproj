@@ -145,6 +145,7 @@
     <ClCompile Include="Camera\CameraStatic.cpp" />
     <ClCompile Include="Camera\CameraDebugFree.cpp" />
     <ClCompile Include="Camera\CameraManager.cpp" />
+    <ClCompile Include="World\Characters\PlayerTornado.cpp" />
     <ClCompile Include="World\Objects\Crate.cpp" />
     <ClCompile Include="System\CollisionManager.cpp" />
     <ClCompile Include="Include\ImGui\imgui.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="Camera\CameraManager.h" />
     <ClInclude Include="Camera\CameraProperty.h" />
     <ClInclude Include="Camera\ICamera.h" />
+    <ClInclude Include="World\Characters\PlayerTornado.h" />
     <ClInclude Include="World\Objects\Crate.h" />
     <ClInclude Include="System\CollisionManager.h" />
     <ClInclude Include="Include\ImGui\imconfig.h" />

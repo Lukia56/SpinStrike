@@ -3,6 +3,7 @@
 #include <memory>
 #include <DxLib.h>
 #include <imgui.h>
+#include "PlayerTornado.h"
 #include "../Components/Collision3D.h"
 #include "../Components/Rendering/ModelRenderer.h"
 #include "../Objects/DebugGround.h"
@@ -36,8 +37,11 @@ Player::Player() :
 	mIsJumping(false),
 	mOnGround(false),
 	mModel(nullptr),
-	mCollider(nullptr)
+	mCollider(nullptr),
+	mTornade(nullptr)
 {
+	mTornade = AddToChild<PlayerTornado>();
+
 	//mModel = std::make_unique<ModelRenderer>(this);
 	mCollider = std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize);
 	CollisionManager::GetInstance().Register(this, mCollider.get(), Collision::Tag::Player);
@@ -67,6 +71,15 @@ void Player::Update()
 
 	MoveHorizontal(deltaTime);
 	MoveVertical(deltaTime);
+
+	if (InputManager::GetInstance().IsPressed(Input::Action::Spin))
+	{
+		mTornade->SetSpinningFlag(true);
+	}
+	if (InputManager::GetInstance().IsReleased(Input::Action::Spin))
+	{
+		mTornade->SetSpinningFlag(false);
+	}
 
 	mTransform.localPosition += mVelocity * deltaTime;
 

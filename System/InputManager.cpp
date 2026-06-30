@@ -30,6 +30,7 @@ bool InputManager::Initialize()
 	mActions[static_cast<size_t>(Input::Action::Look)].map = Input::ActionMap::Player;
 	mActions[static_cast<size_t>(Input::Action::Jump)].map = Input::ActionMap::Player;
 	mActions[static_cast<size_t>(Input::Action::Dash)].map = Input::ActionMap::Player;
+	mActions[static_cast<size_t>(Input::Action::Spin)].map = Input::ActionMap::Player;
 	mActions[static_cast<size_t>(Input::Action::Up)].map = Input::ActionMap::UI;
 	mActions[static_cast<size_t>(Input::Action::Down)].map = Input::ActionMap::UI;
 	mActions[static_cast<size_t>(Input::Action::Left)].map = Input::ActionMap::UI;
@@ -65,6 +66,7 @@ bool InputManager::Initialize()
 	Bind(Input::Action::Jump, Input::Device::Gamepad, KeyCode::Button::GpFaceDown);
 	Bind(Input::Action::Dash, Input::Device::Keyboard, KeyCode::Button::LShift);
 	Bind(Input::Action::Dash, Input::Device::Gamepad, KeyCode::Button::GpFaceLeft);
+	Bind(Input::Action::Spin, Input::Device::Mouse, KeyCode::Button::MbRightClick);
 
 	Bind(Input::Action::Up, Input::Device::Keyboard, KeyCode::Button::W);
 	Bind(Input::Action::Up, Input::Device::Keyboard, KeyCode::Button::UpArrow);

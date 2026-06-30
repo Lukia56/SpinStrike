@@ -3,6 +3,7 @@
 #include "../GameObject.h"
 #include "Camera/CameraProperty.h"
 
+class PlayerTornado;
 class ModelRenderer;
 
 namespace Collision
@@ -54,6 +55,8 @@ private:
 	std::unique_ptr<ModelRenderer> mModel;
 
 	std::unique_ptr<Collision::AABB3D> mCollider;
+
+	PlayerTornado* mTornade;
 
 	Camera::View mCameraView;
 };
