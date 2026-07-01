@@ -47,7 +47,7 @@ void PlayerTornado::SetSpinningFlag(const bool flag)
 	
 	if (flag)
 	{
-		CollisionManager::GetInstance().Register(this, mCollider.get());
+		CollisionManager::GetInstance().Register(this, mCollider.get(), Collision::Tag::Tornade);
 	}
 	else
 	{
