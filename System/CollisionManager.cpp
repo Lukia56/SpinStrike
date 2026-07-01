@@ -9,17 +9,28 @@ CollisionManager::~CollisionManager()
 
 void CollisionManager::CheckAllCollision()
 {
-	for (const auto& actor : mCollisionActors)
+	for (size_t i = 0; i < mCollisionActors.size(); i++)
 	{
-		for (const auto& otherActor : mCollisionActors)
-		{
-			if (actor.collider == otherActor.collider) continue;
+		CollisionActor& actorA = mCollisionActors[i];
 
-			Collision::Result result = actor.collider->CheckCollision(otherActor.collider);
+		if (!actorA.owner->IsActive()) continue;
+
+		for (size_t j = i + 1; j < mCollisionActors.size(); j++)
+		{
+			CollisionActor& actorB = mCollisionActors[j];
+
+			if (!actorB.owner->IsActive()) continue;
+
+			Collision::Result result = actorA.collider->CheckCollision(actorB.collider);
 
 			if (!result.isHit) continue;
 
-			actor.owner->OnCollision(otherActor.owner, result, otherActor.tag);
+			actorA.owner->OnCollision(actorB.owner, result, actorB.tag);
+
+			// ‚à‚¤ˆê‚Â‚ÌƒRƒŠƒWƒ‡ƒ“–Úü‚É‡‚í‚¹‚Ä–@ü‚ð”½“]
+			result.normal = -result.normal;
+
+			actorB.owner->OnCollision(actorA.owner, result, actorA.tag);
 		}
 	}
 }
