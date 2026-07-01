@@ -19,6 +19,8 @@ namespace
 
 	constexpr float kDashCoef = 2.5f;
 
+	constexpr float kAirCoef = 0.5f;
+
 	constexpr float kJumpForce = 500.0f;
 	constexpr float kJumpCancelThreshold = 50.0f;
 	constexpr float kJumpBufferTime = 0.15f;
@@ -168,8 +170,10 @@ void Player::MoveHorizontal(float deltaTime)
 	Vector3 right = mCameraView.CalculatePlaneVecRight();
 	Vector3 worldMoveVec = right * moveVec.x + forward * moveVec.z;
 
-	mVelocity.x = Math::Approach(mVelocity.x, kWalkSpeed * worldMoveVec.x, kWalkAccel);
-	mVelocity.z = Math::Approach(mVelocity.z, kWalkSpeed * worldMoveVec.z, kWalkAccel);
+	float accelCoef = mOnGround ? 1.0f : kAirCoef;
+
+	mVelocity.x = Math::Approach(mVelocity.x, kWalkSpeed * worldMoveVec.x, kWalkAccel * accelCoef);
+	mVelocity.z = Math::Approach(mVelocity.z, kWalkSpeed * worldMoveVec.z, kWalkAccel * accelCoef);
 }
 
 void Player::MoveVertical(float deltaTime)
