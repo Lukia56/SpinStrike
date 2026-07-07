@@ -21,7 +21,14 @@ public:
 	void Update() override;
 	void Draw() override;
 
+	void OnCollision(GameObject* other, const Collision::Result& result, Collision::Tag tag) override;
+
 private:
+
+	/// <summary>
+	/// 吸い込みに耐えるタイマー
+	/// </summary>
+	float mEnduranceTimer;
 
 	std::unique_ptr<ModelRenderer> mModel;
 

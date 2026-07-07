@@ -1,10 +1,18 @@
 #include "Crate.h"
+#include "../Characters/PlayerTornado.h"
 #include "../Components/Collision3D.h"
 #include "../Components/Rendering/ModelRenderer.h"
 #include "System/CollisionManager.h"
+#include "System/TimeManager.h"
+#include "Utility/Math.h"
 
 namespace
 {
+	constexpr float kGravity = 980.0f;
+
+	constexpr float kAbsorbMaxSpeed = 1000.0f;
+	constexpr float kAbsorbAccel = 100.0f;
+
 	constexpr Vector3 kSize{ 0.5f, 0.5f, 0.5f };
 
 	constexpr Vector3 kCollisionSize{ 100.0f, 100.0f, 100.0f };
@@ -13,6 +21,7 @@ namespace
 }
 
 Crate::Crate() :
+	mEnduranceTimer(0.0f),
 	mModel(nullptr)
 {
 	mModel = std::make_unique<ModelRenderer>(this);
@@ -47,4 +56,21 @@ void Crate::Draw()
 	mModel->Draw();
 
 	mCollider->DebugDraw();
+}
+
+void Crate::OnCollision(GameObject* other, const Collision::Result& result, Collision::Tag tag)
+{
+	if (tag != Collision::Tag::Tornade) return;
+
+	mEnduranceTimer += TimeManager::GetDeltaTime();
+
+	if (mEnduranceTimer > 1.0f)
+	{
+		// タグがTornadeなのはPlayerTornade以外無い想定のためstatic_cast
+		auto tornade = static_cast<PlayerTornado*>(other);
+
+		tornade->AddPulledNum();
+
+		Destroy(this);
+	}
 }
