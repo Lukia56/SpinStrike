@@ -139,6 +139,8 @@ void Player::OnCollision(GameObject* other, const Collision::Result& result, Col
 	{
 	case Collision::Tag::Terrain:
 		mTransform.localPosition += result.normal * result.penetration;
+
+		// ínñ Ç∆ÇÃè’ìÀ
 		if (result.normal.y > 0.5f)
 		{
 			mVelocity.y = Math::Max(mVelocity.y, 0.0f);
@@ -146,6 +148,7 @@ void Player::OnCollision(GameObject* other, const Collision::Result& result, Col
 			mOnGround = true;
 			mIsJumping = false;
 		}
+		// ìVà‰Ç∆ÇÃè’ìÀ
 		if (result.normal.y < -0.5f)
 		{
 			mVelocity.y = Math::Min(mVelocity.y, 0.0f);

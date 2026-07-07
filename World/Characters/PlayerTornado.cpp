@@ -11,6 +11,7 @@ namespace
 
 PlayerTornado::PlayerTornado() :
 	mIsSpinning(false),
+	mPulledNum(0),
 	mCollider(nullptr)
 {
 	mCollider = std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize);
@@ -51,6 +52,8 @@ void PlayerTornado::SetSpinningFlag(const bool flag)
 	}
 	else
 	{
+		mPulledNum = 0;
+
 		CollisionManager::GetInstance().Unregister(mCollider.get());
 	}
 }

@@ -19,6 +19,8 @@ public:
 	void Update() override;
 	void Draw() override;
 
+	void AddPulledNum() { mPulledNum++; }
+
 public:
 
 	void SetSpinningFlag(const bool flag);
@@ -26,6 +28,11 @@ public:
 private:
 
 	bool mIsSpinning;
+
+	/// <summary>
+	/// ãzÇ¢çûÇÒÇæêî
+	/// </summary>
+	int mPulledNum;
 
 	std::unique_ptr<Collision::AABB3D> mCollider;
 };
