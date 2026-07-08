@@ -39,15 +39,6 @@ public:
 
 	virtual void OnCollision(GameObject* other, const Collision::Result& result, Collision::Tag tag) {};
 
-public:
-
-	Transform& GetTransform() { return mTransform; }
-
-	bool IsActive() const { return mIsActive; }
-	void SetActive(bool flag) { mIsActive = flag; }
-
-protected:
-
 	/// <returns>追加したゲームオブジェクトの生ポインタ</returns>
 	template <class T, class... Args>
 	requires std::derived_from<T, GameObject>
@@ -58,6 +49,13 @@ protected:
 	/// 実際の削除は更新処理の後に行われる
 	/// </summary>
 	void Destroy(GameObject* deleteTarget);
+
+public:
+
+	Transform& GetTransform() { return mTransform; }
+
+	bool IsActive() const { return mIsActive; }
+	void SetActive(bool flag) { mIsActive = flag; }
 
 protected:
 
