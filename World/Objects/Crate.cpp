@@ -8,14 +8,11 @@
 
 namespace
 {
-	constexpr float kGravity = 980.0f;
-
-	constexpr float kAbsorbMaxSpeed = 1000.0f;
-	constexpr float kAbsorbAccel = 100.0f;
-
 	constexpr Vector3 kSize{ 0.5f, 0.5f, 0.5f };
 
 	constexpr Vector3 kCollisionSize{ 100.0f, 100.0f, 100.0f };
+
+	constexpr float kEnduranceTime = 0.5f;
 
 	const char* const kModelPath = "Resource\\Model\\Cube_Crate.mv1";
 }
@@ -48,6 +45,11 @@ void Crate::Finalize()
 
 void Crate::Update()
 {
+	if (mEnduranceTimer > 0.0f)
+	{
+		mModel
+	}
+
 	mCollider->SetPosition(mTransform.CalculateWorldPosition());
 }
 

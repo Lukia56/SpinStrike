@@ -43,9 +43,9 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mOnGround(false),
 	mModel(nullptr),
 	mCollider(nullptr),
-	mTornade(nullptr)
+	mTornado(nullptr)
 {
-	mTornade = AddToChild<PlayerTornado>(bulletManager);
+	mTornado = AddToChild<PlayerTornado>(bulletManager);
 
 	//mModel = std::make_unique<ModelRenderer>(this);
 	mCollider = std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize);
@@ -79,13 +79,13 @@ void Player::Update()
 
 	if (InputManager::GetInstance().IsPressed(Input::Action::Spin))
 	{
-		mTornade->SetSpinningFlag(true);
+		mTornado->SetSpinningFlag(true);
 	}
 	if (InputManager::GetInstance().IsReleased(Input::Action::Spin))
 	{
-		mTornade->CreateBullet(mLastMoveVec);
+		mTornado->CreateBullet(mLastMoveVec);
 
-		mTornade->SetSpinningFlag(false);
+		mTornado->SetSpinningFlag(false);
 	}
 
 	mTransform.localPosition += mVelocity * deltaTime;

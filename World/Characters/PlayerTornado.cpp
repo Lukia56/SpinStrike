@@ -49,7 +49,7 @@ void PlayerTornado::DebugDraw()
 	using namespace ImGui;
 	if (Begin("Player"))
 	{
-		Text("===== Tornade =====");
+		Text("===== Tornado =====");
 
 		Text("PulledCount = %d", mPulledNum);
 
@@ -74,7 +74,7 @@ void PlayerTornado::SetSpinningFlag(const bool flag)
 	
 	if (flag)
 	{
-		CollisionManager::GetInstance().Register(this, mCollider.get(), Collision::Tag::Tornade);
+		CollisionManager::GetInstance().Register(this, mCollider.get(), Collision::Tag::Tornado);
 	}
 	else
 	{
