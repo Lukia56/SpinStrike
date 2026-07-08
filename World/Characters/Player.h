@@ -61,7 +61,7 @@ private:
 
 	std::unique_ptr<Collision::AABB3D> mCollider;
 
-	PlayerTornado* mTornade;
+	PlayerTornado* mTornado;
 
 	Camera::View mCameraView;
 };

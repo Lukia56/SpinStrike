@@ -7,6 +7,6 @@ namespace Collision
 		None,
 		Player,
 		Terrain,
-		Tornade,
+		Tornado,
 	};
 }
