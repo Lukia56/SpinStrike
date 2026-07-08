@@ -3,7 +3,7 @@
 #include "../World/Characters/Player.h"
 #include "../World/Objects/Crate.h"
 #include "../World/Objects/TestBox.h"
-#include "../World/Others/ObjectRoot.h"
+#include "../World/Others/RootObject.h"
 #include "Camera/CameraDebugFree.h"
 #include "Camera/CameraFollow.h"
 #include "Camera/CameraManager.h"
@@ -11,18 +11,22 @@
 
 SceneTest::SceneTest() :
 	mPointLight(-1),
-	mPlayer(nullptr),
-	mCrate(nullptr)
+	mPlayer(nullptr)
 {
 	mPlayer = AddToRoot<Player>();
 
-	auto objectRoot = AddToRoot<ObjectRoot>();
+	auto bulletRoot = AddToRoot<RootObject>();
 
-	mCrate = objectRoot->AddToChild<Crate>();
-	mCrate->GetTransform().localPosition = Vector3(500.0f, 0.0f, 0.0f);
 
-	auto floorBox = AddToRoot<TestBox>();
-	auto ceilingBox = AddToRoot<TestBox>();
+	auto objectRoot = AddToRoot<RootObject>();
+
+	auto crate = objectRoot->AddToChild<Crate>();
+	crate->GetTransform().localPosition = Vector3(500.0f, 0.0f, 0.0f);
+
+	auto terrainRoot = AddToRoot<RootObject>();
+
+	auto floorBox = terrainRoot->AddToChild<TestBox>();
+	auto ceilingBox = terrainRoot->AddToChild<TestBox>();
 	ceilingBox->GetTransform().Translate(Vector3(0.0f, 350.0f, 0.0f));
 
 	GetCameraManager()->AddCamera(Camera::Type::Follow, std::make_unique<CameraFollow>(&mPlayer->GetTransform()));

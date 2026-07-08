@@ -3,8 +3,6 @@
 #include "SceneBase.h"
 
 class Player;
-class Crate;
-class UI;
 
 class SceneTest : public SceneBase
 {
@@ -23,6 +21,4 @@ private:
 	int mPointLight;
 
 	Player* mPlayer;
-
-	Crate* mCrate;
 };

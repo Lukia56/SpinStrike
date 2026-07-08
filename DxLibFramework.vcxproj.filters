@@ -380,7 +380,7 @@
     <ClInclude Include="World\Characters\PlayerTornado.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Others\ObjectRoot.h">
+    <ClInclude Include="World\Others\RootObject.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
