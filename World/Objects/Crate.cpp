@@ -5,6 +5,7 @@
 #include "System/CollisionManager.h"
 #include "System/TimeManager.h"
 #include "Utility/Math.h"
+#include "Utility/Random.h"
 
 namespace
 {
@@ -14,11 +15,14 @@ namespace
 
 	constexpr float kEnduranceTime = 0.5f;
 
+	constexpr float kShakeRange = 10.0f;
+
 	const char* const kModelPath = "Resource\\Model\\Cube_Crate.mv1";
 }
 
 Crate::Crate() :
 	mEnduranceTimer(0.0f),
+	mIsHitTornado(false),
 	mModel(nullptr)
 {
 	mModel = std::make_unique<ModelRenderer>(this);
@@ -45,10 +49,16 @@ void Crate::Finalize()
 
 void Crate::Update()
 {
-	if (mEnduranceTimer > 0.0f)
+	if (!mIsHitTornado)
 	{
-		mModel
+		mEnduranceTimer = 0.0f;
+		mModel->SetOffsetPos(Vector3::Zero);
 	}
+	else
+	{
+		mModel->SetOffsetPos(Vector3(Random::Range(-kShakeRange, kShakeRange), Random::Range(-kShakeRange, kShakeRange), Random::Range(-kShakeRange, kShakeRange)));
+	}
+	mIsHitTornado = false;
 
 	mCollider->SetPosition(mTransform.CalculateWorldPosition());
 }
@@ -62,16 +72,18 @@ void Crate::Draw()
 
 void Crate::OnCollision(GameObject* other, const Collision::Result& result, Collision::Tag tag)
 {
-	if (tag != Collision::Tag::Tornade) return;
+	if (tag != Collision::Tag::Tornado) return;
 
 	mEnduranceTimer += TimeManager::GetDeltaTime();
 
-	if (mEnduranceTimer > 1.0f)
-	{
-		// タグがTornadeなのはPlayerTornade以外無い想定のためstatic_cast
-		auto tornade = static_cast<PlayerTornado*>(other);
+	mIsHitTornado = true;
 
-		tornade->AddPulledNum();
+	if (mEnduranceTimer > kEnduranceTime)
+	{
+		// タグがTornadoなのはPlayerTornado以外無い想定のためstatic_cast
+		auto tornado = static_cast<PlayerTornado*>(other);
+
+		tornado->AddPulledNum();
 
 		Destroy(this);
 	}

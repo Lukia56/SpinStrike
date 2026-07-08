@@ -30,6 +30,8 @@ private:
 	/// </summary>
 	float mEnduranceTimer;
 
+	bool mIsHitTornado;
+
 	std::unique_ptr<ModelRenderer> mModel;
 
 	std::unique_ptr<Collision::AABB3D> mCollider;
