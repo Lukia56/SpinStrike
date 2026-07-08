@@ -4,6 +4,7 @@
 #include <string>
 #include "System/ResourceManager.h"
 #include "System/Resource/Resource.h"
+#include "Utility/Vector.h"
 
 class GameObject;
 
@@ -36,9 +37,15 @@ public:
 	/// </summary>
 	virtual void Draw() = 0;
 
+public:
+
+	void SetOffsetPos(const Vector3& offsetPos) { mOffsetPos = offsetPos; }
+
 protected:
 
 	Resource* mResource;
 
 	GameObject* mOwner;
+
+	Vector3 mOffsetPos;
 };

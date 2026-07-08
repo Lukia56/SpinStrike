@@ -26,7 +26,7 @@ void SpriteRenderer::Draw()
 	if (!mOwner) return;
 	if (!mResource) return;
 
-	const VECTOR pos = mOwner->GetTransform().CalculateWorldPosition().GetAsDxLibVector();
+	const VECTOR pos = (mOwner->GetTransform().CalculateWorldPosition() + mOffsetPos).GetAsDxLibVector();
 	const VECTOR rot = mOwner->GetTransform().CalculateWorldRotation().GetAsDxLibVector();
 	const VECTOR scale = mOwner->GetTransform().CalculateWorldScale().GetAsDxLibVector();
 

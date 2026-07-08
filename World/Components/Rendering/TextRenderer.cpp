@@ -16,7 +16,7 @@ void TextRenderer::Draw()
 {
 	if (!mOwner) return;
 
-	const VECTOR pos = mOwner->GetTransform().CalculateWorldPosition().GetAsDxLibVector();
+	const VECTOR pos = (mOwner->GetTransform().CalculateWorldPosition() + mOffsetPos).GetAsDxLibVector();
 	VECTOR scale = VGet(0.0f, 0.0f, 0.0f);
 
 	// 必要な場合のみワールドスケールを計算して取得
