@@ -126,7 +126,13 @@ Vector3 Transform::CalculateWorldScale() const
 	Vector3 world = localScale;
 
 	// 親オブジェクトについて再帰
-	if (mParent) world += mParent->CalculateWorldScale();
+	if (mParent)
+	{
+		Vector3 parentScale = mParent->CalculateWorldScale();
+		world.x *= parentScale.x;
+		world.y *= parentScale.y;
+		world.z *= parentScale.z;
+	}
 
 	return world;
 }
