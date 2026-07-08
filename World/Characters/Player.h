@@ -4,6 +4,7 @@
 #include "Camera/CameraProperty.h"
 
 class PlayerTornado;
+class PlayerBulletManager;
 class ModelRenderer;
 
 namespace Collision
@@ -15,7 +16,7 @@ class Player : public GameObject
 {
 public:
 
-	Player();
+	Player(PlayerBulletManager* bulletManager);
 	~Player();
 
 	void Init() override;
@@ -28,9 +29,11 @@ public:
 
 	void DebugDraw() override;
 
-	void SetCameraView(const Camera::View& view) { mCameraView = view; }
-
 	void OnCollision(GameObject* other, const Collision::Result& result, Collision::Tag tag) override;
+
+public:
+
+	void SetCameraView(const Camera::View& view) { mCameraView = view; }
 
 private:
 
@@ -45,6 +48,8 @@ private:
 private:
 
 	Vector3 mVelocity;
+
+	Vector3 mLastMoveVec;
 
 	float mCanJumpTimer;
 

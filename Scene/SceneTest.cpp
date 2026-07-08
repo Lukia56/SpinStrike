@@ -1,6 +1,7 @@
 #include "SceneTest.h"
 #include <DxLib.h>
 #include "../World/Characters/Player.h"
+#include "../World/Characters/PlayerBulletManager.h"
 #include "../World/Objects/Crate.h"
 #include "../World/Objects/TestBox.h"
 #include "../World/Others/RootObject.h"
@@ -13,10 +14,9 @@ SceneTest::SceneTest() :
 	mPointLight(-1),
 	mPlayer(nullptr)
 {
-	mPlayer = AddToRoot<Player>();
+	auto bulletManager = AddToRoot<PlayerBulletManager>();
 
-	auto bulletRoot = AddToRoot<RootObject>();
-
+	mPlayer = AddToRoot<Player>(bulletManager);
 
 	auto objectRoot = AddToRoot<RootObject>();
 

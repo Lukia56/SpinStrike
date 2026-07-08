@@ -2,6 +2,7 @@
 
 #include "../GameObject.h"
 
+class PlayerBulletManager;
 namespace Collision
 {
 	class AABB3D;
@@ -11,7 +12,7 @@ class PlayerTornado : public GameObject
 {
 public:
 
-	PlayerTornado();
+	PlayerTornado(PlayerBulletManager* bulletManager);
 	~PlayerTornado();
 
 	void Init() override;
@@ -19,6 +20,8 @@ public:
 	void Update() override;
 	void Draw() override;
 	void DebugDraw() override;
+
+	void CreateBullet(const Vector3& moveVec);
 
 	void AddPulledNum() { mPulledNum++; }
 
@@ -36,4 +39,6 @@ private:
 	int mPulledNum;
 
 	std::unique_ptr<Collision::AABB3D> mCollider;
+
+	PlayerBulletManager* mBulletManager;
 };
