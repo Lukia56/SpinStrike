@@ -57,6 +57,10 @@ private:
 
 	bool mOnGround;
 
+	bool mOnWall;
+
+	float mIgnoreMoveInputTimer;
+
 	std::unique_ptr<ModelRenderer> mModel;
 
 	std::unique_ptr<Collision::AABB3D> mCollider;

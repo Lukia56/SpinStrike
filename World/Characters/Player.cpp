@@ -27,6 +27,10 @@ namespace
 	constexpr float kJumpCancelThreshold = 50.0f;
 	constexpr float kJumpBufferTime = 0.15f;
 
+	constexpr float kWallJumpVerticalForce = 400.0f;
+	constexpr float kWallJumpHorizontalForce = 500.0f;
+	constexpr float kWallJumpIgnoreMoveInputTime = 0.2f;
+
 	constexpr float kGravity = 980.0f;
 
 	constexpr Vector3 kCollisionSize{ 60.0f, 100.0f, 60.0f };
@@ -41,6 +45,8 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mCanJumpTimer(0.0f),
 	mIsJumping(false),
 	mOnGround(false),
+	mOnWall(false),
+	mIgnoreMoveInputTimer(0.0f),
 	mModel(nullptr),
 	mCollider(nullptr),
 	mTornado(nullptr)
@@ -92,6 +98,8 @@ void Player::Update()
 
 	if (mCanJumpTimer > 0.0f) mCanJumpTimer -= TimeManager::GetDeltaTime();
 
+	if (mIgnoreMoveInputTimer > 0.0f) mIgnoreMoveInputTimer -= TimeManager::GetDeltaTime();
+
 	// 地面がないため仮
 	if (mTransform.CalculateWorldPosition().y < 0.0f)
 	{
@@ -135,11 +143,14 @@ void Player::DebugDraw()
 
 		ImGui::Text("IsJumping: %d", mIsJumping);
 		ImGui::Text("OnGround: %d", mOnGround);
+		ImGui::Text("OnWall: %d", mOnWall);
 
 		ImGui::End();
 	}
 
 	mCollider->DebugDraw();
+
+	mOnWall = false;
 }
 
 void Player::OnCollision(GameObject* other, const Collision::Result& result, Collision::Tag tag)
@@ -149,6 +160,13 @@ void Player::OnCollision(GameObject* other, const Collision::Result& result, Col
 	case Collision::Tag::Terrain:
 		mTransform.localPosition += result.normal * result.penetration;
 
+		// TODO: 壁ジャンプと同時に壁と反対に入力すると壁に向かって壁ジャンプするバグ修正
+		// 壁との衝突
+		if ((std::abs(result.normal.x) > 0.5f || std::abs(result.normal.z) > 0.5f) && !Math::NearyEqual(result.penetration, 0.0f))
+		{
+			mOnWall = true;
+		}
+		
 		// 地面との衝突
 		if (result.normal.y > 0.5f)
 		{
@@ -168,6 +186,8 @@ void Player::OnCollision(GameObject* other, const Collision::Result& result, Col
 
 void Player::MoveHorizontal(float deltaTime)
 {
+	if (mIgnoreMoveInputTimer > 0.0f) return;
+
 	// 水平方向の移動
 	Vector3 moveVec = InputManager::GetInstance().GetAsVector3(Input::Action::Move);
 
@@ -199,6 +219,18 @@ void Player::MoveVertical(float deltaTime)
 		mVelocity.y = kJumpForce;
 		mIsJumping = true;
 		mCanJumpTimer = 0.0f;
+
+		// 壁ジャンプ
+		if (mOnWall && !mOnGround)
+		{
+			mVelocity.x = -mLastMoveVec.x * kWallJumpHorizontalForce;
+			mVelocity.y = kWallJumpVerticalForce;
+  			mVelocity.z = -mLastMoveVec.z * kWallJumpHorizontalForce;
+
+			mIgnoreMoveInputTimer = kWallJumpIgnoreMoveInputTime;
+
+			mOnWall = false;
+		}
 	}
 	// ジャンプキャンセル
 	if (InputManager::GetInstance().IsReleased(Input::Action::Jump) && CanCancelJump())
@@ -212,7 +244,7 @@ void Player::MoveVertical(float deltaTime)
 
 bool Player::CanJump()
 {
-	return mOnGround || mCanJumpTimer > 0.0f;
+	return mOnGround || mCanJumpTimer > 0.0f || mOnWall;
 }
 
 bool Player::CanCancelJump()
