@@ -1,4 +1,5 @@
 #include "PlayerTornado.h"
+#include <imgui.h>
 #include "../Components/Collision3D.h"
 #include "System/CollisionManager.h"
 
@@ -37,7 +38,21 @@ void PlayerTornado::Update()
 
 void PlayerTornado::Draw()
 {
+}
+
+void PlayerTornado::DebugDraw()
+{
 	if (mIsSpinning) mCollider->DebugDraw();
+
+	using namespace ImGui;
+	if (Begin("Player"))
+	{
+		Text("===== Tornade =====");
+
+		Text("PulledCount = %d", mPulledNum);
+
+		End();
+	}
 }
 
 void PlayerTornado::SetSpinningFlag(const bool flag)

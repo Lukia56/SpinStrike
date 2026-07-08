@@ -3,6 +3,7 @@
 #include "../World/Characters/Player.h"
 #include "../World/Objects/Crate.h"
 #include "../World/Objects/TestBox.h"
+#include "../World/Others/ObjectRoot.h"
 #include "Camera/CameraDebugFree.h"
 #include "Camera/CameraFollow.h"
 #include "Camera/CameraManager.h"
@@ -14,7 +15,10 @@ SceneTest::SceneTest() :
 	mCrate(nullptr)
 {
 	mPlayer = AddToRoot<Player>();
-	mCrate = AddToRoot<Crate>();
+
+	auto objectRoot = AddToRoot<ObjectRoot>();
+
+	mCrate = objectRoot->AddToChild<Crate>();
 	mCrate->GetTransform().localPosition = Vector3(500.0f, 0.0f, 0.0f);
 
 	auto floorBox = AddToRoot<TestBox>();
@@ -36,7 +40,7 @@ void SceneTest::Init()
 	SetLightDifColorHandle(mPointLight, GetColorF(1.0f, 0.0f, 0.0f, 1.0f));
 	SetLightSpcColorHandle(mPointLight, GetColorF(1.0f, 0.0f, 0.0f, 1.0f));
 
-	Mouse::GetInstance().SetMode(Mouse::Mode::Relative);
+	//Mouse::GetInstance().SetMode(Mouse::Mode::Relative);
 }
 
 void SceneTest::Finalize()

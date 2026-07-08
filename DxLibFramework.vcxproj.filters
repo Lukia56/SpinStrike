@@ -380,5 +380,8 @@
     <ClInclude Include="World\Characters\PlayerTornado.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="World\Others\ObjectRoot.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
