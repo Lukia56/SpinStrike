@@ -31,6 +31,10 @@ namespace
 	constexpr float kWallJumpHorizontalForce = 500.0f;
 	constexpr float kWallJumpIgnoreMoveInputTime = 0.2f;
 
+	constexpr float kStickWallFallSpeed = 50.0f;
+	constexpr float kStickWallCancelTimeThreshold = 0.5f;
+	constexpr float kStickWallCancelMoveVectorThreshold = 0.5f;
+
 	constexpr float kGravity = 980.0f;
 
 	constexpr Vector3 kCollisionSize{ 60.0f, 100.0f, 60.0f };
@@ -46,6 +50,7 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mIsJumping(false),
 	mOnGround(false),
 	mOnWall(false),
+	mStickWallCancelTimer(0.0f),
 	mIgnoreMoveInputTimer(0.0f),
 	mModel(nullptr),
 	mCollider(nullptr),
@@ -100,6 +105,11 @@ void Player::Update()
 
 	if (mIgnoreMoveInputTimer > 0.0f) mIgnoreMoveInputTimer -= TimeManager::GetDeltaTime();
 
+	if (mOnGround)
+	{
+		mOnWall = false;
+	}
+
 	// 地面がないため仮
 	if (mTransform.CalculateWorldPosition().y < 0.0f)
 	{
@@ -139,7 +149,11 @@ void Player::DebugDraw()
 		float velPtr[] = { mVelocity.x, mVelocity.y, mVelocity.z};
 		ImGui::InputFloat3("Velocity", velPtr, "%.1f");
 
+		float collPtr[] = { mLastCollideNormal.x, mLastCollideNormal.y, mLastCollideNormal.z };
+		ImGui::InputFloat3("LastCollideNormal", collPtr, "%.1f");
+
 		ImGui::Text("CanJumpTimer: %f", mCanJumpTimer);
+		ImGui::Text("StickWallCancelTimer: %f", mStickWallCancelTimer);
 
 		ImGui::Text("IsJumping: %d", mIsJumping);
 		ImGui::Text("OnGround: %d", mOnGround);
@@ -149,8 +163,6 @@ void Player::DebugDraw()
 	}
 
 	mCollider->DebugDraw();
-
-	mOnWall = false;
 }
 
 void Player::OnCollision(GameObject* other, const Collision::Result& result, Collision::Tag tag)
@@ -160,12 +172,16 @@ void Player::OnCollision(GameObject* other, const Collision::Result& result, Col
 	case Collision::Tag::Terrain:
 		mTransform.localPosition += result.normal * result.penetration;
 
+		mLastCollideNormal = result.normal;
+
 		// TODO: 壁ジャンプと同時に壁と反対に入力すると壁に向かって壁ジャンプするバグ修正
 		// 壁との衝突
 		if ((std::abs(result.normal.x) > 0.5f || std::abs(result.normal.z) > 0.5f) && !Math::NearyEqual(result.penetration, 0.0f))
 		{
 			mOnWall = true;
 		}
+
+		// TODO: 壁がない場所に移動しても壁ずりがキャンセルされないバグ修正
 		
 		// 地面との衝突
 		if (result.normal.y > 0.5f)
@@ -203,12 +219,42 @@ void Player::MoveHorizontal(float deltaTime)
 	Vector3 right = mCameraView.CalculatePlaneVecRight();
 	moveVec = right * moveVec.x + forward * moveVec.z;
 
+	if (moveVec != Vector3::Zero) mLastMoveVec = moveVec;
+
 	float accelCoef = mOnGround ? 1.0f : kAirCoef;
+
+	if (mOnWall)
+	{
+		Vector3 vec = mLastCollideNormal;
+		std::swap(vec.x, vec.z);
+
+		// 壁と逆方向に入力していたらタイマーをカウントアップ
+		vec.z = -vec.z;
+		Vector3 inputVec = moveVec.Cross(vec);
+		if (inputVec.y > kStickWallCancelMoveVectorThreshold)
+		{
+			mStickWallCancelTimer += deltaTime;
+
+			moveVec = Vector3::Zero;
+		}
+		// 壁と逆方向に入力されていなかったらタイマーリセット
+		else
+		{
+			mStickWallCancelTimer = 0.0f;
+		}
+		// 壁ずりキャンセル
+		if (mStickWallCancelTimer > kStickWallCancelTimeThreshold)
+		{
+			mStickWallCancelTimer = 0.0f;
+			mOnWall = false;
+		}
+		
+		// 壁ずり状態なら壁に沿って移動させる
+		moveVec = vec * moveVec.Dot(vec);
+	}
 
 	mVelocity.x = Math::Approach(mVelocity.x, kWalkSpeed * moveCoef * moveVec.x, kWalkAccel * accelCoef);
 	mVelocity.z = Math::Approach(mVelocity.z, kWalkSpeed * moveCoef * moveVec.z, kWalkAccel * accelCoef);
-
-	if (moveVec != Vector3::Zero) mLastMoveVec = moveVec;
 }
 
 void Player::MoveVertical(float deltaTime)
@@ -225,7 +271,7 @@ void Player::MoveVertical(float deltaTime)
 		{
 			mVelocity.x = -mLastMoveVec.x * kWallJumpHorizontalForce;
 			mVelocity.y = kWallJumpVerticalForce;
-  			mVelocity.z = -mLastMoveVec.z * kWallJumpHorizontalForce;
+			mVelocity.z = -mLastMoveVec.z * kWallJumpHorizontalForce;
 
 			mIgnoreMoveInputTimer = kWallJumpIgnoreMoveInputTime;
 
@@ -239,7 +285,14 @@ void Player::MoveVertical(float deltaTime)
 		mIsJumping = false;
 	}
 
-	mVelocity.y -= kGravity * deltaTime;
+	if (mOnWall)
+	{
+		mVelocity.y = Math::Max(mVelocity.y - kGravity * deltaTime, -kStickWallFallSpeed);
+	}
+	else
+	{
+		mVelocity.y -= kGravity * deltaTime;
+	}
 }
 
 bool Player::CanJump()

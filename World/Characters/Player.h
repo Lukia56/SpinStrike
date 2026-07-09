@@ -51,6 +51,8 @@ private:
 
 	Vector3 mLastMoveVec;
 
+	Vector3 mLastCollideNormal;
+
 	float mCanJumpTimer;
 
 	bool mIsJumping;
@@ -58,6 +60,8 @@ private:
 	bool mOnGround;
 
 	bool mOnWall;
+
+	float mStickWallCancelTimer;
 
 	float mIgnoreMoveInputTimer;
 
