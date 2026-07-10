@@ -20,7 +20,8 @@ PlayerTornado::PlayerTornado(PlayerBulletManager* bulletManager) :
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize),
 		this,
-		Collision::Tag::Tornado
+		Collision::Tag::Tornado,
+		false
 	);
 }
 
