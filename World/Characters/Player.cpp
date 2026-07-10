@@ -98,6 +98,12 @@ void Player::Update()
 {
 	float deltaTime = TimeManager::GetDeltaTime();
 
+	if (mCollisionPush != Vector3::Zero)
+	{
+		mTransform.localPosition += mCollisionPush;
+		mCollisionPush = Vector3::Zero;
+	}
+
 	MoveHorizontal(deltaTime);
 	MoveVertical(deltaTime);
 
@@ -114,7 +120,7 @@ void Player::Update()
 
 	mTransform.localPosition += mVelocity * deltaTime;
 
-	if (mCanJumpTimer > 0.0f) mCanJumpTimer -= TimeManager::GetDeltaTime();
+	if (!mOnGround && mCanJumpTimer > 0.0f) mCanJumpTimer -= TimeManager::GetDeltaTime();
 
 	if (mIgnoreMoveInputTimer > 0.0f) mIgnoreMoveInputTimer -= TimeManager::GetDeltaTime();
 
@@ -182,10 +188,24 @@ void Player::DebugDraw()
 
 void Player::ResolveCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider)
 {
+	if (myCollider->GetTag() == Collider3D::Tag::Foot)
+	{
+		if (oppCollider->GetOwner()->GetTag() != Tag::Terrain) return;
+
+		if (result.normal.y <= 0.5f) return;
+		
+		// ínñ Ç∆ÇÃè’ìÀ
+		mCanJumpTimer = kJumpBufferTime;
+		mOnGround = true;
+		mIsJumping = false;
+
+		return;
+	}
+
 	switch (oppCollider->GetOwner()->GetTag())
 	{
 	case Tag::Terrain:
-		mTransform.localPosition += result.normal * result.penetration;
+		mCollisionPush += result.normal * result.penetration;
 
 		mLastCollideNormal = result.normal;
 
@@ -202,9 +222,6 @@ void Player::ResolveCollision(const Collision::Result& result, const Collider3D*
 		if (result.normal.y > 0.5f)
 		{
 			mVelocity.y = Math::Max(mVelocity.y, 0.0f);
-			mCanJumpTimer = kJumpBufferTime;
-			mOnGround = true;
-			mIsJumping = false;
 		}
 		// ìVà‰Ç∆ÇÃè’ìÀ
 		if (result.normal.y < -0.5f)
@@ -300,13 +317,16 @@ void Player::MoveVertical(float deltaTime)
 		mIsJumping = false;
 	}
 
-	if (mOnWall)
+	if (!mOnGround)
 	{
-		mVelocity.y = Math::Max(mVelocity.y - kGravity * deltaTime, -kStickWallFallSpeed);
-	}
-	else
-	{
-		mVelocity.y -= kGravity * deltaTime;
+		if (mOnWall)
+		{
+			mVelocity.y = Math::Max(mVelocity.y - kGravity * deltaTime, -kStickWallFallSpeed);
+		}
+		else
+		{
+			mVelocity.y -= kGravity * deltaTime;
+		}
 	}
 }
 

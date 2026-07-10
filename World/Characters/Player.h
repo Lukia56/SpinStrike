@@ -49,6 +49,8 @@ private:
 
 	Vector3 mLastCollideNormal;
 
+	Vector3 mCollisionPush;
+
 	float mCanJumpTimer;
 
 	bool mIsJumping;
