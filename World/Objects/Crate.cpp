@@ -25,12 +25,14 @@ Crate::Crate() :
 	mIsHitTornado(false),
 	mModel(nullptr)
 {
+	SetTag(Tag::Terrain);
+
 	mModel = std::make_unique<ModelRenderer>(this);
 
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize),
 		this,
-		Collision::Tag::Terrain
+		Collider3D::Tag::Body
 	);
 
 	mTransform.localScale = kSize;
@@ -74,7 +76,7 @@ void Crate::Draw()
 
 void Crate::ResolveCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider)
 {
-	if (oppCollider->GetTag() != Collision::Tag::Tornado) return;
+	if (oppCollider->GetOwner()->GetTag() != Tag::Tornado) return;
 
 	mEnduranceTimer += TimeManager::GetDeltaTime();
 

@@ -56,13 +56,16 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mCollider(nullptr),
 	mTornado(nullptr)
 {
-	mTornado = AddToChild<PlayerTornado>(bulletManager);
+	SetTag(Tag::Player);
 
 	//mModel = std::make_unique<ModelRenderer>(this);
+
+	mTornado = AddToChild<PlayerTornado>(bulletManager);
+
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize),
 		this,
-		Collision::Tag::Player
+		Collider3D::Tag::Body
 	);
 
 	AddToChild<DebugGround>();
@@ -169,9 +172,9 @@ void Player::DebugDraw()
 
 void Player::ResolveCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider)
 {
-	switch (oppCollider->GetTag())
+	switch (oppCollider->GetOwner()->GetTag())
 	{
-	case Collision::Tag::Terrain:
+	case Tag::Terrain:
 		mTransform.localPosition += result.normal * result.penetration;
 
 		mLastCollideNormal = result.normal;

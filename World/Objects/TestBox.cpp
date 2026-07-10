@@ -10,10 +10,12 @@ namespace
 
 TestBox::TestBox()
 {
+	SetTag(Tag::Terrain);
+
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize),
 		this,
-		Collision::Tag::Terrain
+		Collider3D::Tag::Body
 	);
 }
 

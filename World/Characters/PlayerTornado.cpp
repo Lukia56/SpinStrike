@@ -17,10 +17,12 @@ PlayerTornado::PlayerTornado(PlayerBulletManager* bulletManager) :
 	mCollider(nullptr),
 	mBulletManager(bulletManager)
 {
+	SetTag(Tag::Tornado);
+
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize),
 		this,
-		Collision::Tag::Tornado,
+		Collider3D::Tag::Body,
 		false
 	);
 }

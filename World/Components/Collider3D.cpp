@@ -1,8 +1,9 @@
 #include "Collider3D.h"
+#include <memory>
 #include "Collision/Collision3D.h"
 #include "Collision/CollisionManager.h"
 
-Collider3D::Collider3D(std::unique_ptr<Collision::IShape3D> shape, GameObject* owner, Collision::Tag tag, bool enable) :
+Collider3D::Collider3D(std::unique_ptr<Collision::IShape3D> shape, GameObject* owner, Tag tag, bool enable) :
 	mIsEnable(enable),
 	mShape(std::move(shape)),
 	mOwner(owner),

@@ -4,7 +4,6 @@
 #include <vector>
 #include "Components/Transform.h"
 #include "Collision/CollisionResult.h"
-#include "Collision/CollisionTag.h"
 
 class Collider3D;
 
@@ -18,6 +17,14 @@ public:
 
 	GameObject();
 	virtual ~GameObject();
+
+	enum class Tag
+	{
+		None,
+		Player,
+		Terrain,
+		Tornado,
+	};
 
 	virtual void Init() = 0;
 
@@ -59,6 +66,9 @@ public:
 	bool IsActive() const { return mIsActive; }
 	void SetActive(bool flag) { mIsActive = flag; }
 
+	Tag GetTag() const { return mTag; }
+	void SetTag(Tag tag) { mTag = tag; }
+
 protected:
 
 	Transform mTransform;
@@ -72,6 +82,8 @@ private:
 	/// 非アクティブになるとすべての子オブジェクトも非アクティブになる
 	/// </summary>
 	bool mIsActive;
+
+	Tag mTag;
 };
 
 template <class T, class... Args>

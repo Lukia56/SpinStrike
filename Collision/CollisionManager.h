@@ -1,13 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "Collision/CollisionTag.h"
 
-class GameObject;
-namespace Collision
-{
-	class IShape3D;
-}
 class Collider3D;
 
 /// <summary>
