@@ -37,9 +37,11 @@ namespace
 
 	constexpr float kGravity = 980.0f;
 
-	constexpr Vector3 kCollisionSize{ 60.0f, 100.0f, 60.0f };
+	constexpr Vector3 kBodyCollisionSize{ 60.0f, 100.0f, 60.0f };
+	constexpr Vector3 kBodyCollisionOffsetPos{ 0.0f, kBodyCollisionSize.y / 2.0f, 0.0f };
 
-	constexpr Vector3 kCollisionOffsetPos{ 0.0f, kCollisionSize.y / 2.0f, 0.0f };
+	constexpr Vector3 kFootCollisionSize{ kBodyCollisionSize.x, 1.0f, kBodyCollisionSize.z };
+	constexpr Vector3 kFootCollisionOffsetPos{ 0.0f, -5.0f, 0.0f };
 
 	const char* const kModelHandlePath = "";
 }
@@ -53,7 +55,8 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mStickWallCancelTimer(0.0f),
 	mIgnoreMoveInputTimer(0.0f),
 	mModel(nullptr),
-	mCollider(nullptr),
+	mBodyCollider(nullptr),
+	mFootCollider(nullptr),
 	mTornado(nullptr)
 {
 	SetTag(Tag::Player);
@@ -62,10 +65,15 @@ Player::Player(PlayerBulletManager* bulletManager) :
 
 	mTornado = AddToChild<PlayerTornado>(bulletManager);
 
-	mCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize),
+	mBodyCollider = std::make_unique<Collider3D>(
+		std::make_unique<Collision::AABB3D>(Vector3::Zero, kBodyCollisionSize),
 		this,
 		Collider3D::Tag::Body
+	);
+	mFootCollider = std::make_unique<Collider3D>(
+		std::make_unique<Collision::AABB3D>(Vector3::Zero, kFootCollisionSize),
+		this,
+		Collider3D::Tag::Foot
 	);
 
 	AddToChild<DebugGround>();
@@ -73,7 +81,7 @@ Player::Player(PlayerBulletManager* bulletManager) :
 
 Player::~Player()
 {
-	mCollider = nullptr;
+	mBodyCollider = nullptr;
 	mModel = nullptr;
 }
 
@@ -130,7 +138,8 @@ void Player::Update()
 		mOnGround = false;
 	}
 
-	mCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition() + kCollisionOffsetPos);
+	mBodyCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition() + kBodyCollisionOffsetPos);
+	mFootCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition() + kFootCollisionOffsetPos);
 }
 
 void Player::Draw()
@@ -167,7 +176,8 @@ void Player::DebugDraw()
 		ImGui::End();
 	}
 
-	mCollider->GetShape()->DebugDraw();
+	mBodyCollider->GetShape()->DebugDraw();
+	mFootCollider->GetShape()->DebugDraw();
 }
 
 void Player::ResolveCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider)

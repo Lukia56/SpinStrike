@@ -63,7 +63,9 @@ private:
 
 	std::unique_ptr<ModelRenderer> mModel;
 
-	std::unique_ptr<Collider3D> mCollider;
+	std::unique_ptr<Collider3D> mBodyCollider;
+
+	std::unique_ptr<Collider3D> mFootCollider;
 
 	PlayerTornado* mTornado;
 
