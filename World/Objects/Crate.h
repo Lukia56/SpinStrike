@@ -17,7 +17,7 @@ public:
 	void Update() override;
 	void Draw() override;
 
-	void OnCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider) override;
+	void ResolveCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider) override;
 
 private:
 

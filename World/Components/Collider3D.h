@@ -19,11 +19,19 @@ public:
 	Collider3D(std::unique_ptr<Collision::IShape3D> shape, GameObject* owner, Collision::Tag tag);
 	~Collider3D();
 
+	/// <summary>
+	/// コライダを有効にし、マネージャーに登録する
+	/// </summary>
 	void Enable();
 
+	/// <summary>
+	/// コライダを無効にし、マネージャーへの登録を解除する
+	/// </summary>
 	void Disable();
 
 public:
+
+	bool IsEnabled() const { return mIsEnable; }
 
 	Collision::IShape3D* GetShape() const { return mShape.get(); }
 

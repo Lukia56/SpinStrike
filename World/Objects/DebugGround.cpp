@@ -9,7 +9,7 @@ namespace
 
 	constexpr float kLineDistance = 100.0f;
 
-	constexpr int kLineNum = (kAreaHalfSize * 2.0f) / kLineDistance;
+	constexpr int kLineNum = static_cast<int>((kAreaHalfSize * 2.0f) / kLineDistance);
 }
 
 void DebugGround::Draw()

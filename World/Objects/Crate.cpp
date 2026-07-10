@@ -72,7 +72,7 @@ void Crate::Draw()
 	mCollider->GetShape()->DebugDraw();
 }
 
-void Crate::OnCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider)
+void Crate::ResolveCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider)
 {
 	if (oppCollider->GetTag() != Collision::Tag::Tornado) return;
 

@@ -25,8 +25,12 @@ private:
 
 public:
 
-	~CollisionManager();
+	~CollisionManager() = default;
 
+	/// <summary>
+	/// <para>登録されたすべてのコライダ同士の衝突を調べる</para>
+	/// <para>所有者が非アクティブであったり、お互いの所有者が同じなら調べない</para>
+	/// </summary>
 	void CheckAllCollision();
 
 	void Register(Collider3D* collider);

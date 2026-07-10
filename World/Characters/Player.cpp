@@ -167,7 +167,7 @@ void Player::DebugDraw()
 	mCollider->GetShape()->DebugDraw();
 }
 
-void Player::OnCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider)
+void Player::ResolveCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider)
 {
 	switch (oppCollider->GetTag())
 	{

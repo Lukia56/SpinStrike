@@ -9,13 +9,10 @@ namespace Collision
 	/// </summary>
 	struct Result
 	{
-		/// <summary>
-		/// 当たったかどうか
-		/// </summary>
 		bool isHit = false;
 
 		/// <summary>
-		/// 衝突した面の法線ベクトル
+		/// 衝突した面の法線
 		/// </summary>
 		Vector3 normal = Vector3::Zero;
 

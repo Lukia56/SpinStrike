@@ -39,9 +39,7 @@ public:
 	/// <returns>自身を削除するならtrue</returns>
 	bool CheckDestroy();
 
-	virtual void OnCollision(GameObject* other, const Collision::Result& result, Collision::Tag tag) {};
-
-	virtual void OnCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider) {}
+	virtual void ResolveCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider) {}
 
 	/// <returns>追加したゲームオブジェクトの生ポインタ</returns>
 	template <class T, class... Args>
