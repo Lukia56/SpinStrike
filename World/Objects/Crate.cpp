@@ -1,8 +1,8 @@
 #include "Crate.h"
 #include "../Characters/PlayerTornado.h"
-#include "../Components/Collision3D.h"
+#include "../Components/Collider3D.h"
 #include "../Components/Rendering/ModelRenderer.h"
-#include "System/CollisionManager.h"
+#include "Collision/Collision3D.h"
 #include "System/TimeManager.h"
 #include "Utility/Math.h"
 #include "Utility/Random.h"
@@ -27,15 +27,17 @@ Crate::Crate() :
 {
 	mModel = std::make_unique<ModelRenderer>(this);
 
-	mCollider = std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize);
-	CollisionManager::GetInstance().Register(this, mCollider.get(), Collision::Tag::Terrain);
+	mCollider = std::make_unique<Collider3D>(
+		std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize),
+		this,
+		Collision::Tag::Terrain
+	);
 
 	mTransform.localScale = kSize;
 }
 
 Crate::~Crate()
 {
-	CollisionManager::GetInstance().Unregister(mCollider.get());
 }
 
 void Crate::Init()
@@ -60,19 +62,19 @@ void Crate::Update()
 	}
 	mIsHitTornado = false;
 
-	mCollider->SetPosition(mTransform.CalculateWorldPosition());
+	mCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition());
 }
 
 void Crate::Draw()
 {
 	mModel->Draw();
 
-	mCollider->DebugDraw();
+	mCollider->GetShape()->DebugDraw();
 }
 
-void Crate::OnCollision(GameObject* other, const Collision::Result& result, Collision::Tag tag)
+void Crate::OnCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider)
 {
-	if (tag != Collision::Tag::Tornado) return;
+	if (oppCollider->GetTag() != Collision::Tag::Tornado) return;
 
 	mEnduranceTimer += TimeManager::GetDeltaTime();
 
@@ -81,7 +83,7 @@ void Crate::OnCollision(GameObject* other, const Collision::Result& result, Coll
 	if (mEnduranceTimer > kEnduranceTime)
 	{
 		// タグがTornadoなのはPlayerTornado以外無い想定のためstatic_cast
-		auto tornado = static_cast<PlayerTornado*>(other);
+		auto tornado = static_cast<PlayerTornado*>(oppCollider->GetOwner());
 
 		tornado->AddPulledNum();
 

@@ -3,11 +3,7 @@
 #include "../GameObject.h"
 
 class ModelRenderer;
-
-namespace Collision
-{
-	class AABB3D;
-}
+class Collider3D;
 
 class Crate : public GameObject
 {
@@ -21,7 +17,7 @@ public:
 	void Update() override;
 	void Draw() override;
 
-	void OnCollision(GameObject* other, const Collision::Result& result, Collision::Tag tag) override;
+	void OnCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider) override;
 
 private:
 
@@ -34,5 +30,5 @@ private:
 
 	std::unique_ptr<ModelRenderer> mModel;
 
-	std::unique_ptr<Collision::AABB3D> mCollider;
+	std::unique_ptr<Collider3D> mCollider;
 };

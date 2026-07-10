@@ -5,10 +5,10 @@
 #include <imgui.h>
 #include "PlayerBulletManager.h"
 #include "PlayerTornado.h"
-#include "../Components/Collision3D.h"
+#include "../Components/Collider3D.h"
 #include "../Components/Rendering/ModelRenderer.h"
 #include "../Objects/DebugGround.h"
-#include "System/CollisionManager.h"
+#include "Collision/Collision3D.h"
 #include "System/InputManager.h"
 #include "System/TimeManager.h"
 #include "Utility/Color.h"
@@ -59,15 +59,17 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mTornado = AddToChild<PlayerTornado>(bulletManager);
 
 	//mModel = std::make_unique<ModelRenderer>(this);
-	mCollider = std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize);
-	CollisionManager::GetInstance().Register(this, mCollider.get(), Collision::Tag::Player);
+	mCollider = std::make_unique<Collider3D>(
+		std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize),
+		this,
+		Collision::Tag::Player
+	);
 
 	AddToChild<DebugGround>();
 }
 
 Player::~Player()
 {
-	CollisionManager::GetInstance().Unregister(mCollider.get());
 	mCollider = nullptr;
 	mModel = nullptr;
 }
@@ -125,7 +127,7 @@ void Player::Update()
 		mOnGround = false;
 	}
 
-	mCollider->SetPosition(mTransform.CalculateWorldPosition() + kCollisionOffsetPos);
+	mCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition() + kCollisionOffsetPos);
 }
 
 void Player::Draw()
@@ -162,12 +164,12 @@ void Player::DebugDraw()
 		ImGui::End();
 	}
 
-	mCollider->DebugDraw();
+	mCollider->GetShape()->DebugDraw();
 }
 
-void Player::OnCollision(GameObject* other, const Collision::Result& result, Collision::Tag tag)
+void Player::OnCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider)
 {
-	switch (tag)
+	switch (oppCollider->GetTag())
 	{
 	case Collision::Tag::Terrain:
 		mTransform.localPosition += result.normal * result.penetration;

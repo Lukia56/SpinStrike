@@ -2,10 +2,7 @@
 
 #include "../GameObject.h"
 
-namespace Collision
-{
-	class AABB3D;
-}
+class Collider3D;
 
 class TestBox : public GameObject
 {
@@ -26,5 +23,5 @@ public:
 
 private:
 
-	std::unique_ptr<Collision::AABB3D> mCollider;
+	std::unique_ptr<Collider3D> mCollider;
 };

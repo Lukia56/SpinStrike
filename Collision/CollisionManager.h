@@ -6,8 +6,9 @@
 class GameObject;
 namespace Collision
 {
-	class ICollider3D;
+	class IShape3D;
 }
+class Collider3D;
 
 /// <summary>
 /// 衝突を検知し結果を送信するクラス
@@ -28,22 +29,13 @@ public:
 
 	void CheckAllCollision();
 
-	void Register(GameObject* owner, Collision::ICollider3D* collider, Collision::Tag tag = Collision::Tag::None);
+	void Register(Collider3D* collider);
 
-	void Unregister(Collision::ICollider3D* collider);
+	void Unregister(Collider3D* collider);
 
 	static CollisionManager& GetInstance();
 
 private:
 
-	struct CollisionActor
-	{
-		GameObject* owner = nullptr;
-		Collision::ICollider3D* collider = nullptr;
-		Collision::Tag tag;
-	};
-
-private:
-
-	std::vector<CollisionActor> mCollisionActors;
+	std::vector<Collider3D*> mColliders;
 };

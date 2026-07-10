@@ -1,8 +1,8 @@
 #include "PlayerTornado.h"
 #include <imgui.h>
 #include "PlayerBulletManager.h"
-#include "../Components/Collision3D.h"
-#include "System/CollisionManager.h"
+#include "../Components/Collider3D.h"
+#include "Collision/Collision3D.h"
 
 namespace
 {
@@ -17,12 +17,15 @@ PlayerTornado::PlayerTornado(PlayerBulletManager* bulletManager) :
 	mCollider(nullptr),
 	mBulletManager(bulletManager)
 {
-	mCollider = std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize);
+	mCollider = std::make_unique<Collider3D>(
+		std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize),
+		this,
+		Collision::Tag::Tornado
+	);
 }
 
 PlayerTornado::~PlayerTornado()
 {
-	CollisionManager::GetInstance().Unregister(mCollider.get());
 }
 
 void PlayerTornado::Init()
@@ -35,7 +38,7 @@ void PlayerTornado::Finalize()
 
 void PlayerTornado::Update()
 {
-	mCollider->SetPosition(mTransform.CalculateWorldPosition() + kCollisionOffsetPos);
+	mCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition() + kCollisionOffsetPos);
 }
 
 void PlayerTornado::Draw()
@@ -44,7 +47,7 @@ void PlayerTornado::Draw()
 
 void PlayerTornado::DebugDraw()
 {
-	if (mIsSpinning) mCollider->DebugDraw();
+	if (mIsSpinning) mCollider->GetShape()->DebugDraw();
 
 	using namespace ImGui;
 	if (Begin("Player"))
@@ -74,10 +77,10 @@ void PlayerTornado::SetSpinningFlag(const bool flag)
 	
 	if (flag)
 	{
-		CollisionManager::GetInstance().Register(this, mCollider.get(), Collision::Tag::Tornado);
+		mCollider->Enable();
 	}
 	else
 	{
-		CollisionManager::GetInstance().Unregister(mCollider.get());
+		mCollider->Disable();
 	}
 }

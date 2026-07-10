@@ -3,8 +3,10 @@
 #include <memory>
 #include <vector>
 #include "Components/Transform.h"
-#include "Components/CollisionResult.h"
-#include "System/Collision/CollisionTag.h"
+#include "Collision/CollisionResult.h"
+#include "Collision/CollisionTag.h"
+
+class Collider3D;
 
 /// <summary>
 /// ゲームで扱うオブジェクトの基底クラス
@@ -38,6 +40,8 @@ public:
 	bool CheckDestroy();
 
 	virtual void OnCollision(GameObject* other, const Collision::Result& result, Collision::Tag tag) {};
+
+	virtual void OnCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider) {}
 
 	/// <returns>追加したゲームオブジェクトの生ポインタ</returns>
 	template <class T, class... Args>

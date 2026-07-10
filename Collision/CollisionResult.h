@@ -5,8 +5,8 @@
 namespace Collision
 {
 	/// <summary>
-		/// 衝突結果のデータ群
-		/// </summary>
+	/// 衝突結果のデータ群
+	/// </summary>
 	struct Result
 	{
 		/// <summary>

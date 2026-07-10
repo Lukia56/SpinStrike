@@ -6,11 +6,7 @@
 class PlayerTornado;
 class PlayerBulletManager;
 class ModelRenderer;
-
-namespace Collision
-{
-	class AABB3D;
-}
+class Collider3D;
 
 class Player : public GameObject
 {
@@ -29,7 +25,7 @@ public:
 
 	void DebugDraw() override;
 
-	void OnCollision(GameObject* other, const Collision::Result& result, Collision::Tag tag) override;
+	void OnCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider) override;
 
 public:
 
@@ -67,7 +63,7 @@ private:
 
 	std::unique_ptr<ModelRenderer> mModel;
 
-	std::unique_ptr<Collision::AABB3D> mCollider;
+	std::unique_ptr<Collider3D> mCollider;
 
 	PlayerTornado* mTornado;
 

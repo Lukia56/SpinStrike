@@ -1,7 +1,7 @@
 #include "TestBox.h"
 #include <memory>
-#include "../Components/Collision3D.h"
-#include "System/CollisionManager.h"
+#include "../Components/Collider3D.h"
+#include "Collision/Collision3D.h"
 
 namespace
 {
@@ -10,13 +10,15 @@ namespace
 
 TestBox::TestBox()
 {
-	mCollider = std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize);
-	CollisionManager::GetInstance().Register(this, mCollider.get(), Collision::Tag::Terrain);
+	mCollider = std::make_unique<Collider3D>(
+		std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize),
+		this,
+		Collision::Tag::Terrain
+	);
 }
 
 TestBox::~TestBox()
 {
-	CollisionManager::GetInstance().Unregister(mCollider.get());
 }
 
 void TestBox::Init()
@@ -29,7 +31,7 @@ void TestBox::Finalize()
 
 void TestBox::Update()
 {
-	mCollider->SetPosition(mTransform.CalculateWorldPosition());
+	mCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition());
 }
 
 void TestBox::Draw()
@@ -38,5 +40,5 @@ void TestBox::Draw()
 
 void TestBox::DebugDraw()
 {
-	mCollider->DebugDraw();
+	mCollider->GetShape()->DebugDraw();
 }

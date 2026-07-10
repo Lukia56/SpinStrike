@@ -3,10 +3,7 @@
 #include "../GameObject.h"
 
 class PlayerBulletManager;
-namespace Collision
-{
-	class AABB3D;
-}
+class Collider3D;
 
 class PlayerTornado : public GameObject
 {
@@ -38,7 +35,7 @@ private:
 	/// </summary>
 	int mPulledNum;
 
-	std::unique_ptr<Collision::AABB3D> mCollider;
+	std::unique_ptr<Collider3D> mCollider;
 
 	PlayerBulletManager* mBulletManager;
 };

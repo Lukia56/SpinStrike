@@ -11,25 +11,22 @@ namespace Collision
 	class Capsule3D;
 
 	/// <summary>
-	/// 衝突判定の3Dコライダのインターフェース
+	/// 衝突判定の3D形状のインターフェース
 	/// </summary>
-	class ICollider3D
+	class IShape3D
 	{
 	public:
 
-		ICollider3D() = default;
-		virtual ~ICollider3D() = default;
+		IShape3D() = default;
+		virtual ~IShape3D() = default;
 
 		/// <summary>
 		/// 衝突しているか調べる
 		/// </summary>
-		/// <param name="other">衝突判定を調べるコライダー　コピーでなく、読み取り専用になっていたら参照でもポインタでもOK</param>
+		/// <param name="other">衝突判定を調べる形状</param>
 		/// <returns>衝突情報</returns>
-		virtual Collision::Result CheckCollision(const ICollider3D* other) const = 0;
+		virtual Collision::Result CheckCollision(const IShape3D* other) const = 0;
 
-		/// <summary>
-		/// 形状のデバッグ描画
-		/// </summary>
 		virtual void DebugDraw() const = 0;
 
 	public:
@@ -48,9 +45,9 @@ namespace Collision
 	};
 
 	/// <summary>
-	/// 衝突判定の球のコライダのクラス
+	/// 衝突判定の球の形状のクラス
 	/// </summary>
-	class Sphere3D : public ICollider3D
+	class Sphere3D : public IShape3D
 	{
 	public:
 
@@ -58,16 +55,8 @@ namespace Collision
 		Sphere3D(const Vector3& pos, float radius) : mCenterPos(pos), mRadius(radius) {}
 		~Sphere3D() = default;
 
-		/// <summary>
-		/// 衝突しているか調べる
-		/// </summary>
-		/// <param name="other">衝突判定を調べるコライダー</param>
-		/// <returns>衝突情報</returns>
-		Collision::Result CheckCollision(const ICollider3D* other) const override { return other->Check(this); }
+		Collision::Result CheckCollision(const IShape3D* other) const override { return other->Check(this); }
 
-		/// <summary>
-		/// 形状のデバッグ描画
-		/// </summary>
 		void DebugDraw() const override;
 
 	public:
@@ -102,9 +91,9 @@ namespace Collision
 	};
 
 	/// <summary>
-	/// 衝突判定のAABBのコライダのクラス
+	/// 衝突判定のAABBの形状のクラス
 	/// </summary>
-	class AABB3D : public ICollider3D
+	class AABB3D : public IShape3D
 	{
 	public:
 
@@ -112,16 +101,8 @@ namespace Collision
 		AABB3D(const Vector3& pos, const Vector3& size) : mCenterPos(pos), mHalfSize(size * 0.5f) {}
 		~AABB3D() = default;
 
-		/// <summary>
-		/// 衝突しているか調べる
-		/// </summary>
-		/// <param name="other">衝突判定を調べるコライダー</param>
-		/// <returns>衝突情報</returns>
-		Collision::Result CheckCollision(const ICollider3D* other) const override { return other->Check(this); }
+		Collision::Result CheckCollision(const IShape3D* other) const override { return other->Check(this); }
 
-		/// <summary>
-		/// 形状のデバッグ描画
-		/// </summary>
 		void DebugDraw() const override;
 
 	public:
@@ -155,23 +136,18 @@ namespace Collision
 		Vector3 mHalfSize;
 	};
 
-	class Capsule3D : public ICollider3D
+	/// <summary>
+	/// 衝突判定のカプセルの形状のクラス
+	/// </summary>
+	class Capsule3D : public IShape3D
 	{
 	public:
 
 		Capsule3D() = default;
 		~Capsule3D() = default;
 
-		/// <summary>
-		/// 衝突しているか調べる
-		/// </summary>
-		/// <param name="other">衝突判定を調べるコライダー</param>
-		/// <returns>衝突情報</returns>
-		Collision::Result CheckCollision(const ICollider3D* other) const override { return other->Check(this); }
+		Collision::Result CheckCollision(const IShape3D* other) const override { return other->Check(this); }
 
-		/// <summary>
-		/// 形状のデバッグ描画
-		/// </summary>
 		void DebugDraw() const override;
 
 	protected:
