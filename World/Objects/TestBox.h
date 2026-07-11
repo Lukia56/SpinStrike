@@ -9,6 +9,7 @@ class TestBox : public GameObject
 public:
 
 	TestBox();
+	TestBox(const Vector3& scale);
 	~TestBox();
 
 	void Init() override;

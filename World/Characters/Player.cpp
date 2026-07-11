@@ -98,11 +98,7 @@ void Player::Update()
 {
 	float deltaTime = TimeManager::GetDeltaTime();
 
-	if (mCollisionPush != Vector3::Zero)
-	{
-		mTransform.localPosition += mCollisionPush;
-		mCollisionPush = Vector3::Zero;
-	}
+	ResolvePush();
 
 	MoveHorizontal(deltaTime);
 	MoveVertical(deltaTime);
@@ -129,17 +125,6 @@ void Player::Update()
 		mOnWall = false;
 	}
 
-	// ínñ Ç™Ç»Ç¢ÇΩÇﬂâº
-	if (mTransform.CalculateWorldPosition().y < 0.0f)
-	{
-		mTransform.localPosition.y -= mTransform.CalculateWorldPosition().y;
-		mVelocity.y = 0.0f;
-		mCanJumpTimer = kJumpBufferTime;
-
-		mOnGround = true;
-		mIsJumping = false;
-	}
-	else
 	{
 		mOnGround = false;
 	}
@@ -232,6 +217,15 @@ void Player::ResolveCollision(const Collision::Result& result, const Collider3D*
 	}
 }
 
+void Player::ResolvePush()
+{
+	if (mCollisionPush != Vector3::Zero)
+	{
+		mTransform.localPosition += mCollisionPush;
+		mCollisionPush = Vector3::Zero;
+	}
+}
+
 void Player::MoveHorizontal(float deltaTime)
 {
 	if (mIgnoreMoveInputTimer > 0.0f) return;
@@ -317,6 +311,7 @@ void Player::MoveVertical(float deltaTime)
 		mIsJumping = false;
 	}
 
+	// óéâ∫èàóù
 	if (!mOnGround)
 	{
 		if (mOnWall)

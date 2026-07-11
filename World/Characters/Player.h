@@ -33,6 +33,8 @@ public:
 
 private:
 
+	void ResolvePush();
+
 	void MoveHorizontal(float deltaTime);
 
 	void MoveVertical(float deltaTime);

@@ -25,9 +25,12 @@ SceneTest::SceneTest() :
 
 	auto terrainRoot = AddToRoot<RootObject>();
 
-	auto floorBox = terrainRoot->AddToChild<TestBox>();
-	auto ceilingBox = terrainRoot->AddToChild<TestBox>();
-	ceilingBox->GetTransform().Translate(Vector3(0.0f, 350.0f, 0.0f));
+	auto floorBox = terrainRoot->AddToChild<TestBox>(Vector3(1000.0f, 100.0f, 1000.0f));
+	floorBox->GetTransform().localPosition = Vector3(0.0f, -50.0f, 0.0f);
+	auto wallBoxA = terrainRoot->AddToChild<TestBox>(Vector3(100.0f, 1000.0f, 100.0f));
+	wallBoxA->GetTransform().localPosition = Vector3(100.0f, 500.0f, 0.0f);
+	auto wallBoxB = terrainRoot->AddToChild<TestBox>(Vector3(100.0f, 1000.0f, 100.0f));
+	wallBoxB->GetTransform().localPosition = Vector3(-100.0f, 500.0f, 0.0f);
 
 	GetCameraManager()->AddCamera(Camera::Type::Follow, std::make_unique<CameraFollow>(&mPlayer->GetTransform()));
 	GetCameraManager()->SetCurrentCameraType(Camera::Type::Follow);
@@ -44,7 +47,7 @@ void SceneTest::Init()
 	SetLightDifColorHandle(mPointLight, GetColorF(1.0f, 0.0f, 0.0f, 1.0f));
 	SetLightSpcColorHandle(mPointLight, GetColorF(1.0f, 0.0f, 0.0f, 1.0f));
 
-	//Mouse::GetInstance().SetMode(Mouse::Mode::Relative);
+	Mouse::GetInstance().SetMode(Mouse::Mode::Relative);
 }
 
 void SceneTest::Finalize()
