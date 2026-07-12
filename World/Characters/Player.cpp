@@ -194,13 +194,23 @@ void Player::ResolveCollision(const Collision::Result& result, const Collider3D*
 
 		// TODO: 壁ジャンプと同時に壁と反対に入力すると壁に向かって壁ジャンプするバグ修正
 		// 壁との衝突
-		if ((std::abs(result.normal.x) > 0.5f || std::abs(result.normal.z) > 0.5f) && !Math::NearyEqual(result.penetration, 0.0f))
+		if ((std::abs(result.normal.x) > 0.5f || std::abs(result.normal.z) > 0.5f) && !Math::IsNearZero(result.penetration))
 		{
 			mOnWall = true;
 		}
 
 		// TODO: 壁がない場所に移動しても壁ずりがキャンセルされないバグ修正
 		
+		// 壁との衝突
+		if (!Math::IsNearZero(result.normal.x))
+		{
+			mVelocity.x = 0.0f;
+		}
+		if (!Math::IsNearZero(result.normal.z))
+		{
+			mVelocity.z = 0.0f;
+		}
+
 		// 地面との衝突
 		if (result.normal.y > 0.5f)
 		{
