@@ -21,6 +21,8 @@ public:
 
 	void Update() override;
 
+	void PhysicsUpdate() override;
+
 	void Draw() override;
 
 	void DebugDraw() override;

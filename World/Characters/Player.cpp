@@ -114,23 +114,21 @@ void Player::Update()
 		mTornado->SetSpinningFlag(false);
 	}
 
-	mTransform.localPosition += mVelocity * deltaTime;
-
 	if (!mOnGround && mCanJumpTimer > 0.0f) mCanJumpTimer -= TimeManager::GetDeltaTime();
 
 	if (mIgnoreMoveInputTimer > 0.0f) mIgnoreMoveInputTimer -= TimeManager::GetDeltaTime();
+}
 
-	if (mOnGround)
-	{
-		mOnWall = false;
-	}
-
-	{
-		mOnGround = false;
-	}
+void Player::PhysicsUpdate()
+{
+	mTransform.localPosition += mVelocity * TimeManager::GetDeltaTime();
 
 	mBodyCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition() + kBodyCollisionOffsetPos);
 	mFootCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition() + kFootCollisionOffsetPos);
+
+	if (mOnGround) mOnWall = false;
+
+	mOnGround = false;
 }
 
 void Player::Draw()
