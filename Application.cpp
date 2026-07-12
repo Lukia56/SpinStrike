@@ -4,7 +4,6 @@
 #include <DxLib.h>
 #include <imgui.h>
 #include <Psapi.h>
-#include "Collision/CollisionManager.h"
 #include "Scene/SceneManager.h"
 #include "System/ImGuiRenderer.h"
 #include "System/InputManager.h"
@@ -100,7 +99,7 @@ void Application::Update()
 	while (duration_cast<microseconds>(steady_clock::now() - TimeManager::GetPrevTime()) < microseconds(TimeManager::GetFixedDeltaTimeMs())) {}
 	TimeManager::Update();
 
-	CollisionManager::GetInstance().CheckAllCollision();
+	mSceneManager->PhysicsUpdate();
 
 	mSceneManager->Update();
 }

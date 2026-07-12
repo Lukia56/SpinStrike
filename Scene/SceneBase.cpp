@@ -4,6 +4,7 @@
 #include "../World/GameObject.h"
 #include "Camera/CameraManager.h"
 #include "Camera/CameraStatic.h"
+#include "Collision/CollisionManager.h"
 
 SceneBase::SceneBase() :
 	mCameraManager(nullptr)
@@ -29,9 +30,18 @@ std::unique_ptr<SceneBase> SceneBase::UpdateBase()
 {
 	UpdateRootObjects();
 
+	// TODO: PostUpdate
+
 	mCameraManager->Update();
 
 	return Update();
+}
+
+void SceneBase::PhysicsUpdate()
+{
+	PhysicsUpdateRootObjects();
+
+	CollisionManager::GetInstance().CheckAllCollision();
 }
 
 void SceneBase::DrawBase()
@@ -62,6 +72,14 @@ void SceneBase::UpdateRootObjects()
 	}
 }
 
+void SceneBase::PhysicsUpdateRootObjects()
+{
+	for (const auto& it : mRootObjects)
+	{
+		PhysicsUpdateGameObject(it.get());
+	}
+}
+
 void SceneBase::DrawRootObjects()
 {
 	for (const auto& it : mRootObjects)
@@ -88,6 +106,19 @@ void SceneBase::UpdateGameObject(GameObject* gameObject)
 	for (const auto& it : gameObject->GetTransform().GetChildren())
 	{
 		UpdateGameObject(it.get());
+	}
+}
+
+void SceneBase::PhysicsUpdateGameObject(GameObject* gameObject)
+{
+	if (!gameObject->IsActive()) return;
+
+	gameObject->PhysicsUpdate();
+
+	// 子オブジェクトについて再帰
+	for (const auto& it : gameObject->GetTransform().GetChildren())
+	{
+		PhysicsUpdateGameObject(it.get());
 	}
 }
 

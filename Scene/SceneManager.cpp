@@ -34,6 +34,11 @@ void SceneManager::Update()
 	mCurrentScene->Init();
 }
 
+void SceneManager::PhysicsUpdate()
+{
+	mCurrentScene->PhysicsUpdate();
+}
+
 void SceneManager::Draw()
 {
 	mCurrentScene->DrawBase();

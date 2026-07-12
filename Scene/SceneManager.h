@@ -27,6 +27,8 @@ public:
 	/// </summary>
 	void Update();
 
+	void PhysicsUpdate();
+
 	void Draw();
 
 	void DebugDraw();
