@@ -85,7 +85,7 @@ namespace Collision
 
 	void Sphere3D::DebugDraw() const
 	{
-		DrawSphere3D(mCenterPos.GetAsDxLibVector(), mRadius, 10, Color::white.GetAsHexRGB(), Color::white.GetAsHexRGB(), false);
+		DrawSphere3D(GetPosition().GetAsDxLibVector(), mRadius, 10, Color::white.GetAsHexRGB(), Color::white.GetAsHexRGB(), false);
 	}
 
 	Collision::Result Sphere3D::Check(const Sphere3D* other) const

@@ -32,7 +32,10 @@ namespace Collision
 	public:
 
 		virtual void SetPosition(const Vector3& pos) = 0;
-		virtual const Vector3& GetPosition() const = 0;
+		virtual Vector3 GetPosition() const = 0;
+
+		virtual void SetOffset(const Vector3& offset) = 0;
+		virtual const Vector3& GetOffset() const = 0;
 
 	protected:
 
@@ -52,7 +55,7 @@ namespace Collision
 	public:
 
 		Sphere3D() = default;
-		Sphere3D(const Vector3& pos, float radius) : mCenterPos(pos), mRadius(radius) {}
+		Sphere3D(const Vector3& pos, float radius, const Vector3& offset = Vector3::Zero) : mCenterPos(pos), mOffsetPos(offset), mRadius(radius) {}
 		~Sphere3D() = default;
 
 		Collision::Result CheckCollision(const IShape3D* other) const override { return other->Check(this); }
@@ -62,7 +65,13 @@ namespace Collision
 	public:
 
 		void SetPosition(const Vector3& pos) override { mCenterPos = pos; }
-		const Vector3& GetPosition() const override { return mCenterPos; }
+		/// <summary>
+		/// オフセット込みの座標を取得
+		/// </summary>
+		Vector3 GetPosition() const override { return mCenterPos + mOffsetPos; }
+
+		void SetOffset(const Vector3& offset) override { mOffsetPos = offset; }
+		const Vector3& GetOffset() const override { return mOffsetPos; }
 
 		float GetRadius() const { return mRadius; }
 
@@ -87,6 +96,8 @@ namespace Collision
 		
 		Vector3 mCenterPos;
 
+		Vector3 mOffsetPos;
+
 		float mRadius;
 	};
 
@@ -98,7 +109,7 @@ namespace Collision
 	public:
 
 		AABB3D() = default;
-		AABB3D(const Vector3& pos, const Vector3& size) : mCenterPos(pos), mHalfSize(size * 0.5f) {}
+		AABB3D(const Vector3& pos, const Vector3& size, const Vector3& offset = Vector3::Zero) : mCenterPos(pos), mOffsetPos(offset), mHalfSize(size * 0.5f) {}
 		~AABB3D() = default;
 
 		Collision::Result CheckCollision(const IShape3D* other) const override { return other->Check(this); }
@@ -108,7 +119,13 @@ namespace Collision
 	public:
 
 		void SetPosition(const Vector3& pos) override { mCenterPos = pos; }
-		const Vector3& GetPosition() const override { return mCenterPos; }
+		/// <summary>
+		/// オフセット込みの座標を取得
+		/// </summary>
+		Vector3 GetPosition() const override { return mCenterPos + mOffsetPos; }
+
+		void SetOffset(const Vector3& offset) override { mOffsetPos = offset; }
+		const Vector3& GetOffset() const override { return mOffsetPos; }
 
 		const Vector3& GetHalfSize() const { return mHalfSize; }
 
@@ -132,6 +149,8 @@ namespace Collision
 	private:
 
 		Vector3 mCenterPos;
+
+		Vector3 mOffsetPos;
 
 		Vector3 mHalfSize;
 	};
