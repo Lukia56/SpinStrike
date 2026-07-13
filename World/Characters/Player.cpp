@@ -40,8 +40,11 @@ namespace
 	constexpr Vector3 kBodyCollisionSize{ 60.0f, 100.0f, 60.0f };
 	constexpr Vector3 kBodyCollisionOffsetPos{ 0.0f, kBodyCollisionSize.y / 2.0f, 0.0f };
 
-	constexpr Vector3 kFootCollisionSize{ kBodyCollisionSize.x, 1.0f, kBodyCollisionSize.z };
+	constexpr Vector3 kFootCollisionSize{ kBodyCollisionSize.x - 1, 1.0f, kBodyCollisionSize.z - 1 };
 	constexpr Vector3 kFootCollisionOffsetPos{ 0.0f, -5.0f, 0.0f };
+
+	constexpr Vector3 kWallCollisionSize{ kBodyCollisionSize.x + 1, 1.0f, kBodyCollisionSize.z + 1 };
+	constexpr Vector3 kWallCollisionOffsetPos{ 0.0f, 60.0f, 0.0f };
 
 	const char* const kModelHandlePath = "";
 }
@@ -52,11 +55,13 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mIsJumping(false),
 	mOnGround(false),
 	mOnWall(false),
+	mOnCancelStickWall(false),
 	mStickWallCancelTimer(0.0f),
 	mIgnoreMoveInputTimer(0.0f),
 	mModel(nullptr),
 	mBodyCollider(nullptr),
 	mFootCollider(nullptr),
+	mWallCollider(nullptr),
 	mTornado(nullptr)
 {
 	SetTag(Tag::Player);
@@ -74,6 +79,11 @@ Player::Player(PlayerBulletManager* bulletManager) :
 		std::make_unique<Collision::AABB3D>(Vector3::Zero, kFootCollisionSize, kFootCollisionOffsetPos),
 		this,
 		Collider3D::Tag::Foot
+	);
+	mWallCollider = std::make_unique<Collider3D>(
+		std::make_unique<Collision::AABB3D>(Vector3::Zero, kWallCollisionSize, kWallCollisionOffsetPos),
+		this,
+		Collider3D::Tag::CheckWall
 	);
 
 	AddToChild<DebugGround>();
@@ -97,6 +107,8 @@ void Player::Finalize()
 void Player::Update()
 {
 	float deltaTime = TimeManager::GetDeltaTime();
+
+	mOnCancelStickWall = false;
 
 	ResolvePush();
 
@@ -125,10 +137,11 @@ void Player::PhysicsUpdate()
 
 	mBodyCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition());
 	mFootCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition());
-
-	if (mOnGround) mOnWall = false;
+	mWallCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition());
 
 	mOnGround = false;
+
+	mOnWall = false;
 }
 
 void Player::Draw()
@@ -169,6 +182,7 @@ void Player::DebugDraw()
 
 	mBodyCollider->GetShape()->DebugDraw();
 	mFootCollider->GetShape()->DebugDraw();
+	mWallCollider->GetShape()->DebugDraw();
 }
 
 void Player::ResolveCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider)
@@ -177,12 +191,25 @@ void Player::ResolveCollision(const Collision::Result& result, const Collider3D*
 	{
 		if (oppCollider->GetOwner()->GetTag() != Tag::Terrain) return;
 
-		if (result.normal.y <= 0.5f) return;
+		if (result.normal.y < 0.0f || Math::IsNearZero(result.normal.y)) return;
 		
 		// 地面との衝突
 		mCanJumpTimer = kJumpBufferTime;
 		mOnGround = true;
 		mIsJumping = false;
+
+		return;
+	}
+	else if (myCollider->GetTag() == Collider3D::Tag::CheckWall)
+	{
+		if (oppCollider->GetOwner()->GetTag() != Tag::Terrain) return;
+		if (Math::IsNearZero(result.penetration)) return;
+		if (mOnGround) return;
+		if (mOnWall) return;
+		if (mOnCancelStickWall) return;
+
+		// 壁との衝突
+		mOnWall = true;
 
 		return;
 	}
@@ -195,13 +222,6 @@ void Player::ResolveCollision(const Collision::Result& result, const Collider3D*
 		mLastCollideNormal = result.normal;
 
 		// TODO: 壁ジャンプと同時に壁と反対に入力すると壁に向かって壁ジャンプするバグ修正
-		// 壁との衝突
-		if ((std::abs(result.normal.x) > 0.5f || std::abs(result.normal.z) > 0.5f) && !Math::IsNearZero(result.penetration))
-		{
-			mOnWall = true;
-		}
-
-		// TODO: 壁がない場所に移動しても壁ずりがキャンセルされないバグ修正
 		
 		// 壁との衝突
 		if (!Math::IsNearZero(result.normal.x))
@@ -283,6 +303,7 @@ void Player::MoveHorizontal(float deltaTime)
 		{
 			mStickWallCancelTimer = 0.0f;
 			mOnWall = false;
+			mOnCancelStickWall = true;
 		}
 		
 		// 壁ずり状態なら壁に沿って移動させる
@@ -335,12 +356,12 @@ void Player::MoveVertical(float deltaTime)
 	}
 }
 
-bool Player::CanJump()
+bool Player::CanJump() const
 {
 	return mOnGround || mCanJumpTimer > 0.0f || mOnWall;
 }
 
-bool Player::CanCancelJump()
+bool Player::CanCancelJump() const
 {
 	return mIsJumping && mVelocity.y > kJumpCancelThreshold;
 }

@@ -19,6 +19,7 @@ public:
 	{
 		Body,
 		Foot,
+		CheckWall,
 		Sensor
 	};
 

@@ -41,9 +41,9 @@ private:
 
 	void MoveVertical(float deltaTime);
 
-	bool CanJump();
+	bool CanJump() const;
 
-	bool CanCancelJump();
+	bool CanCancelJump() const;
 
 private:
 
@@ -63,6 +63,8 @@ private:
 
 	bool mOnWall;
 
+	bool mOnCancelStickWall;
+
 	float mStickWallCancelTimer;
 
 	float mIgnoreMoveInputTimer;
@@ -72,6 +74,8 @@ private:
 	std::unique_ptr<Collider3D> mBodyCollider;
 
 	std::unique_ptr<Collider3D> mFootCollider;
+
+	std::unique_ptr<Collider3D> mWallCollider;
 
 	PlayerTornado* mTornado;
 
