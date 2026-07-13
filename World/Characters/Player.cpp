@@ -66,12 +66,12 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mTornado = AddToChild<PlayerTornado>(bulletManager);
 
 	mBodyCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Vector3::Zero, kBodyCollisionSize),
+		std::make_unique<Collision::AABB3D>(Vector3::Zero, kBodyCollisionSize, kBodyCollisionOffsetPos),
 		this,
 		Collider3D::Tag::Body
 	);
 	mFootCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Vector3::Zero, kFootCollisionSize),
+		std::make_unique<Collision::AABB3D>(Vector3::Zero, kFootCollisionSize, kFootCollisionOffsetPos),
 		this,
 		Collider3D::Tag::Foot
 	);
@@ -123,8 +123,8 @@ void Player::PhysicsUpdate()
 {
 	mTransform.localPosition += mVelocity * TimeManager::GetDeltaTime();
 
-	mBodyCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition() + kBodyCollisionOffsetPos);
-	mFootCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition() + kFootCollisionOffsetPos);
+	mBodyCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition());
+	mFootCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition());
 
 	if (mOnGround) mOnWall = false;
 
@@ -143,6 +143,8 @@ void Player::Draw()
 void Player::DebugDraw()
 {
 	Vector3 pos = mTransform.CalculateWorldPosition();
+
+	DrawSphere3D(pos.GetAsDxLibVector(), 10, 8, 0x00ff00, 0x00ff00, 1);
 
 	if (ImGui::Begin("Player"))
 	{

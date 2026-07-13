@@ -20,7 +20,7 @@ PlayerTornado::PlayerTornado(PlayerBulletManager* bulletManager) :
 	SetTag(Tag::Tornado);
 
 	mCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize),
+		std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize, kCollisionOffsetPos),
 		this,
 		Collider3D::Tag::Body,
 		false
@@ -41,7 +41,7 @@ void PlayerTornado::Finalize()
 
 void PlayerTornado::Update()
 {
-	mCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition() + kCollisionOffsetPos);
+	mCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition());
 }
 
 void PlayerTornado::Draw()
