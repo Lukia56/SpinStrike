@@ -66,7 +66,7 @@ namespace Data
 				Row row;
 				for (size_t j = 0; j < header.size(); j++)
 				{
-					if (j >= line[j].size())
+					if (j >= line.size())
 					{
 						assert(false && "Data::Csv // ヘッダに対応したデータがありません");
 						break;
@@ -87,12 +87,20 @@ namespace Data
 
 			// 列ごとに文字列を分割する
 			std::string buf;
+			bool isQuates = false;
+
 			for (size_t i = 0; i < rawString.length(); i++)
 			{
 				char checkChar = rawString[i];
 
+				if (checkChar == '"')
+				{
+					isQuates = !isQuates;
+					continue;
+				}
+				else
 				// 現在の列の文字列を確定して、次の列の準備をする
-				if (checkChar == separate)
+				if (checkChar == separate && !isQuates)
 				{
 					separatedString.emplace_back(buf);
 					buf.clear();

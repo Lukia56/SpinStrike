@@ -9,6 +9,7 @@ struct Param
 	int hp = -1;
 	bool flag = false;
 	std::string text = "";
+	Vector3 vec;
 };
 
 namespace Data
@@ -36,6 +37,7 @@ namespace Data
 				param.hp = Convert<int>(row.at("header2"));
 				param.flag = Convert<bool>(row.at("header3"));
 				param.text = Convert<std::string>(row.at("header4"));
+				param.vec = Convert<Vector3>(row.at("header5"));
 				return param;
 			}
 		};

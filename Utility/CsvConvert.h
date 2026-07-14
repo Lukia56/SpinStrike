@@ -1,7 +1,8 @@
 #pragma once
 
 #include <cassert>
-#include <string>
+#include <sstream>
+#include "Utility/Vector.h"
 
 namespace Data
 {
@@ -53,6 +54,32 @@ namespace Data
 		inline std::string Convert<std::string>(const std::string& str)
 		{
 			return str;
+		}
+
+		template <>
+		inline Vector2 Convert<Vector2>(const std::string& str)
+		{
+			Vector2 vec;
+
+			std::stringstream ss(str);
+			char separateChar = ',';
+
+			ss >> vec.x >> separateChar >> vec.y;
+
+			return vec;
+		}
+
+		template <>
+		inline Vector3 Convert<Vector3>(const std::string& str)
+		{
+			Vector3 vec;
+
+			std::stringstream ss(str);
+			char separateChar = ',';
+
+			ss >> vec.x >> separateChar >> vec.y >> separateChar >> vec.z;
+
+			return vec;
 		}
 	}
 }
