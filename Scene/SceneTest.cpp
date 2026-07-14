@@ -9,6 +9,7 @@
 #include "Camera/CameraFollow.h"
 #include "Camera/CameraManager.h"
 #include "System/Input/Mouse.h"
+#include "Utility/CsvLoader.h"
 
 SceneTest::SceneTest() :
 	mPointLight(-1),
@@ -34,6 +35,8 @@ SceneTest::SceneTest() :
 
 	GetCameraManager()->AddCamera(Camera::Type::Follow, std::make_unique<CameraFollow>(&mPlayer->GetTransform()));
 	GetCameraManager()->SetCurrentCameraType(Camera::Type::Follow);
+
+	auto param = Data::Csv::LoadCsvAs<Param>("Resource\\MasterData\\CsvLoadTest.csv");
 }
 
 SceneTest::~SceneTest()
