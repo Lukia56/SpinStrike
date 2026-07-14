@@ -209,6 +209,8 @@
     <ClInclude Include="Camera\CameraProperty.h" />
     <ClInclude Include="Camera\ICamera.h" />
     <ClInclude Include="Utility\Data.h" />
+    <ClInclude Include="Utility\DataConvert.h" />
+    <ClInclude Include="Utility\FromCsv.h" />
     <ClInclude Include="World\Components\Collider3D.h" />
     <ClInclude Include="World\Characters\PlayerBullet.h" />
     <ClInclude Include="World\Characters\PlayerBulletManager.h" />
