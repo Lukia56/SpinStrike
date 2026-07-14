@@ -7,7 +7,7 @@ namespace Data
 	namespace Csv
 	{
 		template <typename T>
-		std::vector<T> LoadCsvAs(const std::string& path)
+		inline std::vector<T> LoadCsvAs(const std::string& path)
 		{
 			Table table = LoadRawCsv(path);
 

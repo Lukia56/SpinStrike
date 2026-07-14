@@ -210,7 +210,7 @@
     <ClInclude Include="Camera\ICamera.h" />
     <ClInclude Include="Utility\CsvLoader.h" />
     <ClInclude Include="Utility\Data.h" />
-    <ClInclude Include="Utility\DataConvert.h" />
+    <ClInclude Include="Utility\CsvConvert.h" />
     <ClInclude Include="Utility\FromCsv.h" />
     <ClInclude Include="World\Components\Collider3D.h" />
     <ClInclude Include="World\Characters\PlayerBullet.h" />
