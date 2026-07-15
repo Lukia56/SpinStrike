@@ -12,31 +12,11 @@
 #include "System/InputManager.h"
 #include "System/TimeManager.h"
 #include "Utility/Color.h"
+#include "Utility/CsvLoader.h"
 #include "Utility/Math.h"
 
 namespace
 {
-	constexpr float kWalkSpeed = 200.0f;
-	constexpr float kWalkAccel = 75.0f;
-
-	constexpr float kDashCoef = 2.5f;
-
-	constexpr float kAirCoef = 0.5f;
-
-	constexpr float kJumpForce = 500.0f;
-	constexpr float kJumpCancelThreshold = 50.0f;
-	constexpr float kJumpBufferTime = 0.15f;
-
-	constexpr float kWallJumpVerticalForce = 400.0f;
-	constexpr float kWallJumpHorizontalForce = 500.0f;
-	constexpr float kWallJumpIgnoreMoveInputTime = 0.2f;
-
-	constexpr float kStickWallFallSpeed = 50.0f;
-	constexpr float kStickWallCancelTimeThreshold = 0.5f;
-	constexpr float kStickWallCancelMoveVectorThreshold = 0.5f;
-
-	constexpr float kGravity = 980.0f;
-
 	constexpr Vector3 kBodyCollisionSize{ 60.0f, 100.0f, 60.0f };
 	constexpr Vector3 kBodyCollisionOffsetPos{ 0.0f, kBodyCollisionSize.y / 2.0f, 0.0f };
 
@@ -45,6 +25,8 @@ namespace
 
 	constexpr Vector3 kWallCollisionSize{ kBodyCollisionSize.x + 1, 1.0f, kBodyCollisionSize.z + 1 };
 	constexpr Vector3 kWallCollisionOffsetPos{ 0.0f, 60.0f, 0.0f };
+
+	const char* const kPlayerParamPath = "Resource\\MasterData\\PlayerParam.csv";
 
 	const char* const kModelHandlePath = "";
 }
@@ -65,6 +47,8 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mTornado(nullptr)
 {
 	SetTag(Tag::Player);
+
+	mParam = Data::Csv::LoadCsvAs<PlayerParam>(kPlayerParamPath)[0];
 
 	//mModel = std::make_unique<ModelRenderer>(this);
 
@@ -194,7 +178,7 @@ void Player::ResolveCollision(const Collision::Result& result, const Collider3D*
 		if (result.normal.y < 0.0f || Math::IsNearZero(result.normal.y)) return;
 		
 		// 地面との衝突
-		mCanJumpTimer = kJumpBufferTime;
+		mCanJumpTimer = mParam.jumpBufferTime;
 		mOnGround = true;
 		mIsJumping = false;
 
@@ -267,7 +251,7 @@ void Player::MoveHorizontal(float deltaTime)
 	float moveCoef = 1.0f;
 	if (InputManager::GetInstance().IsDown(Input::Action::Dash))
 	{
-		moveCoef *= kDashCoef;
+		moveCoef *= mParam.dashCoef;
 	}
 
 	// カメラを正面に移動
@@ -277,7 +261,7 @@ void Player::MoveHorizontal(float deltaTime)
 
 	if (moveVec != Vector3::Zero) mLastMoveVec = moveVec;
 
-	float accelCoef = mOnGround ? 1.0f : kAirCoef;
+	float accelCoef = mOnGround ? 1.0f : mParam.airResistanceCoef;
 
 	if (mOnWall)
 	{
@@ -287,7 +271,7 @@ void Player::MoveHorizontal(float deltaTime)
 		// 壁と逆方向に入力していたらタイマーをカウントアップ
 		vec.z = -vec.z;
 		Vector3 inputVec = moveVec.Cross(vec);
-		if (inputVec.y > kStickWallCancelMoveVectorThreshold)
+		if (inputVec.y > mParam.stickWallCancelMoveVectorThreshold)
 		{
 			mStickWallCancelTimer += deltaTime;
 
@@ -299,7 +283,7 @@ void Player::MoveHorizontal(float deltaTime)
 			mStickWallCancelTimer = 0.0f;
 		}
 		// 壁ずりキャンセル
-		if (mStickWallCancelTimer > kStickWallCancelTimeThreshold)
+		if (mStickWallCancelTimer > mParam.stickWallCancelTimeThreshold)
 		{
 			mStickWallCancelTimer = 0.0f;
 			mOnWall = false;
@@ -310,8 +294,8 @@ void Player::MoveHorizontal(float deltaTime)
 		moveVec = vec * moveVec.Dot(vec);
 	}
 
-	mVelocity.x = Math::Approach(mVelocity.x, kWalkSpeed * moveCoef * moveVec.x, kWalkAccel * accelCoef);
-	mVelocity.z = Math::Approach(mVelocity.z, kWalkSpeed * moveCoef * moveVec.z, kWalkAccel * accelCoef);
+	mVelocity.x = Math::Approach(mVelocity.x, mParam.walkSpeed * moveCoef * moveVec.x, mParam.walkAccel * accelCoef);
+	mVelocity.z = Math::Approach(mVelocity.z, mParam.walkSpeed * moveCoef * moveVec.z, mParam.walkAccel * accelCoef);
 }
 
 void Player::MoveVertical(float deltaTime)
@@ -319,18 +303,18 @@ void Player::MoveVertical(float deltaTime)
 	// ジャンプ
 	if (InputManager::GetInstance().IsPressed(Input::Action::Jump) && CanJump())
 	{
-		mVelocity.y = kJumpForce;
+		mVelocity.y = mParam.jumpForce;
 		mIsJumping = true;
 		mCanJumpTimer = 0.0f;
 
 		// 壁ジャンプ
 		if (mOnWall && !mOnGround)
 		{
-			mVelocity.x = -mLastMoveVec.x * kWallJumpHorizontalForce;
-			mVelocity.y = kWallJumpVerticalForce;
-			mVelocity.z = -mLastMoveVec.z * kWallJumpHorizontalForce;
+			mVelocity.x = -mLastMoveVec.x * mParam.wallJumpHorizontalForce;
+			mVelocity.y = mParam.wallJumpVerticalForce;
+			mVelocity.z = -mLastMoveVec.z * mParam.wallJumpHorizontalForce;
 
-			mIgnoreMoveInputTimer = kWallJumpIgnoreMoveInputTime;
+			mIgnoreMoveInputTimer = mParam.wallJumpIgnoreMoveInputTime;
 
 			mOnWall = false;
 		}
@@ -338,7 +322,7 @@ void Player::MoveVertical(float deltaTime)
 	// ジャンプキャンセル
 	if (InputManager::GetInstance().IsReleased(Input::Action::Jump) && CanCancelJump())
 	{
-		mVelocity.y = kJumpCancelThreshold;
+		mVelocity.y = mParam.jumpCancelThreshold;
 		mIsJumping = false;
 	}
 
@@ -347,11 +331,11 @@ void Player::MoveVertical(float deltaTime)
 	{
 		if (mOnWall)
 		{
-			mVelocity.y = Math::Max(mVelocity.y - kGravity * deltaTime, -kStickWallFallSpeed);
+			mVelocity.y = Math::Max(mVelocity.y - mParam.gravity * deltaTime, -mParam.stickWallFallSpeed);
 		}
 		else
 		{
-			mVelocity.y -= kGravity * deltaTime;
+			mVelocity.y -= mParam.gravity * deltaTime;
 		}
 	}
 }
@@ -363,5 +347,5 @@ bool Player::CanJump() const
 
 bool Player::CanCancelJump() const
 {
-	return mIsJumping && mVelocity.y > kJumpCancelThreshold;
+	return mIsJumping && mVelocity.y > mParam.jumpCancelThreshold;
 }

@@ -2,6 +2,7 @@
 
 #include "../GameObject.h"
 #include "Camera/CameraProperty.h"
+#include "Param/Param.h"
 
 class PlayerTornado;
 class PlayerBulletManager;
@@ -68,6 +69,8 @@ private:
 	float mStickWallCancelTimer;
 
 	float mIgnoreMoveInputTimer;
+
+	PlayerParam mParam;
 
 	std::unique_ptr<ModelRenderer> mModel;
 

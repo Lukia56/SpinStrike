@@ -2,15 +2,7 @@
 
 #include "Data.h"
 #include "CsvConvert.h"
-
-struct Param
-{
-	int count = -1;
-	int hp = -1;
-	bool flag = false;
-	Vector3 vec;
-	std::string text = "";
-};
+#include "Param/Param.h"
 
 namespace Data
 {
@@ -28,16 +20,25 @@ namespace Data
 		};
 
 		template <>
-		struct FromCsv<Param>
+		struct FromCsv<PlayerParam>
 		{
-			static Param Binding(const Row& row)
+			static PlayerParam Binding(const Row& row)
 			{
-				Param param;
-				param.count = Convert<int>(row.at("count"));
-				param.hp = Convert<int>(row.at("hp"));
-				param.flag = Convert<bool>(row.at("flag"));
-				param.vec = Convert<Vector3>(row.at("vec"));
-				param.text = Convert<std::string>(row.at("text"));
+				PlayerParam param;
+				param.walkSpeed = Convert<float>(row.at("walkSpeed"));
+				param.walkAccel = Convert<float>(row.at("walkAccel"));
+				param.dashCoef = Convert<float>(row.at("dashCoef"));
+				param.jumpForce = Convert<float>(row.at("jumpForce"));
+				param.jumpCancelThreshold = Convert<float>(row.at("jumpCancelThreshold"));
+				param.jumpBufferTime = Convert<float>(row.at("jumpBufferTime"));
+				param.wallJumpVerticalForce = Convert<float>(row.at("wallJumpVerticalForce"));
+				param.wallJumpHorizontalForce = Convert<float>(row.at("wallJumpHorizontalForce"));
+				param.wallJumpIgnoreMoveInputTime = Convert<float>(row.at("wallJumpIgnoreMoveInputTime"));
+				param.stickWallFallSpeed = Convert<float>(row.at("stickWallFallSpeed"));
+				param.stickWallCancelTimeThreshold = Convert<float>(row.at("stickWallCancelTimeThreshold"));
+				param.stickWallCancelMoveVectorThreshold = Convert<float>(row.at("stickWallCancelMoveVectorThreshold"));
+				param.airResistanceCoef = Convert<float>(row.at("airResistanceCoef"));
+				param.gravity = Convert<float>(row.at("gravity"));
 				return param;
 			}
 		};

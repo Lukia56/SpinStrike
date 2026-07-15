@@ -35,8 +35,6 @@ SceneTest::SceneTest() :
 
 	GetCameraManager()->AddCamera(Camera::Type::Follow, std::make_unique<CameraFollow>(&mPlayer->GetTransform()));
 	GetCameraManager()->SetCurrentCameraType(Camera::Type::Follow);
-
-	auto param = Data::Csv::LoadCsvAs<Param>("Resource\\MasterData\\CsvLoadTest.csv");
 }
 
 SceneTest::~SceneTest()
