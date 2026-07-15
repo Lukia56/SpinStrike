@@ -8,8 +8,8 @@ struct Param
 	int count = -1;
 	int hp = -1;
 	bool flag = false;
-	std::string text = "";
 	Vector3 vec;
+	std::string text = "";
 };
 
 namespace Data
@@ -33,11 +33,11 @@ namespace Data
 			static Param Binding(const Row& row)
 			{
 				Param param;
-				param.count = Convert<int>(row.at("header1"));
-				param.hp = Convert<int>(row.at("header2"));
-				param.flag = Convert<bool>(row.at("header3"));
-				param.text = Convert<std::string>(row.at("header4"));
-				param.vec = Convert<Vector3>(row.at("header5"));
+				param.count = Convert<int>(row.at("count"));
+				param.hp = Convert<int>(row.at("hp"));
+				param.flag = Convert<bool>(row.at("flag"));
+				param.vec = Convert<Vector3>(row.at("vec"));
+				param.text = Convert<std::string>(row.at("text"));
 				return param;
 			}
 		};
