@@ -19,26 +19,43 @@ namespace Data
 			}
 		};
 
+		template <typename T>
+		T Get(const Row& row, const std::string& key)
+		{
+			try
+			{
+				T value = Convert<T>(row.at(key));
+
+				return value;
+			}
+			catch (std::out_of_range)
+			{
+				assert(false && "Data::Csv::Get // 存在しないパラメータ名のため値の取得に失敗しました");
+
+				return T{};
+			}
+		}
+
 		template <>
 		struct FromCsv<PlayerParam>
 		{
 			static PlayerParam Binding(const Row& row)
 			{
 				PlayerParam param;
-				param.walkSpeed = Convert<float>(row.at("walkSpeed"));
-				param.walkAccel = Convert<float>(row.at("walkAccel"));
-				param.dashCoef = Convert<float>(row.at("dashCoef"));
-				param.jumpForce = Convert<float>(row.at("jumpForce"));
-				param.jumpCancelThreshold = Convert<float>(row.at("jumpCancelThreshold"));
-				param.jumpBufferTime = Convert<float>(row.at("jumpBufferTime"));
-				param.wallJumpVerticalForce = Convert<float>(row.at("wallJumpVerticalForce"));
-				param.wallJumpHorizontalForce = Convert<float>(row.at("wallJumpHorizontalForce"));
-				param.wallJumpIgnoreMoveInputTime = Convert<float>(row.at("wallJumpIgnoreMoveInputTime"));
-				param.stickWallFallSpeed = Convert<float>(row.at("stickWallFallSpeed"));
-				param.stickWallCancelTimeThreshold = Convert<float>(row.at("stickWallCancelTimeThreshold"));
-				param.stickWallCancelMoveVectorThreshold = Convert<float>(row.at("stickWallCancelMoveVectorThreshold"));
-				param.airResistanceCoef = Convert<float>(row.at("airResistanceCoef"));
-				param.gravity = Convert<float>(row.at("gravity"));
+				param.walkSpeed = Get<float>(row, "walkSpeed");
+				param.walkAccel = Get<float>(row, "walkAccel");
+				param.dashCoef = Get<float>(row, "dashCoef");
+				param.jumpForce = Get<float>(row, "jumpForce");
+				param.jumpCancelThreshold = Get<float>(row, "jumpCancelThreshold");
+				param.jumpBufferTime = Get<float>(row, "jumpBufferTime");
+				param.wallJumpVerticalForce = Get<float>(row, "wallJumpVerticalForce");
+				param.wallJumpHorizontalForce = Get<float>(row, "wallJumpHorizontalForce");
+				param.wallJumpIgnoreMoveInputTime = Get<float>(row, "wallJumpIgnoreMoveInputTime");
+				param.stickWallFallSpeed = Get<float>(row, "stickWallFallSpeed");
+				param.stickWallCancelTimeThreshold = Get<float>(row, "stickWallCancelTimeThreshold");
+				param.stickWallCancelMoveVectorThreshold = Get<float>(row, "stickWallCancelMoveVectorThreshold");
+				param.airResistanceCoef = Get<float>(row, "airResistanceCoef");
+				param.gravity = Get<float>(row, "gravity");
 				return param;
 			}
 		};
@@ -49,12 +66,12 @@ namespace Data
 			static AABBColliderParam Binding(const Row& row)
 			{
 				AABBColliderParam param;
-				param.size.x = Convert<float>(row.at("sizeX"));
-				param.size.y = Convert<float>(row.at("sizeY"));
-				param.size.z = Convert<float>(row.at("sizeZ"));
-				param.offsetPos.x = Convert<float>(row.at("offsetX"));
-				param.offsetPos.y = Convert<float>(row.at("offsetY"));
-				param.offsetPos.z = Convert<float>(row.at("offsetZ"));
+				param.size.x = Get<float>(row, "sizeX");
+				param.size.y = Get<float>(row, "sizeY");
+				param.size.z = Get<float>(row, "sizeZ");
+				param.offsetPos.x = Get<float>(row, "offsetX");
+				param.offsetPos.y = Get<float>(row, "offsetY");
+				param.offsetPos.z = Get<float>(row, "offsetZ");
 				return param;
 			}
 		};
