@@ -42,5 +42,21 @@ namespace Data
 				return param;
 			}
 		};
+
+		template <>
+		struct FromCsv<AABBColliderParam>
+		{
+			static AABBColliderParam Binding(const Row& row)
+			{
+				AABBColliderParam param;
+				param.size.x = Convert<float>(row.at("sizeX"));
+				param.size.y = Convert<float>(row.at("sizeY"));
+				param.size.z = Convert<float>(row.at("sizeZ"));
+				param.offsetPos.x = Convert<float>(row.at("offsetX"));
+				param.offsetPos.y = Convert<float>(row.at("offsetY"));
+				param.offsetPos.z = Convert<float>(row.at("offsetZ"));
+				return param;
+			}
+		};
 	}
 }

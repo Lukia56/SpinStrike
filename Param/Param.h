@@ -22,3 +22,9 @@ struct PlayerParam
 	float airResistanceCoef;
 	float gravity;
 };
+
+struct AABBColliderParam
+{
+	Vector3 size;
+	Vector3 offsetPos;
+};

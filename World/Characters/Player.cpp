@@ -17,16 +17,11 @@
 
 namespace
 {
-	constexpr Vector3 kBodyCollisionSize{ 60.0f, 100.0f, 60.0f };
-	constexpr Vector3 kBodyCollisionOffsetPos{ 0.0f, kBodyCollisionSize.y / 2.0f, 0.0f };
-
-	constexpr Vector3 kFootCollisionSize{ kBodyCollisionSize.x - 1, 1.0f, kBodyCollisionSize.z - 1 };
-	constexpr Vector3 kFootCollisionOffsetPos{ 0.0f, -5.0f, 0.0f };
-
-	constexpr Vector3 kWallCollisionSize{ kBodyCollisionSize.x + 1, 1.0f, kBodyCollisionSize.z + 1 };
-	constexpr Vector3 kWallCollisionOffsetPos{ 0.0f, 60.0f, 0.0f };
-
 	const char* const kPlayerParamPath = "Resource\\MasterData\\PlayerParam.csv";
+
+	const char* const kBodyColliderParamPath = "Resource\\MasterData\\PlayerBodyColliderParam.csv";
+	const char* const kFootColliderParamPath = "Resource\\MasterData\\PlayerFootColliderParam.csv";
+	const char* const kWallColliderParamPath = "Resource\\MasterData\\PlayerWallColliderParam.csv";
 
 	const char* const kModelHandlePath = "";
 }
@@ -55,17 +50,17 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mTornado = AddToChild<PlayerTornado>(bulletManager);
 
 	mBodyCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Vector3::Zero, kBodyCollisionSize, kBodyCollisionOffsetPos),
+		std::make_unique<Collision::AABB3D>(Vector3::Zero, Data::Csv::LoadCsvAs<AABBColliderParam>(kBodyColliderParamPath)[0]),
 		this,
 		Collider3D::Tag::Body
 	);
 	mFootCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Vector3::Zero, kFootCollisionSize, kFootCollisionOffsetPos),
+		std::make_unique<Collision::AABB3D>(Vector3::Zero, Data::Csv::LoadCsvAs<AABBColliderParam>(kFootColliderParamPath)[0]),
 		this,
 		Collider3D::Tag::Foot
 	);
 	mWallCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Vector3::Zero, kWallCollisionSize, kWallCollisionOffsetPos),
+		std::make_unique<Collision::AABB3D>(Vector3::Zero, Data::Csv::LoadCsvAs<AABBColliderParam>(kWallColliderParamPath)[0]),
 		this,
 		Collider3D::Tag::CheckWall
 	);
