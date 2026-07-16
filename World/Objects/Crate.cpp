@@ -30,7 +30,7 @@ Crate::Crate() :
 	mModel = std::make_unique<ModelRenderer>(this);
 
 	mCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize),
+		std::make_unique<Collision::AABB3D>(kCollisionSize),
 		this,
 		Collider3D::Tag::Body
 	);

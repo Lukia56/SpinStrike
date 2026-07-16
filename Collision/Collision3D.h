@@ -56,7 +56,7 @@ namespace Collision
 	public:
 
 		Sphere3D();
-		Sphere3D(const Vector3& pos, float radius, const Vector3& offset = Vector3::Zero);
+		Sphere3D(float radius, const Vector3& offset = Vector3::Zero);
 		~Sphere3D() = default;
 
 		Collision::Result CheckCollision(const IShape3D* other) const override { return other->Check(this); }

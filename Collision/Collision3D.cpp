@@ -90,8 +90,8 @@ namespace Collision
 	{
 	}
 
-	Sphere3D::Sphere3D(const Vector3& pos, float radius, const Vector3& offset) :
-		mCenterPos(pos),
+	Sphere3D::Sphere3D(float radius, const Vector3& offset) :
+		mCenterPos(Vector3::Zero),
 		mOffsetPos(offset),
 		mRadius(radius)
 	{

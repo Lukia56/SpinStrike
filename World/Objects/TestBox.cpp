@@ -13,7 +13,7 @@ TestBox::TestBox()
 	SetTag(Tag::Terrain);
 
 	mCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Vector3::Zero, kCollisionSize),
+		std::make_unique<Collision::AABB3D>(kCollisionSize),
 		this,
 		Collider3D::Tag::Body
 	);
@@ -25,7 +25,7 @@ TestBox::TestBox(const Vector3& scale)
 
 	mTransform.localScale = scale;
 	mCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Vector3::Zero, scale),
+		std::make_unique<Collision::AABB3D>(scale),
 		this,
 		Collider3D::Tag::Body
 	);

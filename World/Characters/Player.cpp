@@ -50,17 +50,17 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mTornado = AddToChild<PlayerTornado>(bulletManager);
 
 	mBodyCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Vector3::Zero, Data::Csv::LoadCsvAs<AABBColliderParam>(kBodyColliderParamPath)[0]),
+		std::make_unique<Collision::AABB3D>(Data::Csv::LoadCsvAs<AABBColliderParam>(kBodyColliderParamPath)[0]),
 		this,
 		Collider3D::Tag::Body
 	);
 	mFootCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Vector3::Zero, Data::Csv::LoadCsvAs<AABBColliderParam>(kFootColliderParamPath)[0]),
+		std::make_unique<Collision::AABB3D>(Data::Csv::LoadCsvAs<AABBColliderParam>(kFootColliderParamPath)[0]),
 		this,
 		Collider3D::Tag::Foot
 	);
 	mWallCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Vector3::Zero, Data::Csv::LoadCsvAs<AABBColliderParam>(kWallColliderParamPath)[0]),
+		std::make_unique<Collision::AABB3D>(Data::Csv::LoadCsvAs<AABBColliderParam>(kWallColliderParamPath)[0]),
 		this,
 		Collider3D::Tag::CheckWall
 	);
