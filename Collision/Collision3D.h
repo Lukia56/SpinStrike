@@ -55,8 +55,8 @@ namespace Collision
 	{
 	public:
 
-		Sphere3D() = default;
-		Sphere3D(const Vector3& pos, float radius, const Vector3& offset = Vector3::Zero) : mCenterPos(pos), mOffsetPos(offset), mRadius(radius) {}
+		Sphere3D();
+		Sphere3D(const Vector3& pos, float radius, const Vector3& offset = Vector3::Zero);
 		~Sphere3D() = default;
 
 		Collision::Result CheckCollision(const IShape3D* other) const override { return other->Check(this); }
@@ -110,8 +110,8 @@ namespace Collision
 	public:
 
 		AABB3D() = default;
-		AABB3D(const Vector3& pos, const Vector3& size, const Vector3& offset = Vector3::Zero) : mCenterPos(pos), mOffsetPos(offset), mHalfSize(size * 0.5f) {}
-		AABB3D(const Vector3& pos, const AABBColliderParam& param) : mCenterPos(pos), mOffsetPos(param.offsetPos), mHalfSize(param.size * 0.5f) {}
+		AABB3D(const Vector3& size, const Vector3& offset = Vector3::Zero);
+		AABB3D(const AABBColliderParam& param);
 		~AABB3D() = default;
 
 		Collision::Result CheckCollision(const IShape3D* other) const override { return other->Check(this); }

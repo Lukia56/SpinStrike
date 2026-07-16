@@ -83,6 +83,20 @@ namespace Collision
 {
 	// ‹…
 
+	Sphere3D::Sphere3D() :
+		mCenterPos(Vector3::Zero),
+		mOffsetPos(Vector3::Zero),
+		mRadius(0.0f)
+	{
+	}
+
+	Sphere3D::Sphere3D(const Vector3& pos, float radius, const Vector3& offset) :
+		mCenterPos(pos),
+		mOffsetPos(offset),
+		mRadius(radius)
+	{
+	}
+
 	void Sphere3D::DebugDraw() const
 	{
 		DrawSphere3D(GetPosition().GetAsDxLibVector(), mRadius, 10, Color::white.GetAsHexRGB(), Color::white.GetAsHexRGB(), false);
@@ -127,6 +141,20 @@ namespace Collision
 	}
 
 	// AABB
+
+	AABB3D::AABB3D(const Vector3& size, const Vector3& offset) :
+		mCenterPos(Vector3::Zero),
+		mOffsetPos(offset),
+		mHalfSize(size * 0.5f)
+	{
+	}
+
+	AABB3D::AABB3D(const AABBColliderParam& param) :
+		mCenterPos(Vector3::Zero),
+		mOffsetPos(param.offsetPos),
+		mHalfSize(param.size * 0.5f)
+	{
+	}
 
 	void AABB3D::DebugDraw() const
 	{
