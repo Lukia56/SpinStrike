@@ -149,13 +149,6 @@ namespace Collision
 	{
 	}
 
-	AABB3D::AABB3D(const AABBColliderParam& param) :
-		mCenterPos(Vector3::Zero),
-		mOffsetPos(param.offsetPos),
-		mHalfSize(param.size * 0.5f)
-	{
-	}
-
 	void AABB3D::DebugDraw() const
 	{
 		Vector3 minPos = this->GetPosition() - this->GetHalfSize();

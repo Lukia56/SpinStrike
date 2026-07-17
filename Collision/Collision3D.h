@@ -2,7 +2,6 @@
 
 #include "CollisionResult.h"
 #include "Utility/Vector.h"
-#include "Param/Param.h"
 
 namespace Collision
 {
@@ -111,7 +110,6 @@ namespace Collision
 
 		AABB3D() = default;
 		AABB3D(const Vector3& size, const Vector3& offset = Vector3::Zero);
-		AABB3D(const AABBColliderParam& param);
 		~AABB3D() = default;
 
 		Collision::Result CheckCollision(const IShape3D* other) const override { return other->Check(this); }

@@ -3,6 +3,7 @@
 #include <cassert>
 #include <sstream>
 #include "Utility/Vector.h"
+#include "World/Components/CollisionTag.h"
 
 namespace Data
 {
@@ -80,6 +81,12 @@ namespace Data
 			ss >> vec.x >> separateChar >> vec.y >> separateChar >> vec.z;
 
 			return vec;
+		}
+
+		template <>
+		inline Collision::Tag Convert<Collision::Tag>(const std::string& str)
+		{
+			return static_cast<Collision::Tag>(std::stoi(str));
 		}
 	}
 }

@@ -19,9 +19,7 @@ namespace
 {
 	const char* const kPlayerParamPath = "Resource\\MasterData\\PlayerParam.csv";
 
-	const char* const kBodyColliderParamPath = "Resource\\MasterData\\PlayerBodyColliderParam.csv";
-	const char* const kFootColliderParamPath = "Resource\\MasterData\\PlayerFootColliderParam.csv";
-	const char* const kWallColliderParamPath = "Resource\\MasterData\\PlayerWallColliderParam.csv";
+	const char* const kAABBParamPath = "Resource\\MasterData\\PlayerAABBColliderParam.csv";
 
 	const char* const kModelHandlePath = "";
 }
@@ -36,9 +34,6 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mStickWallCancelTimer(0.0f),
 	mIgnoreMoveInputTimer(0.0f),
 	mModel(nullptr),
-	mBodyCollider(nullptr),
-	mFootCollider(nullptr),
-	mWallCollider(nullptr),
 	mTornado(nullptr)
 {
 	SetTag(Tag::Player);
@@ -49,29 +44,22 @@ Player::Player(PlayerBulletManager* bulletManager) :
 
 	mTornado = AddToChild<PlayerTornado>(bulletManager);
 
-	mBodyCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Data::Csv::LoadCsvAs<AABBColliderParam>(kBodyColliderParamPath)[0]),
-		this,
-		Collider3D::Tag::Body
-	);
-	mFootCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Data::Csv::LoadCsvAs<AABBColliderParam>(kFootColliderParamPath)[0]),
-		this,
-		Collider3D::Tag::Foot
-	);
-	mWallCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Data::Csv::LoadCsvAs<AABBColliderParam>(kWallColliderParamPath)[0]),
-		this,
-		Collider3D::Tag::CheckWall
-	);
+	auto aabbParam = Data::Csv::LoadCsvAs<AABBColliderParam>(kAABBParamPath);
+	for (const auto& param : aabbParam)
+	{
+		mColliders.emplace_back(
+			std::make_unique<Collider3D>(
+				std::make_unique<Collision::AABB3D>(param.size, param.offsetPos),
+				this,
+				param.collisionTag
+			));
+	}
 
 	AddToChild<DebugGround>();
 }
 
 Player::~Player()
 {
-	mBodyCollider = nullptr;
-	mModel = nullptr;
 }
 
 void Player::Init()
@@ -114,9 +102,11 @@ void Player::PhysicsUpdate()
 {
 	mTransform.localPosition += mVelocity * TimeManager::GetDeltaTime();
 
-	mBodyCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition());
-	mFootCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition());
-	mWallCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition());
+	Vector3 worldPos = mTransform.CalculateWorldPosition();
+	for (const auto& collider : mColliders)
+	{
+		collider->GetShape()->SetPosition(worldPos);
+	}
 
 	mOnGround = false;
 
@@ -159,14 +149,15 @@ void Player::DebugDraw()
 		ImGui::End();
 	}
 
-	mBodyCollider->GetShape()->DebugDraw();
-	mFootCollider->GetShape()->DebugDraw();
-	mWallCollider->GetShape()->DebugDraw();
+	for (const auto& collider : mColliders)
+	{
+		collider->GetShape()->DebugDraw();
+	}
 }
 
 void Player::ResolveCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider)
 {
-	if (myCollider->GetTag() == Collider3D::Tag::Foot)
+	if (myCollider->GetTag() == Collision::Tag::Foot)
 	{
 		if (oppCollider->GetOwner()->GetTag() != Tag::Terrain) return;
 
@@ -179,7 +170,7 @@ void Player::ResolveCollision(const Collision::Result& result, const Collider3D*
 
 		return;
 	}
-	else if (myCollider->GetTag() == Collider3D::Tag::CheckWall)
+	else if (myCollider->GetTag() == Collision::Tag::CheckWall)
 	{
 		if (oppCollider->GetOwner()->GetTag() != Tag::Terrain) return;
 		if (Math::IsNearZero(result.penetration)) return;

@@ -72,6 +72,7 @@ namespace Data
 				param.offsetPos.x = Get<float>(row, "offsetX");
 				param.offsetPos.y = Get<float>(row, "offsetY");
 				param.offsetPos.z = Get<float>(row, "offsetZ");
+				param.collisionTag = Get<Collision::Tag>(row, "collisionTag");
 				return param;
 			}
 		};

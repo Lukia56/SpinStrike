@@ -216,6 +216,7 @@
     <ClInclude Include="World\Components\Collider3D.h" />
     <ClInclude Include="World\Characters\PlayerBullet.h" />
     <ClInclude Include="World\Characters\PlayerBulletManager.h" />
+    <ClInclude Include="World\Components\CollisionTag.h" />
     <ClInclude Include="World\Others\RootObject.h" />
     <ClInclude Include="World\Characters\PlayerTornado.h" />
     <ClInclude Include="World\Objects\Crate.h" />

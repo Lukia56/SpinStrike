@@ -15,7 +15,7 @@ TestBox::TestBox()
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(kCollisionSize),
 		this,
-		Collider3D::Tag::Body
+		Collision::Tag::Body
 	);
 }
 
@@ -27,7 +27,7 @@ TestBox::TestBox(const Vector3& scale)
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(scale),
 		this,
-		Collider3D::Tag::Body
+		Collision::Tag::Body
 	);
 }
 

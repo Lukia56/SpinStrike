@@ -73,12 +73,8 @@ private:
 	PlayerParam mParam;
 
 	std::unique_ptr<ModelRenderer> mModel;
-
-	std::unique_ptr<Collider3D> mBodyCollider;
-
-	std::unique_ptr<Collider3D> mFootCollider;
-
-	std::unique_ptr<Collider3D> mWallCollider;
+	
+	std::vector<std::unique_ptr<Collider3D>> mColliders;
 
 	PlayerTornado* mTornado;
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include "CollisionTag.h"
 
 class GameObject;
 namespace Collision
@@ -15,17 +16,7 @@ class Collider3D
 {
 public:
 
-	enum class Tag
-	{
-		Body,
-		Foot,
-		CheckWall,
-		Sensor
-	};
-
-public:
-
-	Collider3D(std::unique_ptr<Collision::IShape3D> shape, GameObject* owner, Tag tag, bool enable = true);
+	Collider3D(std::unique_ptr<Collision::IShape3D> shape, GameObject* owner, Collision::Tag tag, bool enable = true);
 	~Collider3D();
 
 	/// <summary>
@@ -46,7 +37,7 @@ public:
 
 	GameObject* GetOwner() const { return mOwner; }
 
-	Tag GetTag() const { return mTag; }
+	Collision::Tag GetTag() const { return mTag; }
 
 private:
 
@@ -56,5 +47,5 @@ private:
 
 	GameObject* mOwner;
 
-	Tag mTag;
+	Collision::Tag mTag;
 };

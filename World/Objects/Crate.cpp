@@ -32,7 +32,7 @@ Crate::Crate() :
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(kCollisionSize),
 		this,
-		Collider3D::Tag::Body
+		Collision::Tag::Body
 	);
 
 	mTransform.localScale = kSize;

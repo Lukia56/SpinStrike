@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Utility/Vector.h"
+#include "World/Components/CollisionTag.h"
+
 struct PlayerParam
 {
 	float walkSpeed;
@@ -27,4 +30,5 @@ struct AABBColliderParam
 {
 	Vector3 size;
 	Vector3 offsetPos;
+	Collision::Tag collisionTag;
 };
