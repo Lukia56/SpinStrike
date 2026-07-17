@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Data.h"
+#include "../Data.h"
 #include "CsvConvert.h"
 #include "Param/Param.h"
 

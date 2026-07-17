@@ -145,7 +145,7 @@
     <ClCompile Include="Camera\CameraStatic.cpp" />
     <ClCompile Include="Camera\CameraDebugFree.cpp" />
     <ClCompile Include="Camera\CameraManager.cpp" />
-    <ClCompile Include="Utility\Data.cpp" />
+    <ClCompile Include="Utility\Data\Data.cpp" />
     <ClCompile Include="World\Components\Collider3D.cpp" />
     <ClCompile Include="World\Characters\PlayerBullet.cpp" />
     <ClCompile Include="World\Characters\PlayerBulletManager.cpp" />
@@ -209,10 +209,10 @@
     <ClInclude Include="Camera\CameraProperty.h" />
     <ClInclude Include="Camera\ICamera.h" />
     <ClInclude Include="Param\Param.h" />
-    <ClInclude Include="Utility\CsvLoader.h" />
-    <ClInclude Include="Utility\Data.h" />
-    <ClInclude Include="Utility\CsvConvert.h" />
-    <ClInclude Include="Utility\FromCsv.h" />
+    <ClInclude Include="Utility\Data\CSV\CsvLoader.h" />
+    <ClInclude Include="Utility\Data\Data.h" />
+    <ClInclude Include="Utility\Data\CSV\CsvConvert.h" />
+    <ClInclude Include="Utility\Data\CSV\FromCsv.h" />
     <ClInclude Include="World\Components\Collider3D.h" />
     <ClInclude Include="World\Characters\PlayerBullet.h" />
     <ClInclude Include="World\Characters\PlayerBulletManager.h" />
