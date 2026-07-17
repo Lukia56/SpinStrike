@@ -9,7 +9,7 @@
 #include "Camera/CameraFollow.h"
 #include "Camera/CameraManager.h"
 #include "System/Input/Mouse.h"
-#include "Utility/CsvLoader.h"
+#include "Utility/Data/CSV/CsvLoader.h"
 
 SceneTest::SceneTest() :
 	mPointLight(-1),

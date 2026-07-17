@@ -12,7 +12,7 @@
 #include "System/InputManager.h"
 #include "System/TimeManager.h"
 #include "Utility/Color.h"
-#include "Utility/CsvLoader.h"
+#include "Utility/Data/CSV/CsvLoader.h"
 #include "Utility/Math.h"
 
 namespace
