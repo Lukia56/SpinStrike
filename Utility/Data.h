@@ -14,14 +14,15 @@ namespace Data
 		/// <summary>
 		/// CSVファイルを読み込んで文字列の二次元配列に変換する
 		/// </summary>
-		/// <param name="path"></param>
-		/// <returns></returns>
 		Table LoadRawCsv(const std::string& path);
 
 		/// <summary>
 		/// ヘッダをキーにしたマップに変換する
+		/// 特定の接頭辞が使われているヘッダは無視する
 		/// </summary>
-		std::vector<Row> ToRows(const Table& table);
+		/// <param name="table">無加工のデータテーブル</param>
+		/// <param name="ignoreColumnPrefix">無視する行の接頭辞</param>
+		std::vector<Row> ToRows(const Table& table, char ignoreColumnPrefix = '_');
 
 		/// <summary>
 		/// 文字列を分割する

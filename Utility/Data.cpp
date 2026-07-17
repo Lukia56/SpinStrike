@@ -39,7 +39,7 @@ namespace Data
 			return table;
 		}
 
-		std::vector<Row> ToRows(const Table& table)
+		std::vector<Row> ToRows(const Table& table, char ignoreColumnPrefix)
 		{
 			std::vector<Row> rows;
 
@@ -71,6 +71,13 @@ namespace Data
 						assert(false && "Data::Csv // ヘッダに対応したデータがありません");
 						break;
 					}
+					if (header[j].empty())
+					{
+						assert(false && "Data::Csv // ヘッダが空です");
+						continue;
+					}
+
+					if (header[j][0] == ignoreColumnPrefix) continue;
 
 					row[header[j]] = line[j];
 				}
@@ -86,7 +93,7 @@ namespace Data
 			std::vector<std::string> separatedString;
 
 			// 列ごとに文字列を分割する
-			std::string buf;
+			std::string buf = "";
 			bool isQuates = false;
 
 			for (size_t i = 0; i < rawString.length(); i++)
