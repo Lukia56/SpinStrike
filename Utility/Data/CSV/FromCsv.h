@@ -19,6 +19,9 @@ namespace Data
 			}
 		};
 
+		/// <summary>
+		/// ˆÀ‘S‚È’l‚Ìæ“¾ˆ—
+		/// </summary>
 		template <typename T>
 		T Get(const Row& row, const std::string& key)
 		{
