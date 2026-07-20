@@ -3,6 +3,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <json.hpp>
 
 namespace Data
 {
@@ -28,5 +29,12 @@ namespace Data
 		/// •¶Žš—ñ‚ð•ªŠ„‚·‚é
 		/// </summary>
 		std::vector<std::string> Split(const std::string& rawString, char separate = ',');
+	}
+
+	namespace Json
+	{
+		using JsonObject = nlohmann::json;
+
+		JsonObject LoadRawJson(const std::string& path);
 	}
 }

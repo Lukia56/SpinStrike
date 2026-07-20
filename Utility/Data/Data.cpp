@@ -15,8 +15,8 @@ namespace Data
 			Table table;
 
 			// ファイルの読み込み
-			std::ifstream fIn(path);
-			if (fIn.fail())
+			std::ifstream ifs(path);
+			if (ifs.fail())
 			{
 				assert(false && "Data::Csv // CSVファイルの読み込みに失敗しました");
 				return table;
@@ -24,7 +24,7 @@ namespace Data
 			
 			// セルごとに分割してテーブルに格納する
 			std::string line;
-			while (std::getline(fIn, line))
+			while (std::getline(ifs, line))
 			{
 				// 行が空だったらスキップ
 				if (line.empty())
@@ -121,6 +121,35 @@ namespace Data
 			separatedString.emplace_back(buf);
 
 			return separatedString;
+		}
+	}
+
+	namespace Json
+	{
+		JsonObject LoadRawJson(const std::string& path)
+		{
+			JsonObject json;
+
+			// ファイルの読み込み
+			std::ifstream ifs;
+			if (ifs.fail())
+			{
+				assert(false && "Data::Json // JSONファイルの読み込みに失敗しました");
+				return json;
+			}
+
+			try
+			{
+				// JSONデータを解析する
+				ifs >> json;
+			}
+			catch (const JsonObject::parse_error& e)
+			{
+				assert(false && "Data::Json // JSONファイルの解析に失敗しました");
+				return JsonObject{};
+			}
+
+			return json;
 		}
 	}
 }
