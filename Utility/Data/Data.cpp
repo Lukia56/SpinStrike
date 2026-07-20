@@ -131,7 +131,7 @@ namespace Data
 			JsonObject json;
 
 			// ファイルの読み込み
-			std::ifstream ifs;
+			std::ifstream ifs(path);
 			if (ifs.fail())
 			{
 				assert(false && "Data::Json // JSONファイルの読み込みに失敗しました");

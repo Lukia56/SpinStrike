@@ -419,5 +419,8 @@
     <ClInclude Include="World\Components\CollisionTag.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\Data\JSON\JsonConvert.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
