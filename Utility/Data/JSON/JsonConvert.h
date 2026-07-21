@@ -3,6 +3,12 @@
 #include "../Data.h"
 #include "Utility/Vector.h"
 
+// from_jsonのオーバーロードを用意して、ユーザ定義型の変換処理を実装する
+// ・注意点
+// 　from_json関数は変換したい型と同じ名前空間で定義しなければ、認識されずエラーになる
+// ・その他注意点↓
+// 　https://github.com/nlohmann/json#basic-usage
+
 inline void from_json(const Data::Json::JsonObject& j, Vector2& val)
 {
 	try
