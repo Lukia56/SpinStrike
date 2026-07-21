@@ -5,30 +5,29 @@
 
 inline void from_json(const Data::Json::JsonObject& j, Vector2& val)
 {
-	if (!j.contains("x")
-	|| !j.contains("y"))
+	try
 	{
-		assert(false && "from_json() // 成分が足りないためVector2に変換できませんでした");
-		val = Vector2::Zero;
-		return;
+		val.x = j.at("x").get<float>();
+		val.y = j.at("y").get<float>();
 	}
-
-	val.x = j.at("x").get<float>();
-	val.y = j.at("y").get<float>();
+	catch (Data::Json::JsonObject::out_of_range e)
+	{
+		assert(false && "from_json() // 要素が不足しているためVector2に変換できませんでした");
+		val = Vector2::Zero;
+	}
 }
 
 inline void from_json(const Data::Json::JsonObject& j, Vector3& val)
 {
-	if (!j.contains("x")
-	|| !j.contains("y")
-	|| !j.contains("z"))
+	try
 	{
-		assert(false && "from_json() // 成分が足りないためVector3に変換できませんでした");
-		val = Vector3::Zero;
-		return;
+		val.x = j.at("x").get<float>();
+		val.y = j.at("y").get<float>();
+		val.z = j.at("z").get<float>();
 	}
-
-	val.x = j.at("x").get<float>();
-	val.y = j.at("y").get<float>();
-	val.z = j.at("z").get<float>();
+	catch (Data::Json::JsonObject::out_of_range e)
+	{
+		assert(false && "from_json() // 要素が不足しているためVector3に変換できませんでした");
+		val = Vector3::Zero;
+	}
 }
