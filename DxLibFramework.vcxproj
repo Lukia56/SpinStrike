@@ -215,6 +215,7 @@
     <ClInclude Include="Utility\Data\CSV\FromCsv.h" />
     <ClInclude Include="Utility\Data\JSON\FromJson.h" />
     <ClInclude Include="Utility\Data\JSON\JsonConvert.h" />
+    <ClInclude Include="Utility\Data\JSON\JsonLoader.h" />
     <ClInclude Include="World\Components\Collider3D.h" />
     <ClInclude Include="World\Characters\PlayerBullet.h" />
     <ClInclude Include="World\Characters\PlayerBulletManager.h" />

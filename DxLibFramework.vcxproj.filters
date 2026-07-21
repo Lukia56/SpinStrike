@@ -425,5 +425,8 @@
     <ClInclude Include="Utility\Data\JSON\FromJson.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\Data\JSON\JsonLoader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
