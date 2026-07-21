@@ -15,7 +15,7 @@ namespace Data
 		template <typename T>
 		inline T Convert(const std::string& str)
 		{
-			static_assert(sizeof(T) == 0, "Data::Csv // ’è‹`‚³‚ê‚Ä‚¢‚È‚¢Œ^‚É•ÏŠ·‚Å‚«‚Ü‚¹‚ñ");
+			static_assert(sizeof(T) == 0, "Data::Csv // Cannot convert an undefined type");
 
 			return T{};
 		}

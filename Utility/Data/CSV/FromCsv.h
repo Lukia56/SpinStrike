@@ -13,7 +13,7 @@ namespace Data
 		{
 			static T Binding(const Row& row)
 			{
-				static_assert(sizeof(T) == 0, "Data::Csv::FromCsv // ’è‹`‚³‚ê‚Ä‚¢‚È‚¢Œ^‚ÉŠ„‚è“–‚Ä‚Å‚«‚Ü‚¹‚ñ");
+				static_assert(sizeof(T) == 0, "Data::Csv::FromCsv // Cannot binding an undefined type");
 
 				return T{};
 			}
