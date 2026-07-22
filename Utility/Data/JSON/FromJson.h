@@ -27,13 +27,13 @@ namespace Data
 		{
 			try
 			{
-				T value = json.at(key).get<T>();
+				T value = Convert<T>(json.at(key));
 
 				return value;
 			}
 			catch (JsonObject::out_of_range)
 			{
-				assert(false && "Data::Csv::Get // 存在しないパラメータ名のため値の取得に失敗しました");
+				assert(false && "Data::Json::Get // 存在しないパラメータ名のため値の取得に失敗しました");
 
 				return T{};
 			}

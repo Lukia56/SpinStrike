@@ -3,6 +3,31 @@
 #include "../Data.h"
 #include "Utility/Vector.h"
 
+namespace Data
+{
+	namespace Json
+	{
+		/// <summary>
+		/// JSONオブジェクトを任意の型へ変換する
+		/// 例外が出たらアサートを表示し、空の値を返す
+		/// </summary>
+		template <typename T>
+		inline T Convert(const JsonObject& json)
+		{
+			try
+			{
+				T value = json.get<T>();
+				return value;
+			}
+			catch (JsonObject::type_error)
+			{
+				assert(false && "Data::Json // 型変換に失敗しました");
+				return T{};
+			}
+		}
+	}
+}
+
 // from_jsonのオーバーロードを用意して、ユーザ定義型の変換処理を実装する
 // ・注意点
 // 　from_json関数は変換したい型と同じ名前空間で定義しなければ、認識されずエラーになる
