@@ -31,3 +31,12 @@ void ModelRenderer::Draw()
 
 	MV1DrawModel(mModelHandle);
 }
+
+void ModelRenderer::DisableMovement(const std::string& rootName)
+{
+	int rootFrameIndex = MV1SearchFrame(mModelHandle, rootName.c_str());
+
+	MATRIX rootMtx = MV1GetFrameLocalMatrix(mModelHandle, rootFrameIndex);
+
+	MV1SetFrameUserLocalMatrix(mModelHandle, rootFrameIndex, rootMtx);
+}

@@ -19,6 +19,11 @@ public:
 	/// </summary>
 	void Draw() override;
 
+	/// <summary>
+	/// ƒ‚ƒfƒ‹‚ÌˆÚ“®—Ê‚ð–³Œø‰»‚·‚é
+	/// </summary>
+	void DisableMovement(const std::string& rootName);
+
 public:
 
 	int GetHandle() const { return mModelHandle; };

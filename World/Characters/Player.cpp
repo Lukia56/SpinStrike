@@ -46,6 +46,7 @@ Player::Player(PlayerBulletManager* bulletManager) :
 
 	mModel = std::make_unique<ModelRenderer>(this);
 	mModel->Load(kModelHandlePath);
+	mModel->DisableMovement("root");
 
 	mAnimator = std::make_unique<Animator>(mModel.get(), 30.0f);
 
