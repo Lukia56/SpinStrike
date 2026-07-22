@@ -126,8 +126,6 @@ void Player::DebugDraw()
 {
 	Vector3 pos = mTransform.CalculateWorldPosition();
 
-	DrawSphere3D(pos.GetAsDxLibVector(), 10, 8, 0x00ff00, 0x00ff00, 1);
-
 	if (ImGui::Begin("Player"))
 	{
 		float posPtr[] = {pos.x, pos.y, pos.z};
@@ -296,9 +294,9 @@ void Player::MoveVertical(float deltaTime)
 		// •ÇƒWƒƒƒ“ƒv
 		if (mOnWall && !mOnGround)
 		{
-			mVelocity.x = -mLastMoveVec.x * mParam.wallJumpHorizontalForce;
+			mVelocity = mLastCollideNormal * mParam.wallJumpHorizontalForce;
 			mVelocity.y = mParam.wallJumpVerticalForce;
-			mVelocity.z = -mLastMoveVec.z * mParam.wallJumpHorizontalForce;
+			mLastMoveVec = mLastCollideNormal;
 
 			mIgnoreMoveInputTimer = mParam.wallJumpIgnoreMoveInputTime;
 
