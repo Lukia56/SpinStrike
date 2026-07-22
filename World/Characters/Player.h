@@ -8,6 +8,7 @@ class PlayerTornado;
 class PlayerBulletManager;
 class ModelRenderer;
 class Collider3D;
+class Animator;
 
 class Player : public GameObject
 {
@@ -73,6 +74,8 @@ private:
 	PlayerParam mParam;
 
 	std::unique_ptr<ModelRenderer> mModel;
+
+	std::unique_ptr<Animator> mAnimator;
 	
 	std::vector<std::unique_ptr<Collider3D>> mColliders;
 
