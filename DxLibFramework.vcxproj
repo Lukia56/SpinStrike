@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="World\Components\Animator.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera\CameraFollow.cpp" />
     <ClCompile Include="Camera\CameraStatic.cpp" />
@@ -201,6 +202,7 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="World\Components\Animator.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Camera\CameraFollow.h" />
     <ClInclude Include="Camera\CameraStatic.h" />

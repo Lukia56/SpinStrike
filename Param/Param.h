@@ -32,3 +32,10 @@ struct AABBColliderParam
 	Vector3 offsetPos;
 	Collision::Tag collisionTag;
 };
+
+struct AnimationParam
+{
+	int animIndex;
+	bool isLoop;
+	bool isForcePlay;
+};

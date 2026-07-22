@@ -19,6 +19,10 @@ public:
 	/// </summary>
 	void Draw() override;
 
+public:
+
+	int GetHandle() const { return mModelHandle; };
+
 private:
 
 	int mModelHandle;

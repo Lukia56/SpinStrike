@@ -5,6 +5,7 @@
 #include <imgui.h>
 #include "PlayerBulletManager.h"
 #include "PlayerTornado.h"
+#include "../Components/Animator.h"
 #include "../Components/Collider3D.h"
 #include "../Components/Rendering/ModelRenderer.h"
 #include "../Objects/DebugGround.h"
@@ -15,13 +16,15 @@
 #include "Utility/Data/CSV/CsvLoader.h"
 #include "Utility/Math.h"
 
+#include "System/Input/Keyboard.h"
+
 namespace
 {
 	const char* const kPlayerParamPath = "Resource\\MasterData\\PlayerParam.csv";
 
 	const char* const kAABBParamPath = "Resource\\MasterData\\PlayerAABBColliderParam.csv";
 
-	const char* const kModelHandlePath = "";
+	const char* const kModelHandlePath = "Resource\\Model\\Hero.x";
 }
 
 Player::Player(PlayerBulletManager* bulletManager) :
@@ -34,13 +37,17 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mStickWallCancelTimer(0.0f),
 	mIgnoreMoveInputTimer(0.0f),
 	mModel(nullptr),
+	mAnimator(nullptr),
 	mTornado(nullptr)
 {
 	SetTag(Tag::Player);
 
 	mParam = Data::Csv::LoadCsvAs<PlayerParam>(kPlayerParamPath)[0];
 
-	//mModel = std::make_unique<ModelRenderer>(this);
+	mModel = std::make_unique<ModelRenderer>(this);
+	mModel->Load(kModelHandlePath);
+
+	mAnimator = std::make_unique<Animator>(mModel.get(), 30.0f);
 
 	mTornado = AddToChild<PlayerTornado>(bulletManager);
 
@@ -64,7 +71,6 @@ Player::~Player()
 
 void Player::Init()
 {
-	//mModel->Load(kModelHandlePath);
 }
 
 void Player::Finalize()
@@ -96,6 +102,11 @@ void Player::Update()
 	if (!mOnGround && mCanJumpTimer > 0.0f) mCanJumpTimer -= TimeManager::GetDeltaTime();
 
 	if (mIgnoreMoveInputTimer > 0.0f) mIgnoreMoveInputTimer -= TimeManager::GetDeltaTime();
+
+	if (Keyboard::GetInstance().IsDown(KEY_INPUT_1)) mAnimator->Play(AnimationParam{ .animIndex = 0, .isLoop = true, .isForcePlay = false });
+	if (Keyboard::GetInstance().IsDown(KEY_INPUT_2)) mAnimator->Play(AnimationParam{ .animIndex = 1, .isLoop = true, .isForcePlay = true });
+
+	mAnimator->Update();
 }
 
 void Player::PhysicsUpdate()
@@ -117,7 +128,7 @@ void Player::Draw()
 {
 	Vector3 worldPos = mTransform.CalculateWorldPosition();
 
-	//mModel->Draw();
+	mModel->Draw();
 
 	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + mLastMoveVec * 100.0f).GetAsDxLibVector(), Color::red.GetAsHexRGB());
 }
