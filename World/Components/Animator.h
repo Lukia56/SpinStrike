@@ -18,7 +18,13 @@ public:
 
 public:
 
+	int GetAnimIndex() const { return mAnimIndex; }
 
+	bool IsPlaying() const { return mIsPlaying; }
+
+	bool IsForcePlay() const { return mIsForcePlay; }
+
+	void SetPlaySpeed(const float speed) { mPlaySpeed = speed; }
 
 private:
 
