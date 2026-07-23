@@ -40,6 +40,11 @@ protected:
 	/// <returns>次のシーンのポインタ</returns>
 	virtual std::unique_ptr<SceneBase> Update() = 0;
 
+	/// <summary>
+	/// 派生のデバッグ描画処理
+	/// </summary>
+	virtual void DebugDraw() {}
+
 	/// <returns>追加したゲームオブジェクトの生ポインタ</returns>
 	template <class T, class... Args>
 	requires std::derived_from<T, GameObject>
