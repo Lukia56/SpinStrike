@@ -1,5 +1,5 @@
 #include "SceneInit.h"
-#include "SceneTest.h"
+#include "Test/SceneSelectDebug.h"
 
 void SceneInit::Init()
 {
@@ -7,5 +7,5 @@ void SceneInit::Init()
 
 std::unique_ptr<SceneBase> SceneInit::Update()
 {
-	return std::make_unique<SceneTest>();
+	return std::make_unique<SceneSelectDebug>();
 }

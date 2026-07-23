@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Scene\Test\SceneSelectDebug.cpp" />
     <ClCompile Include="World\Components\Animator.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera\CameraFollow.cpp" />
@@ -194,7 +195,7 @@
     <ClCompile Include="System\Input\Modifier\InputModifierSwizzleAxis.cpp" />
     <ClCompile Include="Collision\Collision3D.cpp" />
     <ClCompile Include="World\Characters\Player.cpp" />
-    <ClCompile Include="Scene\SceneTest.cpp" />
+    <ClCompile Include="Scene\Test\SceneTest.cpp" />
     <ClCompile Include="Utility\Vector.cpp" />
     <ClCompile Include="World\GameObject.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -202,6 +203,7 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Scene\Test\SceneSelectDebug.h" />
     <ClInclude Include="World\Components\Animator.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Camera\CameraFollow.h" />
@@ -274,7 +276,7 @@
     <ClInclude Include="System\Input\Mouse.h" />
     <ClInclude Include="Collision\Collision3D.h" />
     <ClInclude Include="World\Characters\Player.h" />
-    <ClInclude Include="Scene\SceneTest.h" />
+    <ClInclude Include="Scene\Test\SceneTest.h" />
     <ClInclude Include="Utility\Color.h" />
     <ClInclude Include="Utility\Math.h" />
     <ClInclude Include="Utility\Vector.h" />

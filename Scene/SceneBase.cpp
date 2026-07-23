@@ -56,6 +56,8 @@ void SceneBase::DebugDrawBase()
 	DebugDrawRootObjects();
 
 	mCameraManager->DebugDraw();
+
+	DebugDraw();
 }
 
 void SceneBase::UpdateRootObjects()
