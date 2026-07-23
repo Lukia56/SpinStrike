@@ -97,9 +97,9 @@ namespace Collision
 	{
 	}
 
-	void Sphere3D::DebugDraw() const
+	void Sphere3D::DebugDraw(const Color& color) const
 	{
-		DrawSphere3D(GetPosition().GetAsDxLibVector(), mRadius, 10, Color::white.GetAsHexRGB(), Color::white.GetAsHexRGB(), false);
+		DrawSphere3D(GetPosition().GetAsDxLibVector(), mRadius, 10, color.GetAsHexRGB(), color.GetAsHexRGB(), false);
 	}
 
 	Collision::Result Sphere3D::Check(const Sphere3D* other) const
@@ -149,12 +149,12 @@ namespace Collision
 	{
 	}
 
-	void AABB3D::DebugDraw() const
+	void AABB3D::DebugDraw(const Color& color) const
 	{
 		Vector3 minPos = this->GetPosition() - this->GetHalfSize();
 		Vector3 maxPos = this->GetPosition() + this->GetHalfSize();
 
-		DrawCube3D(minPos.GetAsDxLibVector(), maxPos.GetAsDxLibVector(), Color::white.GetAsHexRGB(), Color::white.GetAsHexRGB(), false);
+		DrawCube3D(minPos.GetAsDxLibVector(), maxPos.GetAsDxLibVector(), color.GetAsHexRGB(), color.GetAsHexRGB(), false);
 	}
 
 	Collision::Result AABB3D::Check(const Sphere3D* other) const
@@ -228,7 +228,7 @@ namespace Collision
 		return Collision::Result();
 	}
 
-	void Capsule3D::DebugDraw() const
+	void Capsule3D::DebugDraw(const Color& color) const
 	{
 	}
 

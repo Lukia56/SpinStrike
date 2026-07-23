@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CollisionResult.h"
+#include "Utility/Color.h"
 #include "Utility/Vector.h"
 
 namespace Collision
@@ -27,7 +28,7 @@ namespace Collision
 		/// <returns>Õ“Ëî•ñ</returns>
 		virtual Collision::Result CheckCollision(const IShape3D* other) const = 0;
 
-		virtual void DebugDraw() const = 0;
+		virtual void DebugDraw(const Color& color = Color::white) const = 0;
 
 	public:
 
@@ -60,7 +61,7 @@ namespace Collision
 
 		Collision::Result CheckCollision(const IShape3D* other) const override { return other->Check(this); }
 
-		void DebugDraw() const override;
+		void DebugDraw(const Color& color = Color::white) const override;
 
 	public:
 
@@ -114,7 +115,7 @@ namespace Collision
 
 		Collision::Result CheckCollision(const IShape3D* other) const override { return other->Check(this); }
 
-		void DebugDraw() const override;
+		void DebugDraw(const Color& color = Color::white) const override;
 
 	public:
 
@@ -167,7 +168,7 @@ namespace Collision
 
 		Collision::Result CheckCollision(const IShape3D* other) const override { return other->Check(this); }
 
-		void DebugDraw() const override;
+		void DebugDraw(const Color& color = Color::white) const override;
 
 	protected:
 
