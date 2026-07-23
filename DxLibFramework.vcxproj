@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Scene\Test\SceneCollisionDebug.cpp" />
     <ClCompile Include="Scene\Test\SceneSelectDebug.cpp" />
     <ClCompile Include="World\Components\Animator.cpp" />
     <ClCompile Include="Application.cpp" />
@@ -203,6 +204,7 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Scene\Test\SceneCollisionDebug.h" />
     <ClInclude Include="Scene\Test\SceneSelectDebug.h" />
     <ClInclude Include="World\Components\Animator.h" />
     <ClInclude Include="Application.h" />

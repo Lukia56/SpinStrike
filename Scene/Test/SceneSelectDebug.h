@@ -32,4 +32,3 @@ private:
 
 	std::vector<SceneInfo> mSceneList;
 };
-
