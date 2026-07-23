@@ -20,7 +20,7 @@ public:
 	virtual ~SceneBase();
 
 	virtual void Init() = 0;
-	virtual void Finalize() = 0;
+	virtual void Finalize() {}
 
 	/// <returns>次のシーンのポインタ</returns>
 	std::unique_ptr<SceneBase> UpdateBase();

@@ -14,7 +14,6 @@ public:
 	~SceneInit() = default;
 
 	void Init() override;
-	void Finalize() override;
 
 	/// <returns>次のシーンのポインタ</returns>
 	std::unique_ptr<SceneBase> Update() override;
