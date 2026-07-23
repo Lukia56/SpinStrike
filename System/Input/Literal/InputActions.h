@@ -16,6 +16,8 @@ namespace Input
 		Down,
 		Left,
 		Right,
+		Submit,
+		Cancel,
 		Fly,
 		Length
 	};

@@ -35,6 +35,8 @@ bool InputManager::Initialize()
 	mActions[static_cast<size_t>(Input::Action::Down)].map = Input::ActionMap::UI;
 	mActions[static_cast<size_t>(Input::Action::Left)].map = Input::ActionMap::UI;
 	mActions[static_cast<size_t>(Input::Action::Right)].map = Input::ActionMap::UI;
+	mActions[static_cast<size_t>(Input::Action::Submit)].map = Input::ActionMap::UI;
+	mActions[static_cast<size_t>(Input::Action::Cancel)].map = Input::ActionMap::UI;
 	mActions[static_cast<size_t>(Input::Action::Fly)].map = Input::ActionMap::Debug;
 
 	Bind(Input::Action::Move, Input::Device::Keyboard, KeyCode::Button::W,
@@ -80,6 +82,11 @@ bool InputManager::Initialize()
 	Bind(Input::Action::Down, Input::Device::Gamepad, KeyCode::Button::GpFaceDown);
 	Bind(Input::Action::Left, Input::Device::Gamepad, KeyCode::Button::GpFaceLeft);
 	Bind(Input::Action::Right, Input::Device::Gamepad, KeyCode::Button::GpFaceRight);
+	Bind(Input::Action::Submit, Input::Device::Keyboard, KeyCode::Button::Enter);
+	Bind(Input::Action::Submit, Input::Device::Keyboard, KeyCode::Button::Z);
+	Bind(Input::Action::Submit, Input::Device::Gamepad, KeyCode::Button::GpFaceRight);
+	Bind(Input::Action::Cancel, Input::Device::Keyboard, KeyCode::Button::Shift);
+	Bind(Input::Action::Cancel, Input::Device::Gamepad, KeyCode::Button::GpFaceDown);
 
 	Bind(Input::Action::Fly, Input::Device::Keyboard, KeyCode::Button::Space);
 	Bind(Input::Action::Fly, Input::Device::Keyboard, KeyCode::Button::LShift, { std::make_shared<InputModifierNegate>(true, false, false) });
