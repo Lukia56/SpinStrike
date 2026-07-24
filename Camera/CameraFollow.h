@@ -16,6 +16,8 @@ public:
 
 	void Update(Camera::View& view) override;
 
+	void DebugDraw();
+
 private:
 
 	Vector3 mEyePosition;

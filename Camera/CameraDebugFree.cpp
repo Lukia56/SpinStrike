@@ -1,5 +1,6 @@
 #include "CameraDebugFree.h"
 #include <cmath>
+#include <imgui.h>
 #include "System/InputManager.h"
 #include "System/Input/Mouse.h"
 #include "System/TimeManager.h"
@@ -39,11 +40,16 @@ void CameraDebugFree::Update(Camera::View& view)
 
 void CameraDebugFree::DebugDraw()
 {
-	printfDx("Camera.position.x = %f\n", mPosition.x);
-	printfDx("Camera.position.y = %f\n", mPosition.y);
-	printfDx("Camera.position.z = %f\n", mPosition.z);
-	printfDx("Camera.pitch = %f\n", Math::ToDegree(mRotation.x));
-	printfDx("Camera.yaw = %f\n", Math::ToDegree(mRotation.y));
+	if (ImGui::Begin("Camera"))
+	{
+		float posPtr[] = { mPosition.x, mPosition.y, mPosition.z };
+		ImGui::InputFloat3("Position", posPtr, "%.1f");
+
+		float rotPtr[] = { Math::ToDegree(mRotation.x), Math::ToDegree(mRotation.y), Math::ToDegree(mRotation.z) };
+		ImGui::InputFloat3("Rotation", rotPtr, "%.1f");
+
+		ImGui::End();
+	}
 
 	DrawCrossHair();
 }

@@ -1,4 +1,5 @@
 #include "CameraFollow.h"
+#include <imgui.h>
 #include "System/InputManager.h"
 #include "System/Input/Mouse.h"
 #include "Utility/Math.h"
@@ -45,4 +46,22 @@ void CameraFollow::Update(Camera::View& view)
 
 	view.eyePosition = mEyePosition;
 	view.targetPosition = targetPos;
+}
+
+void CameraFollow::DebugDraw()
+{
+	if (ImGui::Begin("Camera"))
+	{
+		float eyePosPtr[] = { mEyePosition.x, mEyePosition.y, mEyePosition.z };
+		ImGui::InputFloat3("EyePosition", eyePosPtr, "%.1f");
+
+		Vector3 targetPos = mTarget->CalculateWorldPosition();
+		float targetPosPtr[] = { targetPos.x, targetPos.y, targetPos.z };
+		ImGui::InputFloat3("TargetPosition", targetPosPtr, "%.1f");
+
+		float rotPtr[] = { Math::ToDegree(mRotation.x), Math::ToDegree(mRotation.y), Math::ToDegree(mRotation.z) };
+		ImGui::InputFloat3("Rotation", rotPtr, "%.1f");
+
+		ImGui::End();
+	}
 }
