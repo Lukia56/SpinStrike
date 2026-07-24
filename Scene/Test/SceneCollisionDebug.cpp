@@ -1,4 +1,6 @@
 #include "SceneCollisionDebug.h"
+#include <imgui.h>
+#include "SceneSelectDebug.h"
 #include "Camera/CameraDebugFree.h"
 #include "Camera/CameraManager.h"
 #include "Collision/Collision3D.h"
@@ -9,7 +11,8 @@
 SceneCollisionDebug::SceneCollisionDebug() :
 	mShapeA(nullptr),
 	mShapeB(nullptr),
-	mIsControllCamera(true)
+	mIsControllCamera(true),
+	mIsStartTransition(false)
 {
 	AddToRoot<DebugGround>();
 
@@ -47,6 +50,8 @@ std::unique_ptr<SceneBase> SceneCollisionDebug::Update()
 		GetCameraManager()->SetCurrentCameraType(type);
 	}
 
+	if (mIsStartTransition) return std::make_unique<SceneSelectDebug>();
+
 	return nullptr;
 }
 
@@ -54,7 +59,16 @@ void SceneCollisionDebug::DebugDraw()
 {
 	bool isHit = mShapeA->CheckCollision(mShapeB.get()).isHit;
 	Color color = isHit ? Color::red : Color::white;
-
 	mShapeA->DebugDraw(color);
 	mShapeB->DebugDraw(color);
+
+	if (ImGui::Begin("Scene"))
+	{
+		if (ImGui::Button("Back to Selection"))
+		{
+			mIsStartTransition = true;
+		}
+
+		ImGui::End();
+	}
 }

@@ -30,4 +30,6 @@ private:
 	Vector3 mShapeBPos;
 
 	bool mIsControllCamera;
+
+	bool mIsStartTransition;
 };
