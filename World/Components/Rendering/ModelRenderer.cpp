@@ -9,6 +9,11 @@ ModelRenderer::ModelRenderer(GameObject* owner) :
 {
 }
 
+ModelRenderer::~ModelRenderer()
+{
+	MV1DeleteModel(mModelHandle);
+}
+
 void ModelRenderer::Load(const std::string& filePath)
 {
 	Renderer::Load(filePath);

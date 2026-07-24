@@ -10,7 +10,7 @@ class ModelRenderer : public Renderer<Model>
 public:
 
 	ModelRenderer(GameObject* owner);
-	~ModelRenderer() = default;
+	~ModelRenderer();
 
 	void Load(const std::string& filePath) override;
 
