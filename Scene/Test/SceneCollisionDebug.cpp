@@ -19,8 +19,8 @@ SceneCollisionDebug::SceneCollisionDebug() :
 	GetCameraManager()->AddCamera(Camera::Type::DebugFree, std::make_unique<CameraDebugFree>());
 	GetCameraManager()->SetCurrentCameraType(Camera::Type::DebugFree);
 
-	mShapeA = std::make_unique<Collision::AABB3D>(Vector3(50, 100, 50));
-	mShapeB = std::make_unique<Collision::AABB3D>(Vector3(100, 200, 100));
+	mShapeA = std::make_unique<Collision::Capsule3D>(Vector3(0, 50, 0), Vector3(0, -50, 0), 50.0f);
+	mShapeB = std::make_unique<Collision::Sphere3D>(50.0f);
 
 	mShapeAPos = Vector3(100.0f, 100.0f, 0.0f);
 	mShapeBPos = Vector3(-100.0f, 100.0f, 0.0f);
@@ -57,7 +57,7 @@ std::unique_ptr<SceneBase> SceneCollisionDebug::Update()
 
 void SceneCollisionDebug::DebugDraw()
 {
-	bool isHit = mShapeA->CheckCollision(mShapeB.get()).isHit;
+	bool isHit = mShapeB->CheckCollision(mShapeA.get()).isHit;
 	Color color = isHit ? Color::red : Color::white;
 	mShapeA->DebugDraw(color);
 	mShapeB->DebugDraw(color);

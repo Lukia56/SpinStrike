@@ -228,13 +228,61 @@ namespace Collision
 		return Collision::Result();
 	}
 
+	Capsule3D::Capsule3D(const Vector3& start, const Vector3& end, float radius, const Vector3& offset) :
+		mStartPos(start),
+		mEndPos(end),
+		mRadius(radius),
+		mOffsetPos(offset)
+	{
+	}
+
 	void Capsule3D::DebugDraw(const Color& color) const
 	{
+		DrawCapsule3D(mStartPos.GetAsDxLibVector(), mEndPos.GetAsDxLibVector(), mRadius, 16, color.GetAsHexRGB(), color.GetAsHexRGB(), false);
+
+		DrawLine3D(mStartPos.GetAsDxLibVector(), mEndPos.GetAsDxLibVector(), Color::cyan.GetAsHexRGB());
+	}
+
+	void Capsule3D::SetPosition(const Vector3& pos)
+	{
+		Vector3 center = GetPosition();
+
+		Vector3 move = pos - center + mOffsetPos * 2.0f;
+
+		mStartPos += move;
+		mEndPos += move;
+	}
+
+	Vector3 Capsule3D::GetPosition() const
+	{
+		return (mStartPos + mEndPos) * 0.5f + mOffsetPos;
 	}
 
 	Collision::Result Capsule3D::Check(const Sphere3D* other) const
 	{
-		return Collision::Result();
+		Collision::Result result;
+
+		// ‹…•”•ª‚Ì”»’è
+		Vector3 dist = this->mStartPos - other->GetPosition();
+		float sqDistLen = dist.GetSqLength();
+		float radiusSum = this->GetRadius() + other->GetRadius();
+
+		if (sqDistLen <= Math::Sqr(radiusSum)) result.isHit = true;
+
+		dist = this->mEndPos - other->GetPosition();
+		sqDistLen = dist.GetSqLength();
+		radiusSum = this->GetRadius() + other->GetRadius();
+
+		if (sqDistLen <= Math::Sqr(radiusSum)) result.isHit = true;
+
+		// “›•”•ª‚ÌÕ“Ë
+		Vector3 capToSphereVec = (other->GetPosition() - this->GetPosition()).GetNormalize();
+		Vector3 vec = this->mStartPos - this->mEndPos;
+		float distLen = capToSphereVec.Dot(vec);
+
+		if (!result.isHit) return result;
+
+		return result;
 	}
 
 	Collision::Result Capsule3D::Check(const AABB3D* other) const

@@ -163,12 +163,22 @@ namespace Collision
 	{
 	public:
 
-		Capsule3D() = default;
+		Capsule3D(const Vector3& start, const Vector3& end, float radius, const Vector3& offset = Vector3::Zero);
 		~Capsule3D() = default;
 
 		Collision::Result CheckCollision(const IShape3D* other) const override { return other->Check(this); }
 
 		void DebugDraw(const Color& color = Color::white) const override;
+
+	public:
+
+		void SetPosition(const Vector3& pos) override;
+		Vector3 GetPosition() const override;
+
+		virtual void SetOffset(const Vector3& offset) override { mOffsetPos = offset; }
+		virtual const Vector3& GetOffset() const { return mOffsetPos; }
+
+		float GetRadius() const { return mRadius; }
 
 	protected:
 
@@ -189,6 +199,12 @@ namespace Collision
 
 	private:
 
+		Vector3 mStartPos;
 
+		Vector3 mEndPos;
+
+		float mRadius;
+
+		Vector3 mOffsetPos;
 	};
 }
