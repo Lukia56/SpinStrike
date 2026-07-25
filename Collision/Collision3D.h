@@ -178,6 +178,9 @@ namespace Collision
 		virtual void SetOffset(const Vector3& offset) override { mOffsetPos = offset; }
 		virtual const Vector3& GetOffset() const { return mOffsetPos; }
 
+		const Vector3& GetStartPos() const { return mStartPos; }
+		const Vector3& GetEndPos() const { return mEndPos; }
+
 		float GetRadius() const { return mRadius; }
 
 	protected:

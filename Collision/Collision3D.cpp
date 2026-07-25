@@ -1,6 +1,7 @@
 #include "Collision3D.h"
 #include <DxLib.h>
 #include "Utility/Color.h"
+#include "Utility/Geometry.h"
 #include "Utility/Math.h"
 #include "Utility/Vector.h"
 
@@ -77,6 +78,31 @@ namespace
 
 		return result;
 	}
+
+	Collision::Result CheckCapsuleSphere(const Collision::Capsule3D* capsule, const Collision::Sphere3D* sphere)
+	{
+		Collision::Result result;
+
+		Vector3 spherePos = sphere->GetPosition();
+
+		Vector3 minDistance = Geometry::CalculatePointSegmentDistance(spherePos, capsule->GetStartPos(), capsule->GetEndPos());
+
+		float radiusSum = capsule->GetRadius() + sphere->GetRadius();
+
+		// 衝突しているかチェック
+		if (minDistance.GetSqLength() > Math::Sqr(radiusSum)) return result;
+		
+		result.isHit = true;
+
+		// めり込みの法線を計算
+		result.normal = minDistance.GetNormalize();
+		if (result.normal == Vector3::Zero) result.normal = Vector3::XAxis;
+
+		// めり込み具合を計算
+		result.penetration = radiusSum - minDistance.GetLength();
+
+		return result;
+	}
 }
 
 namespace Collision
@@ -137,7 +163,9 @@ namespace Collision
 
 	Collision::Result Sphere3D::Check(const Capsule3D* other) const
 	{
-		return Collision::Result();
+		Collision::Result result = ::CheckCapsuleSphere(other, this);
+		result.normal *= -1;
+		return result;
 	}
 
 	// AABB
@@ -228,6 +256,8 @@ namespace Collision
 		return Collision::Result();
 	}
 
+	// カプセル
+
 	Capsule3D::Capsule3D(const Vector3& start, const Vector3& end, float radius, const Vector3& offset) :
 		mStartPos(start),
 		mEndPos(end),
@@ -238,7 +268,7 @@ namespace Collision
 
 	void Capsule3D::DebugDraw(const Color& color) const
 	{
-		DrawCapsule3D(mStartPos.GetAsDxLibVector(), mEndPos.GetAsDxLibVector(), mRadius, 16, color.GetAsHexRGB(), color.GetAsHexRGB(), false);
+		DrawCapsule3D(mStartPos.GetAsDxLibVector(), mEndPos.GetAsDxLibVector(), mRadius, 10, color.GetAsHexRGB(), color.GetAsHexRGB(), false);
 
 		DrawLine3D(mStartPos.GetAsDxLibVector(), mEndPos.GetAsDxLibVector(), Color::cyan.GetAsHexRGB());
 	}
@@ -260,29 +290,7 @@ namespace Collision
 
 	Collision::Result Capsule3D::Check(const Sphere3D* other) const
 	{
-		Collision::Result result;
-
-		// 球部分の判定
-		Vector3 dist = this->mStartPos - other->GetPosition();
-		float sqDistLen = dist.GetSqLength();
-		float radiusSum = this->GetRadius() + other->GetRadius();
-
-		if (sqDistLen <= Math::Sqr(radiusSum)) result.isHit = true;
-
-		dist = this->mEndPos - other->GetPosition();
-		sqDistLen = dist.GetSqLength();
-		radiusSum = this->GetRadius() + other->GetRadius();
-
-		if (sqDistLen <= Math::Sqr(radiusSum)) result.isHit = true;
-
-		// 筒部分の衝突
-		Vector3 capToSphereVec = (other->GetPosition() - this->GetPosition()).GetNormalize();
-		Vector3 vec = this->mStartPos - this->mEndPos;
-		float distLen = capToSphereVec.Dot(vec);
-
-		if (!result.isHit) return result;
-
-		return result;
+		return ::CheckCapsuleSphere(this, other);
 	}
 
 	Collision::Result Capsule3D::Check(const AABB3D* other) const

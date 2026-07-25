@@ -24,6 +24,8 @@ SceneCollisionDebug::SceneCollisionDebug() :
 
 	mShapeAPos = Vector3(100.0f, 100.0f, 0.0f);
 	mShapeBPos = Vector3(-100.0f, 100.0f, 0.0f);
+	mShapeA->SetPosition(mShapeAPos);
+	mShapeB->SetPosition(mShapeBPos);
 }
 
 void SceneCollisionDebug::Init()
@@ -57,8 +59,8 @@ std::unique_ptr<SceneBase> SceneCollisionDebug::Update()
 
 void SceneCollisionDebug::DebugDraw()
 {
-	bool isHit = mShapeB->CheckCollision(mShapeA.get()).isHit;
-	Color color = isHit ? Color::red : Color::white;
+	Collision::Result result = mShapeA->CheckCollision(mShapeB.get());
+	Color color = result.isHit ? Color::red : Color::white;
 	mShapeA->DebugDraw(color);
 	mShapeB->DebugDraw(color);
 
