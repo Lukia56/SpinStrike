@@ -98,12 +98,12 @@ float Vector2::operator[](int index) const
 
 bool Vector2::operator==(const Vector2& v) const
 {
-	return Math::NearyEqual(x, v.x) && Math::NearyEqual(y, v.y);
+	return Math::NearlyEqual(x, v.x) && Math::NearlyEqual(y, v.y);
 }
 
 bool Vector2::operator!=(const Vector2& v) const
 {
-	return !Math::NearyEqual(x, v.x) || !Math::NearyEqual(y, v.y);
+	return !Math::NearlyEqual(x, v.x) || !Math::NearlyEqual(y, v.y);
 }
 
 float Vector2::Dot(const Vector2& v) const
@@ -222,11 +222,11 @@ float Vector3::operator[](int index) const
 
 bool Vector3::operator==(const Vector3& v) const
 {
-	return Math::NearyEqual(x, v.x) && Math::NearyEqual(y, v.y) && Math::NearyEqual(z, v.z);
+	return Math::NearlyEqual(x, v.x) && Math::NearlyEqual(y, v.y) && Math::NearlyEqual(z, v.z);
 }
 bool Vector3::operator!=(const Vector3& v) const
 {
-	return !Math::NearyEqual(x, v.x) || !Math::NearyEqual(y, v.y) || !Math::NearyEqual(z, v.z);
+	return !Math::NearlyEqual(x, v.x) || !Math::NearlyEqual(y, v.y) || !Math::NearlyEqual(z, v.z);
 }
 
 float Vector3::Dot(const Vector3& v) const

@@ -28,7 +28,7 @@ namespace Camera
 		{
 			Vector3 forward = GetRawForward();
 
-			if (Math::NearyEqual(forward.GetSqLength(), 0.0f))
+			if (Math::NearlyEqual(forward.GetSqLength(), 0.0f))
 			{
 				assert(false && "Camera::View // 0œZ‚ªs‚í‚ê‚æ‚¤‚Æ‚µ‚Ü‚µ‚½");
 				return Vector3::Zero;
@@ -42,7 +42,7 @@ namespace Camera
 			Vector3 forward = GetRawForward();
 			forward.y = 0.0f;
 
-			if (Math::NearyEqual(forward.GetSqLength(), 0.0f))
+			if (Math::NearlyEqual(forward.GetSqLength(), 0.0f))
 			{
 				assert(false && "Camera::View // 0œZ‚ªs‚í‚ê‚æ‚¤‚Æ‚µ‚Ü‚µ‚½");
 				return Vector3::Zero;

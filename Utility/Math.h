@@ -147,7 +147,7 @@ namespace Math
 	/// <param name="b">’l2</param>
 	/// <param name="epsilon">‹–—e”ÍˆÍ</param>
 	template <std::floating_point T>
-	constexpr bool NearyEqual(const T a, const T b, const float epsilon = Epsilon)
+	constexpr bool NearlyEqual(const T a, const T b, const float epsilon = Epsilon)
 	{
 		if (std::abs(a - b) <= epsilon) return true;
 
