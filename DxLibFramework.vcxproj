@@ -206,6 +206,7 @@
   <ItemGroup>
     <ClInclude Include="Scene\Test\SceneCollisionDebug.h" />
     <ClInclude Include="Scene\Test\SceneSelectDebug.h" />
+    <ClInclude Include="Utility\Geometry.h" />
     <ClInclude Include="World\Components\Animator.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Camera\CameraFollow.h" />
