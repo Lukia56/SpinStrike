@@ -11,16 +11,16 @@ namespace Geometry
 		return ab.Dot(cb) > 0.0f;
 	}
 
-	float CalculatePointSegmentSqDistance(const Vector3& point, const Vector3& segStart, const Vector3& segEnd)
+	Vector3 CalculatePointSegmentDistance(const Vector3& point, const Vector3& segStart, const Vector3& segEnd)
 	{
 		if (!Geometry::IsSharpAngle(point, segStart, segEnd))
 		{
-			return (point - segStart).GetSqLength();
+			return point - segStart;
 		}
 		else
 		if (!Geometry::IsSharpAngle(point, segEnd, segStart))
 		{
-			return (point - segEnd).GetSqLength();
+			return point - segEnd;
 		}
 		else
 		{
@@ -39,7 +39,7 @@ namespace Geometry
 			Vector3 h = segStart + lineVec * t;
 
 			// ‚ü‚Ì‘«‚Æ“_‚Ì‹——£‚ğÅ’Z‹——£‚É‚·‚é
-			return (point - h).GetSqLength();
+			return point - h;
 		}
 	}
 }
