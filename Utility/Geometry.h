@@ -26,17 +26,16 @@ namespace Geometry
 		{
 			Vector3 segVec = segEnd - segStart;
 
-			// 直線の方向ベクトルを取得
-			Vector3 lineVec = segVec.GetNormalize();
+			float segSqLength = segVec.GetSqLength();
 
 			float t = 0.0f;
 			if (segVec != Vector3::Zero)
 			{
-				 t = lineVec.Dot(point - segStart);
+				t = segVec.Dot(point - segStart) / segSqLength;
 			}
 
-			// 点から直線に下した垂線の足の座標を求める
-			Vector3 h = segStart + lineVec * t;
+			// 点から線分に下した垂線の足の座標を求める
+			Vector3 h = segStart + segVec * t;
 
 			// 垂線の足と点の距離を最短距離にする
 			return point - h;
