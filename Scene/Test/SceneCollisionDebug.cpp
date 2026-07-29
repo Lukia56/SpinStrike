@@ -73,4 +73,13 @@ void SceneCollisionDebug::DebugDraw()
 
 		ImGui::End();
 	}
+
+	if (ImGui::Begin("Collision"))
+	{
+		float norm[3] = { result.normal.x, result.normal.y, result.normal.z };
+		ImGui::InputFloat3("Normal", norm);
+		ImGui::Text("Penetration: %.3f", result.penetration);
+
+		ImGui::End();
+	}
 }

@@ -10,9 +10,48 @@ namespace
 	constexpr int kDimensionNum = 3;
 
 	/// <summary>
-	/// AABBと球の衝突判定
+	/// 一番めり込んでいない軸のめり込み具合を計算する
 	/// </summary>
-	Collision::Result Check(const Collision::AABB3D* aabb, const Collision::Sphere3D* sphere)
+	void CalculateBoxPenetrateVector(Collision::Result& result, const Vector3& minPosA, const Vector3& maxPosA, const Vector3& minPosB, const Vector3& maxPosB)
+	{
+		// めり込み具合を計算
+		Vector3 overlaps;
+		overlaps.x = Math::Min(maxPosA.x, maxPosB.x) - Math::Max(minPosA.x, minPosB.x);
+		overlaps.y = Math::Min(maxPosA.y, maxPosB.y) - Math::Max(minPosA.y, minPosB.y);
+		overlaps.z = Math::Min(maxPosA.z, maxPosB.z) - Math::Max(minPosA.z, minPosB.z);
+
+		// めり込み量が一番少ない成分をめり込み具合にする
+		float minOverlaps = overlaps.x;
+		result.normal = Vector3::XAxis;
+		if (minOverlaps > overlaps.y)
+		{
+			minOverlaps = overlaps.y;
+			result.normal = Vector3::YAxis;
+		}
+		if (minOverlaps > overlaps.z)
+		{
+			minOverlaps = overlaps.z;
+			result.normal = Vector3::ZAxis;
+		}
+		result.penetration = minOverlaps;
+
+		// 法線の符号を計算
+		Vector3 vect = (maxPosA - minPosA) - (maxPosB - minPosB);
+		if (result.normal == Vector3::XAxis)
+		{
+			result.normal *= (vect.x <= 0.0f ? 1.0f : -1.0f);
+		}
+		else if (result.normal == Vector3::YAxis)
+		{
+			result.normal *= (vect.y <= 0.0f ? 1.0f : -1.0f);
+		}
+		else if (result.normal == Vector3::ZAxis)
+		{
+			result.normal *= (vect.z <= 0.0f ? 1.0f : -1.0f);
+		}
+	}
+
+	Collision::Result CheckAABBSphere(const Collision::AABB3D* aabb, const Collision::Sphere3D* sphere)
 	{
 		Collision::Result result;
 
@@ -40,41 +79,13 @@ namespace
 
 		result.isHit = true;
 
+		// 球の最小座標と最大座標をキャッシュ
+		Vector3 sphereRadiusVec = Vector3(sphereRadius, sphereRadius, sphereRadius);
+		Vector3 sphereMinPos = spherePos - sphereRadiusVec;
+		Vector3 sphereMaxPos = spherePos + sphereRadiusVec;
+
 		// めり込み具合を計算
-		Vector3 overlaps;
-		overlaps.x = Math::Min(aabbMaxPos.x, spherePos.x + sphereRadius) - Math::Max(aabbMinPos.x, spherePos.x - sphereRadius);
-		overlaps.y = Math::Min(aabbMaxPos.y, spherePos.y + sphereRadius) - Math::Max(aabbMinPos.y, spherePos.y - sphereRadius);
-		overlaps.z = Math::Min(aabbMaxPos.z, spherePos.z + sphereRadius) - Math::Max(aabbMinPos.z, spherePos.z - sphereRadius);
-
-		// めり込み量が一番少ない成分をめり込み具合にする
-		float minOverlaps = overlaps.x;
-		result.normal = Vector3::XAxis;
-		if (minOverlaps > overlaps.y)
-		{
-			minOverlaps = overlaps.y;
-			result.normal = Vector3::YAxis;
-		}
-		if (minOverlaps > overlaps.z)
-		{
-			minOverlaps = overlaps.z;
-			result.normal = Vector3::ZAxis;
-		}
-		result.penetration = minOverlaps;
-
-		// 法線の符号を計算
-		Vector3 vect = aabb->GetPosition() - spherePos;
-		if (result.normal == Vector3::XAxis)
-		{
-			result.normal *= (vect.x <= 0.0f ? 1.0f : -1.0f);
-		}
-		else if (result.normal == Vector3::YAxis)
-		{
-			result.normal *= (vect.y <= 0.0f ? 1.0f : -1.0f);
-		}
-		else if (result.normal == Vector3::ZAxis)
-		{
-			result.normal *= (vect.z <= 0.0f ? 1.0f : -1.0f);
-		}
+		CalculateBoxPenetrateVector(result, aabbMinPos, aabbMaxPos, sphereMinPos, sphereMaxPos);
 
 		return result;
 	}
@@ -95,11 +106,18 @@ namespace
 		result.isHit = true;
 
 		// めり込みの法線を計算
-		result.normal = minDistance.GetNormalize();
-		if (result.normal == Vector3::Zero) result.normal = Vector3::XAxis;
+		float distanceLength = minDistance.GetLength();
+		if (Math::IsNearZero(distanceLength))
+		{
+			result.normal = Vector3::XAxis;
+		}
+		else
+		{
+			result.normal = minDistance / distanceLength;
+		}
 
 		// めり込み具合を計算
-		result.penetration = radiusSum - minDistance.GetLength();
+		result.penetration = radiusSum - distanceLength;
 
 		return result;
 	}
@@ -132,31 +150,36 @@ namespace Collision
 	{
 		Collision::Result result;
 
-		// 距離を計算
-		Vector3 dist = this->GetPosition() - other->GetPosition();
-		float sqDistLen = dist.GetSqLength();
-		// 半径の和を計算
+		Vector3 distance = this->GetPosition() - other->GetPosition();
+		float distanceSqLength = distance.GetSqLength();
+		
 		float radiusSum = this->GetRadius() + other->GetRadius();
 
-		// 衝突していないか計算
-		if (sqDistLen > Math::Sqr(radiusSum)) return result;
+		// 衝突しているかチェック
+		if (distanceSqLength > Math::Sqr(radiusSum)) return result;
 
 		result.isHit = true;
 
 		// めり込みの法線を計算
-		result.normal = dist.GetNormalize();
-		// 完全に同じ位置だったら法線の向きを変える
-		if (result.normal == Vector3::Zero) result.normal = Vector3::XAxis;
+		float distanceLength = distance.GetLength();
+		if (Math::IsNearZero(distanceLength))
+		{
+			result.normal = Vector3::XAxis;
+		}
+		else
+		{
+			result.normal = distance / distanceLength;
+		}
 
 		// めり込み具合を計算
-		result.penetration = radiusSum - dist.GetLength();
+		result.penetration = radiusSum - distanceLength;
 
 		return result;
 	}
 
 	Collision::Result Sphere3D::Check(const AABB3D* other) const
 	{
-		Collision::Result result = ::Check(other, this);
+		Collision::Result result = ::CheckAABBSphere(other, this);
 		result.normal *= -1;
 		return result;
 	}
@@ -187,7 +210,7 @@ namespace Collision
 
 	Collision::Result AABB3D::Check(const Sphere3D* other) const
 	{
-		return ::Check(this, other);
+		return ::CheckAABBSphere(this, other);
 	}
 
 	Collision::Result AABB3D::Check(const AABB3D* other) const
@@ -213,40 +236,7 @@ namespace Collision
 		result.isHit = true;
 
 		// めり込み具合を計算
-		Vector3 overlaps;
-		overlaps.x = Math::Min(myMaxPos.x, otherMaxPos.x) - Math::Max(myMinPos.x, otherMinPos.x);
-		overlaps.y = Math::Min(myMaxPos.y, otherMaxPos.y) - Math::Max(myMinPos.y, otherMinPos.y);
-		overlaps.z = Math::Min(myMaxPos.z, otherMaxPos.z) - Math::Max(myMinPos.z, otherMinPos.z);
-
-		// めり込み量が一番少ない成分をめり込み具合にする
-		float minOverlaps = overlaps.x;
-		result.normal = Vector3::XAxis;
-		if (minOverlaps > overlaps.y)
-		{
-			minOverlaps = overlaps.y;
-			result.normal = Vector3::YAxis;
-		}
-		if (minOverlaps > overlaps.z)
-		{
-			minOverlaps = overlaps.z;
-			result.normal = Vector3::ZAxis;
-		}
-		result.penetration = minOverlaps;
-
-		// 法線の符号を計算
-		Vector3 vect = this->GetPosition() - other->GetPosition();
-		if (result.normal == Vector3::XAxis)
-		{
-			result.normal *= (vect.x <= 0.0f ? 1.0f : -1.0f);
-		}
-		else if (result.normal == Vector3::YAxis)
-		{
-			result.normal *= (vect.y <= 0.0f ? 1.0f : -1.0f);
-		}
-		else if (result.normal == Vector3::ZAxis)
-		{
-			result.normal *= (vect.z <= 0.0f ? 1.0f : -1.0f);
-		}
+		CalculateBoxPenetrateVector(result, myMinPos, myMaxPos, otherMinPos, otherMaxPos);
 
 		return result;
 	}
