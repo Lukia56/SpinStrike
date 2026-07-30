@@ -1,12 +1,12 @@
 {
     "objects": [
         {
-            "name": "Cube",
+            "name": "block-grass-overhang-low-hexagon",
             "transform": {
                 "position": {
-                    "x": 0.74,
-                    "y": 1.0,
-                    "z": 3.74
+                    "x": 100.0,
+                    "y": 0.0,
+                    "z": -100.0
                 },
                 "rotation": {
                     "x": 0.0,
@@ -21,24 +21,24 @@
             },
             "bounds": {
                 "size": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
+                    "x": 110.0,
+                    "y": 50.0,
+                    "z": 127.02
                 },
-                "offset": {
+                "offsetPos": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": 25.0,
                     "z": 0.0
                 }
             }
         },
         {
-            "name": "Cube",
+            "name": "block-grass-overhang-large-tall",
             "transform": {
                 "position": {
-                    "x": 3.6,
-                    "y": 1.0,
-                    "z": 1.45
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 200.0
                 },
                 "rotation": {
                     "x": 0.0,
@@ -53,24 +53,24 @@
             },
             "bounds": {
                 "size": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
+                    "x": 208.21,
+                    "y": 200.0,
+                    "z": 208.21
                 },
-                "offset": {
+                "offsetPos": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": 100.0,
                     "z": 0.0
                 }
             }
         },
         {
-            "name": "Cube",
+            "name": "block-grass-overhang-low-large",
             "transform": {
                 "position": {
-                    "x": -1.09,
-                    "y": 1.0,
-                    "z": 2.73
+                    "x": -100.0,
+                    "y": 0.0,
+                    "z": 65.0
                 },
                 "rotation": {
                     "x": 0.0,
@@ -85,24 +85,24 @@
             },
             "bounds": {
                 "size": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
+                    "x": 208.21,
+                    "y": 50.0,
+                    "z": 208.21
                 },
-                "offset": {
+                "offsetPos": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": 25.0,
                     "z": 0.0
                 }
             }
         },
         {
-            "name": "Cube",
+            "name": "block-grass-overhang-low-narrow",
             "transform": {
                 "position": {
-                    "x": -0.79,
-                    "y": 1.0,
-                    "z": -0.8
+                    "x": 100.0,
+                    "y": 0.0,
+                    "z": 100.0
                 },
                 "rotation": {
                     "x": 0.0,
@@ -111,83 +111,19 @@
                 },
                 "scale": {
                     "x": 1.0,
-                    "y": 1.0,
+                    "y": 2.0,
                     "z": 1.0
                 }
             },
             "bounds": {
                 "size": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
+                    "x": 78.21000000000001,
+                    "y": 100.0,
+                    "z": 78.21000000000001
                 },
-                "offset": {
+                "offsetPos": {
                     "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            }
-        },
-        {
-            "name": "Cube",
-            "transform": {
-                "position": {
-                    "x": 3.87,
-                    "y": 1.0,
-                    "z": -3.43
-                },
-                "rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                }
-            },
-            "bounds": {
-                "size": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "offset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            }
-        },
-        {
-            "name": "Cube",
-            "transform": {
-                "position": {
-                    "x": 2.86,
-                    "y": 1.0,
-                    "z": 6.5
-                },
-                "rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                }
-            },
-            "bounds": {
-                "size": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "offset": {
-                    "x": 0.0,
-                    "y": 0.0,
+                    "y": 50.0,
                     "z": 0.0
                 }
             }

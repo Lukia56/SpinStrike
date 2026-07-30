@@ -140,8 +140,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Scene\Test\SceneStageTest.cpp" />
     <ClCompile Include="Scene\Test\SceneCollisionDebug.cpp" />
     <ClCompile Include="Scene\Test\SceneSelectDebug.cpp" />
+    <ClCompile Include="World\Objects\StageObject.cpp" />
     <ClCompile Include="World\Components\Animator.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera\CameraFollow.cpp" />
@@ -204,8 +206,12 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Param\TempParam.h" />
+    <ClInclude Include="Scene\Test\SceneStageTest.h" />
     <ClInclude Include="Scene\Test\SceneCollisionDebug.h" />
     <ClInclude Include="Scene\Test\SceneSelectDebug.h" />
+    <ClInclude Include="Stage\StageData.h" />
+    <ClInclude Include="World\Objects\StageObject.h" />
     <ClInclude Include="Utility\Geometry.h" />
     <ClInclude Include="World\Components\Animator.h" />
     <ClInclude Include="Application.h" />

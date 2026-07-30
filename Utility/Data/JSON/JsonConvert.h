@@ -84,7 +84,7 @@ inline void from_json(const Data::Json::JsonObject& j, TempBounds& val)
 	try
 	{
 		val.size = j.at("size").get<Vector3>();
-		val.offsetPos = j.at("offset").get<Vector3>();
+		val.offsetPos = j.at("offsetPos").get<Vector3>();
 	}
 	catch (Data::Json::JsonObject::out_of_range e)
 	{

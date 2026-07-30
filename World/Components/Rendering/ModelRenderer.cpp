@@ -18,6 +18,8 @@ void ModelRenderer::Load(const std::string& filePath)
 {
 	Renderer::Load(filePath);
 
+	if (!mResource) return;
+
 	mModelHandle = mResource->GetHandle();
 }
 

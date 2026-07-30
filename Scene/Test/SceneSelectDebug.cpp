@@ -2,6 +2,7 @@
 #include <DxLib.h>
 #include "SceneTest.h"
 #include "SceneCollisionDebug.h"
+#include "SceneStageTest.h"
 #include "System/InputManager.h"
 #include "Utility/Color.h"
 
@@ -20,6 +21,10 @@ void SceneSelectDebug::Init()
 
 	info.name = "CollisionDebug";
 	info.createSceneFunc = []() { return std::make_unique<SceneCollisionDebug>(); };
+	mSceneList.emplace_back(info);
+
+	info.name = "StageDebug";
+	info.createSceneFunc = []() { return std::make_unique<SceneStageTest>(); };
 	mSceneList.emplace_back(info);
 }
 
