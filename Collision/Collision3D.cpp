@@ -36,7 +36,9 @@ namespace
 		result.penetration = minOverlaps;
 
 		// –@ü‚Ì•„†‚ğŒvZ
-		Vector3 vect = (maxPosA - minPosA) - (maxPosB - minPosB);
+		Vector3 centerA = (maxPosA + minPosA) * 0.5f;
+		Vector3 centerB = (maxPosB + minPosB) * 0.5f;
+		Vector3 vect = centerA - centerB;
 		if (result.normal == Vector3::XAxis)
 		{
 			result.normal *= (vect.x <= 0.0f ? 1.0f : -1.0f);
