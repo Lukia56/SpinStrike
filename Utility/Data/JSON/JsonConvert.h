@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Data.h"
+#include "Param/TempParam.h"
 #include "Utility/Vector.h"
 
 namespace Data
@@ -60,5 +61,34 @@ inline void from_json(const Data::Json::JsonObject& j, Vector3& val)
 	{
 		assert(false && "from_json() // —v‘f‚ª•s‘«‚µ‚Ä‚¢‚é‚½‚ßVector3‚É•ÏŠ·‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½");
 		val = Vector3::Zero;
+	}
+}
+
+inline void from_json(const Data::Json::JsonObject& j, TempTransform& val)
+{
+	try
+	{
+		val.position = j.at("position").get<Vector3>();
+		val.rotation = j.at("rotation").get<Vector3>();
+		val.scale = j.at("scale").get<Vector3>();
+	}
+	catch (Data::Json::JsonObject::out_of_range e)
+	{
+		assert(false && "from_json() // —v‘f‚ª•s‘«‚µ‚Ä‚¢‚é‚½‚ßVector3‚É•ÏŠ·‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½");
+		val = {};
+	}
+}
+
+inline void from_json(const Data::Json::JsonObject& j, TempBounds& val)
+{
+	try
+	{
+		val.size = j.at("size").get<Vector3>();
+		val.offsetPos = j.at("offset").get<Vector3>();
+	}
+	catch (Data::Json::JsonObject::out_of_range e)
+	{
+		assert(false && "from_json() // —v‘f‚ª•s‘«‚µ‚Ä‚¢‚é‚½‚ßVector3‚É•ÏŠ·‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½");
+		val = {};
 	}
 }

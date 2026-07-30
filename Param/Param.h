@@ -1,7 +1,10 @@
 #pragma once
 
+#include <string>
+#include "TempParam.h"
 #include "Utility/Vector.h"
 #include "World/Components/CollisionTag.h"
+#include "World/Components/Transform.h"
 
 struct PlayerParam
 {
@@ -38,4 +41,11 @@ struct AnimationParam
 	int animIndex;
 	bool isLoop;
 	bool isForcePlay;
+};
+
+struct StageObjectParam
+{
+	std::string name;
+	TempTransform transform;
+	TempBounds bounds;
 };

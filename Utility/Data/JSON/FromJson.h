@@ -38,5 +38,20 @@ namespace Data
 				return T{};
 			}
 		}
+
+		template <>
+		struct FromJson<StageObjectParam>
+		{
+			static StageObjectParam Binding(const JsonObject& json)
+			{
+				StageObjectParam param;
+
+				param.name = Get<std::string>(json, "name");
+				param.transform = Get<TempTransform>(json, "transform");
+				param.bounds = Get<TempBounds>(json, "bounds");
+
+				return param;
+			}
+		};
 	}
 }
