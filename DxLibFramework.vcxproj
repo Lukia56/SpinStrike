@@ -143,6 +143,7 @@
     <ClCompile Include="Scene\Test\SceneStageTest.cpp" />
     <ClCompile Include="Scene\Test\SceneCollisionDebug.cpp" />
     <ClCompile Include="Scene\Test\SceneSelectDebug.cpp" />
+    <ClCompile Include="Stage\StageModelDataBase.cpp" />
     <ClCompile Include="World\Objects\StageObject.cpp" />
     <ClCompile Include="World\Components\Animator.cpp" />
     <ClCompile Include="Application.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="Scene\Test\SceneCollisionDebug.h" />
     <ClInclude Include="Scene\Test\SceneSelectDebug.h" />
     <ClInclude Include="Stage\StageData.h" />
+    <ClInclude Include="Stage\StageModelDataBase.h" />
     <ClInclude Include="World\Objects\StageObject.h" />
     <ClInclude Include="Utility\Geometry.h" />
     <ClInclude Include="World\Components\Animator.h" />

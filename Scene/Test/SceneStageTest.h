@@ -19,7 +19,5 @@ public:
 
 private:
 
-	StageObject* mStageObject;
-
 	bool mIsStartTransition;
 };

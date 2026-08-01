@@ -13,8 +13,7 @@ class StageObject : public GameObject
 {
 public:
 
-	StageObject();
-	StageObject(const StageObjectParam& param);
+	StageObject(const StageObjectParam& param, const std::string& modelPath);
 	~StageObject() = default;
 
 	void Init() override;

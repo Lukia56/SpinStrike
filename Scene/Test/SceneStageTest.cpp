@@ -1,11 +1,13 @@
 #include "SceneStageTest.h"
+#include <memory>
 #include <imgui.h>
 #include "SceneSelectDebug.h"
 #include "Camera/CameraDebugFree.h"
 #include "Camera/CameraManager.h"
+#include "Stage/StageModelDataBase.h"
 #include "Utility/Data/JSON/JsonLoader.h"
-#include "World/Objects/StageObject.h"
 #include "World/Objects/DebugGround.h"
+#include "World/Objects/StageObject.h"
 
 namespace
 {
@@ -13,23 +15,25 @@ namespace
 }
 
 SceneStageTest::SceneStageTest() :
-	mStageObject(nullptr),
 	mIsStartTransition(false)
 {
-	AddToRoot<DebugGround>();
-	GetCameraManager()->AddCamera(Camera::Type::DebugFree, std::make_unique<CameraDebugFree>());
-	GetCameraManager()->SetCurrentCameraType(Camera::Type::DebugFree);
 }
 
 void SceneStageTest::Init()
 {
-	auto param = Data::Json::LoadJsonAs<StageObjectParam>(kParamPath);
-	for (const auto& p : param)
-	{
-		AddToRoot<StageObject>(p);
-	}
+	AddToRoot<DebugGround>();
+	GetCameraManager()->AddCamera(Camera::Type::DebugFree, std::make_unique<CameraDebugFree>());
+	GetCameraManager()->SetCurrentCameraType(Camera::Type::DebugFree);
 
-	//mStageObject = AddToRoot<StageObject>(param[0]);
+	Stage::StageModelDataBase dataBase;
+
+	auto params = Data::Json::LoadJsonAs<StageObjectParam>(kParamPath);
+
+	// ステージオブジェクト生成
+	for (const auto& param : params)
+	{
+		AddToRoot<StageObject>(param, dataBase.GetFilePath(param.name));
+	}
 }
 
 std::unique_ptr<SceneBase> SceneStageTest::Update()

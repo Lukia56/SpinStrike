@@ -9,22 +9,7 @@ namespace
 	const char* const kModelPath = "Resource\\Model\\";
 }
 
-StageObject::StageObject() :
-	mModel(nullptr),
-	mCollider(nullptr)
-{
-	mModel = std::make_unique<ModelRenderer>(this);
-
-	mCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(Vector3(100, 100, 100)),
-		this,
-		Collision::Tag::Body
-	);
-
-	mCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition());
-}
-
-StageObject::StageObject(const StageObjectParam& param) :
+StageObject::StageObject(const StageObjectParam& param, const std::string& modelPath) :
 	mModel(nullptr),
 	mCollider(nullptr)
 {
@@ -33,7 +18,7 @@ StageObject::StageObject(const StageObjectParam& param) :
 	mTransform.localScale = param.transform.scale;
 
 	mModel = std::make_unique<ModelRenderer>(this);
-	mModel->Load(kModelPath + param.name + ".mv1");
+	mModel->Load(modelPath);
 
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(param.bounds.size, param.bounds.offsetPos),
