@@ -2,7 +2,13 @@
 
 #include "Param/Param.h"
 
-struct StageData
+namespace Stage
 {
-	std::vector<StageObjectParam> objects;
-};
+	/// <summary>
+	/// ステージの配置オブジェクトのパラメータをまとめた構造体
+	/// </summary>
+	struct StageData
+	{
+		std::vector<StageObjectParam> objects;
+	};
+}
