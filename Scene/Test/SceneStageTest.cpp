@@ -4,15 +4,12 @@
 #include "SceneSelectDebug.h"
 #include "Camera/CameraDebugFree.h"
 #include "Camera/CameraManager.h"
-#include "Stage/StageModelDataBase.h"
-#include "Factory/StageObjectCreator.h"
-#include "Utility/Data/JSON/JsonLoader.h"
 #include "World/Objects/DebugGround.h"
-#include "Stage/StageLoader.h"
+#include "World/Others/StageManager.h"
 
 namespace
 {
-	const char* const kStageDataPath = "Resource\\MasterData\\TestLevel.json";
+	const char* const kStageObjectDataPath = "Resource\\MasterData\\TestLevel.json";
 }
 
 SceneStageTest::SceneStageTest() :
@@ -26,12 +23,7 @@ void SceneStageTest::Init()
 	GetCameraManager()->AddCamera(Camera::Type::DebugFree, std::make_unique<CameraDebugFree>());
 	GetCameraManager()->SetCurrentCameraType(Camera::Type::DebugFree);
 
-	GameObjectContainer objects = Stage::StageLoader::Load(kStageDataPath);
-
-	for (auto& object : objects)
-	{
-		AddToRoot(std::move(object));
-	}
+	AddToRoot<StageManager>(kStageObjectDataPath);
 }
 
 std::unique_ptr<SceneBase> SceneStageTest::Update()
