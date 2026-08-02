@@ -8,10 +8,11 @@
 #include "Factory/StageObjectCreator.h"
 #include "Utility/Data/JSON/JsonLoader.h"
 #include "World/Objects/DebugGround.h"
+#include "Stage/StageLoader.h"
 
 namespace
 {
-	const char* const kParamPath = "Resource\\MasterData\\TestLevel.json";
+	const char* const kStageDataPath = "Resource\\MasterData\\TestLevel.json";
 }
 
 SceneStageTest::SceneStageTest() :
@@ -25,16 +26,11 @@ void SceneStageTest::Init()
 	GetCameraManager()->AddCamera(Camera::Type::DebugFree, std::make_unique<CameraDebugFree>());
 	GetCameraManager()->SetCurrentCameraType(Camera::Type::DebugFree);
 
-	auto dataBase = std::make_unique<Stage::StageModelDataBase>();
+	GameObjectContainer objects = Stage::StageLoader::Load(kStageDataPath);
 
-	auto creator = std::make_unique<StageObjectCreator>(dataBase.get());
-
-	auto params = Data::Json::LoadJsonAs<StageObjectParam>(kParamPath);
-	// ステージオブジェクト生成
-	for (const auto& param : params)
+	for (auto& object : objects)
 	{
-		creator->SetParam(param);
-		AddToRoot(creator->CreateInstance());
+		AddToRoot(std::move(object));
 	}
 }
 
