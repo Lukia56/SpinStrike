@@ -45,10 +45,21 @@ protected:
 	/// </summary>
 	virtual void DebugDraw() {}
 
+	/// <summary>
+	/// オブジェクトを生成してルートオブジェクトに追加する
+	/// </summary>
 	/// <returns>追加したゲームオブジェクトの生ポインタ</returns>
 	template <class T, class... Args>
 	requires std::derived_from<T, GameObject>
 	T* AddToRoot(Args&&... args);
+	
+	/// <summary>
+	/// 生成済みのオブジェクトをルートに追加する
+	/// </summary>
+	/// <returns>追加したゲームオブジェクトの生ポインタ</returns>
+	template <class T>
+	requires std::derived_from<T, GameObject>
+	T* AddToRoot(std::unique_ptr<T> object);
 
 private:
 
@@ -79,6 +90,19 @@ inline T* SceneBase::AddToRoot(Args&&... args)
 	T* rawPtr = ptr.get();
 
 	mRootObjects.emplace_back(std::move(ptr));
+
+	return rawPtr;
+}
+
+template<class T>
+requires std::derived_from<T, GameObject>
+inline T* SceneBase::AddToRoot(std::unique_ptr<T> object)
+{
+	object->Init();
+
+	T* rawPtr = object.get();
+
+	mRootObjects.emplace_back(std::move(object));
 
 	return rawPtr;
 }

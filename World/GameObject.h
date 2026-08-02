@@ -50,10 +50,21 @@ public:
 
 	virtual void ResolveCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider) {}
 
+	/// <summary>
+	/// オブジェクトを生成して子オブジェクトに追加する
+	/// </summary>
 	/// <returns>追加したゲームオブジェクトの生ポインタ</returns>
 	template <class T, class... Args>
 	requires std::derived_from<T, GameObject>
 	T* AddToChild(Args&&... args);
+	
+	/// <summary>
+	/// 生成済みのオブジェクトを子オブジェクトに追加する
+	/// </summary>
+	/// <returns>追加したゲームオブジェクトの生ポインタ</returns>
+	template <class T>
+	requires std::derived_from<T, GameObject>
+	T* AddToChild(std::unique_ptr<T> object);
 
 	/// <summary>
 	/// ゲームオブジェクトを削除する
@@ -98,6 +109,19 @@ inline T* GameObject::AddToChild(Args&&... args)
 	T* rawPtr = ptr.get();
 
 	rawPtr->GetTransform().SetupParent(std::move(ptr), &mTransform);
+
+	return rawPtr;
+}
+
+template<class T>
+requires std::derived_from<T, GameObject>
+inline T* GameObject::AddToChild(std::unique_ptr<T> object)
+{
+	object->Init();
+
+	T* rawPtr = object.get();
+
+	rawPtr->GetTransform().SetupParent(std::move(object), &mTransform);
 
 	return rawPtr;
 }
