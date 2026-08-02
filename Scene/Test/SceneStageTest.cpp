@@ -5,9 +5,9 @@
 #include "Camera/CameraDebugFree.h"
 #include "Camera/CameraManager.h"
 #include "Stage/StageModelDataBase.h"
+#include "Factory/StageObjectCreator.h"
 #include "Utility/Data/JSON/JsonLoader.h"
 #include "World/Objects/DebugGround.h"
-#include "World/Objects/StageObject.h"
 
 namespace
 {
@@ -25,14 +25,16 @@ void SceneStageTest::Init()
 	GetCameraManager()->AddCamera(Camera::Type::DebugFree, std::make_unique<CameraDebugFree>());
 	GetCameraManager()->SetCurrentCameraType(Camera::Type::DebugFree);
 
-	Stage::StageModelDataBase dataBase;
+	auto dataBase = std::make_unique<Stage::StageModelDataBase>();
+
+	auto creator = std::make_unique<StageObjectCreator>(dataBase.get());
 
 	auto params = Data::Json::LoadJsonAs<StageObjectParam>(kParamPath);
-
 	// ステージオブジェクト生成
 	for (const auto& param : params)
 	{
-		AddToRoot<StageObject>(param, dataBase.GetFilePath(param.name));
+		creator->SetParam(param);
+		AddToRoot(creator->CreateInstance());
 	}
 }
 

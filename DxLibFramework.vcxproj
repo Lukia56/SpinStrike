@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Factory\StageObjectCreator.cpp" />
     <ClCompile Include="Scene\Test\SceneStageTest.cpp" />
     <ClCompile Include="Scene\Test\SceneCollisionDebug.cpp" />
     <ClCompile Include="Scene\Test\SceneSelectDebug.cpp" />
@@ -207,6 +208,8 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Factory\Creator.h" />
+    <ClInclude Include="Factory\StageObjectCreator.h" />
     <ClInclude Include="Param\TempParam.h" />
     <ClInclude Include="Scene\Test\SceneStageTest.h" />
     <ClInclude Include="Scene\Test\SceneCollisionDebug.h" />
