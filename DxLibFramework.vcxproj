@@ -77,7 +77,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\nlohmann;$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\nlohmann;$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir)Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -95,7 +95,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\nlohmann;$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\nlohmann;$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir)Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -111,7 +111,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\nlohmann;$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\nlohmann;$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir)Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -129,7 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\nlohmann;$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\nlohmann;$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir)Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -140,27 +140,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Factory\StageObjectCreator.cpp" />
-    <ClCompile Include="Scene\Test\SceneStageTest.cpp" />
-    <ClCompile Include="Scene\Test\SceneCollisionDebug.cpp" />
-    <ClCompile Include="Scene\Test\SceneSelectDebug.cpp" />
-    <ClCompile Include="World\Others\StageManager.cpp" />
-    <ClCompile Include="Stage\StageLoader.cpp" />
-    <ClCompile Include="Stage\StageModelDataBase.cpp" />
-    <ClCompile Include="World\Objects\StageObject.cpp" />
-    <ClCompile Include="World\Components\Animator.cpp" />
-    <ClCompile Include="Application.cpp" />
-    <ClCompile Include="Camera\CameraFollow.cpp" />
-    <ClCompile Include="Camera\CameraStatic.cpp" />
-    <ClCompile Include="Camera\CameraDebugFree.cpp" />
-    <ClCompile Include="Camera\CameraManager.cpp" />
-    <ClCompile Include="Utility\Data\Data.cpp" />
-    <ClCompile Include="World\Components\Collider3D.cpp" />
-    <ClCompile Include="World\Characters\PlayerBullet.cpp" />
-    <ClCompile Include="World\Characters\PlayerBulletManager.cpp" />
-    <ClCompile Include="World\Characters\PlayerTornado.cpp" />
-    <ClCompile Include="World\Objects\Crate.cpp" />
-    <ClCompile Include="Collision\CollisionManager.cpp" />
+    <ClCompile Include="Sources\Factory\StageObjectCreator.cpp" />
+    <ClCompile Include="Sources\Scene\Test\SceneStageTest.cpp" />
+    <ClCompile Include="Sources\Scene\Test\SceneCollisionDebug.cpp" />
+    <ClCompile Include="Sources\Scene\Test\SceneSelectDebug.cpp" />
+    <ClCompile Include="Sources\World\Other\StageManager.cpp" />
+    <ClCompile Include="Sources\Stage\StageLoader.cpp" />
+    <ClCompile Include="Sources\Stage\StageModelDataBase.cpp" />
+    <ClCompile Include="Sources\World\Object\StageObject.cpp" />
+    <ClCompile Include="Sources\World\Component\ModelAnimator.cpp" />
+    <ClCompile Include="Sources\Application.cpp" />
+    <ClCompile Include="Sources\Camera\CameraFollow.cpp" />
+    <ClCompile Include="Sources\Camera\CameraStatic.cpp" />
+    <ClCompile Include="Sources\Camera\CameraDebugFree.cpp" />
+    <ClCompile Include="Sources\Camera\CameraManager.cpp" />
+    <ClCompile Include="Sources\Utility\Data\Data.cpp" />
+    <ClCompile Include="Sources\World\Component\Collider3D.cpp" />
+    <ClCompile Include="Sources\World\Character\PlayerBullet.cpp" />
+    <ClCompile Include="Sources\World\Character\PlayerBulletManager.cpp" />
+    <ClCompile Include="Sources\World\Character\PlayerTornado.cpp" />
+    <ClCompile Include="Sources\World\Object\Crate.cpp" />
+    <ClCompile Include="Sources\Collision\CollisionManager.cpp" />
     <ClCompile Include="Include\ImGui\imgui.cpp" />
     <ClCompile Include="Include\ImGui\imgui_demo.cpp" />
     <ClCompile Include="Include\ImGui\imgui_draw.cpp" />
@@ -168,84 +168,84 @@
     <ClCompile Include="Include\ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="Include\ImGui\imgui_tables.cpp" />
     <ClCompile Include="Include\ImGui\imgui_widgets.cpp" />
-    <ClCompile Include="System\ImGuiRenderer.cpp" />
-    <ClCompile Include="World\Objects\TestBox.cpp" />
-    <ClCompile Include="World\Objects\DebugGround.cpp" />
-    <ClCompile Include="System\Input\Mouse.cpp" />
-    <ClCompile Include="System\ResourceManager.cpp" />
-    <ClCompile Include="System\Resource\Resource.cpp" />
-    <ClCompile Include="System\TimeManager.cpp" />
-    <ClCompile Include="Utility\Color.cpp" />
-    <ClCompile Include="World\Components\Rendering\SpriteRenderer.cpp" />
-    <ClCompile Include="World\Components\Rendering\TextRenderer.cpp" />
-    <ClCompile Include="World\Components\Rendering\ModelRenderer.cpp" />
-    <ClCompile Include="World\Components\Transform.cpp" />
-    <ClCompile Include="Utility\Random.cpp" />
-    <ClCompile Include="Scene\SceneInit.cpp" />
-    <ClCompile Include="System\InputManager.cpp" />
-    <ClCompile Include="System\Input\Device\InputDeviceBase.cpp" />
-    <ClCompile Include="System\Input\Device\InputDeviceGamepad.cpp" />
-    <ClCompile Include="System\Input\Device\InputDeviceKeyboard.cpp" />
-    <ClCompile Include="System\Input\Device\InputDeviceMouse.cpp" />
-    <ClCompile Include="System\Input\Format\InputFormatBase.cpp" />
-    <ClCompile Include="System\Input\Format\InputFormatGamepadButton.cpp" />
-    <ClCompile Include="System\Input\Format\InputFormatGamepadThumb.cpp" />
-    <ClCompile Include="System\Input\Format\InputFormatGamepadTrigger.cpp" />
-    <ClCompile Include="System\Input\Format\InputFormatKeyboard.cpp" />
-    <ClCompile Include="System\Input\Format\InputFormatMouseButton.cpp" />
-    <ClCompile Include="System\Input\Format\InputFormatMouseDelta.cpp" />
-    <ClCompile Include="System\Input\Format\InputFormatMouseWheel.cpp" />
-    <ClCompile Include="System\Input\Gamepad.cpp" />
-    <ClCompile Include="System\Input\Keyboard.cpp" />
-    <ClCompile Include="System\Input\Modifier\InputModifierDeadzone.cpp" />
-    <ClCompile Include="System\Input\Modifier\InputModifierNegate.cpp" />
-    <ClCompile Include="System\Input\Modifier\InputModifierSwizzleAxis.cpp" />
-    <ClCompile Include="Collision\Collision3D.cpp" />
-    <ClCompile Include="World\Characters\Player.cpp" />
-    <ClCompile Include="Scene\Test\SceneTest.cpp" />
-    <ClCompile Include="Utility\Vector.cpp" />
-    <ClCompile Include="World\GameObject.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Scene\SceneBase.cpp" />
-    <ClCompile Include="Scene\SceneManager.cpp" />
+    <ClCompile Include="Sources\System\ImGuiRenderer.cpp" />
+    <ClCompile Include="Sources\World\Object\TestBox.cpp" />
+    <ClCompile Include="Sources\World\Object\DebugGround.cpp" />
+    <ClCompile Include="Sources\System\Input\Mouse.cpp" />
+    <ClCompile Include="Sources\System\ResourceManager.cpp" />
+    <ClCompile Include="Sources\System\Resource\Resource.cpp" />
+    <ClCompile Include="Sources\System\TimeManager.cpp" />
+    <ClCompile Include="Sources\Utility\Color.cpp" />
+    <ClCompile Include="Sources\World\Component\Rendering\SpriteRenderer.cpp" />
+    <ClCompile Include="Sources\World\Component\Rendering\TextRenderer.cpp" />
+    <ClCompile Include="Sources\World\Component\Rendering\ModelRenderer.cpp" />
+    <ClCompile Include="Sources\World\Component\Transform.cpp" />
+    <ClCompile Include="Sources\Utility\Random.cpp" />
+    <ClCompile Include="Sources\Scene\SceneInit.cpp" />
+    <ClCompile Include="Sources\System\InputManager.cpp" />
+    <ClCompile Include="Sources\System\Input\Device\InputDeviceBase.cpp" />
+    <ClCompile Include="Sources\System\Input\Device\InputDeviceGamepad.cpp" />
+    <ClCompile Include="Sources\System\Input\Device\InputDeviceKeyboard.cpp" />
+    <ClCompile Include="Sources\System\Input\Device\InputDeviceMouse.cpp" />
+    <ClCompile Include="Sources\System\Input\Format\InputFormatBase.cpp" />
+    <ClCompile Include="Sources\System\Input\Format\InputFormatGamepadButton.cpp" />
+    <ClCompile Include="Sources\System\Input\Format\InputFormatGamepadThumb.cpp" />
+    <ClCompile Include="Sources\System\Input\Format\InputFormatGamepadTrigger.cpp" />
+    <ClCompile Include="Sources\System\Input\Format\InputFormatKeyboard.cpp" />
+    <ClCompile Include="Sources\System\Input\Format\InputFormatMouseButton.cpp" />
+    <ClCompile Include="Sources\System\Input\Format\InputFormatMouseDelta.cpp" />
+    <ClCompile Include="Sources\System\Input\Format\InputFormatMouseWheel.cpp" />
+    <ClCompile Include="Sources\System\Input\Gamepad.cpp" />
+    <ClCompile Include="Sources\System\Input\Keyboard.cpp" />
+    <ClCompile Include="Sources\System\Input\Modifier\InputModifierDeadzone.cpp" />
+    <ClCompile Include="Sources\System\Input\Modifier\InputModifierNegate.cpp" />
+    <ClCompile Include="Sources\System\Input\Modifier\InputModifierSwizzleAxis.cpp" />
+    <ClCompile Include="Sources\Collision\Collision3D.cpp" />
+    <ClCompile Include="Sources\World\Character\Player.cpp" />
+    <ClCompile Include="Sources\Scene\Test\SceneTest.cpp" />
+    <ClCompile Include="Sources\Utility\Vector.cpp" />
+    <ClCompile Include="Sources\World\GameObject.cpp" />
+    <ClCompile Include="Sources\Main.cpp" />
+    <ClCompile Include="Sources\Scene\SceneBase.cpp" />
+    <ClCompile Include="Sources\Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Factory\Creator.h" />
-    <ClInclude Include="Factory\StageObjectCreator.h" />
-    <ClInclude Include="Param\TempParam.h" />
-    <ClInclude Include="Scene\Test\SceneStageTest.h" />
-    <ClInclude Include="Scene\Test\SceneCollisionDebug.h" />
-    <ClInclude Include="Scene\Test\SceneSelectDebug.h" />
-    <ClInclude Include="World\Others\StageManager.h" />
-    <ClInclude Include="Stage\StageLoader.h" />
-    <ClInclude Include="Stage\StageData.h" />
-    <ClInclude Include="Stage\StageModelDataBase.h" />
-    <ClInclude Include="World\Objects\StageObject.h" />
-    <ClInclude Include="Utility\Geometry.h" />
-    <ClInclude Include="World\Components\Animator.h" />
-    <ClInclude Include="Application.h" />
-    <ClInclude Include="Camera\CameraFollow.h" />
-    <ClInclude Include="Camera\CameraStatic.h" />
-    <ClInclude Include="Camera\CameraDebugFree.h" />
-    <ClInclude Include="Camera\CameraManager.h" />
-    <ClInclude Include="Camera\CameraProperty.h" />
-    <ClInclude Include="Camera\ICamera.h" />
-    <ClInclude Include="Param\Param.h" />
-    <ClInclude Include="Utility\Data\CSV\CsvLoader.h" />
-    <ClInclude Include="Utility\Data\Data.h" />
-    <ClInclude Include="Utility\Data\CSV\CsvConvert.h" />
-    <ClInclude Include="Utility\Data\CSV\FromCsv.h" />
-    <ClInclude Include="Utility\Data\JSON\FromJson.h" />
-    <ClInclude Include="Utility\Data\JSON\JsonConvert.h" />
-    <ClInclude Include="Utility\Data\JSON\JsonLoader.h" />
-    <ClInclude Include="World\Components\Collider3D.h" />
-    <ClInclude Include="World\Characters\PlayerBullet.h" />
-    <ClInclude Include="World\Characters\PlayerBulletManager.h" />
-    <ClInclude Include="World\Components\CollisionTag.h" />
-    <ClInclude Include="World\Others\RootObject.h" />
-    <ClInclude Include="World\Characters\PlayerTornado.h" />
-    <ClInclude Include="World\Objects\Crate.h" />
-    <ClInclude Include="Collision\CollisionManager.h" />
+    <ClInclude Include="Sources\Factory\Creator.h" />
+    <ClInclude Include="Sources\Factory\StageObjectCreator.h" />
+    <ClInclude Include="Sources\Param\TempParam.h" />
+    <ClInclude Include="Sources\Scene\Test\SceneStageTest.h" />
+    <ClInclude Include="Sources\Scene\Test\SceneCollisionDebug.h" />
+    <ClInclude Include="Sources\Scene\Test\SceneSelectDebug.h" />
+    <ClInclude Include="Sources\World\Other\StageManager.h" />
+    <ClInclude Include="Sources\Stage\StageLoader.h" />
+    <ClInclude Include="Sources\Stage\StageData.h" />
+    <ClInclude Include="Sources\Stage\StageModelDataBase.h" />
+    <ClInclude Include="Sources\World\Object\StageObject.h" />
+    <ClInclude Include="Sources\Utility\Geometry.h" />
+    <ClInclude Include="Sources\World\Component\ModelAnimator.h" />
+    <ClInclude Include="Sources\Application.h" />
+    <ClInclude Include="Sources\Camera\CameraFollow.h" />
+    <ClInclude Include="Sources\Camera\CameraStatic.h" />
+    <ClInclude Include="Sources\Camera\CameraDebugFree.h" />
+    <ClInclude Include="Sources\Camera\CameraManager.h" />
+    <ClInclude Include="Sources\Camera\CameraProperty.h" />
+    <ClInclude Include="Sources\Camera\ICamera.h" />
+    <ClInclude Include="Sources\Param\Param.h" />
+    <ClInclude Include="Sources\Utility\Data\CSV\CsvLoader.h" />
+    <ClInclude Include="Sources\Utility\Data\Data.h" />
+    <ClInclude Include="Sources\Utility\Data\CSV\CsvConvert.h" />
+    <ClInclude Include="Sources\Utility\Data\CSV\FromCsv.h" />
+    <ClInclude Include="Sources\Utility\Data\JSON\FromJson.h" />
+    <ClInclude Include="Sources\Utility\Data\JSON\JsonConvert.h" />
+    <ClInclude Include="Sources\Utility\Data\JSON\JsonLoader.h" />
+    <ClInclude Include="Sources\World\Component\Collider3D.h" />
+    <ClInclude Include="Sources\World\Character\PlayerBullet.h" />
+    <ClInclude Include="Sources\World\Character\PlayerBulletManager.h" />
+    <ClInclude Include="Sources\Collision\CollisionTag.h" />
+    <ClInclude Include="Sources\World\Other\RootObject.h" />
+    <ClInclude Include="Sources\World\Character\PlayerTornado.h" />
+    <ClInclude Include="Sources\World\Object\Crate.h" />
+    <ClInclude Include="Sources\Collision\CollisionManager.h" />
     <ClInclude Include="Include\ImGui\imconfig.h" />
     <ClInclude Include="Include\ImGui\imgui.h" />
     <ClInclude Include="Include\ImGui\imgui_impl_dx11.h" />
@@ -254,53 +254,53 @@
     <ClInclude Include="Include\ImGui\imstb_rectpack.h" />
     <ClInclude Include="Include\ImGui\imstb_textedit.h" />
     <ClInclude Include="Include\ImGui\imstb_truetype.h" />
-    <ClInclude Include="System\ImGuiRenderer.h" />
-    <ClInclude Include="World\Objects\TestBox.h" />
-    <ClInclude Include="Collision\CollisionResult.h" />
-    <ClInclude Include="World\Objects\DebugGround.h" />
-    <ClInclude Include="System\Input\Literal\InputActionMaps.h" />
-    <ClInclude Include="System\Input\Modifier\InputModifierDeadzone.h" />
-    <ClInclude Include="System\TimeManager.h" />
-    <ClInclude Include="World\Components\Rendering\Renderer.h" />
-    <ClInclude Include="System\ResourceManager.h" />
-    <ClInclude Include="System\Resource\Resource.h" />
-    <ClInclude Include="World\Components\Rendering\SpriteRenderer.h" />
-    <ClInclude Include="World\Components\Rendering\TextRenderer.h" />
-    <ClInclude Include="World\Components\Rendering\ModelRenderer.h" />
-    <ClInclude Include="World\Components\Transform.h" />
-    <ClInclude Include="Utility\Random.h" />
-    <ClInclude Include="Scene\SceneInit.h" />
-    <ClInclude Include="System\InputManager.h" />
-    <ClInclude Include="System\Input\Device\InputDeviceBase.h" />
-    <ClInclude Include="System\Input\Device\InputDeviceGamepad.h" />
-    <ClInclude Include="System\Input\Device\InputDeviceKeyboard.h" />
-    <ClInclude Include="System\Input\Device\InputDeviceMouse.h" />
-    <ClInclude Include="System\Input\Format\InputFormatBase.h" />
-    <ClInclude Include="System\Input\Format\InputFormatGamepadButton.h" />
-    <ClInclude Include="System\Input\Format\InputFormatGamepadThumb.h" />
-    <ClInclude Include="System\Input\Format\InputFormatGamepadTrigger.h" />
-    <ClInclude Include="System\Input\Format\InputFormatKeyboard.h" />
-    <ClInclude Include="System\Input\Format\InputFormatMouseButton.h" />
-    <ClInclude Include="System\Input\Format\InputFormatMouseDelta.h" />
-    <ClInclude Include="System\Input\Format\InputFormatMouseWheel.h" />
-    <ClInclude Include="System\Input\Gamepad.h" />
-    <ClInclude Include="System\Input\Keyboard.h" />
-    <ClInclude Include="System\Input\Literal\InputActions.h" />
-    <ClInclude Include="System\Input\Literal\InputProperty.h" />
-    <ClInclude Include="System\Input\Literal\KeyCodes.h" />
-    <ClInclude Include="System\Input\Modifier\IInputModifier.h" />
-    <ClInclude Include="System\Input\Modifier\InputModifierNegate.h" />
-    <ClInclude Include="System\Input\Modifier\InputModifierSwizzleAxis.h" />
-    <ClInclude Include="System\Input\Mouse.h" />
-    <ClInclude Include="Collision\Collision3D.h" />
-    <ClInclude Include="World\Characters\Player.h" />
-    <ClInclude Include="Scene\Test\SceneTest.h" />
-    <ClInclude Include="Utility\Color.h" />
-    <ClInclude Include="Utility\Math.h" />
-    <ClInclude Include="Utility\Vector.h" />
-    <ClInclude Include="World\GameObject.h" />
-    <ClInclude Include="Scene\SceneBase.h" />
-    <ClInclude Include="Scene\SceneManager.h" />
+    <ClInclude Include="Sources\System\ImGuiRenderer.h" />
+    <ClInclude Include="Sources\World\Object\TestBox.h" />
+    <ClInclude Include="Sources\Collision\CollisionResult.h" />
+    <ClInclude Include="Sources\World\Object\DebugGround.h" />
+    <ClInclude Include="Sources\System\Input\Literal\InputActionMaps.h" />
+    <ClInclude Include="Sources\System\Input\Modifier\InputModifierDeadzone.h" />
+    <ClInclude Include="Sources\System\TimeManager.h" />
+    <ClInclude Include="Sources\World\Component\Rendering\Renderer.h" />
+    <ClInclude Include="Sources\System\ResourceManager.h" />
+    <ClInclude Include="Sources\System\Resource\Resource.h" />
+    <ClInclude Include="Sources\World\Component\Rendering\SpriteRenderer.h" />
+    <ClInclude Include="Sources\World\Component\Rendering\TextRenderer.h" />
+    <ClInclude Include="Sources\World\Component\Rendering\ModelRenderer.h" />
+    <ClInclude Include="Sources\World\Component\Transform.h" />
+    <ClInclude Include="Sources\Utility\Random.h" />
+    <ClInclude Include="Sources\Scene\SceneInit.h" />
+    <ClInclude Include="Sources\System\InputManager.h" />
+    <ClInclude Include="Sources\System\Input\Device\InputDeviceBase.h" />
+    <ClInclude Include="Sources\System\Input\Device\InputDeviceGamepad.h" />
+    <ClInclude Include="Sources\System\Input\Device\InputDeviceKeyboard.h" />
+    <ClInclude Include="Sources\System\Input\Device\InputDeviceMouse.h" />
+    <ClInclude Include="Sources\System\Input\Format\InputFormatBase.h" />
+    <ClInclude Include="Sources\System\Input\Format\InputFormatGamepadButton.h" />
+    <ClInclude Include="Sources\System\Input\Format\InputFormatGamepadThumb.h" />
+    <ClInclude Include="Sources\System\Input\Format\InputFormatGamepadTrigger.h" />
+    <ClInclude Include="Sources\System\Input\Format\InputFormatKeyboard.h" />
+    <ClInclude Include="Sources\System\Input\Format\InputFormatMouseButton.h" />
+    <ClInclude Include="Sources\System\Input\Format\InputFormatMouseDelta.h" />
+    <ClInclude Include="Sources\System\Input\Format\InputFormatMouseWheel.h" />
+    <ClInclude Include="Sources\System\Input\Gamepad.h" />
+    <ClInclude Include="Sources\System\Input\Keyboard.h" />
+    <ClInclude Include="Sources\System\Input\Literal\InputActions.h" />
+    <ClInclude Include="Sources\System\Input\Literal\InputProperty.h" />
+    <ClInclude Include="Sources\System\Input\Literal\KeyCodes.h" />
+    <ClInclude Include="Sources\System\Input\Modifier\IInputModifier.h" />
+    <ClInclude Include="Sources\System\Input\Modifier\InputModifierNegate.h" />
+    <ClInclude Include="Sources\System\Input\Modifier\InputModifierSwizzleAxis.h" />
+    <ClInclude Include="Sources\System\Input\Mouse.h" />
+    <ClInclude Include="Sources\Collision\Collision3D.h" />
+    <ClInclude Include="Sources\World\Character\Player.h" />
+    <ClInclude Include="Sources\Scene\Test\SceneTest.h" />
+    <ClInclude Include="Sources\Utility\Color.h" />
+    <ClInclude Include="Sources\Utility\Math.h" />
+    <ClInclude Include="Sources\Utility\Vector.h" />
+    <ClInclude Include="Sources\World\GameObject.h" />
+    <ClInclude Include="Sources\Scene\SceneBase.h" />
+    <ClInclude Include="Sources\Scene\SceneManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

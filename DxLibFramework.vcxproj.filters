@@ -15,133 +15,133 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="Sources\Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Application.cpp">
+    <ClCompile Include="Sources\Application.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\SceneManager.cpp">
+    <ClCompile Include="Sources\Scene\SceneManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\SceneBase.cpp">
+    <ClCompile Include="Sources\Scene\SceneBase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\GameObject.cpp">
+    <ClCompile Include="Sources\World\GameObject.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\Vector.cpp">
+    <ClCompile Include="Sources\Utility\Vector.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\Characters\Player.cpp">
+    <ClCompile Include="Sources\World\Character\Player.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\SceneInit.cpp">
+    <ClCompile Include="Sources\Scene\SceneInit.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Collision\Collision3D.cpp">
+    <ClCompile Include="Sources\Collision\Collision3D.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\InputManager.cpp">
+    <ClCompile Include="Sources\System\InputManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Gamepad.cpp">
+    <ClCompile Include="Sources\System\Input\Gamepad.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Keyboard.cpp">
+    <ClCompile Include="Sources\System\Input\Keyboard.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Modifier\InputModifierDeadzone.cpp">
+    <ClCompile Include="Sources\System\Input\Modifier\InputModifierDeadzone.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Modifier\InputModifierNegate.cpp">
+    <ClCompile Include="Sources\System\Input\Modifier\InputModifierNegate.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Modifier\InputModifierSwizzleAxis.cpp">
+    <ClCompile Include="Sources\System\Input\Modifier\InputModifierSwizzleAxis.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Format\InputFormatBase.cpp">
+    <ClCompile Include="Sources\System\Input\Format\InputFormatBase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Format\InputFormatGamepadButton.cpp">
+    <ClCompile Include="Sources\System\Input\Format\InputFormatGamepadButton.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Format\InputFormatGamepadThumb.cpp">
+    <ClCompile Include="Sources\System\Input\Format\InputFormatGamepadThumb.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Format\InputFormatGamepadTrigger.cpp">
+    <ClCompile Include="Sources\System\Input\Format\InputFormatGamepadTrigger.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Format\InputFormatKeyboard.cpp">
+    <ClCompile Include="Sources\System\Input\Format\InputFormatKeyboard.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Format\InputFormatMouseButton.cpp">
+    <ClCompile Include="Sources\System\Input\Format\InputFormatMouseButton.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Format\InputFormatMouseDelta.cpp">
+    <ClCompile Include="Sources\System\Input\Format\InputFormatMouseDelta.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Format\InputFormatMouseWheel.cpp">
+    <ClCompile Include="Sources\System\Input\Format\InputFormatMouseWheel.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Device\InputDeviceBase.cpp">
+    <ClCompile Include="Sources\System\Input\Device\InputDeviceBase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Device\InputDeviceGamepad.cpp">
+    <ClCompile Include="Sources\System\Input\Device\InputDeviceGamepad.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Device\InputDeviceKeyboard.cpp">
+    <ClCompile Include="Sources\System\Input\Device\InputDeviceKeyboard.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Device\InputDeviceMouse.cpp">
+    <ClCompile Include="Sources\System\Input\Device\InputDeviceMouse.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\Random.cpp">
+    <ClCompile Include="Sources\Utility\Random.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\Components\Transform.cpp">
+    <ClCompile Include="Sources\World\Component\Transform.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\Components\Rendering\ModelRenderer.cpp">
+    <ClCompile Include="Sources\World\Component\Rendering\ModelRenderer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\Components\Rendering\SpriteRenderer.cpp">
+    <ClCompile Include="Sources\World\Component\Rendering\SpriteRenderer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\Color.cpp">
+    <ClCompile Include="Sources\Utility\Color.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\ResourceManager.cpp">
+    <ClCompile Include="Sources\System\ResourceManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Resource\Resource.cpp">
+    <ClCompile Include="Sources\System\Resource\Resource.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\Components\Rendering\TextRenderer.cpp">
+    <ClCompile Include="Sources\World\Component\Rendering\TextRenderer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\Input\Mouse.cpp">
+    <ClCompile Include="Sources\System\Input\Mouse.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Camera\CameraManager.cpp">
+    <ClCompile Include="Sources\Camera\CameraManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Camera\CameraDebugFree.cpp">
+    <ClCompile Include="Sources\Camera\CameraDebugFree.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\TimeManager.cpp">
+    <ClCompile Include="Sources\System\TimeManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Camera\CameraStatic.cpp">
+    <ClCompile Include="Sources\Camera\CameraStatic.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Camera\CameraFollow.cpp">
+    <ClCompile Include="Sources\Camera\CameraFollow.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\Objects\DebugGround.cpp">
+    <ClCompile Include="Sources\World\Object\DebugGround.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="System\ImGuiRenderer.cpp">
+    <ClCompile Include="Sources\System\ImGuiRenderer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Include\ImGui\imgui.cpp">
@@ -165,213 +165,213 @@
     <ClCompile Include="Include\ImGui\imgui_widgets.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Collision\CollisionManager.cpp">
+    <ClCompile Include="Sources\Collision\CollisionManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\Objects\TestBox.cpp">
+    <ClCompile Include="Sources\World\Object\TestBox.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\Objects\Crate.cpp">
+    <ClCompile Include="Sources\World\Object\Crate.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\Characters\PlayerTornado.cpp">
+    <ClCompile Include="Sources\World\Character\PlayerTornado.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\Characters\PlayerBulletManager.cpp">
+    <ClCompile Include="Sources\World\Character\PlayerBulletManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\Characters\PlayerBullet.cpp">
+    <ClCompile Include="Sources\World\Character\PlayerBullet.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\Components\Collider3D.cpp">
+    <ClCompile Include="Sources\World\Component\Collider3D.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\Data\Data.cpp">
+    <ClCompile Include="Sources\Utility\Data\Data.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\Components\Animator.cpp">
+    <ClCompile Include="Sources\World\Component\ModelAnimator.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Test\SceneCollisionDebug.cpp">
+    <ClCompile Include="Sources\Scene\Test\SceneCollisionDebug.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Test\SceneSelectDebug.cpp">
+    <ClCompile Include="Sources\Scene\Test\SceneSelectDebug.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Test\SceneTest.cpp">
+    <ClCompile Include="Sources\Scene\Test\SceneTest.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Test\SceneStageTest.cpp">
+    <ClCompile Include="Sources\Scene\Test\SceneStageTest.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\Objects\StageObject.cpp">
+    <ClCompile Include="Sources\World\Object\StageObject.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Stage\StageModelDataBase.cpp">
+    <ClCompile Include="Sources\Stage\StageModelDataBase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Factory\StageObjectCreator.cpp">
+    <ClCompile Include="Sources\Factory\StageObjectCreator.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Stage\StageLoader.cpp">
+    <ClCompile Include="Sources\Stage\StageLoader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\Others\StageManager.cpp">
+    <ClCompile Include="Sources\World\Other\StageManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.h">
+    <ClInclude Include="Sources\Application.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\SceneManager.h">
+    <ClInclude Include="Sources\Scene\SceneManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\SceneBase.h">
+    <ClInclude Include="Sources\Scene\SceneBase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\GameObject.h">
+    <ClInclude Include="Sources\World\GameObject.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Math.h">
+    <ClInclude Include="Sources\Utility\Math.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Vector.h">
+    <ClInclude Include="Sources\Utility\Vector.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Color.h">
+    <ClInclude Include="Sources\Utility\Color.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Characters\Player.h">
+    <ClInclude Include="Sources\World\Character\Player.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\SceneInit.h">
+    <ClInclude Include="Sources\Scene\SceneInit.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Collision\Collision3D.h">
+    <ClInclude Include="Sources\Collision\Collision3D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\InputManager.h">
+    <ClInclude Include="Sources\System\InputManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Gamepad.h">
+    <ClInclude Include="Sources\System\Input\Gamepad.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Keyboard.h">
+    <ClInclude Include="Sources\System\Input\Keyboard.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Mouse.h">
+    <ClInclude Include="Sources\System\Input\Mouse.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Modifier\IInputModifier.h">
+    <ClInclude Include="Sources\System\Input\Modifier\IInputModifier.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Modifier\InputModifierNegate.h">
+    <ClInclude Include="Sources\System\Input\Modifier\InputModifierNegate.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Modifier\InputModifierSwizzleAxis.h">
+    <ClInclude Include="Sources\System\Input\Modifier\InputModifierSwizzleAxis.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Literal\InputActions.h">
+    <ClInclude Include="Sources\System\Input\Literal\InputActions.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Literal\InputProperty.h">
+    <ClInclude Include="Sources\System\Input\Literal\InputProperty.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Literal\KeyCodes.h">
+    <ClInclude Include="Sources\System\Input\Literal\KeyCodes.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Format\InputFormatBase.h">
+    <ClInclude Include="Sources\System\Input\Format\InputFormatBase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Format\InputFormatGamepadButton.h">
+    <ClInclude Include="Sources\System\Input\Format\InputFormatGamepadButton.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Format\InputFormatGamepadThumb.h">
+    <ClInclude Include="Sources\System\Input\Format\InputFormatGamepadThumb.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Format\InputFormatGamepadTrigger.h">
+    <ClInclude Include="Sources\System\Input\Format\InputFormatGamepadTrigger.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Format\InputFormatKeyboard.h">
+    <ClInclude Include="Sources\System\Input\Format\InputFormatKeyboard.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Format\InputFormatMouseButton.h">
+    <ClInclude Include="Sources\System\Input\Format\InputFormatMouseButton.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Format\InputFormatMouseDelta.h">
+    <ClInclude Include="Sources\System\Input\Format\InputFormatMouseDelta.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Format\InputFormatMouseWheel.h">
+    <ClInclude Include="Sources\System\Input\Format\InputFormatMouseWheel.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Device\InputDeviceBase.h">
+    <ClInclude Include="Sources\System\Input\Device\InputDeviceBase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Device\InputDeviceGamepad.h">
+    <ClInclude Include="Sources\System\Input\Device\InputDeviceGamepad.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Device\InputDeviceKeyboard.h">
+    <ClInclude Include="Sources\System\Input\Device\InputDeviceKeyboard.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Device\InputDeviceMouse.h">
+    <ClInclude Include="Sources\System\Input\Device\InputDeviceMouse.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Random.h">
+    <ClInclude Include="Sources\Utility\Random.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Components\Transform.h">
+    <ClInclude Include="Sources\World\Component\Transform.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Components\Rendering\ModelRenderer.h">
+    <ClInclude Include="Sources\World\Component\Rendering\ModelRenderer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Components\Rendering\SpriteRenderer.h">
+    <ClInclude Include="Sources\World\Component\Rendering\SpriteRenderer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\ResourceManager.h">
+    <ClInclude Include="Sources\System\ResourceManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Resource\Resource.h">
+    <ClInclude Include="Sources\System\Resource\Resource.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Components\Rendering\TextRenderer.h">
+    <ClInclude Include="Sources\World\Component\Rendering\TextRenderer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Components\Rendering\Renderer.h">
+    <ClInclude Include="Sources\World\Component\Rendering\Renderer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Modifier\InputModifierDeadzone.h">
+    <ClInclude Include="Sources\System\Input\Modifier\InputModifierDeadzone.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Camera\ICamera.h">
+    <ClInclude Include="Sources\Camera\ICamera.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Camera\CameraProperty.h">
+    <ClInclude Include="Sources\Camera\CameraProperty.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Camera\CameraManager.h">
+    <ClInclude Include="Sources\Camera\CameraManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Camera\CameraDebugFree.h">
+    <ClInclude Include="Sources\Camera\CameraDebugFree.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\Input\Literal\InputActionMaps.h">
+    <ClInclude Include="Sources\System\Input\Literal\InputActionMaps.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\TimeManager.h">
+    <ClInclude Include="Sources\System\TimeManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Camera\CameraStatic.h">
+    <ClInclude Include="Sources\Camera\CameraStatic.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Camera\CameraFollow.h">
+    <ClInclude Include="Sources\Camera\CameraFollow.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Objects\DebugGround.h">
+    <ClInclude Include="Sources\World\Object\DebugGround.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="System\ImGuiRenderer.h">
+    <ClInclude Include="Sources\System\ImGuiRenderer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Include\ImGui\imconfig.h">
@@ -398,100 +398,100 @@
     <ClInclude Include="Include\ImGui\imstb_truetype.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Collision\CollisionManager.h">
+    <ClInclude Include="Sources\Collision\CollisionManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Collision\CollisionResult.h">
+    <ClInclude Include="Sources\Collision\CollisionResult.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Objects\TestBox.h">
+    <ClInclude Include="Sources\World\Object\TestBox.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Objects\Crate.h">
+    <ClInclude Include="Sources\World\Object\Crate.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Characters\PlayerTornado.h">
+    <ClInclude Include="Sources\World\Character\PlayerTornado.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Others\RootObject.h">
+    <ClInclude Include="Sources\World\Other\RootObject.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Characters\PlayerBulletManager.h">
+    <ClInclude Include="Sources\World\Character\PlayerBulletManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Characters\PlayerBullet.h">
+    <ClInclude Include="Sources\World\Character\PlayerBullet.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Components\Collider3D.h">
+    <ClInclude Include="Sources\World\Component\Collider3D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Data\Data.h">
+    <ClInclude Include="Sources\Utility\Data\Data.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Data\CSV\CsvConvert.h">
+    <ClInclude Include="Sources\Utility\Data\CSV\CsvConvert.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Data\CSV\FromCsv.h">
+    <ClInclude Include="Sources\Utility\Data\CSV\FromCsv.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Data\CSV\CsvLoader.h">
+    <ClInclude Include="Sources\Utility\Data\CSV\CsvLoader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Param\Param.h">
+    <ClInclude Include="Sources\Param\Param.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Components\CollisionTag.h">
+    <ClInclude Include="Sources\Collision\CollisionTag.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Data\JSON\JsonConvert.h">
+    <ClInclude Include="Sources\Utility\Data\JSON\JsonConvert.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Data\JSON\FromJson.h">
+    <ClInclude Include="Sources\Utility\Data\JSON\FromJson.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Data\JSON\JsonLoader.h">
+    <ClInclude Include="Sources\Utility\Data\JSON\JsonLoader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Components\Animator.h">
+    <ClInclude Include="Sources\World\Component\ModelAnimator.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\Test\SceneCollisionDebug.h">
+    <ClInclude Include="Sources\Scene\Test\SceneCollisionDebug.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\Test\SceneSelectDebug.h">
+    <ClInclude Include="Sources\Scene\Test\SceneSelectDebug.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\Test\SceneTest.h">
+    <ClInclude Include="Sources\Scene\Test\SceneTest.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Geometry.h">
+    <ClInclude Include="Sources\Utility\Geometry.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\Test\SceneStageTest.h">
+    <ClInclude Include="Sources\Scene\Test\SceneStageTest.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Objects\StageObject.h">
+    <ClInclude Include="Sources\World\Object\StageObject.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Param\TempParam.h">
+    <ClInclude Include="Sources\Param\TempParam.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Stage\StageData.h">
+    <ClInclude Include="Sources\Stage\StageData.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Stage\StageModelDataBase.h">
+    <ClInclude Include="Sources\Stage\StageModelDataBase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Factory\Creator.h">
+    <ClInclude Include="Sources\Factory\Creator.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Factory\StageObjectCreator.h">
+    <ClInclude Include="Sources\Factory\StageObjectCreator.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Stage\StageLoader.h">
+    <ClInclude Include="Sources\Stage\StageLoader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="World\Others\StageManager.h">
+    <ClInclude Include="Sources\World\Other\StageManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
