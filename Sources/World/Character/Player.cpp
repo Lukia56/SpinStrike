@@ -240,15 +240,16 @@ void Player::MoveHorizontal(float deltaTime)
 {
 	if (mIgnoreMoveInputTimer > 0.0f) return;
 
-	// 水平方向の移動
-	Vector3 moveVec = InputManager::GetInstance().GetAsVector3(Input::Action::Move);
+	float targetSpeed = mParam.walkSpeed;
+	float accel = mParam.walkAccel;
 
-	// ダッシュ
-	float moveCoef = 1.0f;
 	if (InputManager::GetInstance().IsDown(Input::Action::Dash))
 	{
-		moveCoef *= mParam.dashCoef;
+		targetSpeed = mParam.dashSpeed;
+		accel = mParam.dashAccel;
 	}
+
+	Vector3 moveVec = InputManager::GetInstance().GetAsVector3(Input::Action::Move);
 
 	// カメラを正面に移動
 	Vector3 forward = mCameraView.CalculatePlaneVecForward();
@@ -290,8 +291,8 @@ void Player::MoveHorizontal(float deltaTime)
 		moveVec = vec * moveVec.Dot(vec);
 	}
 
-	mVelocity.x = Math::Approach(mVelocity.x, mParam.walkSpeed * moveCoef * moveVec.x, mParam.walkAccel * accelCoef);
-	mVelocity.z = Math::Approach(mVelocity.z, mParam.walkSpeed * moveCoef * moveVec.z, mParam.walkAccel * accelCoef);
+	mVelocity.x = Math::Approach(mVelocity.x, targetSpeed * moveVec.x, accel * accelCoef);
+	mVelocity.z = Math::Approach(mVelocity.z, targetSpeed * moveVec.z, accel * accelCoef);
 }
 
 void Player::MoveVertical(float deltaTime)

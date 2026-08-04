@@ -1,5 +1,6 @@
 #include "SceneTest.h"
 #include <DxLib.h>
+#include "SceneSelectDebug.h"
 #include "World/Character/Player.h"
 #include "World/Character/PlayerBulletManager.h"
 #include "World/Object/Crate.h"
@@ -8,6 +9,7 @@
 #include "Camera/CameraDebugFree.h"
 #include "Camera/CameraFollow.h"
 #include "Camera/CameraManager.h"
+#include "System/Input/Keyboard.h"
 #include "System/Input/Mouse.h"
 #include "Utility/Data/CSV/CsvLoader.h"
 
@@ -59,6 +61,11 @@ void SceneTest::Finalize()
 std::unique_ptr<SceneBase> SceneTest::Update()
 {
 	mPlayer->SetCameraView(GetCameraManager()->GetCameraView());
+
+	if (Keyboard::GetInstance().IsDown(KEY_INPUT_Q))
+	{
+		return std::make_unique<SceneSelectDebug>();
+	}
 
 	return nullptr;
 }

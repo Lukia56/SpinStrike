@@ -11,7 +11,8 @@ struct PlayerParam
 	float walkSpeed;
 	float walkAccel;
 
-	float dashCoef;
+	float dashSpeed;
+	float dashAccel;
 
 	float jumpForce;
 	float jumpCancelThreshold;

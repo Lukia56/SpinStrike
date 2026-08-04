@@ -47,7 +47,8 @@ namespace Data
 				PlayerParam param;
 				param.walkSpeed = Get<float>(row, "walkSpeed");
 				param.walkAccel = Get<float>(row, "walkAccel");
-				param.dashCoef = Get<float>(row, "dashCoef");
+				param.dashSpeed = Get<float>(row, "dashSpeed");
+				param.dashAccel = Get<float>(row, "dashAccel");
 				param.jumpForce = Get<float>(row, "jumpForce");
 				param.jumpCancelThreshold = Get<float>(row, "jumpCancelThreshold");
 				param.jumpBufferTime = Get<float>(row, "jumpBufferTime");

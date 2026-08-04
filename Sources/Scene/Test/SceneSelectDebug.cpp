@@ -4,6 +4,7 @@
 #include "SceneCollisionDebug.h"
 #include "SceneStageTest.h"
 #include "System/InputManager.h"
+#include "System/Input/Mouse.h"
 #include "Utility/Color.h"
 
 SceneSelectDebug::SceneSelectDebug() :
@@ -26,6 +27,8 @@ void SceneSelectDebug::Init()
 	info.name = "StageDebug";
 	info.createSceneFunc = []() { return std::make_unique<SceneStageTest>(); };
 	mSceneList.emplace_back(info);
+
+	Mouse::GetInstance().SetMode(Mouse::Mode::Absolute);
 }
 
 std::unique_ptr<SceneBase> SceneSelectDebug::Update()
