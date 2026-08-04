@@ -242,6 +242,25 @@ Vector3 Vector3::Cross(const Vector3& v) const
 		x * v.y - y * v.x);
 }
 
+Vector3 Vector3::Approach(const Vector3& dst, float change)
+{
+	Vector3 src = *this;
+
+	if (src == dst) return src;
+
+	Vector3 diff = dst - src;
+
+	// 目標値を超えるなら目標値を返す
+	if (diff.GetSqLength() < Math::Sqr(change))
+	{
+		return dst;
+	}
+
+	// 目標値に向けて補間
+	Vector3 dir = diff.GetNormalize();
+	return src + dir * change;
+}
+
 float Vector3::GetLength() const
 {
 	return std::sqrt(GetSqLength());

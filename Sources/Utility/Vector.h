@@ -124,6 +124,11 @@ struct Vector3
 	Vector3 Cross(const Vector3& v) const;
 
 	/// <summary>
+	/// 等速補間を行う
+	/// </summary>
+	Vector3 Approach(const Vector3& dst, float change);
+
+	/// <summary>
 	/// ベクトルの長さを取得する
 	/// 処理が重いため非推奨
 	/// </summary>

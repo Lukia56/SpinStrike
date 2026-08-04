@@ -258,8 +258,6 @@ void Player::MoveHorizontal(float deltaTime)
 
 	if (moveVec != Vector3::Zero) mLastMoveVec = moveVec;
 
-	float accelCoef = mOnGround ? 1.0f : mParam.airResistanceCoef;
-
 	if (mOnWall)
 	{
 		Vector3 vec = mLastCollideNormal;
@@ -291,8 +289,14 @@ void Player::MoveHorizontal(float deltaTime)
 		moveVec = vec * moveVec.Dot(vec);
 	}
 
-	mVelocity.x = Math::Approach(mVelocity.x, targetSpeed * moveVec.x, accel * accelCoef);
-	mVelocity.z = Math::Approach(mVelocity.z, targetSpeed * moveVec.z, accel * accelCoef);
+	float accelCoef = mOnGround ? 1.0f : mParam.airResistanceCoef;
+
+	// XÇ∆Zê¨ï™ÇæÇØï‚ä‘Ç≥ÇπÇÈ
+	Vector3 vel = Vector3(mVelocity.x, 0.0f, mVelocity.z);
+	vel = vel.Approach(moveVec * targetSpeed, accel * accelCoef);
+
+	mVelocity.x = vel.x;
+	mVelocity.z = vel.z;
 }
 
 void Player::MoveVertical(float deltaTime)
