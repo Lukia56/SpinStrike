@@ -41,6 +41,12 @@ private:
 
 	void SpinAction(float deltaTime);
 
+	void ActivateSpin(float deltaTime);
+
+	void DeactivateSpin();
+
+	void EndSpin();
+
 	void MoveHorizontal(float deltaTime);
 
 	void MoveVertical(float deltaTime);
@@ -77,7 +83,7 @@ private:
 
 	float mSpinStamina;
 
-	float mSpinStartTimer;
+	float mSpinPreStartTimer;
 
 	float mSpinCooldownTimer;
 

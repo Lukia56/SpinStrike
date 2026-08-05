@@ -26,6 +26,12 @@ struct PlayerParam
 	float stickWallCancelTimeThreshold;
 	float stickWallCancelMoveVectorThreshold;
 
+	float spinMoveSpeed;
+	float spinMoveAccel;
+	float spinCooldownTime;
+	float spinPreStartTime;
+	float spinStaminaDuration;
+
 	float airResistanceCoef;
 	float gravity;
 };

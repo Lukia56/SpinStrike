@@ -25,14 +25,6 @@ namespace
 	const char* const kAABBParamPath = "Resources\\MasterData\\PlayerAABBColliderParam.csv";
 
 	const char* const kModelHandlePath = "Resources\\Model\\Hero.x";
-
-	constexpr float kSpinStartTime = 0.5f;
-	constexpr float kSpinCooldownTime = 1.0f;
-
-	constexpr float kSpinMoveSpeed = 750.0f;
-	constexpr float kSpinMoveAccel = 15.0f;
-
-	constexpr float kSpinStaminaTime = 5.0f;
 }
 
 Player::Player(PlayerBulletManager* bulletManager) :
@@ -45,8 +37,8 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mStickWallCancelTimer(0.0f),
 	mIgnoreMoveInputTimer(0.0f),
 	mIsSpinning(false),
-	mSpinStamina(kSpinStaminaTime),
-	mSpinStartTimer(0.0f),
+	mSpinStamina(0.0f),
+	mSpinPreStartTimer(0.0f),
 	mSpinCooldownTimer(0.0f),
 	mModel(nullptr),
 	mAnimator(nullptr),
@@ -156,7 +148,7 @@ void Player::DebugDraw()
 		//ImGui::Text("StickWallCancelTimer: %f", mStickWallCancelTimer);
 		ImGui::Text("SpinStamina: %f", mSpinStamina);
 		ImGui::Text("SpinCooldownTimer: %f", mSpinCooldownTimer);
-		ImGui::Text("SpinStartTimer: %f", mSpinStartTimer);
+		ImGui::Text("SpinPreStartTimer: %f", mSpinPreStartTimer);
 
 		ImGui::Text("IsJumping: %d", mIsJumping);
 		ImGui::Text("IsSpinning: %d", mIsSpinning);
@@ -245,64 +237,67 @@ void Player::ResolvePush()
 
 void Player::SpinAction(float deltaTime)
 {
+	// クールダウン中は処理を行わない
 	if (mSpinCooldownTimer > 0.0f)
 	{
 		mSpinCooldownTimer -= deltaTime;
 		return;
 	}
 
-	auto& input = InputManager::GetInstance();
-
-	if (input.IsPressed(Input::Action::Spin))
+	if (InputManager::GetInstance().IsPressed(Input::Action::Spin))
 	{
 		mIsSpinning = true;
 
-		mSpinStartTimer = kSpinStartTime;
+		mSpinPreStartTimer = mParam.spinPreStartTime;
+
+		mSpinStamina = mParam.spinStaminaDuration;
 	}
-
-	if (mIsSpinning)
-	{
-		// トルネードを起動する
-		if (!mTornado->IsActive())
-		{
-			if (mSpinStartTimer >= 0.0f)
-			{
-				mSpinStartTimer -= deltaTime;
-			}
-			else
-			{
-				mTornado->SetActive(true);
-			}
-		}
 	
-		// スピンを解除する
-		if (!input.IsDown(Input::Action::Spin))
-		{
-			mSpinStamina = kSpinStaminaTime;
+	ActivateSpin(deltaTime);
 
-			mIsSpinning = false;
-
-			mSpinCooldownTimer = kSpinCooldownTime;
-
-			mTornado->SetActive(false);
-		}
-
-		// スタミナをカウントする
+	if (mTornado->IsActive())
+	{
+		// スタミナを消費する
 		if (mSpinStamina > 0.0f)
 		{
 			mSpinStamina -= deltaTime;
 		}
-		else
-		{
-			mSpinStamina = kSpinStaminaTime;
-
-			mIsSpinning = false;
-
-			mSpinCooldownTimer = kSpinCooldownTime;
-
-			mTornado->SetActive(false);
-		}
+		
+		DeactivateSpin();
 	}
+}
+
+void Player::ActivateSpin(float deltaTime)
+{
+	if (mTornado->IsActive()) return;
+	if (!mIsSpinning) return;
+
+	if (mSpinPreStartTimer > 0.0f)
+	{
+		mSpinPreStartTimer -= deltaTime;
+	}
+	else
+	{
+		mTornado->SetActive(true);
+	}
+}
+
+void Player::DeactivateSpin()
+{
+	if (mSpinStamina < 0.0f
+	|| !InputManager::GetInstance().IsDown(Input::Action::Spin))
+	{
+		EndSpin();
+	}
+}
+
+void Player::EndSpin()
+{
+	mIsSpinning = false;
+
+	mSpinCooldownTimer = mParam.spinCooldownTime;
+
+	mTornado->SetActive(false);
 }
 
 void Player::MoveHorizontal(float deltaTime)
@@ -314,8 +309,8 @@ void Player::MoveHorizontal(float deltaTime)
 
 	if (mIsSpinning)
 	{
-		targetSpeed = kSpinMoveSpeed;
-		accel = kSpinMoveAccel;
+		targetSpeed = mParam.spinMoveSpeed;
+		accel = mParam.spinMoveAccel;
 	}
 	else
 	if (InputManager::GetInstance().IsDown(Input::Action::Dash))

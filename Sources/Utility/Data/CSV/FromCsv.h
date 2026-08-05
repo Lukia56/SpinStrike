@@ -47,17 +47,28 @@ namespace Data
 				PlayerParam param;
 				param.walkSpeed = Get<float>(row, "walkSpeed");
 				param.walkAccel = Get<float>(row, "walkAccel");
+
 				param.dashSpeed = Get<float>(row, "dashSpeed");
 				param.dashAccel = Get<float>(row, "dashAccel");
+
 				param.jumpForce = Get<float>(row, "jumpForce");
 				param.jumpCancelThreshold = Get<float>(row, "jumpCancelThreshold");
 				param.jumpBufferTime = Get<float>(row, "jumpBufferTime");
+
 				param.wallJumpVerticalForce = Get<float>(row, "wallJumpVerticalForce");
 				param.wallJumpHorizontalForce = Get<float>(row, "wallJumpHorizontalForce");
 				param.wallJumpIgnoreMoveInputTime = Get<float>(row, "wallJumpIgnoreMoveInputTime");
+
 				param.stickWallFallSpeed = Get<float>(row, "stickWallFallSpeed");
 				param.stickWallCancelTimeThreshold = Get<float>(row, "stickWallCancelTimeThreshold");
 				param.stickWallCancelMoveVectorThreshold = Get<float>(row, "stickWallCancelMoveVectorThreshold");
+
+				param.spinMoveSpeed = Get<float>(row, "spinMoveSpeed");
+				param.spinMoveAccel = Get<float>(row, "spinMoveAccel");
+				param.spinCooldownTime = Get<float>(row, "spinCooldownTime");
+				param.spinPreStartTime = Get<float>(row, "spinPreStartTime");
+				param.spinStaminaDuration = Get<float>(row, "spinStaminaDuration");
+
 				param.airResistanceCoef = Get<float>(row, "airResistanceCoef");
 				param.gravity = Get<float>(row, "gravity");
 				return param;
