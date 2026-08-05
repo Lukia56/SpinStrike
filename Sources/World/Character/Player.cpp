@@ -29,6 +29,8 @@ namespace
 	constexpr float kSpinStartTime = 0.5f;
 	constexpr float kSpinCooldownTime = 1.0f;
 
+	constexpr float kSpinMoveSpeed = 750.0f;
+	constexpr float kSpinMoveAccel = 15.0f;
 
 	constexpr float kSpinStaminaTime = 5.0f;
 }
@@ -260,7 +262,7 @@ void Player::SpinAction(float deltaTime)
 
 	if (mIsSpinning)
 	{
-		// ï¿½gï¿½ï¿½ï¿½lï¿½[ï¿½hï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ƒgƒ‹ƒl[ƒh‚ð‹N“®‚·‚é
 		if (!mTornado->IsActive())
 		{
 			if (mSpinStartTimer >= 0.0f)
@@ -273,7 +275,7 @@ void Player::SpinAction(float deltaTime)
 			}
 		}
 	
-		// ï¿½Xï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ƒXƒsƒ“‚ð‰ðœ‚·‚é
 		if (!input.IsDown(Input::Action::Spin))
 		{
 			mSpinStamina = kSpinStaminaTime;
@@ -285,7 +287,7 @@ void Player::SpinAction(float deltaTime)
 			mTornado->SetActive(false);
 		}
 
-		// ï¿½Xï¿½^ï¿½~ï¿½iï¿½ï¿½ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½
+		// ƒXƒ^ƒ~ƒi‚ðƒJƒEƒ“ƒg‚·‚é
 		if (mSpinStamina > 0.0f)
 		{
 			mSpinStamina -= deltaTime;
@@ -310,6 +312,12 @@ void Player::MoveHorizontal(float deltaTime)
 	float targetSpeed = mParam.walkSpeed;
 	float accel = mParam.walkAccel;
 
+	if (mIsSpinning)
+	{
+		targetSpeed = kSpinMoveSpeed;
+		accel = kSpinMoveAccel;
+	}
+	else
 	if (InputManager::GetInstance().IsDown(Input::Action::Dash))
 	{
 		targetSpeed = mParam.dashSpeed;
