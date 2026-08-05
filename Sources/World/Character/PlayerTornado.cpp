@@ -12,7 +12,6 @@ namespace
 }
 
 PlayerTornado::PlayerTornado(PlayerBulletManager* bulletManager) :
-	mIsSpinning(false),
 	mPulledNum(0),
 	mCollider(nullptr),
 	mBulletManager(bulletManager)
@@ -50,16 +49,15 @@ void PlayerTornado::Draw()
 
 void PlayerTornado::DebugDraw()
 {
-	if (mIsSpinning) mCollider->GetShape()->DebugDraw();
+	mCollider->GetShape()->DebugDraw();
 
-	using namespace ImGui;
-	if (Begin("Player"))
+	if (ImGui::Begin("Player"))
 	{
-		Text("===== Tornado =====");
+		ImGui::Text("===== Tornado =====");
 
-		Text("PulledCount = %d", mPulledNum);
+		ImGui::Text("PulledCount = %d", mPulledNum);
 
-		End();
+		ImGui::End();
 	}
 }
 
@@ -72,11 +70,11 @@ void PlayerTornado::CreateBullet(const Vector3& moveVec)
 	mPulledNum = 0;
 }
 
-void PlayerTornado::SetSpinningFlag(const bool flag)
+void PlayerTornado::SetActive(bool flag)
 {
-	if (mIsSpinning == flag) return;
+	if (IsActive() == flag) return;
 
-	mIsSpinning = flag;
+	GameObject::SetActive(flag);
 	
 	if (flag)
 	{

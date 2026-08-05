@@ -25,6 +25,7 @@ bool Application::Initialize()
 {
 	bool result;
 
+	SetOutApplicationLogValidFlag(false);
 	ChangeWindowMode(true);
 	SetWaitVSyncFlag(false);
 

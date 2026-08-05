@@ -25,6 +25,12 @@ namespace
 	const char* const kAABBParamPath = "Resources\\MasterData\\PlayerAABBColliderParam.csv";
 
 	const char* const kModelHandlePath = "Resources\\Model\\Hero.x";
+
+	constexpr float kSpinStartTime = 0.5f;
+	constexpr float kSpinCooldownTime = 1.0f;
+
+
+	constexpr float kSpinStaminaTime = 5.0f;
 }
 
 Player::Player(PlayerBulletManager* bulletManager) :
@@ -36,6 +42,10 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mOnCancelStickWall(false),
 	mStickWallCancelTimer(0.0f),
 	mIgnoreMoveInputTimer(0.0f),
+	mIsSpinning(false),
+	mSpinStamina(kSpinStaminaTime),
+	mSpinStartTimer(0.0f),
+	mSpinCooldownTimer(0.0f),
 	mModel(nullptr),
 	mAnimator(nullptr),
 	mTornado(nullptr)
@@ -51,6 +61,7 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mAnimator = std::make_unique<ModelAnimator>(mModel.get(), 30.0f);
 
 	mTornado = AddToChild<PlayerTornado>(bulletManager);
+	mTornado->SetActive(false);
 
 	auto aabbParam = Data::Csv::LoadCsvAs<AABBColliderParam>(kAABBParamPath);
 	for (const auto& param : aabbParam)
@@ -86,19 +97,9 @@ void Player::Update()
 
 	ResolvePush();
 
+	SpinAction(deltaTime);
 	MoveHorizontal(deltaTime);
 	MoveVertical(deltaTime);
-
-	if (InputManager::GetInstance().IsPressed(Input::Action::Spin))
-	{
-		mTornado->SetSpinningFlag(true);
-	}
-	if (InputManager::GetInstance().IsReleased(Input::Action::Spin))
-	{
-		mTornado->CreateBullet(mLastMoveVec);
-
-		mTornado->SetSpinningFlag(false);
-	}
 
 	if (!mOnGround && mCanJumpTimer > 0.0f) mCanJumpTimer -= TimeManager::GetDeltaTime();
 
@@ -149,10 +150,14 @@ void Player::DebugDraw()
 		float collPtr[] = { mLastCollideNormal.x, mLastCollideNormal.y, mLastCollideNormal.z };
 		ImGui::InputFloat3("LastCollideNormal", collPtr, "%.1f");
 
-		ImGui::Text("CanJumpTimer: %f", mCanJumpTimer);
-		ImGui::Text("StickWallCancelTimer: %f", mStickWallCancelTimer);
+		//ImGui::Text("CanJumpTimer: %f", mCanJumpTimer);
+		//ImGui::Text("StickWallCancelTimer: %f", mStickWallCancelTimer);
+		ImGui::Text("SpinStamina: %f", mSpinStamina);
+		ImGui::Text("SpinCooldownTimer: %f", mSpinCooldownTimer);
+		ImGui::Text("SpinStartTimer: %f", mSpinStartTimer);
 
 		ImGui::Text("IsJumping: %d", mIsJumping);
+		ImGui::Text("IsSpinning: %d", mIsSpinning);
 		ImGui::Text("OnGround: %d", mOnGround);
 		ImGui::Text("OnWall: %d", mOnWall);
 
@@ -233,6 +238,68 @@ void Player::ResolvePush()
 	{
 		mTransform.localPosition += mCollisionPush;
 		mCollisionPush = Vector3::Zero;
+	}
+}
+
+void Player::SpinAction(float deltaTime)
+{
+	if (mSpinCooldownTimer > 0.0f)
+	{
+		mSpinCooldownTimer -= deltaTime;
+		return;
+	}
+
+	auto& input = InputManager::GetInstance();
+
+	if (input.IsPressed(Input::Action::Spin))
+	{
+		mIsSpinning = true;
+
+		mSpinStartTimer = kSpinStartTime;
+	}
+
+	if (mIsSpinning)
+	{
+		// �g���l�[�h���N������
+		if (!mTornado->IsActive())
+		{
+			if (mSpinStartTimer >= 0.0f)
+			{
+				mSpinStartTimer -= deltaTime;
+			}
+			else
+			{
+				mTornado->SetActive(true);
+			}
+		}
+	
+		// �X�s������������
+		if (!input.IsDown(Input::Action::Spin))
+		{
+			mSpinStamina = kSpinStaminaTime;
+
+			mIsSpinning = false;
+
+			mSpinCooldownTimer = kSpinCooldownTime;
+
+			mTornado->SetActive(false);
+		}
+
+		// �X�^�~�i���J�E���g����
+		if (mSpinStamina > 0.0f)
+		{
+			mSpinStamina -= deltaTime;
+		}
+		else
+		{
+			mSpinStamina = kSpinStaminaTime;
+
+			mIsSpinning = false;
+
+			mSpinCooldownTimer = kSpinCooldownTime;
+
+			mTornado->SetActive(false);
+		}
 	}
 }
 

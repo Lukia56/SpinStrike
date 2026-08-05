@@ -24,11 +24,9 @@ public:
 
 public:
 
-	void SetSpinningFlag(const bool flag);
+	void SetActive(bool flag);
 
 private:
-
-	bool mIsSpinning;
 
 	/// <summary>
 	/// ‹z‚¢‚ñ‚¾”

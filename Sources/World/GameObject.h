@@ -77,7 +77,7 @@ public:
 	Transform& GetTransform() { return mTransform; }
 
 	bool IsActive() const { return mIsActive; }
-	void SetActive(bool flag) { mIsActive = flag; }
+	virtual void SetActive(bool flag) { mIsActive = flag; }
 
 	Tag GetTag() const { return mTag; }
 	void SetTag(Tag tag) { mTag = tag; }

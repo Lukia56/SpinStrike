@@ -39,6 +39,8 @@ private:
 
 	void ResolvePush();
 
+	void SpinAction(float deltaTime);
+
 	void MoveHorizontal(float deltaTime);
 
 	void MoveVertical(float deltaTime);
@@ -70,6 +72,14 @@ private:
 	float mStickWallCancelTimer;
 
 	float mIgnoreMoveInputTimer;
+
+	bool mIsSpinning;
+
+	float mSpinStamina;
+
+	float mSpinStartTimer;
+
+	float mSpinCooldownTimer;
 
 	PlayerParam mParam;
 

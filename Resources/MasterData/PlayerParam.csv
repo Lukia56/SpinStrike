@@ -1,2 +1,2 @@
 walkSpeed,walkAccel,dashSpeed,dashAccel,jumpForce,jumpCancelThreshold,jumpBufferTime,wallJumpVerticalForce,wallJumpHorizontalForce,wallJumpIgnoreMoveInputTime,stickWallFallSpeed,stickWallCancelTimeThreshold,stickWallCancelMoveVectorThreshold,airResistanceCoef,gravity
-200,20,300,100,500,50,0.15,400,500,0.2,50,0.5,0.5,0.5,980
+200,20,300,100,500,50,0.15,400,500,0.2,50,0.5,0.5,0.1,980
