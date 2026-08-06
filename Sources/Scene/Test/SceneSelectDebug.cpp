@@ -1,7 +1,7 @@
 #include "SceneSelectDebug.h"
 #include <DxLib.h>
-#include "SceneTest.h"
-#include "SceneCollisionDebug.h"
+#include "SceneCollisionTest.h"
+#include "SceneLoadStageTest.h"
 #include "SceneStageTest.h"
 #include "System/InputManager.h"
 #include "System/Input/Mouse.h"
@@ -16,19 +16,19 @@ void SceneSelectDebug::Init()
 {
 	SceneInfo info;
 
-	info.name = "Test1";
-	info.createSceneFunc = []() { return std::make_unique<SceneTest>(); };
-	mSceneList.emplace_back(info);
-
-	info.name = "CollisionDebug";
-	info.createSceneFunc = []() { return std::make_unique<SceneCollisionDebug>(); };
-	mSceneList.emplace_back(info);
-
-	info.name = "StageDebug";
+	info.name = "StageTest";
 	info.createSceneFunc = []() { return std::make_unique<SceneStageTest>(); };
 	mSceneList.emplace_back(info);
 
-	Mouse::GetInstance().SetMode(Mouse::Mode::Absolute);
+	info.name = "CollisionTest";
+	info.createSceneFunc = []() { return std::make_unique<SceneCollisionTest>(); };
+	mSceneList.emplace_back(info);
+
+	info.name = "LoadStageTest";
+	info.createSceneFunc = []() { return std::make_unique<SceneLoadStageTest>(); };
+	mSceneList.emplace_back(info);
+
+	Mouse::GetInstance().SetMode(Mouse::Mode::Relative);
 }
 
 std::unique_ptr<SceneBase> SceneSelectDebug::Update()

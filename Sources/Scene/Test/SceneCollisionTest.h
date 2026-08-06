@@ -8,12 +8,12 @@ namespace Collision
 	class IShape3D;
 }
 
-class SceneCollisionDebug : public SceneBase
+class SceneCollisionTest : public SceneBase
 {
 public:
 
-	SceneCollisionDebug();
-	~SceneCollisionDebug() = default;
+	SceneCollisionTest();
+	~SceneCollisionTest() = default;
 
 	void Init() override;
 

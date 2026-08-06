@@ -2,22 +2,21 @@
 
 #include "../SceneBase.h"
 
-class StageObject;
+class Player;
 
 class SceneStageTest : public SceneBase
 {
 public:
 
 	SceneStageTest();
-	~SceneStageTest() = default;
+	~SceneStageTest();
 
 	void Init() override;
+	void Finalize() override;
 
 	std::unique_ptr<SceneBase> Update() override;
 
-	void DebugDraw() override;
-
 private:
 
-	bool mIsStartTransition;
+	Player* mPlayer;
 };

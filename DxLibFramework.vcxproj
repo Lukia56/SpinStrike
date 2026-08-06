@@ -140,9 +140,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Sources\Factory\StageObjectCreator.cpp" />
     <ClCompile Include="Sources\Scene\Test\SceneStageTest.cpp" />
-    <ClCompile Include="Sources\Scene\Test\SceneCollisionDebug.cpp" />
+    <ClCompile Include="Sources\Factory\StageObjectCreator.cpp" />
+    <ClCompile Include="Sources\Scene\Test\SceneLoadStageTest.cpp" />
+    <ClCompile Include="Sources\Scene\Test\SceneCollisionTest.cpp" />
     <ClCompile Include="Sources\Scene\Test\SceneSelectDebug.cpp" />
     <ClCompile Include="Sources\World\Other\StageManager.cpp" />
     <ClCompile Include="Sources\Stage\StageLoader.cpp" />
@@ -202,7 +203,6 @@
     <ClCompile Include="Sources\System\Input\Modifier\InputModifierSwizzleAxis.cpp" />
     <ClCompile Include="Sources\Collision\Collision3D.cpp" />
     <ClCompile Include="Sources\World\Character\Player.cpp" />
-    <ClCompile Include="Sources\Scene\Test\SceneTest.cpp" />
     <ClCompile Include="Sources\Utility\Vector.cpp" />
     <ClCompile Include="Sources\World\GameObject.cpp" />
     <ClCompile Include="Sources\Main.cpp" />
@@ -210,11 +210,12 @@
     <ClCompile Include="Sources\Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\Scene\Test\SceneStageTest.h" />
     <ClInclude Include="Sources\Factory\Creator.h" />
     <ClInclude Include="Sources\Factory\StageObjectCreator.h" />
     <ClInclude Include="Sources\Param\TempParam.h" />
-    <ClInclude Include="Sources\Scene\Test\SceneStageTest.h" />
-    <ClInclude Include="Sources\Scene\Test\SceneCollisionDebug.h" />
+    <ClInclude Include="Sources\Scene\Test\SceneLoadStageTest.h" />
+    <ClInclude Include="Sources\Scene\Test\SceneCollisionTest.h" />
     <ClInclude Include="Sources\Scene\Test\SceneSelectDebug.h" />
     <ClInclude Include="Sources\World\Other\StageManager.h" />
     <ClInclude Include="Sources\Stage\StageLoader.h" />
@@ -294,7 +295,6 @@
     <ClInclude Include="Sources\System\Input\Mouse.h" />
     <ClInclude Include="Sources\Collision\Collision3D.h" />
     <ClInclude Include="Sources\World\Character\Player.h" />
-    <ClInclude Include="Sources\Scene\Test\SceneTest.h" />
     <ClInclude Include="Sources\Utility\Color.h" />
     <ClInclude Include="Sources\Utility\Math.h" />
     <ClInclude Include="Sources\Utility\Vector.h" />

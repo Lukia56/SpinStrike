@@ -1,47 +1,66 @@
 #include "SceneStageTest.h"
-#include <memory>
-#include <imgui.h>
 #include "SceneSelectDebug.h"
-#include "Camera/CameraDebugFree.h"
-#include "Camera/CameraManager.h"
-#include "World/Object/DebugGround.h"
+#include "World/Character/Player.h"
+#include "World/Character/PlayerBulletManager.h"
+#include "World/Other/RootObject.h"
 #include "World/Other/StageManager.h"
+#include "Camera/CameraFollow.h"
+#include "Camera/CameraManager.h"
+#include "System/Input/Keyboard.h"
+#include "System/Input/Mouse.h"
 
 namespace
 {
-	const char* const kStageObjectDataPath = "Resources\\MasterData\\TestLevel.json";
+	const char* const kStageObjectDataPath = "Resources\\MasterData\\TestStage0.json";
 }
 
 SceneStageTest::SceneStageTest() :
-	mIsStartTransition(false)
+	mPlayer(nullptr)
+{
+}
+
+SceneStageTest::~SceneStageTest()
 {
 }
 
 void SceneStageTest::Init()
 {
-	AddToRoot<DebugGround>();
-	GetCameraManager()->AddCamera(Camera::Type::DebugFree, std::make_unique<CameraDebugFree>());
-	GetCameraManager()->SetCurrentCameraType(Camera::Type::DebugFree);
+	auto objectRoot = AddToRoot<RootObject>();
 
-	AddToRoot<StageManager>(kStageObjectDataPath);
+	PlayerBulletManager* bulletManager = objectRoot->AddToChild<PlayerBulletManager>();
+
+	mPlayer = objectRoot->AddToChild<Player>(bulletManager);
+	mPlayer->GetTransform().localPosition.y = 200.0f;
+	
+	objectRoot->AddToChild<StageManager>(kStageObjectDataPath);
+
+	GetCameraManager()->AddCamera(Camera::Type::Follow, std::make_unique<CameraFollow>(&mPlayer->GetTransform()));
+	GetCameraManager()->SetCurrentCameraType(Camera::Type::Follow);
+
+	Mouse::GetInstance().SetMode(Mouse::Mode::Relative);
+}
+
+void SceneStageTest::Finalize()
+{
 }
 
 std::unique_ptr<SceneBase> SceneStageTest::Update()
 {
-	if (mIsStartTransition) return std::make_unique<SceneSelectDebug>();
+	mPlayer->SetCameraView(GetCameraManager()->GetCameraView());
+
+	if (Keyboard::GetInstance().IsDown(KEY_INPUT_LALT))
+	{
+		Mouse::GetInstance().SetMode(Mouse::Mode::Absolute);
+	}
+	else
+	{
+		Mouse::GetInstance().SetMode(Mouse::Mode::Relative);
+	}
+
+	if (Keyboard::GetInstance().IsDown(KEY_INPUT_Q))
+	{
+		return std::make_unique<SceneSelectDebug>();
+	}
 
 	return nullptr;
-}
-
-void SceneStageTest::DebugDraw()
-{
-	if (ImGui::Begin("Scene"))
-	{
-		if (ImGui::Button("Back to Selection"))
-		{
-			mIsStartTransition = true;
-		}
-
-		ImGui::End();
-	}
 }

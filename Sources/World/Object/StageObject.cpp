@@ -12,6 +12,8 @@ StageObject::StageObject(const StageObjectParam& param, const std::string& model
 	mModel(nullptr),
 	mCollider(nullptr)
 {
+	SetTag(Tag::Terrain);
+
 	mTransform.localPosition = param.transform.position;
 	mTransform.localRotation = param.transform.rotation;
 	mTransform.localScale = param.transform.scale;

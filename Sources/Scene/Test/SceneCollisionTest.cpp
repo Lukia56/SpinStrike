@@ -1,4 +1,4 @@
-#include "SceneCollisionDebug.h"
+#include "SceneCollisionTest.h"
 #include <imgui.h>
 #include "SceneSelectDebug.h"
 #include "Camera/CameraDebugFree.h"
@@ -8,7 +8,7 @@
 #include "System/InputManager.h"
 #include "World/Object/DebugGround.h"
 
-SceneCollisionDebug::SceneCollisionDebug() :
+SceneCollisionTest::SceneCollisionTest() :
 	mShapeA(nullptr),
 	mShapeB(nullptr),
 	mIsControllCamera(true),
@@ -28,11 +28,11 @@ SceneCollisionDebug::SceneCollisionDebug() :
 	mShapeB->SetPosition(mShapeBPos);
 }
 
-void SceneCollisionDebug::Init()
+void SceneCollisionTest::Init()
 {
 }
 
-std::unique_ptr<SceneBase> SceneCollisionDebug::Update()
+std::unique_ptr<SceneBase> SceneCollisionTest::Update()
 {
 	mShapeA->SetPosition(mShapeAPos);
 	mShapeB->SetPosition(mShapeBPos);
@@ -57,7 +57,7 @@ std::unique_ptr<SceneBase> SceneCollisionDebug::Update()
 	return nullptr;
 }
 
-void SceneCollisionDebug::DebugDraw()
+void SceneCollisionTest::DebugDraw()
 {
 	Collision::Result result = mShapeA->CheckCollision(mShapeB.get());
 	Color color = result.isHit ? Color::red : Color::white;
