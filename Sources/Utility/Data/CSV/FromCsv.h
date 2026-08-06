@@ -40,6 +40,20 @@ namespace Data
 		}
 
 		template <>
+		struct FromCsv<WindowConfigs>
+		{
+			static WindowConfigs Binding(const Row& row)
+			{
+				WindowConfigs param;
+				param.windowText = Get<std::string>(row, "windowText");
+				param.width = Get<int>(row, "width");
+				param.height = Get<int>(row, "height");
+				param.colorBit = Get<int>(row, "colorBit");
+				return param;
+			}
+		};
+
+		template <>
 		struct FromCsv<PlayerParam>
 		{
 			static PlayerParam Binding(const Row& row)

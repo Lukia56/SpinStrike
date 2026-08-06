@@ -6,6 +6,14 @@
 #include "Utility/Vector.h"
 #include "World/Component/Transform.h"
 
+struct WindowConfigs
+{
+	std::string windowText;
+	int width;
+	int height;
+	int colorBit;
+};
+
 struct PlayerParam
 {
 	float walkSpeed;
