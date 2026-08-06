@@ -2,11 +2,6 @@
 #include <DxLib.h>
 #include "Utility/Vector.h"
 
-namespace
-{
-	constexpr Vector2 kWindowHalfSize{ 320, 240 };
-}
-
 void Mouse::Update()
 {
 	mState = GetMouseInput();
@@ -18,8 +13,13 @@ void Mouse::Update()
 	// 相対座標モードならマウスカーソルを固定する
 	if (mMode == Mode::Relative)
 	{
-		SetMousePoint(kWindowHalfSize.x, kWindowHalfSize.y);
-		mPosition = kWindowHalfSize;
+		int width, height;
+		GetWindowSize(&width, &height);
+
+		Vector2 halfSize = Vector2(width * 0.5f, height * 0.5f);
+
+		SetMousePoint(halfSize.x, halfSize.y);
+		mPosition = halfSize;
 	}
 }
 
