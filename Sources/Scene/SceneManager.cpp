@@ -29,9 +29,9 @@ void SceneManager::Update()
 	if (nextScene == nullptr) return;
 
 	// ƒV[ƒ“‚ðØ‚è‘Ö‚¦‚é
+	nextScene->Init();
 	mCurrentScene->Finalize();
 	mCurrentScene = std::move(nextScene);
-	mCurrentScene->Init();
 }
 
 void SceneManager::PhysicsUpdate()
