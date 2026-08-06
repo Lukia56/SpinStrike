@@ -3,6 +3,7 @@
 #include <memory>
 
 class SceneManager;
+class EffekseerManager;
 class ImGuiRenderer;
 
 /// <summary>
@@ -44,6 +45,8 @@ private:
 private:
 
 	std::unique_ptr<SceneManager> mSceneManager;
+
+	std::unique_ptr<EffekseerManager> mEffekseerManager;
 
 	std::unique_ptr<ImGuiRenderer> mImGuiRenderer;
 };

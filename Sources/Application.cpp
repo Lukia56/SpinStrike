@@ -5,6 +5,7 @@
 #include <imgui.h>
 #include <Psapi.h>
 #include "Scene/SceneManager.h"
+#include "System/EffekseerManager.h"
 #include "System/ImGuiRenderer.h"
 #include "System/InputManager.h"
 #include "System/ResourceManager.h"
@@ -19,6 +20,7 @@ namespace
 
 Application::Application() :
 	mSceneManager(nullptr),
+	mEffekseerManager(nullptr),
 	mImGuiRenderer(nullptr)
 {
 }
@@ -31,19 +33,13 @@ bool Application::Initialize()
 {
 	bool result;
 	
-	// DxLibを初期化
 	result = InitDxLib();
-	// DxLibの初期化に失敗していたら早期リターン
 	if (!result) return false;
 
-	SetDrawScreen(DX_SCREEN_BACK);
+	mEffekseerManager = std::make_unique<EffekseerManager>();
+	result = mEffekseerManager->Initialize();
+	if (!result) return false;
 
-	SetUseZBuffer3D(true);
-	SetWriteZBuffer3D(true);
-	SetUseBackCulling(false);
-	SetBackgroundColor(128, 128, 128);
-
-	// シーンマネージャーを初期化
 	mSceneManager = std::make_unique<SceneManager>();
 	mSceneManager->Initialize();
 
@@ -52,12 +48,10 @@ bool Application::Initialize()
 
 	TimeManager::Initialize();
 
-	// 入力マネージャーを初期化
 	InputManager::GetInstance().Initialize();
 
 	ResourceManager::GetInstance().Init();
 
-	// 乱数生成機を初期化
 	Random::Init();
 
 	// ここまで問題が起きなかったらtrue
@@ -71,6 +65,8 @@ void Application::Finalize()
 	mSceneManager->Finalize();
 
 	ResourceManager::GetInstance().Finalize();
+
+	mEffekseerManager->Finalize();
 
 	// メモリリークが起きる可能性があるため最後に呼ぶ
 	DxLib_End();
@@ -105,6 +101,8 @@ void Application::Update()
 	mSceneManager->PhysicsUpdate();
 
 	mSceneManager->Update();
+
+	mEffekseerManager->Update();
 }
 
 void Application::ProcessOutput()
@@ -114,6 +112,7 @@ void Application::ProcessOutput()
 	clsDx();
 
 	mSceneManager->Draw();
+	mEffekseerManager->Draw();
 
 #ifdef _DEBUG
 	mImGuiRenderer->Draw([this]()
@@ -157,5 +156,18 @@ bool Application::InitDxLib()
 
 	SetWaitVSyncFlag(false);
 
-	return DxLib_Init() != -1;
+	SetUseDirect3DVersion(DX_DIRECT3D_11);
+
+	if (DxLib_Init() == -1) return false;
+
+	SetDrawScreen(DX_SCREEN_BACK);
+
+	SetUseZBuffer3D(true);
+	SetWriteZBuffer3D(true);
+	SetUseBackCulling(false);
+	SetBackgroundColor(128, 128, 128);
+
+	SetChangeScreenModeGraphicsSystemResetFlag(false);
+
+	return true;
 }

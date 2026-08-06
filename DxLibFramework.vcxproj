@@ -77,14 +77,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\nlohmann;$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir)Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\Effekseer;$(ProjectDir)Include\nlohmann;$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir)Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)Include\DxLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)Include\Effekseer;$(ProjectDir)Include\DxLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -95,14 +95,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\nlohmann;$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir)Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\Effekseer;$(ProjectDir)Include\nlohmann;$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir)Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)Include\DxLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)Include\Effekseer;$(ProjectDir)Include\DxLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -111,14 +111,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\nlohmann;$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir)Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\Effekseer;$(ProjectDir)Include\nlohmann;$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir)Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)Include\DxLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)Include\Effekseer;$(ProjectDir)Include\DxLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -129,17 +129,18 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\nlohmann;$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir)Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\Effekseer;$(ProjectDir)Include\nlohmann;$(ProjectDir)Include\ImGui;$(ProjectDir)Include\DxLib;$(ProjectDir)Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)Include\DxLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)Include\Effekseer;$(ProjectDir)Include\DxLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\System\EffekseerManager.cpp" />
     <ClCompile Include="Sources\Scene\Test\SceneStageTest.cpp" />
     <ClCompile Include="Sources\Factory\StageObjectCreator.cpp" />
     <ClCompile Include="Sources\Scene\Test\SceneLoadStageTest.cpp" />
@@ -210,6 +211,7 @@
     <ClCompile Include="Sources\Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\System\EffekseerManager.h" />
     <ClInclude Include="Sources\Scene\Test\SceneStageTest.h" />
     <ClInclude Include="Sources\Factory\Creator.h" />
     <ClInclude Include="Sources\Factory\StageObjectCreator.h" />
