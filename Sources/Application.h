@@ -39,6 +39,8 @@ private:
 	void Update();
 	void ProcessOutput();
 
+	bool InitDxLib();
+
 private:
 
 	std::unique_ptr<SceneManager> mSceneManager;
