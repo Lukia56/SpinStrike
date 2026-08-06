@@ -1,5 +1,6 @@
 #include "Resource.h"
 #include <DxLib.h>
+#include <EffekseerForDXLib.h>
 #include "../ResourceManager.h"
 
 bool Texture::Load(const std::string& path)
@@ -48,4 +49,16 @@ bool Font::Load(const std::string& path)
 void Font::Delete()
 {
 	DeleteFontToHandle(mHandle);
+}
+
+bool Effect::Load(const std::string& path)
+{
+	mHandle = LoadEffekseerEffect(path.c_str());
+
+	return mHandle != -1;
+}
+
+void Effect::Delete()
+{
+	DeleteEffekseerEffect(mHandle);
 }

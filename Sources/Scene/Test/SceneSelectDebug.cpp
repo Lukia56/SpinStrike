@@ -1,6 +1,7 @@
 #include "SceneSelectDebug.h"
 #include <DxLib.h>
 #include "SceneCollisionTest.h"
+#include "SceneEffekseerTest.h"
 #include "SceneLoadStageTest.h"
 #include "SceneStageTest.h"
 #include "System/InputManager.h"
@@ -26,6 +27,10 @@ void SceneSelectDebug::Init()
 
 	info.name = "LoadStageTest";
 	info.createSceneFunc = []() { return std::make_unique<SceneLoadStageTest>(); };
+	mSceneList.emplace_back(info);
+
+	info.name = "EffekseerTest";
+	info.createSceneFunc = []() { return std::make_unique<SceneEffekseerTest>(); };
 	mSceneList.emplace_back(info);
 
 	Mouse::GetInstance().SetMode(Mouse::Mode::Relative);

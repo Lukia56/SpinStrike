@@ -90,7 +90,7 @@ private:
 };
 
 /// <summary>
-/// サウンドを管理するクラス
+/// フォントを管理するクラス
 /// </summary>
 class Font : public Resource
 {
@@ -98,6 +98,23 @@ public:
 
 	Font() = default;
 	~Font() = default;
+
+private:
+
+	bool Load(const std::string& path) override;
+
+	void Delete() override;
+};
+
+/// <summary>
+/// エフェクトを管理するクラス
+/// </summary>
+class Effect : public Resource
+{
+public:
+
+	Effect() = default;
+	~Effect() = default;
 
 private:
 

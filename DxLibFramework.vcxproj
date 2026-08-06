@@ -140,6 +140,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\World\Component\EffectAnimator.cpp" />
+    <ClCompile Include="Sources\World\Test\EffectTest.cpp" />
+    <ClCompile Include="Sources\Scene\Test\SceneEffekseerTest.cpp" />
     <ClCompile Include="Sources\System\EffekseerManager.cpp" />
     <ClCompile Include="Sources\Scene\Test\SceneStageTest.cpp" />
     <ClCompile Include="Sources\Factory\StageObjectCreator.cpp" />
@@ -211,6 +214,9 @@
     <ClCompile Include="Sources\Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\World\Component\EffectAnimator.h" />
+    <ClInclude Include="Sources\World\Test\EffectTest.h" />
+    <ClInclude Include="Sources\Scene\Test\SceneEffekseerTest.h" />
     <ClInclude Include="Sources\System\EffekseerManager.h" />
     <ClInclude Include="Sources\Scene\Test\SceneStageTest.h" />
     <ClInclude Include="Sources\Factory\Creator.h" />
