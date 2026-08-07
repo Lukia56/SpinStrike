@@ -98,8 +98,8 @@ void CameraDebugFree::DrawCrossHair()
 	// âÊñ ÇÃíÜêSç¿ïWÇéÊìæ
 	int cx, cy;
 	GetWindowSize(&cx, &cy);
-	cx *= 0.5f;
-	cy *= 0.5f;
+	cx /= 2;
+	cy /= 2;
 
 	float pitchRad = mRotation.x;
 	float yawRad = mRotation.y;
@@ -107,19 +107,19 @@ void CameraDebugFree::DrawCrossHair()
 	// Xé≤
 	DrawLine(
 		cx, cy,
-		cx + std::cos(yawRad) * kCrossHairLength,
-		cy + -std::sin(yawRad) * -std::sin(pitchRad) * kCrossHairLength,
+		cx + static_cast<int>(std::cos(yawRad) * kCrossHairLength),
+		cy + static_cast<int>(-std::sin(yawRad) * -std::sin(pitchRad) * kCrossHairLength),
 		Color::red.GetAsHexRGB(), 2);
 	// Zé≤
 	DrawLine(
 		cx, cy,
-		cx + -std::sin(yawRad) * kCrossHairLength,
-		cy + -std::cos(yawRad) * -std::sin(pitchRad) * kCrossHairLength,
+		cx + static_cast<int>(-std::sin(yawRad) * kCrossHairLength),
+		cy + static_cast<int>(-std::cos(yawRad) * -std::sin(pitchRad) * kCrossHairLength),
 		Color::blue.GetAsHexRGB(), 2);
 	// Yé≤
 	DrawLine(
 		cx, cy,
 		cx,
-		cy + -std::cos(pitchRad) * kCrossHairLength,
+		cy + static_cast<int>(-std::cos(pitchRad) * kCrossHairLength),
 		Color::green.GetAsHexRGB(), 2);
 }

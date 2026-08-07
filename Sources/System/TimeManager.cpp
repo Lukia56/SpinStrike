@@ -2,7 +2,7 @@
 #include "Utility/Math.h"
 
 float TimeManager::mDeltaTime = 0.0f;
-long TimeManager::mFixedDeltaTimeMs = (1.0f / TimeManager::kFPS) * 1000000;
+long TimeManager::mFixedDeltaTimeMs = static_cast<long>((1.0f / TimeManager::kFPS) * 1000000.0f);
 float TimeManager::mRawDeltaTime = 0.0f;
 float TimeManager::mTimeScale = 1.0f;
 std::chrono::steady_clock::time_point TimeManager::mPrevTime = clock::now();

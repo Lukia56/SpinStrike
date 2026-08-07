@@ -18,7 +18,7 @@ void Mouse::Update()
 
 		Vector2 halfSize = Vector2(width * 0.5f, height * 0.5f);
 
-		SetMousePoint(halfSize.x, halfSize.y);
+		SetMousePoint(static_cast<int>(halfSize.x), static_cast<int>(halfSize.y));
 		mPosition = halfSize;
 	}
 }

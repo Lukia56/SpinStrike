@@ -143,7 +143,7 @@ namespace Data
 				// JSONデータを解析する
 				ifs >> json;
 			}
-			catch (const JsonObject::parse_error& e)
+			catch (const JsonObject::parse_error&)
 			{
 				assert(false && "Data::Json // JSONファイルの解析に失敗しました");
 				return JsonObject{};
