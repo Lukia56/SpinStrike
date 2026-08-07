@@ -7,14 +7,27 @@ class EffekseerManager
 {
 public:
 
-	EffekseerManager() = default;
-	~EffekseerManager() = default;
+	EffekseerManager() = delete;
 
-	bool Initialize();
+	static bool Initialize();
 
-	void Finalize();
+	/// <summary>
+	/// Effkseer_End関数のラッパー
+	/// </summary>
+	static void Finalize();
 
-	void Update();
+	/// <summary>
+	/// UpdateEffekseer3D関数のラッパー
+	/// </summary>
+	static void Update();
 
-	void Draw();
+	/// <summary>
+	/// DrawEffekseer3D関数のラッパー
+	/// </summary>
+	static void Draw();
+
+	/// <summary>
+	/// Effekseer_Sync3DSetting関数のラッパー
+	/// </summary>
+	static void Sync3DSettings();
 };

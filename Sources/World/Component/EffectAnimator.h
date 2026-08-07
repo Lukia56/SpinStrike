@@ -22,15 +22,15 @@ public:
 
 	void Play();
 
-public:
+private:
 
-	bool IsPlaying() const { return mIsPlaying; }
+	void Stop();
+
+	bool IsPlaying() const { return mEffectPlayHandle != -1; }
 
 private:
 
 	int mEffectPlayHandle;
-
-	bool mIsPlaying;
 
 	GameObject* mOwner;
 

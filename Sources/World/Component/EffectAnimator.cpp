@@ -13,7 +13,6 @@ namespace
 
 EffectAnimator::EffectAnimator(GameObject* owner, const std::string& path) :
 	mEffectPlayHandle(-1),
-	mIsPlaying(false),
 	mOwner(owner),
 	mResource(nullptr)
 {
@@ -28,12 +27,12 @@ EffectAnimator::~EffectAnimator()
 void EffectAnimator::Update()
 {
 	if (!mResource) return;
-	if (!mIsPlaying) return;
+	if (!IsPlaying()) return;
 
 	// Ä¶‚ªI—¹‚µ‚Ä‚¢‚½‚ç
 	if (IsEffekseer3DEffectPlaying(mEffectPlayHandle) == -1)
 	{
-		mIsPlaying = false;
+		mEffectPlayHandle = -1;
 		return;
 	}
 
@@ -45,9 +44,17 @@ void EffectAnimator::Play()
 {
 	if (!mResource) return;
 
-	if (mEffectPlayHandle != -1) StopEffekseer3DEffect(mEffectPlayHandle);
+	if (IsPlaying()) return;
 
 	mEffectPlayHandle = PlayEffekseer3DEffect(mResource->GetHandle());
+}
 
-	mIsPlaying = true;
+void EffectAnimator::Stop()
+{
+	// Ä¶‚µ‚Ä‚¢‚È‚¢‚È‚ç‘ŠúƒŠƒ^[ƒ“
+	if (!IsPlaying()) return;
+	
+	StopEffekseer3DEffect(mEffectPlayHandle);
+
+	mEffectPlayHandle = -1;
 }

@@ -20,7 +20,6 @@ namespace
 
 Application::Application() :
 	mSceneManager(nullptr),
-	mEffekseerManager(nullptr),
 	mImGuiRenderer(nullptr)
 {
 }
@@ -36,8 +35,7 @@ bool Application::Initialize()
 	result = InitDxLib();
 	if (!result) return false;
 
-	mEffekseerManager = std::make_unique<EffekseerManager>();
-	result = mEffekseerManager->Initialize();
+	result = EffekseerManager::Initialize();
 	if (!result) return false;
 
 	mSceneManager = std::make_unique<SceneManager>();
@@ -61,12 +59,12 @@ bool Application::Initialize()
 void Application::Finalize()
 {
 	// メンバの後処理
-	mImGuiRenderer->Finalize();
-	mSceneManager->Finalize();
+	if (mImGuiRenderer) mImGuiRenderer->Finalize();
+	if (mSceneManager) mSceneManager->Finalize();
 
 	ResourceManager::GetInstance().Finalize();
 
-	mEffekseerManager->Finalize();
+	EffekseerManager::Finalize();
 
 	// メモリリークが起きる可能性があるため最後に呼ぶ
 	DxLib_End();
@@ -102,7 +100,7 @@ void Application::Update()
 
 	mSceneManager->Update();
 
-	mEffekseerManager->Update();
+	EffekseerManager::Update();
 }
 
 void Application::ProcessOutput()
@@ -112,7 +110,7 @@ void Application::ProcessOutput()
 	clsDx();
 
 	mSceneManager->Draw();
-	mEffekseerManager->Draw();
+	EffekseerManager::Draw();
 
 #ifdef _DEBUG
 	mImGuiRenderer->Draw([this]()

@@ -29,3 +29,8 @@ void EffekseerManager::Draw()
 {
 	DrawEffekseer3D();
 }
+
+void EffekseerManager::Sync3DSettings()
+{
+	Effekseer_Sync3DSetting();
+}

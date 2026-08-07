@@ -1,7 +1,7 @@
 #include "CameraManager.h"
 #include <cassert>
 #include <DxLib.h>
-#include <EffekseerForDXLib.h>
+#include "System/EffekseerManager.h"
 #include "ICamera.h"
 #include "Utility/Math.h"
 
@@ -53,7 +53,7 @@ void CameraManager::Bind() const
 
 	SetCameraPositionAndTarget_UpVecY(mView.eyePosition.GetAsDxLibVector(), mView.targetPosition.GetAsDxLibVector());
 
-	Effekseer_Sync3DSetting();
+	EffekseerManager::Sync3DSettings();
 }
 
 void CameraManager::AddCamera(Camera::Type type, std::unique_ptr<ICamera> camera)
