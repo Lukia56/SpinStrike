@@ -3,7 +3,7 @@
 #include <cassert>
 #include <string>
 #include "System/ResourceManager.h"
-#include "System/Resource/Resource.h"
+#include "System/Resource/ResourceBase.h"
 #include "Utility/Vector.h"
 
 class GameObject;
@@ -12,7 +12,7 @@ class GameObject;
 /// グラフィックリソースの描画を行う基底
 /// </summary>
 template<class T>
-requires std::derived_from<T, Resource>
+requires std::derived_from<T, Resource::ResourceBase>
 class Renderer
 {
 public:
@@ -43,7 +43,7 @@ public:
 
 protected:
 
-	Resource* mResource;
+	Resource::ResourceBase* mResource;
 
 	GameObject* mOwner;
 

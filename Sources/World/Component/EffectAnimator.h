@@ -3,7 +3,10 @@
 #include <string>
 
 class GameObject;
-class Resource;
+namespace Resource
+{
+	class ResourceBase;
+}
 
 /// <summary>
 /// エフェクトの再生を行う
@@ -34,5 +37,5 @@ private:
 
 	GameObject* mOwner;
 
-	Resource* mResource;
+	Resource::ResourceBase* mResource;
 };

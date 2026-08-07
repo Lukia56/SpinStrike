@@ -5,7 +5,10 @@
 #include <string>
 #include <unordered_map>
 
-class Resource;
+namespace Resource
+{
+	class ResourceBase;
+}
 
 /// <summary>
 /// リソースの多重ロードを防止するための管理クラス
@@ -33,8 +36,8 @@ public:
 	/// 2回目以降は取得のみ
 	/// </summary>
 	template <class T>
-	requires std::derived_from<T, Resource>
-	Resource* GetResource(const std::string& path);
+	requires std::derived_from<T, Resource::ResourceBase>
+	Resource::ResourceBase* GetResource(const std::string& path);
 
 	/// <summary>
 	/// 現在読み込んでいるすべてのリソースを解放する
@@ -45,17 +48,17 @@ public:
 
 private:
 
-	std::unordered_map<std::string, std::unique_ptr<Resource>> mResourceTable;
+	std::unordered_map<std::string, std::unique_ptr<Resource::ResourceBase>> mResourceTable;
 };
 
 template<class T>
-requires std::derived_from<T, Resource>
-inline Resource* ResourceManager::GetResource(const std::string& path)
+requires std::derived_from<T, Resource::ResourceBase>
+inline Resource::ResourceBase* ResourceManager::GetResource(const std::string& path)
 {
 	// 初回読み込み
 	if (!mResourceTable.contains(path))
 	{
-		std::unique_ptr<Resource> resource = std::make_unique<T>();
+		std::unique_ptr<Resource::ResourceBase> resource = std::make_unique<T>();
 
 		// 読み込みに失敗したらnullptrを返す
 		if (!resource->Load(path))
@@ -64,7 +67,7 @@ inline Resource* ResourceManager::GetResource(const std::string& path)
 			return nullptr;
 		}
 		
-		Resource* ptr = resource.get();
+		Resource::ResourceBase* ptr = resource.get();
 
 		mResourceTable.emplace(path, std::move(resource));
 

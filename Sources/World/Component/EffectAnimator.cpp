@@ -4,7 +4,7 @@
 #include "../GameObject.h"
 #include "System/ResourceManager.h"
 #include "System/TimeManager.h"
-#include "System/Resource/Resource.h"
+#include "System/Resource/Effect.h"
 
 namespace
 {
@@ -16,7 +16,7 @@ EffectAnimator::EffectAnimator(GameObject* owner, const std::string& path) :
 	mOwner(owner),
 	mResource(nullptr)
 {
-	mResource = ResourceManager::GetInstance().GetResource<Effect>(path);
+	mResource = ResourceManager::GetInstance().GetResource<Resource::Effect>(path);
 }
 
 EffectAnimator::~EffectAnimator()

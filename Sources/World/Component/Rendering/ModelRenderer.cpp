@@ -1,7 +1,6 @@
 #include "ModelRenderer.h"
 #include <DxLib.h>
 #include "../../GameObject.h"
-#include "System/Resource/Resource.h"
 
 ModelRenderer::ModelRenderer(GameObject* owner) :
 	Renderer(owner),

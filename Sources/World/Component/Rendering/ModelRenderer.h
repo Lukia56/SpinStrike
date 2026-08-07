@@ -1,11 +1,12 @@
 #pragma once
 
 #include "Renderer.h"
+#include "System/Resource/Model.h"
 
 /// <summary>
 /// ƒ‚ƒfƒ‹‚Ì•`‰æ‚ğs‚¤
 /// </summary>
-class ModelRenderer : public Renderer<Model>
+class ModelRenderer : public Renderer<Resource::Model>
 {
 public:
 

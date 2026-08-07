@@ -140,6 +140,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\System\Resource\Effect.cpp" />
+    <ClCompile Include="Sources\System\Resource\Font.cpp" />
+    <ClCompile Include="Sources\System\Resource\Sound.cpp" />
+    <ClCompile Include="Sources\System\Resource\Model.cpp" />
+    <ClCompile Include="Sources\System\Resource\Texture.cpp" />
     <ClCompile Include="Sources\World\Component\EffectAnimator.cpp" />
     <ClCompile Include="Sources\World\Test\EffectTest.cpp" />
     <ClCompile Include="Sources\Scene\Test\SceneEffekseerTest.cpp" />
@@ -178,7 +183,7 @@
     <ClCompile Include="Sources\World\Object\DebugGround.cpp" />
     <ClCompile Include="Sources\System\Input\Mouse.cpp" />
     <ClCompile Include="Sources\System\ResourceManager.cpp" />
-    <ClCompile Include="Sources\System\Resource\Resource.cpp" />
+    <ClCompile Include="Sources\System\Resource\ResourceBase.cpp" />
     <ClCompile Include="Sources\System\TimeManager.cpp" />
     <ClCompile Include="Sources\Utility\Color.cpp" />
     <ClCompile Include="Sources\World\Component\Rendering\SpriteRenderer.cpp" />
@@ -214,6 +219,11 @@
     <ClCompile Include="Sources\Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\System\Resource\Effect.h" />
+    <ClInclude Include="Sources\System\Resource\Font.h" />
+    <ClInclude Include="Sources\System\Resource\Sound.h" />
+    <ClInclude Include="Sources\System\Resource\Model.h" />
+    <ClInclude Include="Sources\System\Resource\Texture.h" />
     <ClInclude Include="Sources\World\Component\EffectAnimator.h" />
     <ClInclude Include="Sources\World\Test\EffectTest.h" />
     <ClInclude Include="Sources\Scene\Test\SceneEffekseerTest.h" />
@@ -272,7 +282,7 @@
     <ClInclude Include="Sources\System\TimeManager.h" />
     <ClInclude Include="Sources\World\Component\Rendering\Renderer.h" />
     <ClInclude Include="Sources\System\ResourceManager.h" />
-    <ClInclude Include="Sources\System\Resource\Resource.h" />
+    <ClInclude Include="Sources\System\Resource\ResourceBase.h" />
     <ClInclude Include="Sources\World\Component\Rendering\SpriteRenderer.h" />
     <ClInclude Include="Sources\World\Component\Rendering\TextRenderer.h" />
     <ClInclude Include="Sources\World\Component\Rendering\ModelRenderer.h" />

@@ -1,12 +1,18 @@
 #pragma once
 
 #include "Renderer.h"
+#include "System/Resource/Texture.h"
 #include "Utility/Vector.h"
+
+namespace Resource
+{
+	class Texture;
+}
 
 /// <summary>
 /// ‰æ‘œ‚Ì•`‰æ‚ğs‚¤
 /// </summary>
-class SpriteRenderer : public Renderer<Texture>
+class SpriteRenderer : public Renderer<Resource::Texture>
 {
 public:
 

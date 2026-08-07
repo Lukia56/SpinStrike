@@ -1,12 +1,18 @@
 #pragma once
 
 #include "Renderer.h"
+#include "System/Resource/Font.h"
 #include "Utility/Color.h"
+
+namespace Resource
+{
+	class Font;
+}
 
 /// <summary>
 /// テキストの描画を行う
 /// </summary>
-class TextRenderer : public Renderer<Font>
+class TextRenderer : public Renderer<Resource::Font>
 {
 public:
 

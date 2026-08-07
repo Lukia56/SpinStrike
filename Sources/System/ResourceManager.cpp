@@ -1,6 +1,6 @@
 #include "ResourceManager.h"
 #include <DxLib.h>
-#include "Resource/Resource.h"
+#include "Resource/ResourceBase.h"
 
 void ResourceManager::Init()
 {
