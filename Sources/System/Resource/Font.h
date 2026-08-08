@@ -11,12 +11,12 @@ namespace Resource
 	{
 	public:
 
-		Font() = default;
-		~Font() = default;
+		Font(const std::string& path) : ResourceBase(path) {}
+		~Font();
 
 	private:
 
-		bool Load(const std::string& path) override;
+		bool Load() override;
 
 		void Delete() override;
 	};

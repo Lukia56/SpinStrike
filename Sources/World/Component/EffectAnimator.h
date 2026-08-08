@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <string>
 
 class GameObject;
@@ -37,5 +38,5 @@ private:
 
 	GameObject* mOwner;
 
-	Resource::ResourceBase* mResource;
+	std::shared_ptr<Resource::ResourceBase> mResource;
 };

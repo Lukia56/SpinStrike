@@ -48,7 +48,7 @@ bool Application::Initialize()
 
 	InputManager::GetInstance().Initialize();
 
-	ResourceManager::GetInstance().Init();
+	ResourceManager::GetInstance().Initialize();
 
 	Random::Init();
 

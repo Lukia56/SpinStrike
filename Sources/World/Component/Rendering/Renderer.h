@@ -43,7 +43,7 @@ public:
 
 protected:
 
-	Resource::ResourceBase* mResource;
+	std::shared_ptr<Resource::ResourceBase> mResource;
 
 	GameObject* mOwner;
 

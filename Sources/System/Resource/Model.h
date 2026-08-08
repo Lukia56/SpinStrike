@@ -11,14 +11,14 @@ namespace Resource
 	{
 	public:
 
-		Model() = default;
-		~Model() = default;
+		Model(const std::string& path) : ResourceBase(path) {}
+		~Model();
 
 		int GetHandle() const override;
 
 	private:
 
-		bool Load(const std::string& path) override;
+		bool Load() override;
 
 		void Delete() override;
 	};

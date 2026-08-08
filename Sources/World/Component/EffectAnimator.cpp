@@ -1,4 +1,5 @@
 #include "EffectAnimator.h"
+#include <memory>
 #include <string>
 #include <EffekseerForDXLib.h>
 #include "../GameObject.h"

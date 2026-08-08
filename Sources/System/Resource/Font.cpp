@@ -4,12 +4,18 @@
 
 namespace Resource
 {
-	bool Font::Load(const std::string& path)
+	Font::~Font()
 	{
-		mHandle = LoadFontDataToHandle(path.c_str(), 1);
+		Delete();
+	}
+
+	bool Font::Load()
+	{
+		mHandle = LoadFontDataToHandle(mPath.c_str(), 1);
 
 		return mHandle != -1;
 	}
+
 	void Font::Delete()
 	{
 		DeleteFontToHandle(mHandle);

@@ -4,14 +4,19 @@
 
 namespace Resource
 {
+	Model::~Model()
+	{
+		Delete();
+	}
+
 	int Model::GetHandle() const
 	{
 		return MV1DuplicateModel(mHandle);
 	}
 
-	bool Model::Load(const std::string& path)
+	bool Model::Load()
 	{
-		mHandle = MV1LoadModel(path.c_str());
+		mHandle = MV1LoadModel(mPath.c_str());
 
 		return mHandle != -1;
 	}

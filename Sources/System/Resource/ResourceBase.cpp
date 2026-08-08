@@ -3,8 +3,14 @@
 
 namespace Resource
 {
-	ResourceBase::ResourceBase() :
-		mHandle(-1)
+	ResourceBase::ResourceBase(const std::string& path) :
+		mHandle(-1),
+		mPath(path)
 	{
+	}
+
+	ResourceBase::~ResourceBase()
+	{
+		ResourceManager::GetInstance().DeleteResource(mPath);
 	}
 }

@@ -11,12 +11,12 @@ namespace Resource
 	{
 	public:
 
-		Texture() = default;
-		~Texture() = default;
+		Texture(const std::string& path) : ResourceBase(path) {}
+		~Texture();
 
 	private:
 
-		bool Load(const std::string& path) override;
+		bool Load() override;
 
 		void Delete() override;
 	};

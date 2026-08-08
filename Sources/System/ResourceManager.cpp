@@ -2,24 +2,21 @@
 #include <DxLib.h>
 #include "Resource/ResourceBase.h"
 
-void ResourceManager::Init()
+void ResourceManager::Initialize()
 {
 }
 
 void ResourceManager::Finalize()
 {
-	ReleaseAll();
+	mResourceTable.clear();
 }
 
-void ResourceManager::ReleaseAll()
+void ResourceManager::DeleteResource(const std::string& path)
 {
-	for (auto& it : mResourceTable)
-	{
-		if (it.second->GetHandle() == -1) continue;
+	if (mResourceTable.empty()) return;
+	if (!mResourceTable.contains(path)) return;
 
-		it.second->Delete();
-	}
-	mResourceTable.clear();
+	mResourceTable.erase(path);
 }
 
 ResourceManager& ResourceManager::GetInstance()

@@ -11,12 +11,12 @@ namespace Resource
 	{
 	public:
 
-		Sound() = default;
-		~Sound() = default;
+		Sound(const std::string& path) : ResourceBase(path) {}
+		~Sound();
 
 	private:
 
-		bool Load(const std::string& path) override;
+		bool Load() override;
 
 		void Delete() override;
 	};

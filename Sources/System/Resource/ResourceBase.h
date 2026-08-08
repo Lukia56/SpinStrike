@@ -13,14 +13,16 @@ namespace Resource
 	{
 	public:
 
-		ResourceBase();
-		virtual ~ResourceBase() = default;
+		ResourceBase(const std::string& path);
+		virtual ~ResourceBase();
 
 		virtual int GetHandle() const { return mHandle; }
 
 	protected:
 
 		int mHandle;
+
+		std::string mPath;
 
 	private:
 
@@ -30,7 +32,7 @@ namespace Resource
 		/// 読み込み処理がリソースごとに違うため純粋仮想化
 		/// </summary>
 		/// <returns>読み込みに成功したらtrue</returns>
-		virtual bool Load(const std::string& path) = 0;
+		virtual bool Load() = 0;
 
 		/// <summary>
 		/// 解放処理がリソースごとに違うため純粋仮想化

@@ -11,7 +11,8 @@ namespace Resource
 }
 
 /// <summary>
-/// リソースの多重ロードを防止するための管理クラス
+/// <para>リソースの多重ロードを防止するための管理クラス</para>
+/// <para>どこからも参照されなくなったリソースは自動で解放される</para>
 /// </summary>
 class ResourceManager
 {
@@ -27,7 +28,7 @@ public:
 
 	~ResourceManager() = default;
 
-	void Init();
+	void Initialize();
 	void Finalize();
 
 	/// <summary>
@@ -37,42 +38,42 @@ public:
 	/// </summary>
 	template <class T>
 	requires std::derived_from<T, Resource::ResourceBase>
-	Resource::ResourceBase* GetResource(const std::string& path);
+	std::shared_ptr<Resource::ResourceBase> GetResource(const std::string& path);
 
 	/// <summary>
-	/// 現在読み込んでいるすべてのリソースを解放する
+	/// リソーステーブルからリソースを削除する
+	/// リソースの解放は参照カウンタが0になったときのみ
 	/// </summary>
-	void ReleaseAll();
+	void DeleteResource(const std::string& path);
 
 	static ResourceManager& GetInstance();
 
 private:
 
-	std::unordered_map<std::string, std::unique_ptr<Resource::ResourceBase>> mResourceTable;
+	std::unordered_map<std::string, std::weak_ptr<Resource::ResourceBase>> mResourceTable;
 };
 
 template<class T>
 requires std::derived_from<T, Resource::ResourceBase>
-inline Resource::ResourceBase* ResourceManager::GetResource(const std::string& path)
+inline std::shared_ptr<Resource::ResourceBase> ResourceManager::GetResource(const std::string& path)
 {
 	// 初回読み込み
 	if (!mResourceTable.contains(path))
 	{
-		std::unique_ptr<Resource::ResourceBase> resource = std::make_unique<T>();
+		std::shared_ptr<Resource::ResourceBase> resource = std::make_shared<T>(path);
 
 		// 読み込みに失敗したらnullptrを返す
-		if (!resource->Load(path))
+		if (!resource->Load())
 		{
 			assert(false && "ResourceManager // リソースの読み込みに失敗しました");
 			return nullptr;
 		}
 		
-		Resource::ResourceBase* ptr = resource.get();
+		// weak_ptrをテーブルに
+		mResourceTable.try_emplace(path, resource);
 
-		mResourceTable.emplace(path, std::move(resource));
-
-		return ptr;
+		return resource;
 	}
 
-	return mResourceTable.at(path).get();
+	return mResourceTable.at(path).lock();
 }

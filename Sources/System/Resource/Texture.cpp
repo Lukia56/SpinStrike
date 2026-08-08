@@ -4,9 +4,14 @@
 
 namespace Resource
 {
-	bool Texture::Load(const std::string& path)
+	Texture::~Texture()
 	{
-		mHandle = LoadGraph(path.c_str());
+		Delete();
+	}
+
+	bool Texture::Load()
+	{
+		mHandle = LoadGraph(mPath.c_str());
 
 		return mHandle != -1;
 	}

@@ -4,9 +4,14 @@
 
 namespace Resource
 {
-	bool Effect::Load(const std::string& path)
+	Effect::~Effect()
 	{
-		mHandle = LoadEffekseerEffect(path.c_str());
+		Delete();
+	}
+
+	bool Effect::Load()
+	{
+		mHandle = LoadEffekseerEffect(mPath.c_str());
 
 		return mHandle != -1;
 	}

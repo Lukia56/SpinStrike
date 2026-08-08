@@ -11,12 +11,12 @@ namespace Resource
 	{
 	public:
 
-		Effect() = default;
-		~Effect() = default;
+		Effect(const std::string& path) : ResourceBase(path) {}
+		~Effect();
 
 	private:
 
-		bool Load(const std::string& path) override;
+		bool Load() override;
 
 		void Delete() override;
 	};

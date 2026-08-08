@@ -4,9 +4,14 @@
 
 namespace Resource
 {
-	bool Sound::Load(const std::string& path)
+	Sound::~Sound()
 	{
-		mHandle = LoadSoundMem(path.c_str());
+		Delete();
+	}
+
+	bool Sound::Load()
+	{
+		mHandle = LoadSoundMem(mPath.c_str());
 
 		return mHandle != -1;
 	}
