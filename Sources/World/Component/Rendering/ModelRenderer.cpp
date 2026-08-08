@@ -1,16 +1,17 @@
 #include "ModelRenderer.h"
 #include <DxLib.h>
+#include "ModelInstance.h"
 #include "../../GameObject.h"
+#include "System/Resource/Model.h"
 
 ModelRenderer::ModelRenderer(GameObject* owner) :
 	Renderer(owner),
-	mModelHandle(-1)
+	mModelInstance(nullptr)
 {
 }
 
 ModelRenderer::~ModelRenderer()
 {
-	MV1DeleteModel(mModelHandle);
 }
 
 void ModelRenderer::Load(const std::string& filePath)
@@ -19,30 +20,42 @@ void ModelRenderer::Load(const std::string& filePath)
 
 	if (!mResource) return;
 
-	mModelHandle = mResource->GetHandle();
+	mModelInstance = std::make_unique<ModelInstance>(mResource);
 }
 
 void ModelRenderer::Draw()
 {
 	if (!mOwner) return;
 	if (!mResource) return;
+	if (!mModelInstance) return;
 
 	const VECTOR pos = (mOwner->GetTransform().CalculateWorldPosition() + mOffsetPos).GetAsDxLibVector();
 	const VECTOR rot = mOwner->GetTransform().CalculateWorldRotation().GetAsDxLibVector();
 	const VECTOR scale = mOwner->GetTransform().CalculateWorldScale().GetAsDxLibVector();
 
-	MV1SetPosition(mModelHandle, pos);
-	MV1SetRotationXYZ(mModelHandle, rot);
-	MV1SetScale(mModelHandle, scale);
+	int handle = mModelInstance->GetHandle();
 
-	MV1DrawModel(mModelHandle);
+	MV1SetPosition(handle, pos);
+	MV1SetRotationXYZ(handle, rot);
+	MV1SetScale(handle, scale);
+
+	MV1DrawModel(handle);
 }
 
 void ModelRenderer::DisableMovement(const std::string& rootName)
 {
-	int rootFrameIndex = MV1SearchFrame(mModelHandle, rootName.c_str());
+	if (!mModelInstance) return;
 
-	MATRIX rootMtx = MV1GetFrameLocalMatrix(mModelHandle, rootFrameIndex);
+	int handle = mModelInstance->GetHandle();
 
-	MV1SetFrameUserLocalMatrix(mModelHandle, rootFrameIndex, rootMtx);
+	int rootFrameIndex = MV1SearchFrame(handle, rootName.c_str());
+	MATRIX rootMtx = MV1GetFrameLocalMatrix(handle, rootFrameIndex);
+	MV1SetFrameUserLocalMatrix(handle, rootFrameIndex, rootMtx);
+}
+
+int ModelRenderer::GetHandle()
+{
+	if (!mModelInstance) return -1;
+
+	return mModelInstance->GetHandle();
 }

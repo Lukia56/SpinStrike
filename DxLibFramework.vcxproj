@@ -146,6 +146,7 @@
     <ClCompile Include="Sources\System\Resource\Model.cpp" />
     <ClCompile Include="Sources\System\Resource\Texture.cpp" />
     <ClCompile Include="Sources\World\Component\EffectAnimator.cpp" />
+    <ClCompile Include="Sources\World\Component\Rendering\ModelInstance.cpp" />
     <ClCompile Include="Sources\World\Test\EffectTest.cpp" />
     <ClCompile Include="Sources\Scene\Test\SceneEffekseerTest.cpp" />
     <ClCompile Include="Sources\System\EffekseerManager.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="Sources\System\Resource\Model.h" />
     <ClInclude Include="Sources\System\Resource\Texture.h" />
     <ClInclude Include="Sources\World\Component\EffectAnimator.h" />
+    <ClInclude Include="Sources\World\Component\Rendering\ModelInstance.h" />
     <ClInclude Include="Sources\World\Test\EffectTest.h" />
     <ClInclude Include="Sources\Scene\Test\SceneEffekseerTest.h" />
     <ClInclude Include="Sources\System\EffekseerManager.h" />

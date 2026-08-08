@@ -3,6 +3,8 @@
 #include "Renderer.h"
 #include "System/Resource/Model.h"
 
+class ModelInstance;
+
 /// <summary>
 /// ƒ‚ƒfƒ‹‚Ì•`‰æ‚ğs‚¤
 /// </summary>
@@ -27,9 +29,9 @@ public:
 
 public:
 
-	int GetHandle() const { return mModelHandle; };
+	int GetHandle();
 
 private:
 
-	int mModelHandle;
+	std::unique_ptr<ModelInstance> mModelInstance;
 };

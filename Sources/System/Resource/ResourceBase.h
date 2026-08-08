@@ -16,7 +16,7 @@ namespace Resource
 		ResourceBase(const std::string& path);
 		virtual ~ResourceBase();
 
-		virtual int GetHandle() const { return mHandle; }
+		int GetHandle() const { return mHandle; }
 
 	protected:
 

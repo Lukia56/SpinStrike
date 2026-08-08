@@ -9,11 +9,6 @@ namespace Resource
 		Delete();
 	}
 
-	int Model::GetHandle() const
-	{
-		return MV1DuplicateModel(mHandle);
-	}
-
 	bool Model::Load()
 	{
 		mHandle = MV1LoadModel(mPath.c_str());
