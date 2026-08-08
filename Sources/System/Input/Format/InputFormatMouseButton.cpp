@@ -13,14 +13,14 @@ void InputFormatMouseButton::Init()
 	RegisterKeyCode(KeyCode::Button::MbSideFront, MOUSE_INPUT_5);
 }
 
-bool InputFormatMouseButton::CheckButtonState(const KeyCode::Button keyCode)
+bool InputFormatMouseButton::CheckButtonState(const KeyCode::Button keyCode) const
 {
 	int linkedKeyCode = GetLinkToKeyCode().at(keyCode);
 	bool result = Mouse::GetInstance().IsDown(linkedKeyCode);
 	return result;
 }
 
-Vector3 InputFormatMouseButton::GetValue(const KeyCode::Button keyCode)
+Vector3 InputFormatMouseButton::GetValue(const KeyCode::Button keyCode) const
 {
 	return Vector3(static_cast<float>(CheckButtonState(keyCode)), 0.0f, 0.0f);
 }

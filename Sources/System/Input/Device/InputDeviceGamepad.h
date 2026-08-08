@@ -2,6 +2,9 @@
 
 #include "InputDeviceBase.h"
 
+/// <summary>
+/// ゲームパッドの入力フォーマットを管理する
+/// </summary>
 class InputDeviceGamepad : public InputDeviceBase
 {
 public:

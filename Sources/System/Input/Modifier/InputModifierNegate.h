@@ -12,7 +12,7 @@ public:
 	InputModifierNegate(bool x, bool y, bool z);
 	~InputModifierNegate() = default;
 
-	void ModifyRaw(Vector3& rawValue) override;
+	void ModifyRaw(Vector3& rawValue) const override;
 
 private:
 

@@ -22,7 +22,7 @@ public:
 	/// <summary>
 	/// テキストをゲームオブジェクトのトランスフォームで描画する
 	/// </summary>
-	void Draw() override;
+	void Draw() const override;
 
 	void SetDisplayText(const std::string& text) { mDisplayText = text; }
 	

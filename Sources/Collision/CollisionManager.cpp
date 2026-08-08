@@ -6,16 +6,23 @@
 
 void CollisionManager::CheckAllCollision()
 {
+	// TODO: コライダに静的フラグを追加し、静的コライダ同士は計算しないようにする
 	for (size_t i = 0; i < mColliders.size(); i++)
 	{
 		const Collider3D* colliderA = mColliders[i];
+		if (!colliderA) continue;
+
 		GameObject* ownerA = colliderA->GetOwner();
+		if (!ownerA) continue;
 		if (!ownerA->IsActive()) continue;
 
 		for (size_t j = i + 1; j < mColliders.size(); j++)
 		{
 			const Collider3D* colliderB = mColliders[j];
+			if (!colliderB) continue;
+
 			GameObject* ownerB = colliderB->GetOwner();
+			if (!ownerB) continue;
 			if (!ownerB->IsActive()) continue;
 
 			if (ownerA == ownerB) continue;

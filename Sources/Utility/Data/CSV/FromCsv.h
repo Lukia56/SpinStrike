@@ -105,5 +105,17 @@ namespace Data
 				return param;
 			}
 		};
+
+		template <>
+		struct FromCsv<StageModelData>
+		{
+			static StageModelData Binding(const Row& row)
+			{
+				StageModelData param;
+				param.objectName = Get<std::string>(row, "objectName");
+				param.filePath = Get<std::string>(row, "filePath");
+				return param;
+			}
+		};
 	}
 }

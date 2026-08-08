@@ -25,7 +25,7 @@ void InputFormatGamepadThumb::Init()
 	RegisterKeyCode(KeyCode::Button::GpRightThumb,		9);
 }
 
-bool InputFormatGamepadThumb::CheckButtonState(const KeyCode::Button keyCode)
+bool InputFormatGamepadThumb::CheckButtonState(const KeyCode::Button keyCode) const
 {
 	const XINPUT_STATE& state = Gamepad::GetInstance().GetState();
 
@@ -47,7 +47,7 @@ bool InputFormatGamepadThumb::CheckButtonState(const KeyCode::Button keyCode)
 	return false;
 }
 
-Vector3 InputFormatGamepadThumb::GetValue(const KeyCode::Button keyCode)
+Vector3 InputFormatGamepadThumb::GetValue(const KeyCode::Button keyCode) const
 {
 	const XINPUT_STATE& state = Gamepad::GetInstance().GetState();
 

@@ -20,7 +20,7 @@ public:
 	/// <summary>
 	/// モデルをゲームオブジェクトのトランスフォームで描画する
 	/// </summary>
-	void Draw() override;
+	void Draw() const override;
 
 	/// <summary>
 	/// モデルの移動量を無効化する
@@ -29,7 +29,7 @@ public:
 
 public:
 
-	int GetHandle();
+	int GetHandle() const;
 
 private:
 

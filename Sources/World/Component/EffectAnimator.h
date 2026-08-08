@@ -10,7 +10,7 @@ namespace Resource
 }
 
 /// <summary>
-/// エフェクトの再生を行う
+/// エフェクトのアニメーション処理を行う
 /// </summary>
 class EffectAnimator
 {

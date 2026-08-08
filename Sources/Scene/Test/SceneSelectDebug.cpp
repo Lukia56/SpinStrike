@@ -33,7 +33,7 @@ void SceneSelectDebug::Init()
 	info.createSceneFunc = []() { return std::make_unique<SceneEffekseerTest>(); };
 	mSceneList.emplace_back(info);
 
-	Mouse::GetInstance().SetMode(Mouse::Mode::Relative);
+	Mouse::GetInstance().SetMode(Mouse::Mode::Absolute);
 }
 
 std::unique_ptr<SceneBase> SceneSelectDebug::Update()

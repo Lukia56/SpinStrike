@@ -9,6 +9,8 @@ class Random
 {
 public:
 
+	Random() = delete;
+
 	/// <summary>
 	/// シード値の初期化を行う
 	/// </summary>

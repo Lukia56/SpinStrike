@@ -23,7 +23,7 @@ void ModelRenderer::Load(const std::string& filePath)
 	mModelInstance = std::make_unique<ModelInstance>(mResource);
 }
 
-void ModelRenderer::Draw()
+void ModelRenderer::Draw() const
 {
 	if (!mOwner) return;
 	if (!mResource) return;
@@ -53,7 +53,7 @@ void ModelRenderer::DisableMovement(const std::string& rootName)
 	MV1SetFrameUserLocalMatrix(handle, rootFrameIndex, rootMtx);
 }
 
-int ModelRenderer::GetHandle()
+int ModelRenderer::GetHandle() const
 {
 	if (!mModelInstance) return -1;
 

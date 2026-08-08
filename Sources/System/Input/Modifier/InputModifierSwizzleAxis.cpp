@@ -7,7 +7,7 @@ InputModifierSwizzleAxis::InputModifierSwizzleAxis(Order order) :
 {
 }
 
-void InputModifierSwizzleAxis::ModifyRaw(Vector3& rawValue)
+void InputModifierSwizzleAxis::ModifyRaw(Vector3& rawValue) const
 {
 	switch (mOrder)
 	{

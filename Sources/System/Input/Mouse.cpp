@@ -19,7 +19,7 @@ void Mouse::Update()
 		Vector2 halfSize = Vector2(width * 0.5f, height * 0.5f);
 
 		SetMousePoint(static_cast<int>(halfSize.x), static_cast<int>(halfSize.y));
-		mPosition = halfSize;
+		mAbsolutePos = halfSize;
 	}
 }
 
@@ -45,8 +45,8 @@ Mouse& Mouse::GetInstance()
 
 Mouse::Mouse() :
 	mState(0),
-	mPosition(Vector2::Zero),
-	mRelative(Vector2::Zero),
+	mAbsolutePos(Vector2::Zero),
+	mRelativePos(Vector2::Zero),
 	mWheelRot(Vector2::Zero),
 	mMode(Mode::Absolute)
 {
@@ -54,14 +54,11 @@ Mouse::Mouse() :
 
 void Mouse::UpdatePosition()
 {
-	// マウスの座標を取得
 	int x, y;
 	GetMousePoint(&x, &y);
 	Vector2 pos = Vector2(static_cast<float>(x), static_cast<float>(y));
 
-	// 相対座標を更新
-	mRelative = pos - mPosition;
+	mRelativePos = pos - mAbsolutePos;
 
-	// 絶対座標を更新
-	mPosition = pos;
+	mAbsolutePos = pos;
 }

@@ -35,7 +35,7 @@ public:
 	/// <summary>
 	/// ƒŠƒ\[ƒX‚Ì•`‰æˆ—‚ğÀ‘•‚·‚é
 	/// </summary>
-	virtual void Draw() = 0;
+	virtual void Draw() const = 0;
 
 public:
 

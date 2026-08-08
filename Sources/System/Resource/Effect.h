@@ -14,10 +14,12 @@ namespace Resource
 		Effect(const std::string& path) : ResourceBase(path) {}
 		~Effect();
 
+	protected:
+		
+		void Delete() override;
+
 	private:
 
 		bool Load() override;
-
-		void Delete() override;
 	};
 }

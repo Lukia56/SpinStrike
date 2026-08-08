@@ -33,18 +33,29 @@ namespace Collision
 	public:
 
 		virtual void SetPosition(const Vector3& pos) = 0;
+		/// <summary>
+		/// 形状によってはメンバではなく計算結果を返すため
+		/// 純粋仮想関数ではなく仮想関数にする
+		/// </summary>
 		virtual Vector3 GetPosition() const = 0;
 
 		virtual void SetOffset(const Vector3& offset) = 0;
 		virtual const Vector3& GetOffset() const = 0;
 
-	protected:
+		/// <summary>
+		/// オフセット込みの座標を取得する
+		/// </summary>
+		virtual Vector3 GetWorldPos() const = 0;
 
+	protected:
+		
+		// 派生クラスが衝突相手のCheck関数にアクセスするためにfriend指定
 		friend Sphere3D;
-		virtual Collision::Result Check(const Sphere3D* other) const = 0;
 		friend AABB3D;
-		virtual Collision::Result Check(const AABB3D* other) const = 0;
 		friend Capsule3D;
+
+		virtual Collision::Result Check(const Sphere3D* other) const = 0;
+		virtual Collision::Result Check(const AABB3D* other) const = 0;
 		virtual Collision::Result Check(const Capsule3D* other) const = 0;
 	};
 
@@ -66,13 +77,12 @@ namespace Collision
 	public:
 
 		void SetPosition(const Vector3& pos) override { mCenterPos = pos; }
-		/// <summary>
-		/// オフセット込みの座標を取得
-		/// </summary>
-		Vector3 GetPosition() const override { return mCenterPos + mOffsetPos; }
+		Vector3 GetPosition() const override { return mCenterPos; }
 
 		void SetOffset(const Vector3& offset) override { mOffsetPos = offset; }
 		const Vector3& GetOffset() const override { return mOffsetPos; }
+
+		Vector3 GetWorldPos() const override { return GetPosition() + GetOffset(); }
 
 		float GetRadius() const { return mRadius; }
 
@@ -120,13 +130,12 @@ namespace Collision
 	public:
 
 		void SetPosition(const Vector3& pos) override { mCenterPos = pos; }
-		/// <summary>
-		/// オフセット込みの座標を取得
-		/// </summary>
-		Vector3 GetPosition() const override { return mCenterPos + mOffsetPos; }
+		Vector3 GetPosition() const override { return mCenterPos; }
 
 		void SetOffset(const Vector3& offset) override { mOffsetPos = offset; }
 		const Vector3& GetOffset() const override { return mOffsetPos; }
+
+		Vector3 GetWorldPos() const override { return GetPosition() + GetOffset(); }
 
 		const Vector3& GetHalfSize() const { return mHalfSize; }
 
@@ -175,8 +184,10 @@ namespace Collision
 		void SetPosition(const Vector3& pos) override;
 		Vector3 GetPosition() const override;
 
-		virtual void SetOffset(const Vector3& offset) override { mOffsetPos = offset; }
-		virtual const Vector3& GetOffset() const { return mOffsetPos; }
+		void SetOffset(const Vector3& offset) override { mOffsetPos = offset; }
+		const Vector3& GetOffset() const { return mOffsetPos; }
+
+		Vector3 GetWorldPos() const override { return GetPosition() + GetOffset(); }
 
 		const Vector3& GetStartPos() const { return mStartPos; }
 		const Vector3& GetEndPos() const { return mEndPos; }

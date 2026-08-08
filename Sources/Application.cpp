@@ -105,7 +105,6 @@ void Application::Update()
 
 void Application::ProcessOutput()
 {
-	// •`‰æ
 	ClearDrawScreen();
 	clsDx();
 
@@ -119,7 +118,7 @@ void Application::ProcessOutput()
 			{
 				ImGui::Text("RealFPS %.1f", 1.0f / TimeManager::GetRawDeltaTime());
 
-				PROCESS_MEMORY_COUNTERS_EX pmc;
+				PROCESS_MEMORY_COUNTERS_EX pmc{};
 				GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
 				ImGui::Text("Memory %.3f MB", pmc.WorkingSetSize / 1024.0f / 1024.0f);
 

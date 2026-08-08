@@ -13,7 +13,7 @@ public:
 	InputModifierDeadzone(float dzMin, float dzMax);
 	~InputModifierDeadzone() = default;
 
-	void ModifyRaw(Vector3& rawValue) override;
+	void ModifyRaw(Vector3& rawValue) const override;
 
 private:
 

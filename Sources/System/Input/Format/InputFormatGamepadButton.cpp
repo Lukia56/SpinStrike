@@ -22,14 +22,14 @@ void InputFormatGamepadButton::Init()
 	RegisterKeyCode(KeyCode::Button::GpRightThumbPress,	XINPUT_BUTTON_RIGHT_THUMB);
 }
 
-bool InputFormatGamepadButton::CheckButtonState(const KeyCode::Button keyCode)
+bool InputFormatGamepadButton::CheckButtonState(const KeyCode::Button keyCode) const
 {
 	int linkedKeyCode = GetLinkToKeyCode().at(keyCode);
 	bool result = Gamepad::GetInstance().IsDown(linkedKeyCode);
 	return result;
 }
 
-Vector3 InputFormatGamepadButton::GetValue(const KeyCode::Button keyCode)
+Vector3 InputFormatGamepadButton::GetValue(const KeyCode::Button keyCode) const
 {
 	return Vector3(static_cast<float>(CheckButtonState(keyCode)), 0.0f, 0.0f);
 }

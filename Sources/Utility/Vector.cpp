@@ -137,7 +137,7 @@ Vector2 Vector2::GetNormalize() const
 	return *this / GetLength();
 }
 
-inline VECTOR Vector2::GetAsDxLibVector() const
+VECTOR Vector2::GetAsDxLibVector() const
 {
 	return VGet(x, y, 0.0f);
 }
@@ -242,7 +242,7 @@ Vector3 Vector3::Cross(const Vector3& v) const
 		x * v.y - y * v.x);
 }
 
-Vector3 Vector3::Approach(const Vector3& dst, float change)
+Vector3 Vector3::Approach(const Vector3& dst, float change) const
 {
 	Vector3 src = *this;
 

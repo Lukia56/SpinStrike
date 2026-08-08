@@ -20,7 +20,7 @@ void SpriteRenderer::Load(const std::string& filePath)
 	mTexHalfSize *= 0.5f;
 }
 
-void SpriteRenderer::Draw()
+void SpriteRenderer::Draw() const
 {
 	if (!mOwner) return;
 	if (!mResource) return;

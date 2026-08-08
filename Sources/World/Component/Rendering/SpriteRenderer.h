@@ -28,7 +28,7 @@ public:
 	/// <summary>
 	/// 画像をゲームオブジェクトのトランスフォームで描画する
 	/// </summary>
-	void Draw() override;
+	void Draw() const override;
 
 private:
 

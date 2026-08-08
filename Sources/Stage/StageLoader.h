@@ -8,13 +8,13 @@ class GameObject;
 
 namespace Stage
 {
+	/// <summary>
+	/// ステージのデータを読み込みオブジェクトを取得する
+	/// </summary>
 	class StageLoader
 	{
 	public:
 
-		/// <summary>
-		/// ステージデータを読み込んでオブジェクトを生成する
-		/// </summary>
 		static std::vector<std::unique_ptr<GameObject>> Load(const std::string& path);
 	};
 }

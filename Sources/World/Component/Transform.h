@@ -35,6 +35,7 @@ public:
 	~Transform();
 
 	void Translate(const Vector3& translation);
+	// TODO: ¬•ª‚²‚Æ‚Éw’è‚·‚éTranslateÀ‘•
 
 	void RotateRad(const Vector3& angle);
 	void RotateDeg(const Vector3& angle);

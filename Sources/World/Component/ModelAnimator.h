@@ -5,6 +5,9 @@
 struct AnimationParam;
 class ModelRenderer;
 
+/// <summary>
+/// モデルのアニメーション処理を行う
+/// </summary>
 class ModelAnimator
 {
 public:

@@ -20,7 +20,7 @@ InputModifierDeadzone::InputModifierDeadzone(float dzMin, float dzMax) :
 {
 }
 
-void InputModifierDeadzone::ModifyRaw(Vector3& rawValue)
+void InputModifierDeadzone::ModifyRaw(Vector3& rawValue) const
 {
 	Vector2 filtered = Math::Filter2D(rawValue.x, rawValue.y, 1.0f, mDeadzoneMin, mDeadzoneMax);
 	rawValue = Vector3(filtered.x, filtered.y, 0.0f);

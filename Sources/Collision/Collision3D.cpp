@@ -58,9 +58,9 @@ namespace
 		Collision::Result result;
 
 		// 座標をキャッシュ
-		Vector3 aabbMinPos = aabb->GetPosition() - aabb->GetHalfSize();
-		Vector3 aabbMaxPos = aabb->GetPosition() + aabb->GetHalfSize();
-		Vector3 spherePos = sphere->GetPosition();
+		Vector3 aabbMinPos = aabb->GetWorldPos() - aabb->GetHalfSize();
+		Vector3 aabbMaxPos = aabb->GetWorldPos() + aabb->GetHalfSize();
+		Vector3 spherePos = sphere->GetWorldPos();
 
 		float sphereRadius = sphere->GetRadius();
 
@@ -96,7 +96,7 @@ namespace
 	{
 		Collision::Result result;
 
-		Vector3 spherePos = sphere->GetPosition();
+		Vector3 spherePos = sphere->GetWorldPos();
 
 		Vector3 minDistance = Geometry::CalculatePointSegmentDistance(spherePos, capsule->GetStartPos(), capsule->GetEndPos());
 
@@ -145,14 +145,14 @@ namespace Collision
 
 	void Sphere3D::DebugDraw(const Color& color) const
 	{
-		DrawSphere3D(GetPosition().GetAsDxLibVector(), mRadius, 10, color.GetAsHexRGB(), color.GetAsHexRGB(), false);
+		DrawSphere3D(GetWorldPos().GetAsDxLibVector(), mRadius, 10, color.GetAsHexRGB(), color.GetAsHexRGB(), false);
 	}
 
 	Collision::Result Sphere3D::Check(const Sphere3D* other) const
 	{
 		Collision::Result result;
 
-		Vector3 distance = this->GetPosition() - other->GetPosition();
+		Vector3 distance = this->GetWorldPos() - other->GetWorldPos();
 		float distanceSqLength = distance.GetSqLength();
 		
 		float radiusSum = this->GetRadius() + other->GetRadius();
@@ -204,8 +204,8 @@ namespace Collision
 
 	void AABB3D::DebugDraw(const Color& color) const
 	{
-		Vector3 minPos = this->GetPosition() - this->GetHalfSize();
-		Vector3 maxPos = this->GetPosition() + this->GetHalfSize();
+		Vector3 minPos = this->GetWorldPos() - this->GetHalfSize();
+		Vector3 maxPos = this->GetWorldPos() + this->GetHalfSize();
 
 		DrawCube3D(minPos.GetAsDxLibVector(), maxPos.GetAsDxLibVector(), color.GetAsHexRGB(), color.GetAsHexRGB(), false);
 	}
@@ -220,10 +220,10 @@ namespace Collision
 		Collision::Result result;
 
 		// 角の座標をキャッシュ
-		Vector3 myMinPos = this->GetPosition() - this->GetHalfSize();
-		Vector3 myMaxPos = this->GetPosition() + this->GetHalfSize();
-		Vector3 otherMinPos = other->GetPosition() - other->GetHalfSize();
-		Vector3 otherMaxPos = other->GetPosition() + other->GetHalfSize();
+		Vector3 myMinPos = this->GetWorldPos() - this->GetHalfSize();
+		Vector3 myMaxPos = this->GetWorldPos() + this->GetHalfSize();
+		Vector3 otherMinPos = other->GetWorldPos() - other->GetHalfSize();
+		Vector3 otherMaxPos = other->GetWorldPos() + other->GetHalfSize();
 
 		// 衝突していないか計算
 		if (myMinPos.x > otherMaxPos.x) return result;
@@ -267,7 +267,7 @@ namespace Collision
 
 	void Capsule3D::SetPosition(const Vector3& pos)
 	{
-		Vector3 center = GetPosition();
+		Vector3 center = GetWorldPos();
 
 		Vector3 move = pos - center + mOffsetPos * 2.0f;
 
@@ -277,7 +277,7 @@ namespace Collision
 
 	Vector3 Capsule3D::GetPosition() const
 	{
-		return (mStartPos + mEndPos) * 0.5f + mOffsetPos;
+		return (mStartPos + mEndPos) * 0.5f;
 	}
 
 	Collision::Result Capsule3D::Check(const Sphere3D* other) const

@@ -17,7 +17,7 @@ void InputFormatGamepadTrigger::Init()
 	RegisterKeyCode(KeyCode::Button::GpRightTrigger,	1);
 }
 
-bool InputFormatGamepadTrigger::CheckButtonState(const KeyCode::Button keyCode)
+bool InputFormatGamepadTrigger::CheckButtonState(const KeyCode::Button keyCode) const
 { 
 	switch (keyCode)
 	{
@@ -28,7 +28,7 @@ bool InputFormatGamepadTrigger::CheckButtonState(const KeyCode::Button keyCode)
 	return false;
 }
 
-Vector3 InputFormatGamepadTrigger::GetValue(const KeyCode::Button keyCode)
+Vector3 InputFormatGamepadTrigger::GetValue(const KeyCode::Button keyCode) const
 {
 	switch (keyCode)
 	{

@@ -4,13 +4,13 @@
 
 struct TempTransform
 {
-	Vector3 position;
-	Vector3 rotation;
-	Vector3 scale;
+	Vector3 position{};
+	Vector3 rotation{};
+	Vector3 scale{};
 };
 
 struct TempBounds
 {
-	Vector3 size;
-	Vector3 offsetPos;
+	Vector3 size{};
+	Vector3 offsetPos{};
 };

@@ -5,7 +5,7 @@
 #include "Utility/Vector.h"
 
 /// <summary>
-/// キーコードから入力状態を検知するクラス
+/// キーコードから入力状態を検知する基底
 /// </summary>
 class InputFormatBase
 {
@@ -21,17 +21,12 @@ public:
 	/// </summary>
 	virtual void Init() = 0;
 
-	/// <summary>
-	/// ボタンの押下状態を取得する
-	/// </summary>
-	/// <param name="myKeyCode">自作キーコード</param>
-	/// <returns>押されていたらtrue</returns>
-	virtual bool CheckButtonState(const KeyCode::Button keyCode) = 0;
+	virtual bool CheckButtonState(const KeyCode::Button keyCode) const = 0;
 
 	/// <summary>
 	/// アナログ値を取得する
 	/// </summary>
-	virtual Vector3 GetValue(const KeyCode::Button keyCode) = 0;
+	virtual Vector3 GetValue(const KeyCode::Button keyCode) const = 0;
 
 	/// <summary>
 	/// 自作キーコードを登録する
@@ -42,10 +37,6 @@ public:
 
 public:
 
-	/// <summary>
-	/// キーコードの紐づけを取得する
-	/// </summary>
-	/// <returns>自作キーコードを元のキーコードに紐づけるマップ</returns>
 	const LinkToKeyCode& GetLinkToKeyCode() const { return mLinkToKeyCode; };
 
 private:

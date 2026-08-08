@@ -9,7 +9,7 @@ InputModifierNegate::InputModifierNegate(bool x, bool y, bool z) :
 {
 }
 
-void InputModifierNegate::ModifyRaw(Vector3& rawValue)
+void InputModifierNegate::ModifyRaw(Vector3& rawValue) const
 {
 	if (mX) rawValue.x *= -1;
 	if (mY) rawValue.y *= -1;

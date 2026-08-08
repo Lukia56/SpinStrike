@@ -23,7 +23,7 @@ private:
 
 	void Move();
 
-	void DrawCrossHair();
+	void DrawCrossHair() const;
 
 private:
 

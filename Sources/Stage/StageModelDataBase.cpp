@@ -1,24 +1,19 @@
 #include "StageModelDataBase.h"
 #include <cassert>
-#include "Utility/Data/Data.h"
+#include "Utility/Data/CSV/CsvLoader.h"
 
 namespace
 {
 	const char* const kDataPath = "Resources\\MasterData\\StageModelData.csv";
-
-	constexpr size_t kObjectNameIndex = 0;
-	constexpr size_t kFilePathIndex = 1;
 }
 
 Stage::StageModelDataBase::StageModelDataBase()
 {
-	Data::Csv::Table table = Data::Csv::LoadRawCsv(kDataPath);
+	auto dataList = Data::Csv::LoadCsvAs<StageModelData>(kDataPath);
 
-	// オブジェクト名をキー、ファイルパスを値にして格納する
-	for (size_t i = 1; i < table.size(); i++)
+	for (const auto& data : dataList)
 	{
-		const std::vector<std::string>& row = table[i];
-		mData.try_emplace(row[kObjectNameIndex], row[kFilePathIndex]);
+		mData.try_emplace(data.objectName, data.filePath);
 	}
 }
 

@@ -124,14 +124,14 @@ void InputFormatKeyboard::Init()
 	RegisterKeyCode(KeyCode::Button::BackSlash,		KEY_INPUT_BACKSLASH);
 }
 
-bool InputFormatKeyboard::CheckButtonState(const KeyCode::Button keyCode)
+bool InputFormatKeyboard::CheckButtonState(const KeyCode::Button keyCode) const
 {
 	int linkedKeyCode = GetLinkToKeyCode().at(keyCode);
 	bool result = Keyboard::GetInstance().IsDown(linkedKeyCode);
 	return result;
 }
 
-Vector3 InputFormatKeyboard::GetValue(const KeyCode::Button keyCode)
+Vector3 InputFormatKeyboard::GetValue(const KeyCode::Button keyCode) const
 {
 	return Vector3(static_cast<float>(CheckButtonState(keyCode)), 0.0f, 0.0f);
 }

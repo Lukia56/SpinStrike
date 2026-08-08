@@ -16,7 +16,7 @@ public:
 
 	void Update(Camera::View& view) override;
 
-	void DebugDraw();
+	void DebugDraw() override;
 
 private:
 

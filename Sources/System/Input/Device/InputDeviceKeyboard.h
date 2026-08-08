@@ -2,6 +2,9 @@
 
 #include "InputDeviceBase.h"
 
+/// <summary>
+/// キーボードの入力フォーマットを管理する
+/// </summary>
 class InputDeviceKeyboard : public InputDeviceBase
 {
 public:

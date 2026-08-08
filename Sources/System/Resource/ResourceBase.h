@@ -20,12 +20,14 @@ namespace Resource
 
 	protected:
 
-		int mHandle;
-
-		std::string mPath;
+		/// <summary>
+		/// 解放処理がリソースごとに違うため純粋仮想化
+		/// </summary>
+		virtual void Delete() = 0;
 
 	private:
 
+		// ResourceManager以外にはアクセスできないようにfriend指定
 		friend ResourceManager;
 	
 		/// <summary>
@@ -34,9 +36,10 @@ namespace Resource
 		/// <returns>読み込みに成功したらtrue</returns>
 		virtual bool Load() = 0;
 
-		/// <summary>
-		/// 解放処理がリソースごとに違うため純粋仮想化
-		/// </summary>
-		virtual void Delete() = 0;
+	protected:
+
+		int mHandle;
+
+		std::string mPath;
 	};
 }

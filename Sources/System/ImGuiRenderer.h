@@ -12,13 +12,13 @@ public:
 	ImGuiRenderer() = default;
 	~ImGuiRenderer() = default;
 
-	void Initialize();
+	void Initialize() const;
 
-	void Finalize();
+	void Finalize() const;
 
 	/// <summary>
 	/// ImGui描画処理
 	/// </summary>
-	/// <param name="func">ImGuiのウィンドウ描画関数</param>
-	void Draw(std::function<void(void)> func);
+	/// <param name="func">描画処理を行う関数</param>
+	void Draw(std::function<void(void)> func) const;
 };

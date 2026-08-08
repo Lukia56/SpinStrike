@@ -47,25 +47,12 @@ struct Vector2
 	/// </summary>
 	float Cross(const Vector2& v) const;
 
-	/// <summary>
-	/// ベクトルの長さを取得する
-	/// 処理が重いため非推奨
-	/// </summary>
 	float GetLength() const;
 
-	/// <summary>
-	/// ベクトルの長さの2乗を取得する
-	/// </summary>
 	float GetSqLength() const;
 
-	/// <summary>
-	/// 正規化したベクトルを取得する
-	/// </summary>
 	Vector2 GetNormalize() const;
 
-	/// <summary>
-	/// DxLibのベクトルに変換する
-	/// </summary>
 	VECTOR GetAsDxLibVector() const;
 
 	// 定数
@@ -126,27 +113,14 @@ struct Vector3
 	/// <summary>
 	/// 等速補間を行う
 	/// </summary>
-	Vector3 Approach(const Vector3& dst, float change);
+	Vector3 Approach(const Vector3& dst, float change) const;
 
-	/// <summary>
-	/// ベクトルの長さを取得する
-	/// 処理が重いため非推奨
-	/// </summary>
 	float GetLength() const;
 
-	/// <summary>
-	/// ベクトルの長さの2乗を取得する
-	/// </summary>
 	float GetSqLength() const;
 
-	/// <summary>
-	/// 正規化したベクトルを取得する
-	/// </summary>
 	Vector3 GetNormalize() const;
 
-	/// <summary>
-	/// DxLibのベクトルに変換する
-	/// </summary>
 	VECTOR GetAsDxLibVector() const;
 
 	// 定数

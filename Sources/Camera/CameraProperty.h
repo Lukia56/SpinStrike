@@ -6,6 +6,9 @@
 
 namespace Camera
 {
+	/// <summary>
+	/// ƒJƒƒ‰‚Ìƒrƒ…[î•ñ‚ğŠi”[‚·‚é
+	/// </summary>
 	struct View
 	{
 		Vector3 eyePosition = Vector3::Zero;

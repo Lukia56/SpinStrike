@@ -23,7 +23,7 @@ CameraFollow::CameraFollow(Transform* target) :
 void CameraFollow::Update(Camera::View& view)
 {
 	// 視点を移動する
-	Vector2 relative = Mouse::GetInstance().GetRelative();
+	Vector2 relative = Mouse::GetInstance().GetRelativePos();
 	mRotation += Vector3(relative.y, relative.x, 0.0f) * Math::ToRadian(1.0f);
 
 	// ピッチを制限する

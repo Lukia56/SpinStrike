@@ -13,7 +13,7 @@ void InputFormatMouseWheel::Init()
 	RegisterKeyCode(KeyCode::Button::MbWheel, 4);
 }
 
-bool InputFormatMouseWheel::CheckButtonState(const KeyCode::Button keyCode)
+bool InputFormatMouseWheel::CheckButtonState(const KeyCode::Button keyCode) const
 {
 	switch (keyCode)
 	{
@@ -27,7 +27,7 @@ bool InputFormatMouseWheel::CheckButtonState(const KeyCode::Button keyCode)
 	return false;
 }
 
-Vector3 InputFormatMouseWheel::GetValue(const KeyCode::Button keyCode)
+Vector3 InputFormatMouseWheel::GetValue(const KeyCode::Button keyCode) const
 {
 	switch (keyCode)
 	{

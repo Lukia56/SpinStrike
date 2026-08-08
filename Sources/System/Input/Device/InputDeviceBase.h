@@ -7,12 +7,11 @@
 
 class InputFormatBase;
 
-// 入力フォーマットであることを表すコンセプト
 template <class T>
 concept InputFormat = std::derived_from<T, InputFormatBase>;
 
 /// <summary>
-/// フォーマットを管理する入力デバイスのクラス
+/// フォーマットを管理して、入力状態を計算する基底
 /// </summary>
 class InputDeviceBase
 {
@@ -21,43 +20,29 @@ public:
 	InputDeviceBase();
 	virtual ~InputDeviceBase();
 
-	/// <summary>
-	/// 初期化処理
-	/// </summary>
 	void Init();
 
-	/// <summary>
-	/// 更新処理
-	/// </summary>
 	void Update();
 
 	/// <summary>
 	/// 押されたかどうか
 	/// </summary>
-	/// <param name="keyCode">キーコード</param>
-	/// <returns>押下状態</returns>
 	bool IsDown(KeyCode::Button keyCode) const;
 
 	/// <summary>
 	/// 押された瞬間かどうか
 	/// </summary>
-	/// <param name="keyCode">キーコード</param>
-	/// <returns>押下状態</returns>
 	bool IsPressed(KeyCode::Button keyCode) const;
 
 	/// <summary>
 	/// 離された瞬間かどうか
 	/// </summary>
-	/// <param name="keyCode">キーコード</param>
-	/// <returns>押下状態</returns>
 	bool IsReleased(KeyCode::Button keyCode) const;
 
 	/// <summary>
 	/// 一定時間押されているか
 	/// </summary>
-	/// <param name="keyCode">キーコード</param>
-	/// <param name="frame">押した判定にするしきい値</param>
-	/// <returns>押下状態</returns>
+	/// <param name="frame">押した判定にする閾値</param>
 	bool IsHeld(KeyCode::Button keyCode, int frame) const;
 
 	/// <summary>
@@ -85,9 +70,6 @@ private:
 	/// </summary>
 	std::unordered_map<KeyCode::Button, int> mPressedFrameLogs;
 
-	/// <summary>
-	/// フォーマット
-	/// </summary>
 	std::vector<std::unique_ptr<InputFormatBase>> mFormats;
 };
 

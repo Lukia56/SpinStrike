@@ -14,10 +14,12 @@ namespace Resource
 		Model(const std::string& path) : ResourceBase(path) {}
 		~Model();
 
+	protected:
+		
+		void Delete() override;
+
 	private:
 
 		bool Load() override;
-
-		void Delete() override;
 	};
 }

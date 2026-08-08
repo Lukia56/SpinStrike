@@ -11,7 +11,7 @@ TextRenderer::TextRenderer(GameObject* owner) :
 {
 }
 
-void TextRenderer::Draw()
+void TextRenderer::Draw() const
 {
 	if (!mOwner) return;
 

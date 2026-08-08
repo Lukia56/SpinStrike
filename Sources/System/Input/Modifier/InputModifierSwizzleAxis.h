@@ -24,7 +24,7 @@ public:
 	InputModifierSwizzleAxis(Order order);
 	~InputModifierSwizzleAxis() = default;
 
-	void ModifyRaw(Vector3& rawValue) override;
+	void ModifyRaw(Vector3& rawValue) const override;
 
 private:
 

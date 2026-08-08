@@ -14,10 +14,12 @@ namespace Resource
 		Texture(const std::string& path) : ResourceBase(path) {}
 		~Texture();
 
+	protected:
+
+		void Delete() override;
+
 	private:
 
 		bool Load() override;
-
-		void Delete() override;
 	};
 }

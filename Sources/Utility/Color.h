@@ -19,19 +19,12 @@ struct Color
 	/// 各色を指定して初期化
 	/// アルファは1で初期化する
 	/// </summary>
-	/// <param name="r">赤</param>
-	/// <param name="g">緑</param>
-	/// <param name="b">青</param>
 	constexpr Color(float r, float g, float b) : r(r), g(g), b(b), a(1.0f) {}
 
 	/// <summary>
 	/// 各色を指定して初期化
 	/// アルファも指定して初期化
 	/// </summary>
-	/// <param name="r">赤</param>
-	/// <param name="g">緑</param>
-	/// <param name="b">青</param>
-	/// <param name="a">アルファ</param>
 	constexpr Color(float r, float g, float b, float a) : r(r), g(g), b(b), a(a) {}
 
 	// ヘルパー関数

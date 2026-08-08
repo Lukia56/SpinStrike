@@ -12,5 +12,5 @@ public:
 	IInputModifier() = default;
 	virtual ~IInputModifier() = default;
 
-	virtual void ModifyRaw(Vector3& rawValue) = 0;
+	virtual void ModifyRaw(Vector3& rawValue) const = 0;
 };

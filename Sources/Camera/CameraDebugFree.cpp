@@ -56,7 +56,7 @@ void CameraDebugFree::DebugDraw()
 
 void CameraDebugFree::Look()
 {
-	Vector2 relative = Mouse::GetInstance().GetRelative();
+	Vector2 relative = Mouse::GetInstance().GetRelativePos();
 	if (relative != Vector2::Zero && Mouse::GetInstance().IsDown(MOUSE_INPUT_RIGHT))
 	{
 		mRotation += Vector3(-relative.y, relative.x, 0.0f) * Math::ToRadian(1.0f);
@@ -93,7 +93,7 @@ void CameraDebugFree::Move()
 	mPosition.y += kMoveSpeed * InputManager::GetInstance().GetAsFloat(Input::Action::Fly) * TimeManager::GetDeltaTime();
 }
 
-void CameraDebugFree::DrawCrossHair()
+void CameraDebugFree::DrawCrossHair() const
 {
 	// ‰æ–Ê‚Ì’†SÀ•W‚ğæ“¾
 	int cx, cy;

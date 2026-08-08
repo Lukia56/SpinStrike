@@ -14,30 +14,30 @@ void InputFormatMouseDelta::Init()
 	RegisterKeyCode(KeyCode::Button::MbDelta, 4);
 }
 
-bool InputFormatMouseDelta::CheckButtonState(const KeyCode::Button keyCode)
+bool InputFormatMouseDelta::CheckButtonState(const KeyCode::Button keyCode) const
 {
 	switch (keyCode)
 	{
-	case KeyCode::Button::MbDeltaUp:		return Mouse::GetInstance().GetRelative().y < 0.0f;
-	case KeyCode::Button::MbDeltaDown:		return Mouse::GetInstance().GetRelative().y > 0.0f;
-	case KeyCode::Button::MbDeltaLeft:		return Mouse::GetInstance().GetRelative().x < 0.0f;
-	case KeyCode::Button::MbDeltaRight:		return Mouse::GetInstance().GetRelative().x > 0.0f;
-	case KeyCode::Button::MbDelta:			return Mouse::GetInstance().GetRelative() != Vector2::Zero;
+	case KeyCode::Button::MbDeltaUp:		return Mouse::GetInstance().GetRelativePos().y < 0.0f;
+	case KeyCode::Button::MbDeltaDown:		return Mouse::GetInstance().GetRelativePos().y > 0.0f;
+	case KeyCode::Button::MbDeltaLeft:		return Mouse::GetInstance().GetRelativePos().x < 0.0f;
+	case KeyCode::Button::MbDeltaRight:		return Mouse::GetInstance().GetRelativePos().x > 0.0f;
+	case KeyCode::Button::MbDelta:			return Mouse::GetInstance().GetRelativePos() != Vector2::Zero;
 	}
 
 	return false;
 }
 
-Vector3 InputFormatMouseDelta::GetValue(const KeyCode::Button keyCode)
+Vector3 InputFormatMouseDelta::GetValue(const KeyCode::Button keyCode) const
 {
 	switch (keyCode)
 	{
-	case KeyCode::Button::MbDeltaUp:		return Vector3(Math::Min(Mouse::GetInstance().GetRelative().y, 0.0f), 0.0f, 0.0f);
-	case KeyCode::Button::MbDeltaDown:		return Vector3(Math::Max(Mouse::GetInstance().GetRelative().y, 0.0f), 0.0f, 0.0f);
-	case KeyCode::Button::MbDeltaLeft:		return Vector3(Math::Min(Mouse::GetInstance().GetRelative().x, 0.0f), 0.0f, 0.0f);
-	case KeyCode::Button::MbDeltaRight:		return Vector3(Math::Max(Mouse::GetInstance().GetRelative().x, 0.0f), 0.0f, 0.0f);
+	case KeyCode::Button::MbDeltaUp:		return Vector3(Math::Min(Mouse::GetInstance().GetRelativePos().y, 0.0f), 0.0f, 0.0f);
+	case KeyCode::Button::MbDeltaDown:		return Vector3(Math::Max(Mouse::GetInstance().GetRelativePos().y, 0.0f), 0.0f, 0.0f);
+	case KeyCode::Button::MbDeltaLeft:		return Vector3(Math::Min(Mouse::GetInstance().GetRelativePos().x, 0.0f), 0.0f, 0.0f);
+	case KeyCode::Button::MbDeltaRight:		return Vector3(Math::Max(Mouse::GetInstance().GetRelativePos().x, 0.0f), 0.0f, 0.0f);
 	case KeyCode::Button::MbDelta:
-		Vector2 delta = Mouse::GetInstance().GetRelative();
+		Vector2 delta = Mouse::GetInstance().GetRelativePos();
 		return Vector3(delta.x, delta.y, 0.0f);
 	}
 
