@@ -25,7 +25,7 @@ void SceneManager::Finalize()
 
 void SceneManager::Update()
 {
-	auto nextScene = mCurrentScene->UpdateBase();
+	auto nextScene = mCurrentScene->Update();
 	if (nextScene == nullptr) return;
 
 	// ƒV[ƒ“‚ðØ‚è‘Ö‚¦‚é
@@ -41,10 +41,10 @@ void SceneManager::PhysicsUpdate()
 
 void SceneManager::Draw()
 {
-	mCurrentScene->DrawBase();
+	mCurrentScene->Draw();
 }
 
 void SceneManager::DebugDraw()
 {
-	mCurrentScene->DebugDrawBase();
+	mCurrentScene->DebugDraw();
 }

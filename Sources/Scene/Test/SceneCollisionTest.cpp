@@ -28,11 +28,11 @@ SceneCollisionTest::SceneCollisionTest() :
 	mShapeB->SetPosition(mShapeBPos);
 }
 
-void SceneCollisionTest::Init()
+void SceneCollisionTest::OnInit()
 {
 }
 
-std::unique_ptr<SceneBase> SceneCollisionTest::Update()
+std::unique_ptr<SceneBase> SceneCollisionTest::OnUpdate()
 {
 	mShapeA->SetPosition(mShapeAPos);
 	mShapeB->SetPosition(mShapeBPos);
@@ -57,7 +57,7 @@ std::unique_ptr<SceneBase> SceneCollisionTest::Update()
 	return nullptr;
 }
 
-void SceneCollisionTest::DebugDraw()
+void SceneCollisionTest::OnDebugDraw()
 {
 	Collision::Result result = mShapeA->CheckCollision(mShapeB.get());
 	Color color = result.isHit ? Color::red : Color::white;

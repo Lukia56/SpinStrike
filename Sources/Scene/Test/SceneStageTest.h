@@ -11,10 +11,10 @@ public:
 	SceneStageTest();
 	~SceneStageTest();
 
-	void Init() override;
-	void Finalize() override;
+	void OnInit() override;
+	void OnFinalize() override;
 
-	std::unique_ptr<SceneBase> Update() override;
+	std::unique_ptr<SceneBase> OnUpdate() override;
 
 private:
 

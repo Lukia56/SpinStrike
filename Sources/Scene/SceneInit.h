@@ -13,8 +13,8 @@ public:
 	SceneInit() = default;
 	~SceneInit() = default;
 
-	void Init() override;
+	void OnInit() override;
 
 	/// <returns>次のシーンのポインタ</returns>
-	std::unique_ptr<SceneBase> Update() override;
+	std::unique_ptr<SceneBase> OnUpdate() override;
 };

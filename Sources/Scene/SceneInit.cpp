@@ -1,11 +1,11 @@
 #include "SceneInit.h"
 #include "Test/SceneSelectDebug.h"
 
-void SceneInit::Init()
+void SceneInit::OnInit()
 {
 }
 
-std::unique_ptr<SceneBase> SceneInit::Update()
+std::unique_ptr<SceneBase> SceneInit::OnUpdate()
 {
 	return std::make_unique<SceneSelectDebug>();
 }

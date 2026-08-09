@@ -11,7 +11,7 @@ SceneEffekseerTest::SceneEffekseerTest()
 {
 }
 
-void SceneEffekseerTest::Init()
+void SceneEffekseerTest::OnInit()
 {
 	AddToRoot<DebugGround>();
 
@@ -21,7 +21,7 @@ void SceneEffekseerTest::Init()
 	GetCameraManager()->SetCurrentCameraType(Camera::Type::DebugFree);
 }
 
-std::unique_ptr<SceneBase> SceneEffekseerTest::Update()
+std::unique_ptr<SceneBase> SceneEffekseerTest::OnUpdate()
 {
 	if (Keyboard::GetInstance().IsDown(KEY_INPUT_Q))
 	{

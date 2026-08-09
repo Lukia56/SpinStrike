@@ -17,7 +17,7 @@ SceneLoadStageTest::SceneLoadStageTest() :
 {
 }
 
-void SceneLoadStageTest::Init()
+void SceneLoadStageTest::OnInit()
 {
 	AddToRoot<DebugGround>();
 	GetCameraManager()->AddCamera(Camera::Type::DebugFree, std::make_unique<CameraDebugFree>());
@@ -26,14 +26,14 @@ void SceneLoadStageTest::Init()
 	AddToRoot<StageManager>(kStageObjectDataPath);
 }
 
-std::unique_ptr<SceneBase> SceneLoadStageTest::Update()
+std::unique_ptr<SceneBase> SceneLoadStageTest::OnUpdate()
 {
 	if (mIsStartTransition) return std::make_unique<SceneSelectDebug>();
 
 	return nullptr;
 }
 
-void SceneLoadStageTest::DebugDraw()
+void SceneLoadStageTest::OnDebugDraw()
 {
 	if (ImGui::Begin("Scene"))
 	{

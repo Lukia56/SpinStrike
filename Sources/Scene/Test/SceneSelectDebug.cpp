@@ -13,7 +13,7 @@ SceneSelectDebug::SceneSelectDebug() :
 {
 }
 
-void SceneSelectDebug::Init()
+void SceneSelectDebug::OnInit()
 {
 	SceneInfo info;
 
@@ -36,7 +36,7 @@ void SceneSelectDebug::Init()
 	Mouse::GetInstance().SetMode(Mouse::Mode::Absolute);
 }
 
-std::unique_ptr<SceneBase> SceneSelectDebug::Update()
+std::unique_ptr<SceneBase> SceneSelectDebug::OnUpdate()
 {
 	if (InputManager::GetInstance().IsPressed(Input::Action::Up)) mCursorPos--;
 	if (InputManager::GetInstance().IsPressed(Input::Action::Down)) mCursorPos++;
@@ -51,7 +51,7 @@ std::unique_ptr<SceneBase> SceneSelectDebug::Update()
 	return nullptr;
 }
 
-void SceneSelectDebug::DebugDraw()
+void SceneSelectDebug::OnDebugDraw()
 {
 	DrawString(200, 30, "Select a Scene", Color::white.GetAsHexRGB());
 

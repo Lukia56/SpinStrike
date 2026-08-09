@@ -19,14 +19,14 @@ public:
 	SceneBase();
 	virtual ~SceneBase();
 
-	virtual void Init() = 0;
-	virtual void Finalize() {}
+	void Init();
+	void Finalize();
 
-	/// <returns>次のシーンのポインタ</returns>
-	std::unique_ptr<SceneBase> UpdateBase();
+	std::unique_ptr<SceneBase> Update();
 	void PhysicsUpdate();
-	void DrawBase();
-	void DebugDrawBase();
+
+	void Draw();
+	void DebugDraw();
 
 public:
 
@@ -35,15 +35,32 @@ public:
 protected:
 
 	/// <summary>
+	/// 派生の初期化処理
+	/// </summary>
+	virtual void OnInit() = 0;
+
+	/// <summary>
+	/// 派生の終了処理
+	/// </summary>
+	virtual void OnFinalize() {}
+
+	/// <summary>
 	/// 派生の更新処理
 	/// </summary>
 	/// <returns>次のシーンのポインタ</returns>
-	virtual std::unique_ptr<SceneBase> Update() = 0;
+	virtual std::unique_ptr<SceneBase> OnUpdate() = 0;
+
+	/// <summary>
+	/// 派生の描画処理
+	/// テスト用
+	/// </summary>
+	virtual void OnDraw() {};
 
 	/// <summary>
 	/// 派生のデバッグ描画処理
+	/// テスト用
 	/// </summary>
-	virtual void DebugDraw() {}
+	virtual void OnDebugDraw() {}
 
 	/// <summary>
 	/// オブジェクトを生成してルートオブジェクトに追加する

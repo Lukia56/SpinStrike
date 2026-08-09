@@ -23,7 +23,7 @@ SceneStageTest::~SceneStageTest()
 {
 }
 
-void SceneStageTest::Init()
+void SceneStageTest::OnInit()
 {
 	auto objectRoot = AddToRoot<RootObject>();
 
@@ -40,11 +40,11 @@ void SceneStageTest::Init()
 	Mouse::GetInstance().SetMode(Mouse::Mode::Relative);
 }
 
-void SceneStageTest::Finalize()
+void SceneStageTest::OnFinalize()
 {
 }
 
-std::unique_ptr<SceneBase> SceneStageTest::Update()
+std::unique_ptr<SceneBase> SceneStageTest::OnUpdate()
 {
 	mPlayer->SetCameraView(GetCameraManager()->GetCameraView());
 

@@ -11,7 +11,7 @@ public:
 	SceneEffekseerTest();
 	~SceneEffekseerTest() = default;
 
-	void Init() override;
+	void OnInit() override;
 
-	std::unique_ptr<SceneBase> Update() override;
+	std::unique_ptr<SceneBase> OnUpdate() override;
 };

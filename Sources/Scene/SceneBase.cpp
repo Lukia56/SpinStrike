@@ -26,7 +26,17 @@ SceneBase::~SceneBase()
 	}
 }
 
-std::unique_ptr<SceneBase> SceneBase::UpdateBase()
+void SceneBase::Init()
+{
+	OnInit();
+}
+
+void SceneBase::Finalize()
+{
+	OnFinalize();
+}
+
+std::unique_ptr<SceneBase> SceneBase::Update()
 {
 	UpdateRootObjects();
 
@@ -34,7 +44,7 @@ std::unique_ptr<SceneBase> SceneBase::UpdateBase()
 
 	mCameraManager->Update();
 
-	return Update();
+	return OnUpdate();
 }
 
 void SceneBase::PhysicsUpdate()
@@ -44,20 +54,22 @@ void SceneBase::PhysicsUpdate()
 	CollisionManager::GetInstance().CheckAllCollision();
 }
 
-void SceneBase::DrawBase()
+void SceneBase::Draw()
 {
 	mCameraManager->Bind();
 
 	DrawRootObjects();
+
+	OnDraw();
 }
 
-void SceneBase::DebugDrawBase()
+void SceneBase::DebugDraw()
 {
 	DebugDrawRootObjects();
 
 	mCameraManager->DebugDraw();
 
-	DebugDraw();
+	OnDebugDraw();
 }
 
 void SceneBase::UpdateRootObjects()

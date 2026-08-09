@@ -11,11 +11,11 @@ public:
 	SceneLoadStageTest();
 	~SceneLoadStageTest() = default;
 
-	void Init() override;
+	void OnInit() override;
 
-	std::unique_ptr<SceneBase> Update() override;
+	std::unique_ptr<SceneBase> OnUpdate() override;
 
-	void DebugDraw() override;
+	void OnDebugDraw() override;
 
 private:
 
