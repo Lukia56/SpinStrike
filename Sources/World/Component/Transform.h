@@ -35,10 +35,13 @@ public:
 	~Transform();
 
 	void Translate(const Vector3& translation);
-	// TODO: 成分ごとに指定するTranslate実装
+	void Translate(float x, float y, float z);
 
 	void RotateRad(const Vector3& angle);
+	void RotateRad(float x, float y, float z);
+
 	void RotateDeg(const Vector3& angle);
+	void RotateDeg(float x, float y, float z);
 
 	/// <summary>
 	/// まだ親が設定されていない場合にのみ使用

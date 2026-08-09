@@ -34,9 +34,19 @@ void Transform::Translate(const Vector3& translation)
 	localPosition += translation;
 }
 
+void Transform::Translate(float x, float y, float z)
+{
+	Translate(Vector3(x, y, z));
+}
+
 void Transform::RotateRad(const Vector3& angle)
 {
 	localRotation += angle;
+}
+
+void Transform::RotateRad(float x, float y, float z)
+{
+	RotateRad(Vector3(x, y, z));
 }
 
 void Transform::RotateDeg(const Vector3& angle)
@@ -46,6 +56,11 @@ void Transform::RotateDeg(const Vector3& angle)
 		Math::ToRadian(angle.y),
 		Math::ToRadian(angle.z)
 	);
+}
+
+void Transform::RotateDeg(float x, float y, float z)
+{
+	RotateDeg(Vector3(x, y, z));
 }
 
 void Transform::SetupParent(std::unique_ptr<GameObject> owner, Transform* newParent)
