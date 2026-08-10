@@ -4,6 +4,7 @@
 #include "SceneEffekseerTest.h"
 #include "SceneLoadStageTest.h"
 #include "SceneStageTest.h"
+#include "SceneUITest.h"
 #include "System/InputManager.h"
 #include "System/Input/Mouse.h"
 #include "Utility/Color.h"
@@ -31,6 +32,10 @@ void SceneSelectDebug::OnInit()
 
 	info.name = "EffekseerTest";
 	info.createSceneFunc = []() { return std::make_unique<SceneEffekseerTest>(); };
+	mSceneList.emplace_back(info);
+
+	info.name = "UITest";
+	info.createSceneFunc = []() { return std::make_unique<SceneUITest>(); };
 	mSceneList.emplace_back(info);
 
 	Mouse::GetInstance().SetMode(Mouse::Mode::Absolute);
