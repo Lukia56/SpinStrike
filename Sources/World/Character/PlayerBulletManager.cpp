@@ -15,6 +15,6 @@ void PlayerBulletManager::Update()
 
 void PlayerBulletManager::CreateBullet(const Vector3& pos, const Vector3& moveVec)
 {
-	auto bullet = AddToChild<PlayerBullet>(moveVec);
+	auto bullet = CreateToChild<PlayerBullet>(moveVec);
 	bullet->GetTransform().localPosition = pos - mTransform.CalculateWorldPosition();
 }

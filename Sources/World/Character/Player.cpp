@@ -54,7 +54,7 @@ Player::Player(PlayerBulletManager* bulletManager) :
 
 	mAnimator = std::make_unique<ModelAnimator>(mModel.get(), 30.0f);
 
-	mTornado = AddToChild<PlayerTornado>(bulletManager);
+	mTornado = CreateToChild<PlayerTornado>(bulletManager);
 	mTornado->SetActive(false);
 
 	auto aabbParam = Data::Csv::LoadCsvAs<AABBColliderParam>(kAABBParamPath);
@@ -68,7 +68,7 @@ Player::Player(PlayerBulletManager* bulletManager) :
 			));
 	}
 
-	AddToChild<DebugGround>();
+	CreateToChild<DebugGround>();
 }
 
 Player::~Player()

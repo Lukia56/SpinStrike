@@ -15,7 +15,7 @@ SceneUITest::SceneUITest()
 
 void SceneUITest::OnInit()
 {
-	auto image = AddToRoot<UIImage>(kSpritePath);
+	auto image = CreateToRoot<UIImage>(kSpritePath);
 	image->GetTransform().Translate(500, 500, 0);
 }
 

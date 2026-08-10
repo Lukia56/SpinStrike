@@ -19,11 +19,11 @@ SceneLoadStageTest::SceneLoadStageTest() :
 
 void SceneLoadStageTest::OnInit()
 {
-	AddToRoot<DebugGround>();
+	CreateToRoot<DebugGround>();
 	GetCameraManager()->AddCamera(Camera::Type::DebugFree, std::make_unique<CameraDebugFree>());
 	GetCameraManager()->SetCurrentCameraType(Camera::Type::DebugFree);
 
-	AddToRoot<StageManager>(kStageObjectDataPath);
+	CreateToRoot<StageManager>(kStageObjectDataPath);
 }
 
 std::unique_ptr<SceneBase> SceneLoadStageTest::OnUpdate()

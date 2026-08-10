@@ -13,9 +13,9 @@ SceneEffekseerTest::SceneEffekseerTest()
 
 void SceneEffekseerTest::OnInit()
 {
-	AddToRoot<DebugGround>();
+	CreateToRoot<DebugGround>();
 
-	AddToRoot<EffectTest>();
+	CreateToRoot<EffectTest>();
 
 	GetCameraManager()->AddCamera(Camera::Type::DebugFree, std::make_unique<CameraDebugFree>());
 	GetCameraManager()->SetCurrentCameraType(Camera::Type::DebugFree);

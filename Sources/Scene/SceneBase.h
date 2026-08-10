@@ -68,7 +68,7 @@ protected:
 	/// <returns>追加したゲームオブジェクトの生ポインタ</returns>
 	template <class T, class... Args>
 	requires std::derived_from<T, GameObject>
-	T* AddToRoot(Args&&... args);
+	T* CreateToRoot(Args&&... args);
 	
 	/// <summary>
 	/// 生成済みのオブジェクトをルートに追加する
@@ -99,7 +99,7 @@ private:
 
 template<class T, class ...Args>
 requires std::derived_from<T, GameObject>
-inline T* SceneBase::AddToRoot(Args&&... args)
+inline T* SceneBase::CreateToRoot(Args&&... args)
 {
 	auto ptr = std::make_unique<T>(std::forward<Args>(args)...);
 	ptr->Init();
