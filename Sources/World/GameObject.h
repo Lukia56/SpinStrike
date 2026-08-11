@@ -2,8 +2,8 @@
 
 #include <memory>
 #include <vector>
-#include "Component/Transform.h"
 #include "Collision/CollisionResult.h"
+#include "Component/Transform.h"
 
 class Collider3D;
 
@@ -16,6 +16,7 @@ class GameObject
 public:
 
 	GameObject();
+	GameObject(std::unique_ptr<Transform> transform);
 	virtual ~GameObject();
 
 	enum class Tag
@@ -74,7 +75,7 @@ public:
 
 public:
 
-	Transform& GetTransform() { return mTransform; }
+	Transform* GetTransform() { return mTransform.get(); }
 
 	bool IsActive() const { return mIsActive; }
 	virtual void SetActive(bool flag) { mIsActive = flag; }
@@ -84,7 +85,7 @@ public:
 
 protected:
 
-	Transform mTransform;
+	std::unique_ptr<Transform> mTransform;
 
 private:
 
@@ -108,7 +109,7 @@ inline T* GameObject::CreateToChild(Args&&... args)
 
 	T* rawPtr = ptr.get();
 
-	rawPtr->GetTransform().SetupParent(std::move(ptr), &mTransform);
+	rawPtr->GetTransform()->SetupParent(std::move(ptr), mTransform.get());
 
 	return rawPtr;
 }
@@ -121,7 +122,7 @@ inline T* GameObject::AddToChild(std::unique_ptr<T> object)
 
 	T* rawPtr = object.get();
 
-	rawPtr->GetTransform().SetupParent(std::move(object), &mTransform);
+	rawPtr->GetTransform()->SetupParent(std::move(object), mTransform.get());
 
 	return rawPtr;
 }

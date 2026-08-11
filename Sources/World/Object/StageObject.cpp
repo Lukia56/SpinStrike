@@ -14,9 +14,9 @@ StageObject::StageObject(const StageObjectParam& param, const std::string& model
 {
 	SetTag(Tag::Terrain);
 
-	mTransform.localPosition = param.transform.position;
-	mTransform.localRotation = param.transform.rotation;
-	mTransform.localScale = param.transform.scale;
+	mTransform->localPosition = param.transform.position;
+	mTransform->localRotation = param.transform.rotation;
+	mTransform->localScale = param.transform.scale;
 
 	mModel = std::make_unique<ModelRenderer>(this);
 	mModel->Load(modelPath);
@@ -26,7 +26,7 @@ StageObject::StageObject(const StageObjectParam& param, const std::string& model
 		this,
 		Collision::Tag::Body
 	);
-	mCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition());
+	mCollider->GetShape()->SetPosition(mTransform->CalculateWorldPosition());
 }
 
 void StageObject::Init()

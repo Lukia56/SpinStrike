@@ -95,7 +95,7 @@ void Transform::ChangeParent(Transform* newParent)
 	auto it = std::find_if(siblings.begin(), siblings.end(),
 		[this](const std::unique_ptr<GameObject>& ptr)
 		{
-			return this == &ptr->GetTransform();
+			return this == ptr->GetTransform();
 		});
 	if (it == siblings.end())
 	{

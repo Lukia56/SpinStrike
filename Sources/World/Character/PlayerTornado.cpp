@@ -40,7 +40,7 @@ void PlayerTornado::Finalize()
 
 void PlayerTornado::Update()
 {
-	mCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition());
+	mCollider->GetShape()->SetPosition(mTransform->CalculateWorldPosition());
 }
 
 void PlayerTornado::Draw()
@@ -65,7 +65,7 @@ void PlayerTornado::CreateBullet(const Vector3& moveVec)
 {
 	if (mPulledNum <= 0) return;
 
-	mBulletManager->CreateBullet(mTransform.CalculateWorldPosition(), moveVec);
+	mBulletManager->CreateBullet(mTransform->CalculateWorldPosition(), moveVec);
 
 	mPulledNum = 0;
 }

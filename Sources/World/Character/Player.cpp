@@ -107,9 +107,9 @@ void Player::Update()
 
 void Player::PhysicsUpdate()
 {
-	mTransform.localPosition += mVelocity * TimeManager::GetDeltaTime();
+	mTransform->localPosition += mVelocity * TimeManager::GetDeltaTime();
 
-	Vector3 worldPos = mTransform.CalculateWorldPosition();
+	Vector3 worldPos = mTransform->CalculateWorldPosition();
 	for (const auto& collider : mColliders)
 	{
 		collider->GetShape()->SetPosition(worldPos);
@@ -122,7 +122,7 @@ void Player::PhysicsUpdate()
 
 void Player::Draw()
 {
-	Vector3 worldPos = mTransform.CalculateWorldPosition();
+	Vector3 worldPos = mTransform->CalculateWorldPosition();
 
 	mModel->Draw();
 
@@ -131,7 +131,7 @@ void Player::Draw()
 
 void Player::DebugDraw()
 {
-	Vector3 pos = mTransform.CalculateWorldPosition();
+	Vector3 pos = mTransform->CalculateWorldPosition();
 
 	if (ImGui::Begin("Player"))
 	{
@@ -230,7 +230,7 @@ void Player::ResolvePush()
 {
 	if (mCollisionPush != Vector3::Zero)
 	{
-		mTransform.localPosition += mCollisionPush;
+		mTransform->localPosition += mCollisionPush;
 		mCollisionPush = Vector3::Zero;
 	}
 }

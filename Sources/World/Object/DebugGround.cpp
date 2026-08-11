@@ -14,7 +14,7 @@ namespace
 
 void DebugGround::Draw()
 {
-	Vector3 centerPos = mTransform.CalculateWorldPosition();
+	Vector3 centerPos = mTransform->CalculateWorldPosition();
 
 	DrawXAxis(centerPos);
 	DrawZAxis(centerPos);

@@ -37,7 +37,7 @@ void EffectAnimator::Update()
 		return;
 	}
 
-	Vector3 worldPos = mOwner->GetTransform().CalculateWorldPosition();
+	Vector3 worldPos = mOwner->GetTransform()->CalculateWorldPosition();
 	SetPosPlayingEffekseer3DEffect(mEffectPlayHandle, worldPos.x, worldPos.y, worldPos.z);
 }
 

@@ -221,6 +221,7 @@
     <ClCompile Include="Sources\Scene\SceneBase.cpp" />
     <ClCompile Include="Sources\Scene\SceneManager.cpp" />
     <ClCompile Include="Sources\World\UI\UIImage.cpp" />
+    <ClCompile Include="Sources\World\UI\UITest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Scene\Test\SceneUITest.h" />
@@ -328,6 +329,7 @@
     <ClInclude Include="Sources\Scene\SceneBase.h" />
     <ClInclude Include="Sources\Scene\SceneManager.h" />
     <ClInclude Include="Sources\World\UI\UIImage.h" />
+    <ClInclude Include="Sources\World\UI\UITest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

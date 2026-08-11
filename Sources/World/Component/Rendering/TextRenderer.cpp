@@ -15,13 +15,13 @@ void TextRenderer::Draw() const
 {
 	if (!mOwner) return;
 
-	const VECTOR pos = (mOwner->GetTransform().CalculateWorldPosition() + mOffsetPos).GetAsDxLibVector();
+	const VECTOR pos = (mOwner->GetTransform()->CalculateWorldPosition() + mOffsetPos).GetAsDxLibVector();
 	VECTOR scale = VGet(0.0f, 0.0f, 0.0f);
 
 	// 必要な場合のみワールドスケールを計算して取得
 	if (mIsScaling)
 	{
-		scale = mOwner->GetTransform().CalculateWorldScale().GetAsDxLibVector();
+		scale = mOwner->GetTransform()->CalculateWorldScale().GetAsDxLibVector();
 	}
 
 	// フォントが読み込まれていたらフォントを使用してテキストを表示する

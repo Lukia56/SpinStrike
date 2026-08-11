@@ -23,7 +23,7 @@ TestBox::TestBox(const Vector3& scale)
 {
 	SetTag(Tag::Terrain);
 
-	mTransform.localScale = scale;
+	mTransform->localScale = scale;
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(scale),
 		this,
@@ -45,7 +45,7 @@ void TestBox::Finalize()
 
 void TestBox::Update()
 {
-	mCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition());
+	mCollider->GetShape()->SetPosition(mTransform->CalculateWorldPosition());
 }
 
 void TestBox::Draw()

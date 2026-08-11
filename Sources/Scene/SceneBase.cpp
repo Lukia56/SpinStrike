@@ -117,7 +117,7 @@ void SceneBase::UpdateGameObject(GameObject* gameObject)
 	gameObject->Update();
 
 	// 子オブジェクトについて再帰
-	for (const auto& it : gameObject->GetTransform().GetChildren())
+	for (const auto& it : gameObject->GetTransform()->GetChildren())
 	{
 		UpdateGameObject(it.get());
 	}
@@ -130,7 +130,7 @@ void SceneBase::PhysicsUpdateGameObject(GameObject* gameObject)
 	gameObject->PhysicsUpdate();
 
 	// 子オブジェクトについて再帰
-	for (const auto& it : gameObject->GetTransform().GetChildren())
+	for (const auto& it : gameObject->GetTransform()->GetChildren())
 	{
 		PhysicsUpdateGameObject(it.get());
 	}
@@ -143,7 +143,7 @@ void SceneBase::DrawGameObject(GameObject* gameObject)
 	gameObject->Draw();
 
 	// 子オブジェクトについて再帰
-	for (const auto& it : gameObject->GetTransform().GetChildren())
+	for (const auto& it : gameObject->GetTransform()->GetChildren())
 	{
 		DrawGameObject(it.get());
 	}
@@ -156,7 +156,7 @@ void SceneBase::DebugDrawGameObject(GameObject* gameObject)
 	gameObject->DebugDraw();
 
 	// 子オブジェクトについて再帰
-	for (const auto& it : gameObject->GetTransform().GetChildren())
+	for (const auto& it : gameObject->GetTransform()->GetChildren())
 	{
 		DebugDrawGameObject(it.get());
 	}

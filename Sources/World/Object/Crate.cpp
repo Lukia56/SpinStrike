@@ -35,7 +35,7 @@ Crate::Crate() :
 		Collision::Tag::Body
 	);
 
-	mTransform.localScale = kSize;
+	mTransform->localScale = kSize;
 }
 
 Crate::~Crate()
@@ -64,7 +64,7 @@ void Crate::Update()
 	}
 	mIsHitTornado = false;
 
-	mCollider->GetShape()->SetPosition(mTransform.CalculateWorldPosition());
+	mCollider->GetShape()->SetPosition(mTransform->CalculateWorldPosition());
 }
 
 void Crate::Draw()

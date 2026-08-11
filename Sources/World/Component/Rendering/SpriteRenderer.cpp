@@ -25,9 +25,9 @@ void SpriteRenderer::Draw() const
 	if (!mOwner) return;
 	if (!mResource) return;
 
-	const VECTOR pos = (mOwner->GetTransform().CalculateWorldPosition() + mOffsetPos).GetAsDxLibVector();
-	const VECTOR rot = mOwner->GetTransform().CalculateWorldRotation().GetAsDxLibVector();
-	const VECTOR scale = mOwner->GetTransform().CalculateWorldScale().GetAsDxLibVector();
+	const VECTOR pos = (mOwner->GetTransform()->CalculateWorldPosition() + mOffsetPos).GetAsDxLibVector();
+	const VECTOR rot = mOwner->GetTransform()->CalculateWorldRotation().GetAsDxLibVector();
+	const VECTOR scale = mOwner->GetTransform()->CalculateWorldScale().GetAsDxLibVector();
 
 	DrawRotaGraphFast3F(pos.x, pos.y, mTexHalfSize.x, mTexHalfSize.y, scale.x, scale.y, rot.z, mResource->GetHandle(), true);
 }

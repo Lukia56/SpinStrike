@@ -30,11 +30,11 @@ void SceneStageTest::OnInit()
 	PlayerBulletManager* bulletManager = objectRoot->CreateToChild<PlayerBulletManager>();
 
 	mPlayer = objectRoot->CreateToChild<Player>(bulletManager);
-	mPlayer->GetTransform().localPosition.y = 200.0f;
+	mPlayer->GetTransform()->localPosition.y = 200.0f;
 	
 	objectRoot->CreateToChild<StageManager>(kStageObjectDataPath);
 
-	GetCameraManager()->AddCamera(Camera::Type::Follow, std::make_unique<CameraFollow>(&mPlayer->GetTransform()));
+	GetCameraManager()->AddCamera(Camera::Type::Follow, std::make_unique<CameraFollow>(mPlayer->GetTransform()));
 	GetCameraManager()->SetCurrentCameraType(Camera::Type::Follow);
 
 	Mouse::GetInstance().SetMode(Mouse::Mode::Relative);
