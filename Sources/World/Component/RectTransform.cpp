@@ -93,8 +93,8 @@ void RectTransform::SetRectXAsStretch(float left, float right)
 
 void RectTransform::SetRectYAsStretch(float top, float bottom)
 {
-	mOffsetMin.x = top;
-	mOffsetMax.x = bottom;
+	mOffsetMin.y = top;
+	mOffsetMax.y = bottom;
 }
 
 void RectTransform::SetAnchor(const Vector2& anchorMin, const Vector2& anchorMax)
@@ -180,7 +180,7 @@ void RectTransform::CalculateRectX(Rect& rectResult, const Rect& rectParent)
 		mSizeDelta.x = mOffsetMax.x - mOffsetMin.x;
 
 		rectResult.xMin = minAnchoredPosX + mOffsetMin.x;
-		rectResult.width = maxAnchoredPosX + mSizeDelta.x + mOffsetMin.x;
+		rectResult.width = maxAnchoredPosX + mSizeDelta.x;
 	}
 	// サイズと基準点からの距離を固定する
 	else
@@ -206,7 +206,7 @@ void RectTransform::CalculateRectY(Rect& rectResult, const Rect& rectParent)
 		mSizeDelta.y = mOffsetMax.y - mOffsetMin.y;
 
 		rectResult.yMin = minAnchoredPosY + mOffsetMin.y;
-		rectResult.height = maxAnchoredPosY + mSizeDelta.y + mOffsetMin.y;
+		rectResult.height = maxAnchoredPosY + mSizeDelta.y;
 	}
 	// サイズと基準点からの距離を固定する
 	else
