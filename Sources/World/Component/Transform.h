@@ -79,6 +79,13 @@ public:
 	Transform* GetParent() const { return mParent; }
 
 private:
+	
+	/// <summary>
+	/// 親の変更タイミングに処理を行いたいときに使用する
+	/// </summary>
+	virtual void OnUpdateParent() {}
+
+private:
 
 	GameObjectContainer mChildren;
 

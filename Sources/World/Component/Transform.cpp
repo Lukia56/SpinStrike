@@ -73,6 +73,7 @@ void Transform::SetupParent(std::unique_ptr<GameObject> owner, Transform* newPar
 
 	// 親を設定
 	mParent = newParent;
+	OnUpdateParent();
 
 	// 新しい親に移動
 	if (mParent)
@@ -103,11 +104,12 @@ void Transform::ChangeParent(Transform* newParent)
 	}
 
 	// 元の親から削除
-	auto gameObject = std::move(*it);
+	std::unique_ptr<GameObject> gameObject = std::move(*it);
 	siblings.erase(it);
 
 	// 親を設定
 	mParent = newParent;
+	OnUpdateParent();
 
 	// 新しい親に移動
 	if (mParent)
