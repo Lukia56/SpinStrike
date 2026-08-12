@@ -4,19 +4,22 @@
 
 class RectTransform;
 
-/// <summary>
-/// RectTransformを持ったUIオブジェクトの基底
-/// </summary>
-class UIObject : public GameObject
+namespace UI
 {
-public:
+	/// <summary>
+	/// RectTransformを持ったUIオブジェクトの基底
+	/// </summary>
+	class UIObject : public GameObject
+	{
+	public:
 
-	UIObject();
-	virtual ~UIObject() = default;
+		UIObject();
+		virtual ~UIObject() = default;
 
-	RectTransform* GetRectTransform() const { return mRectTransform; }
+		RectTransform* GetRectTransform() const { return mRectTransform; }
 
-protected:
+	protected:
 
-	RectTransform* mRectTransform;
-};
+		RectTransform* mRectTransform;
+	};
+}
