@@ -1,24 +1,30 @@
 #include "UIImage.h"
 #include <memory>
 #include <string>
-#include "../Component/Rendering/SpriteRenderer.h"
+#include "../Component/RectTransform.h"
+#include "../Component/Rendering/UIImageRenderer.h"
 
-UIImage::UIImage(const std::string& spritePath) :
-	mRenderer(nullptr)
+namespace UI
 {
-	mRenderer = std::make_unique<SpriteRenderer>(this);
-	mRenderer->Load(spritePath);
-}
+	Image::Image(const std::string& texturePath) :
+		mRenderer(nullptr)
+	{
+		mRenderer = std::make_unique<UIImageRenderer>(this, mRectTransform);
+		mRenderer->Load(texturePath);
 
-void UIImage::Init()
-{
-}
+		mRectTransform->SetFullRectAsFixed(mRenderer->GetTexSize());
+	}
 
-void UIImage::Update()
-{
-}
+	void Image::Init()
+	{
+	}
 
-void UIImage::Draw()
-{
-	mRenderer->Draw();
+	void Image::Update()
+	{
+	}
+
+	void Image::Draw()
+	{
+		mRenderer->Draw();
+	}
 }

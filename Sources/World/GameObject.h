@@ -75,7 +75,7 @@ public:
 
 public:
 
-	Transform* GetTransform() { return mTransform.get(); }
+	Transform* GetTransform() const { return mTransform.get(); }
 
 	bool IsActive() const { return mIsActive; }
 	virtual void SetActive(bool flag) { mIsActive = flag; }

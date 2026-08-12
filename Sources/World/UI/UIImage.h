@@ -1,24 +1,30 @@
 #pragma once
 
-#include "../GameObject.h"
+#include "UIObject.h"
 #include <string>
 
-class SpriteRenderer;
+class UIImageRenderer;
 
-class UIImage : public GameObject
+namespace UI
 {
-public:
+	/// <summary>
+	/// UI‰æ‘œ‚ð•\Ž¦‚·‚é
+	/// </summary>
+	class Image : public UIObject
+	{
+	public:
 
-	UIImage(const std::string& spritePath);
-	~UIImage() = default;
+		Image(const std::string& texturePath);
+		~Image() = default;
 
-	void Init() override;
+		void Init() override;
 
-	void Update() override;
+		void Update() override;
 
-	void Draw() override;
+		void Draw() override;
 
-private:
+	private:
 
-	std::unique_ptr<SpriteRenderer> mRenderer;
-};
+		std::unique_ptr<UIImageRenderer> mRenderer;
+	};
+}
