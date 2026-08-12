@@ -11,7 +11,7 @@ namespace Resource
 
 	bool Font::Load()
 	{
-		mHandle = LoadFontDataToHandle(mPath.c_str(), 1);
+		mHandle = LoadFontDataToHandle(mPath.c_str());
 
 		return mHandle != -1;
 	}
