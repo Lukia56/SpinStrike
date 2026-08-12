@@ -4,6 +4,7 @@
 #include "System/Resource/Font.h"
 #include "Utility/Color.h"
 
+class RectTransform;
 namespace Resource
 {
 	class Font;
@@ -16,7 +17,7 @@ class TextRenderer : public Renderer<Resource::Font>
 {
 public:
 
-	TextRenderer(GameObject* owner);
+	TextRenderer(GameObject* owner, RectTransform* rectTransform, const std::string& displayText = "", const Color& color = Color::white);
 	~TextRenderer() = default;
 
 	/// <summary>
@@ -28,13 +29,11 @@ public:
 	
 	void SetColor(const Color& color) { mColor = color; }
 
-	void SetScalingFlag(const bool flag) { mIsScaling = flag; }
-
 private:
 
 	std::string mDisplayText;
 
 	Color mColor;
 
-	bool mIsScaling;
+	RectTransform* mRectTransform;
 };
