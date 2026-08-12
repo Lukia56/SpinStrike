@@ -33,7 +33,10 @@ public:
 
 public:
 
-	const Vector2& GetTexSize() const { return mTexSize; }
+	/// <summary>
+	/// スケーリングしたテクスチャのサイズを取得する
+	/// </summary>
+	Vector2 GetTexSize() const;
 
 private:
 

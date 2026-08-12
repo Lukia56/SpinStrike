@@ -12,7 +12,7 @@ namespace UI
 		mRenderer = std::make_unique<UIImageRenderer>(this, mRectTransform);
 		mRenderer->Load(texturePath);
 
-		mRectTransform->SetFullRectAsFixed(mRenderer->GetTexSize());
+		SetRectSizeToTexSize();
 	}
 
 	void Image::Init()
@@ -26,5 +26,10 @@ namespace UI
 	void Image::Draw()
 	{
 		mRenderer->Draw();
+	}
+
+	void Image::SetRectSizeToTexSize()
+	{
+		mRectTransform->SetFullRectAsFixed(mRenderer->GetTexSize());
 	}
 }

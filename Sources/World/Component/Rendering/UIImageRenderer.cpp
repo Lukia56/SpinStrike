@@ -36,3 +36,14 @@ void UIImageRenderer::Draw() const
 		rect.xMin, rect.yMin + rect.height,
 		mResource->GetHandle(), true);
 }
+
+Vector2 UIImageRenderer::GetTexSize() const
+{
+	Vector3 worldScale = mRectTransform->CalculateWorldScale();
+
+	Vector2 size{};
+	size.x = mTexSize.x * worldScale.x;
+	size.y = mTexSize.y * worldScale.y;
+
+	return size;
+}

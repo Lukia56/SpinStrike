@@ -9,6 +9,7 @@ namespace UI
 {
 	/// <summary>
 	/// UI画像を表示する
+	/// 矩形はテクスチャのサイズで初期化する
 	/// </summary>
 	class Image : public UIObject
 	{
@@ -22,6 +23,14 @@ namespace UI
 		void Update() override;
 
 		void Draw() override;
+
+	public:
+
+		/// <summary>
+		/// 矩形のサイズをテクスチャのサイズに変更する
+		/// スケールを変更した際や、矩形サイズ変更後に元に戻したいときに使用する
+		/// </summary>
+		void SetRectSizeToTexSize();
 
 	private:
 
