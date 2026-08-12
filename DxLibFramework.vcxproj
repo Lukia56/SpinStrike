@@ -224,6 +224,7 @@
     <ClCompile Include="Sources\World\UI\UITest.cpp" />
     <ClCompile Include="Sources\World\UI\UIObject.cpp" />
     <ClCompile Include="Sources\World\Component\Rendering\UIImageRenderer.cpp" />
+    <ClCompile Include="Sources\World\UI\UIText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Scene\Test\SceneUITest.h" />
@@ -334,6 +335,7 @@
     <ClInclude Include="Sources\World\UI\UITest.h" />
     <ClInclude Include="Sources\World\UI\UIObject.h" />
     <ClInclude Include="Sources\World\Component\Rendering\UIImageRenderer.h" />
+    <ClInclude Include="Sources\World\UI\UIText.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
