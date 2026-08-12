@@ -1,6 +1,7 @@
 #include "SpriteRenderer.h"
 #include <DxLib.h>
 #include "../../GameObject.h"
+#include "Utility/Vector.h"
 
 SpriteRenderer::SpriteRenderer(GameObject* owner) :
 	Renderer(owner),
