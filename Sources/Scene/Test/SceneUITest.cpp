@@ -2,12 +2,7 @@
 #include <DxLib.h>
 #include "SceneSelectDebug.h"
 #include "System/Input/Keyboard.h"
-#include "World/UI/UIImage.h"
-
-namespace
-{
-	const char* const kSpritePath = "Resources\\Sprites\\Grass.png";
-}
+#include "World/UI/UITestScreen.h"
 
 SceneUITest::SceneUITest()
 {
@@ -15,8 +10,7 @@ SceneUITest::SceneUITest()
 
 void SceneUITest::OnInit()
 {
-	auto image = CreateToRoot<UIImage>(kSpritePath);
-	image->GetTransform().Translate(500, 500, 0);
+	auto screen = CreateToRoot<UI::TestScreen>();
 }
 
 std::unique_ptr<SceneBase> SceneUITest::OnUpdate()

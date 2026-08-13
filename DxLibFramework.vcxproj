@@ -221,11 +221,12 @@
     <ClCompile Include="Sources\Scene\SceneBase.cpp" />
     <ClCompile Include="Sources\Scene\SceneManager.cpp" />
     <ClCompile Include="Sources\World\UI\UIImage.cpp" />
-    <ClCompile Include="Sources\World\UI\UITest.cpp" />
+    <ClCompile Include="Sources\World\UI\UIScreen.cpp" />
     <ClCompile Include="Sources\World\UI\UIObject.cpp" />
     <ClCompile Include="Sources\World\Component\Rendering\UIImageRenderer.cpp" />
     <ClCompile Include="Sources\World\UI\UIText.cpp" />
     <ClCompile Include="Sources\World\UI\UIMenuItem.cpp" />
+    <ClCompile Include="Sources\World\UI\UITestScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Scene\Test\SceneUITest.h" />
@@ -332,12 +333,14 @@
     <ClInclude Include="Sources\World\GameObject.h" />
     <ClInclude Include="Sources\Scene\SceneBase.h" />
     <ClInclude Include="Sources\Scene\SceneManager.h" />
+    <ClInclude Include="Sources\World\UI\UICommand.h" />
     <ClInclude Include="Sources\World\UI\UIImage.h" />
-    <ClInclude Include="Sources\World\UI\UITest.h" />
     <ClInclude Include="Sources\World\UI\UIObject.h" />
     <ClInclude Include="Sources\World\Component\Rendering\UIImageRenderer.h" />
     <ClInclude Include="Sources\World\UI\UIText.h" />
     <ClInclude Include="Sources\World\UI\UIMenuItem.h" />
+    <ClInclude Include="Sources\World\UI\UIScreen.h" />
+    <ClInclude Include="Sources\World\UI\UITestScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
