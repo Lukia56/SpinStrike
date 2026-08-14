@@ -115,6 +115,8 @@ template<class T>
 requires std::derived_from<T, GameObject>
 inline T* SceneBase::AddToRoot(std::unique_ptr<T> object)
 {
+	if (!object) return nullptr;
+
 	object->Init();
 
 	T* rawPtr = object.get();
