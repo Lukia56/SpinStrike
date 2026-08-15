@@ -221,6 +221,7 @@
     <ClCompile Include="Sources\Scene\SceneBase.cpp" />
     <ClCompile Include="Sources\Scene\SceneManager.cpp" />
     <ClCompile Include="Sources\World\UI\UIImage.cpp" />
+    <ClCompile Include="Sources\World\UI\UIMenuScreen.cpp" />
     <ClCompile Include="Sources\World\UI\UIScreen.cpp" />
     <ClCompile Include="Sources\World\UI\UIObject.cpp" />
     <ClCompile Include="Sources\World\Component\Rendering\UIImageRenderer.cpp" />
@@ -335,6 +336,7 @@
     <ClInclude Include="Sources\Scene\SceneManager.h" />
     <ClInclude Include="Sources\World\UI\UICommand.h" />
     <ClInclude Include="Sources\World\UI\UIImage.h" />
+    <ClInclude Include="Sources\World\UI\UIMenuScreen.h" />
     <ClInclude Include="Sources\World\UI\UIObject.h" />
     <ClInclude Include="Sources\World\Component\Rendering\UIImageRenderer.h" />
     <ClInclude Include="Sources\World\UI\UIText.h" />
