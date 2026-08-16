@@ -1,6 +1,7 @@
 #include "Screen.h"
 #include <DxLib.h>
 #include "../Component/RectTransform.h"
+#include "System/Input/Literal/InputState.h"
 
 namespace UI
 {

@@ -231,6 +231,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Scene\Test\SceneUITest.h" />
+    <ClInclude Include="Sources\System\Input\Literal\InputState.h" />
     <ClInclude Include="Sources\System\Resource\Effect.h" />
     <ClInclude Include="Sources\System\Resource\Font.h" />
     <ClInclude Include="Sources\System\Resource\Sound.h" />

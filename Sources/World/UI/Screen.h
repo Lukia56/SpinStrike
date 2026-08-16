@@ -3,6 +3,11 @@
 #include "UIObject.h"
 #include "Command.h"
 
+namespace Input
+{
+	struct UIInputState;
+}
+
 namespace UI
 {
 	/// <summary>
@@ -15,6 +20,8 @@ namespace UI
 
 		Screen();
 		virtual ~Screen() = default;
+
+		virtual void ProcessInput(const Input::UIInputState&) {};
 
 		/// <summary>
 		/// コマンドを取得し、初期値へ戻す

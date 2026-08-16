@@ -620,5 +620,8 @@
     <ClInclude Include="Sources\World\UI\MenuScreen.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\System\Input\Literal\InputState.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
