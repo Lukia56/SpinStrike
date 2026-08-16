@@ -1,4 +1,4 @@
-#include "UIImage.h"
+#include "ImageObject.h"
 #include <memory>
 #include <string>
 #include "../Component/RectTransform.h"
@@ -6,7 +6,7 @@
 
 namespace UI
 {
-	Image::Image(const std::string& texturePath) :
+	ImageObject::ImageObject(const std::string& texturePath) :
 		mRenderer(nullptr)
 	{
 		mRenderer = std::make_unique<UIImageRenderer>(this, mRectTransform);
@@ -15,20 +15,20 @@ namespace UI
 		SetRectSizeToTexSize();
 	}
 
-	void Image::Init()
+	void ImageObject::Init()
 	{
 	}
 
-	void Image::Update()
+	void ImageObject::Update()
 	{
 	}
 
-	void Image::Draw()
+	void ImageObject::Draw()
 	{
 		mRenderer->Draw();
 	}
 
-	void Image::SetRectSizeToTexSize()
+	void ImageObject::SetRectSizeToTexSize()
 	{
 		mRectTransform->SetFullRectAsFixed(mRenderer->GetTexSize());
 	}

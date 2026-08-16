@@ -1,5 +1,5 @@
-#include "UIMenuScreen.h"
-#include "UIMenuItem.h"
+#include "MenuScreen.h"
+#include "MenuItem.h"
 #include "../Other/RootObject.h"
 
 namespace UI

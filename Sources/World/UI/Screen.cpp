@@ -1,4 +1,4 @@
-#include "UIScreen.h"
+#include "Screen.h"
 #include <DxLib.h>
 #include "../Component/RectTransform.h"
 

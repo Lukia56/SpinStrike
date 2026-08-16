@@ -1,6 +1,6 @@
-#include "UITestScreen.h"
-#include "UIImage.h"
-#include "UIText.h"
+#include "TestScreen.h"
+#include "ImageObject.h"
+#include "TextObject.h"
 #include "../Component/RectTransform.h"
 
 namespace
@@ -11,9 +11,9 @@ namespace
 
 UI::TestScreen::TestScreen()
 {
-	auto image = CreateToChild<UI::Image>(kTexturePath);
+	auto image = CreateToChild<UI::ImageObject>(kTexturePath);
 	//image->GetRectTransform()->SetPivot(Vector2::Zero);
 
-	auto text = CreateToChild<UI::Text>(kFontPath, "Regular Text");
+	auto text = CreateToChild<UI::TextObject>(kFontPath, "Regular Text");
 	text->GetRectTransform()->SetFullRectAsFixed(Vector2(320, 100));
 }

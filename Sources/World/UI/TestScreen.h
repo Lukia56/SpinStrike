@@ -1,6 +1,6 @@
 #pragma once
 
-#include "UIScreen.h"
+#include "Screen.h"
 
 namespace UI
 {

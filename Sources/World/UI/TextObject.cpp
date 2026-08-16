@@ -1,4 +1,4 @@
-#include "UIText.h"
+#include "TextObject.h"
 #include <memory>
 #include <string>
 #include "../Component/RectTransform.h"
@@ -7,32 +7,32 @@
 
 namespace UI
 {
-	Text::Text(const std::string& fontPath, const std::string& displayText, const Color& color) :
+	TextObject::TextObject(const std::string& fontPath, const std::string& displayText, const Color& color) :
 		mRenderer(nullptr)
 	{
 		mRenderer = std::make_unique<TextRenderer>(this, mRectTransform, displayText, color);
 		mRenderer->Load(fontPath);
 	}
 
-	void Text::Init()
+	void TextObject::Init()
 	{
 	}
 
-	void Text::Update()
+	void TextObject::Update()
 	{
 	}
 
-	void Text::Draw()
+	void TextObject::Draw()
 	{
 		mRenderer->Draw();
 	}
 
-	void Text::SetDisplayText(const std::string& displayText)
+	void TextObject::SetDisplayText(const std::string& displayText)
 	{
 		mRenderer->SetDisplayText(displayText);
 	}
 
-	void Text::SetColor(const Color& color)
+	void TextObject::SetColor(const Color& color)
 	{
 		mRenderer->SetColor(color);
 	}

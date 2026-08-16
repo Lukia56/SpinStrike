@@ -11,12 +11,12 @@ namespace UI
 	/// UI画像を表示する
 	/// 矩形はテクスチャのサイズで初期化する
 	/// </summary>
-	class Image : public UIObject
+	class ImageObject : public UIObject
 	{
 	public:
 
-		Image(const std::string& texturePath);
-		~Image() = default;
+		ImageObject(const std::string& texturePath);
+		~ImageObject() = default;
 
 		void Init() override;
 

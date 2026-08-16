@@ -1,7 +1,7 @@
 #pragma once
 
 #include "UIObject.h"
-#include "UICommand.h"
+#include "Command.h"
 
 namespace UI
 {

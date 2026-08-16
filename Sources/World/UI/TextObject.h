@@ -12,12 +12,12 @@ namespace UI
 	/// 矩形の左上にUIテキストを表示する
 	/// 矩形は自分で設定する必要がある
 	/// </summary>
-	class Text : public UIObject
+	class TextObject : public UIObject
 	{
 	public:
 
-		Text(const std::string& fontPath, const std::string& displayText, const Color& color = Color::white);
-		~Text() = default;
+		TextObject(const std::string& fontPath, const std::string& displayText, const Color& color = Color::white);
+		~TextObject() = default;
 
 		void Init() override;
 
