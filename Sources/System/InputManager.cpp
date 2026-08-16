@@ -146,6 +146,20 @@ Vector3 InputManager::GetAsVector3(Input::Action action) const
 	return value;
 }
 
+Input::UIInputState InputManager::GetUIInputState() const
+{
+	Input::UIInputState state;
+
+	state.up = IsPressed(Input::Action::Up);
+	state.down = IsPressed(Input::Action::Down);
+	state.left = IsPressed(Input::Action::Left);
+	state.right = IsPressed(Input::Action::Right);
+	state.submit = IsPressed(Input::Action::Submit);
+	state.cancel = IsPressed(Input::Action::Cancel);
+
+	return state;
+}
+
 InputManager& InputManager::GetInstance()
 {
 	static InputManager instance;

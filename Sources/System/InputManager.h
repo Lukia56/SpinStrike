@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include "Input/Literal/InputActions.h"
 #include "Input/Literal/InputProperty.h"
+#include "Input/Literal/InputState.h"
 #include "Utility/Vector.h"
 
 class InputDeviceBase;
@@ -76,6 +77,8 @@ public:
 	/// Vector3のアナログ値として取得する
 	/// </summary>
 	Vector3 GetAsVector3(Input::Action action) const;
+
+	Input::UIInputState GetUIInputState() const;
 
 	/// <summary>
 	/// インスタンスの生成、取得を行う
