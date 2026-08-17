@@ -180,7 +180,7 @@ void RectTransform::CalculateRectX(Rect& rectResult, const Rect& rectParent)
 		mSizeDelta.x = mOffsetMax.x - mOffsetMin.x;
 
 		rectResult.xMin = minAnchoredPosX + mOffsetMin.x;
-		rectResult.width = maxAnchoredPosX + mSizeDelta.x;
+		rectResult.width = maxAnchoredPosX - minAnchoredPosX + mSizeDelta.x;
 	}
 	// サイズと基準点からの距離を固定する
 	else
@@ -206,7 +206,7 @@ void RectTransform::CalculateRectY(Rect& rectResult, const Rect& rectParent)
 		mSizeDelta.y = mOffsetMax.y - mOffsetMin.y;
 
 		rectResult.yMin = minAnchoredPosY + mOffsetMin.y;
-		rectResult.height = maxAnchoredPosY + mSizeDelta.y;
+		rectResult.height = maxAnchoredPosY - minAnchoredPosY + mSizeDelta.y;
 	}
 	// サイズと基準点からの距離を固定する
 	else

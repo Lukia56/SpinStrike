@@ -28,7 +28,9 @@ namespace UI
 		// 開始ボタン
 		auto startItem = itemRoot->CreateToChild<MenuItem>();
 		startItem->GetRectTransform()->localPosition.y = 0.0f;
+		startItem->GetRectTransform()->SetFullRectAsFixed(Vector2(160.0f, 32.0f));
 		TextObject* startText = startItem->CreateToChild<TextObject>(kFontPath, kStartText);
+		startText->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
 		
 		startItem->SetSelectCallback([startText]() { startText->SetColor(Color::yellow); });
 		startItem->SetDeselectCallback([startText]() { startText->SetColor(Color::white); });
@@ -36,7 +38,9 @@ namespace UI
 		// 設定ボタン
 		auto optionItem = itemRoot->CreateToChild<MenuItem>();
 		optionItem->GetRectTransform()->localPosition.y = 100.0f;
+		optionItem->GetRectTransform()->SetFullRectAsFixed(Vector2(160.0f, 32.0f));
 		TextObject* optionText = optionItem->CreateToChild<TextObject>(kFontPath, kOptionText);
+		optionText->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
 
 		optionItem->SetSelectCallback([optionText]() { optionText->SetColor(Color::yellow); });
 		optionItem->SetDeselectCallback([optionText]() { optionText->SetColor(Color::white); });
@@ -44,7 +48,9 @@ namespace UI
 		// 終了ボタン
 		auto exitItem = itemRoot->CreateToChild<MenuItem>();
 		exitItem->GetRectTransform()->localPosition.y = 200.0f;
+		exitItem->GetRectTransform()->SetFullRectAsFixed(Vector2(160.0f, 32.0f));
 		TextObject* exitText = exitItem->CreateToChild<TextObject>(kFontPath, kExitText);
+		exitText->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
 
 		exitItem->SetSelectCallback([exitText]() { exitText->SetColor(Color::yellow); });
 		exitItem->SetDeselectCallback([exitText]() { exitText->SetColor(Color::white); });
