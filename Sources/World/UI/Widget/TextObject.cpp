@@ -1,9 +1,9 @@
 #include "TextObject.h"
 #include <memory>
 #include <string>
-#include "../Component/RectTransform.h"
-#include "../Component/Rendering/TextAlignment.h"
-#include "../Component/Rendering/TextRenderer.h"
+#include "World/Component/RectTransform.h"
+#include "World/Component/Rendering/TextAlignment.h"
+#include "World/Component/Rendering/TextRenderer.h"
 #include "Utility/Color.h"
 
 namespace UI

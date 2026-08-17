@@ -1,9 +1,9 @@
 #pragma once
 
-#include "UIObject.h"
+#include "../Core/UIObject.h"
 #include <string>
 #include "Utility/Color.h"
-#include "../Component/Rendering/TextAlignment.h"
+#include "World/Component/Rendering/TextAlignment.h"
 
 class TextRenderer;
 

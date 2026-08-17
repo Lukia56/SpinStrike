@@ -1,6 +1,6 @@
 #pragma once
 
-#include "UIObject.h"
+#include "../Core/UIObject.h"
 #include <string>
 
 class UIImageRenderer;

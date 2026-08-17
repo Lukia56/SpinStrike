@@ -2,7 +2,7 @@
 #include <DxLib.h>
 #include "SceneSelectDebug.h"
 #include "System/Input/Keyboard.h"
-#include "World/UI/TestScreen.h"
+#include "World/UI/Test/TestScreen.h"
 
 SceneUITest::SceneUITest()
 {

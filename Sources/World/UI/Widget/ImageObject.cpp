@@ -1,8 +1,8 @@
 #include "ImageObject.h"
 #include <memory>
 #include <string>
-#include "../Component/RectTransform.h"
-#include "../Component/Rendering/UIImageRenderer.h"
+#include "World/Component/RectTransform.h"
+#include "World/Component/Rendering/UIImageRenderer.h"
 
 namespace UI
 {

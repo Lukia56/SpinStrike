@@ -1,10 +1,10 @@
 #include "TestOptionScreen.h"
 #include <DxLib.h>
-#include "ImageObject.h"
-#include "MenuItem.h"
-#include "TextObject.h"
+#include "../Core/UIRoot.h"
+#include "../Widget/ImageObject.h"
+#include "../Widget/MenuItem.h"
+#include "../Widget/TextObject.h"
 #include "System/Input/Literal/InputState.h"
-#include "UIRoot.h"
 
 namespace
 {

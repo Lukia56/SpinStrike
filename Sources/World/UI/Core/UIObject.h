@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../GameObject.h"
-#include "../Component/RectTransform.h"
+#include "World/GameObject.h"
+#include "World/Component/RectTransform.h"
 
 namespace UI
 {

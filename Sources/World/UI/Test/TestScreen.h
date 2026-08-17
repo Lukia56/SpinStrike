@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Screen.h"
+#include "../Core/Screen.h"
 
 namespace UI
 {
@@ -15,4 +15,3 @@ namespace UI
 		void Update() override {}
 	};
 }
-

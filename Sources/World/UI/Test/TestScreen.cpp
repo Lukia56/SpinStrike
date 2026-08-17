@@ -1,7 +1,7 @@
 #include "TestScreen.h"
-#include "ImageObject.h"
-#include "TextObject.h"
-#include "../Component/RectTransform.h"
+#include "../Widget/ImageObject.h"
+#include "../Widget/TextObject.h"
+#include "World/Component/RectTransform.h"
 
 namespace
 {

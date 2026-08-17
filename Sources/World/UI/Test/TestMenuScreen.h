@@ -1,19 +1,18 @@
 #pragma once
 
-#include "MenuScreen.h"
+#include "../Screen/MenuScreen.h"
 
 namespace UI
 {
-	class TestOptionScreen : public MenuScreen
+	class TestMenuScreen : public MenuScreen
 	{
 	public:
 
-		TestOptionScreen();
-		~TestOptionScreen() = default;
+		TestMenuScreen();
+		~TestMenuScreen() = default;
 
 		void Init() override;
 		void Update() override;
-		void Draw() override;
 
 		void Setup() override;
 

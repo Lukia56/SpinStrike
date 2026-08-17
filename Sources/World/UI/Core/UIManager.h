@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../GameObject.h"
+#include "World/GameObject.h"
 #include <stack>
 #include <typeindex>
 #include <unordered_map>
 #include "Command.h"
-#include "../Other/RootObject.h"
+#include "World/Other/RootObject.h"
 
 namespace Input
 {

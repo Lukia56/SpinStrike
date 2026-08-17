@@ -2,9 +2,9 @@
 #include "SceneSelectDebug.h"
 #include "System/InputManager.h"
 #include "System/Input/Keyboard.h"
-#include "World/UI/TestMenuScreen.h"
-#include "World/UI/TestOptionScreen.h"
-#include "World/UI/UIManager.h"
+#include "World/UI/Core/UIManager.h"
+#include "World/UI/Test/TestMenuScreen.h"
+#include "World/UI/Test/TestOptionScreen.h"
 
 SceneMenuUITest::SceneMenuUITest() :
 	mUIManager(nullptr)
@@ -16,6 +16,7 @@ void SceneMenuUITest::OnInit()
 	mUIManager = CreateToRoot<UI::UIManager>();
 	mUIManager->AddScreenToPool(std::make_unique<UI::TestMenuScreen>());
 	mUIManager->AddScreenToPool(std::make_unique<UI::TestOptionScreen>());
+
 	mUIManager->PushScreen<UI::TestMenuScreen>();
 }
 

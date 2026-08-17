@@ -1,6 +1,6 @@
 #include "MenuScreen.h"
-#include "MenuItem.h"
-#include "UIRoot.h"
+#include "../Widget/MenuItem.h"
+#include "../Core/UIRoot.h"
 
 namespace UI
 {
