@@ -49,6 +49,13 @@ namespace UI
 
 	private:
 
+		/// <summary>
+		/// カーソル位置を設定し、メニュー項目の選択・選択解除コールバックを呼ぶ
+		/// </summary>
+		void SetCursorPos(int nextPos);
+
+	private:
+
 		int mCursorPos;
 		
 		UIRoot* mMenuItemRoot;

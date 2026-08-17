@@ -13,35 +13,33 @@ namespace UI
 
 	void MenuScreen::Setup()
 	{
-		mCursorPos = 0;
+		SetCursorPos(0);
 	}
 
 	void MenuScreen::MoveCursorNext()
 	{
 		if (mMenuItems.empty()) return;
 
-		mCursorPos++;
-		mCursorPos = Math::Clamp(mCursorPos, 0, static_cast<int>(mMenuItems.size()) - 1);
+		SetCursorPos(mCursorPos + 1);
 	}
 
 	void MenuScreen::MoveCursorPrev()
 	{
 		if (mMenuItems.empty()) return;
 
-		mCursorPos--;
-		mCursorPos = Math::Clamp(mCursorPos, 0, static_cast<int>(mMenuItems.size()) - 1);
+		SetCursorPos(mCursorPos - 1);
 	}
 
 	bool MenuScreen::InvokeSubmit()
 	{
-		if (mMenuItems.empty()) return true;
+		if (mMenuItems.size() <= mCursorPos) return true;
 
 		return mMenuItems[mCursorPos]->InvokeSubmit();
 	}
 
 	bool MenuScreen::InvokeCancel()
 	{
-		if (mMenuItems.empty()) return true;
+		if (mMenuItems.size() <= mCursorPos) return true;
 
 		return mMenuItems[mCursorPos]->InvokeCancel();
 	}
@@ -49,5 +47,18 @@ namespace UI
 	void MenuScreen::AddMenuItem(MenuItem* menuItem)
 	{
 		mMenuItems.emplace_back(menuItem);
+	}
+
+	void MenuScreen::SetCursorPos(int nextPos)
+	{
+		int prevPos = mCursorPos;
+
+		mCursorPos = nextPos;
+		mCursorPos = Math::Clamp(mCursorPos, 0, static_cast<int>(mMenuItems.size()) - 1);
+
+		if (mCursorPos == prevPos) return;
+
+		if (mMenuItems.size() > prevPos) mMenuItems[prevPos]->InvokeDeselect();
+		if (mMenuItems.size() > mCursorPos) mMenuItems[mCursorPos]->InvokeSelect();
 	}
 } 

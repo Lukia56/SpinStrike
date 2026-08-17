@@ -3,10 +3,22 @@
 
 namespace UI
 {
-	MenuItem::MenuItem(const std::function<bool(void)>& onSubmit, const std::function<bool(void)>& onCancel) :
-		mOnSubmit(onSubmit),
-		mOnCancel(onCancel)
+	MenuItem::MenuItem()
 	{
+	}
+
+	void MenuItem::InvokeSelect()
+	{
+		if (!mOnSelect) return;
+
+		mOnSelect();
+	}
+
+	void MenuItem::InvokeDeselect()
+	{
+		if (!mOnDeselect) return;
+
+		mOnDeselect();
 	}
 
 	bool MenuItem::InvokeSubmit()
