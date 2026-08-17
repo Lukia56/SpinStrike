@@ -2,11 +2,10 @@
 
 #include "Screen.h"
 
-class RootObject;
-
 namespace UI
 {
 	class MenuItem;
+	class UIRoot;
 
 	/// <summary>
 	/// ‘€ì‰Â”\‚Èƒƒjƒ…[‰æ–Ê
@@ -46,13 +45,13 @@ namespace UI
 
 	protected:
 
-		RootObject* GetMenuItemRoot() const { return mMenuItemRoot; }
+		UIRoot* GetMenuItemRoot() const { return mMenuItemRoot; }
 
 	private:
 
 		int mCursorPos;
 		
-		RootObject* mMenuItemRoot;
+		UIRoot* mMenuItemRoot;
 
 		std::vector<MenuItem*> mMenuItems;
 	};

@@ -1,6 +1,6 @@
 #include "MenuScreen.h"
 #include "MenuItem.h"
-#include "../Other/RootObject.h"
+#include "UIRoot.h"
 
 namespace UI
 {
@@ -8,7 +8,7 @@ namespace UI
 		mCursorPos(-1),
 		mMenuItemRoot(nullptr)
 	{
-		mMenuItemRoot = CreateToChild<RootObject>();
+		mMenuItemRoot = CreateToChild<UIRoot>();
 	}
 
 	void MenuScreen::Setup()
