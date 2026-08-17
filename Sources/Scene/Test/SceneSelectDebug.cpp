@@ -3,6 +3,7 @@
 #include "SceneCollisionTest.h"
 #include "SceneEffekseerTest.h"
 #include "SceneLoadStageTest.h"
+#include "SceneMenuUITest.h"
 #include "SceneStageTest.h"
 #include "SceneUITest.h"
 #include "System/InputManager.h"
@@ -36,6 +37,10 @@ void SceneSelectDebug::OnInit()
 
 	info.name = "UITest";
 	info.createSceneFunc = []() { return std::make_unique<SceneUITest>(); };
+	mSceneList.emplace_back(info);
+
+	info.name = "MenuUITest";
+	info.createSceneFunc = []() { return std::make_unique<SceneMenuUITest>(); };
 	mSceneList.emplace_back(info);
 
 	Mouse::GetInstance().SetMode(Mouse::Mode::Absolute);

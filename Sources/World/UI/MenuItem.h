@@ -12,8 +12,11 @@ namespace UI
 	{
 	public:
 
-		MenuItem(const std::function<bool(void)>& onSubmit, const std::function<bool(void)>& onCancel);
+		MenuItem(const std::function<bool(void)>& onSubmit, const std::function<bool(void)>& onCancel = std::function<bool(void)>());
 		~MenuItem() = default;
+
+		void Init() override {};
+		void Update() override {};
 
 		/// <summary>
 		/// 決定時のコールバックを呼び出す

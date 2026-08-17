@@ -8,5 +8,6 @@ namespace UI
 	enum class Command
 	{
 		None = -1,
+		ExitTestScene,
 	};
 }
