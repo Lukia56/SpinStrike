@@ -27,37 +27,6 @@ Rect RectTransform::CalculateRect()
 
 	Rect rectResult{};
 
-	/*
-	if (mAnchorMin == mAnchorMax)
-	{
-		Vector2 anchoredPos = Vector2(
-		parentRect.xMin + parentRect.width * mAnchorMin.x,
-		parentRect.yMin + parentRect.height * mAnchorMin.y);
-
-		result.xMin = anchoredPos.x - mSizeDelta.x * mPivot.x + localPosition.x;
-		result.width = mSizeDelta.x;
-
-		result.yMin = anchoredPos.y - mSizeDelta.y * mPivot.y + localPosition.y;
-		result.height = mSizeDelta.y;
-	}
-	else
-	{
-		Vector2 minAnchoredPos = Vector2(
-			parentRect.xMin + parentRect.width * mAnchorMin.x,
-			parentRect.yMin + parentRect.height * mAnchorMin.y);
-		
-		Vector2 maxAnchoredPos = Vector2(
-			parentRect.xMin + parentRect.width * mAnchorMax.x,
-			parentRect.yMin + parentRect.height * mAnchorMax.y);
-
-		result.xMin = minAnchoredPos.x + mMinOffset.x;
-		result.width = (maxAnchoredPos.x - minAnchoredPos.x) + mMaxOffset.x;
-
-		result.yMin = minAnchoredPos.y + mMinOffset.y;
-		result.height = (maxAnchoredPos.y - minAnchoredPos.y) + mMaxOffset.y;
-	}
-	*/
-
 	CalculateRectX(rectResult, rectParent);
 	CalculateRectY(rectResult, rectParent);
 
