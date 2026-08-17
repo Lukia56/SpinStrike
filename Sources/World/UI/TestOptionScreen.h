@@ -4,15 +4,16 @@
 
 namespace UI
 {
-	class TestMenuScreen : public MenuScreen
+	class TestOptionScreen : public MenuScreen
 	{
 	public:
 
-		TestMenuScreen();
-		~TestMenuScreen() = default;
+		TestOptionScreen();
+		~TestOptionScreen() = default;
 
 		void Init() override;
 		void Update() override;
+		void Draw() override;
 
 		void Setup() override;
 

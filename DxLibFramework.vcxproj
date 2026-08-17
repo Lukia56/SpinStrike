@@ -230,6 +230,8 @@
     <ClCompile Include="Sources\World\UI\TextObject.cpp" />
     <ClCompile Include="Sources\World\UI\MenuItem.cpp" />
     <ClCompile Include="Sources\World\UI\TestScreen.cpp" />
+    <ClCompile Include="Sources\World\UI\UIManager.cpp" />
+    <ClCompile Include="Sources\World\UI\TestOptionScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Scene\Test\SceneMenuUITest.h" />
@@ -350,6 +352,8 @@
     <ClInclude Include="Sources\World\UI\Screen.h" />
     <ClInclude Include="Sources\World\UI\TestScreen.h" />
     <ClInclude Include="Sources\World\UI\UIRoot.h" />
+    <ClInclude Include="Sources\World\UI\UIManager.h" />
+    <ClInclude Include="Sources\World\UI\TestOptionScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

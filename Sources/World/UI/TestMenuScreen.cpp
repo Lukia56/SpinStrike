@@ -48,6 +48,11 @@ namespace UI
 
 		optionItem->SetSelectCallback([optionText]() { optionText->SetColor(Color::yellow); });
 		optionItem->SetDeselectCallback([optionText]() { optionText->SetColor(Color::white); });
+		optionItem->SetSubmitCallback([this]()
+			{
+				this->SetCommand(Command::OpenOptions);
+				return true;
+			});
 
 		// I—¹ƒ{ƒ^ƒ“
 		auto exitItem = itemRoot->CreateToChild<MenuItem>();
@@ -93,6 +98,10 @@ namespace UI
 		if (input.submit)
 		{
 			if (!InvokeSubmit()) return false;
+		}
+		if (input.cancel)
+		{
+			if (!InvokeCancel()) return false;
 		}
 
 		return true;

@@ -3,16 +3,20 @@
 #include "System/InputManager.h"
 #include "System/Input/Keyboard.h"
 #include "World/UI/TestMenuScreen.h"
+#include "World/UI/TestOptionScreen.h"
+#include "World/UI/UIManager.h"
 
 SceneMenuUITest::SceneMenuUITest() :
-	mScreen(nullptr)
+	mUIManager(nullptr)
 {
 }
 
 void SceneMenuUITest::OnInit()
 {
-	mScreen = CreateToRoot<UI::TestMenuScreen>();
-	mScreen->Setup();
+	mUIManager = CreateToRoot<UI::UIManager>();
+	mUIManager->AddScreenToPool(std::make_unique<UI::TestMenuScreen>());
+	mUIManager->AddScreenToPool(std::make_unique<UI::TestOptionScreen>());
+	mUIManager->PushScreen<UI::TestMenuScreen>();
 }
 
 std::unique_ptr<SceneBase> SceneMenuUITest::OnUpdate()
@@ -22,12 +26,26 @@ std::unique_ptr<SceneBase> SceneMenuUITest::OnUpdate()
 		return std::make_unique<SceneSelectDebug>();
 	}
 
-	mScreen->ProcessInput(InputManager::GetInstance().GetUIInputState());
+	if (Keyboard::GetInstance().IsDown(KEY_INPUT_Y))
+	{
+		mUIManager->PushScreen<UI::TestMenuScreen>();
+	}
+	if (Keyboard::GetInstance().IsDown(KEY_INPUT_T))
+	{
+		mUIManager->PopScreen();
+	}
 
-	UI::Command command = mScreen->ConsumeCommand();
+	mUIManager->ProcessInput(InputManager::GetInstance().GetUIInputState());
+
+	UI::Command command = mUIManager->ConsumeCommand();
 	if (command == UI::Command::ExitTestScene)
 	{
 		return std::make_unique<SceneSelectDebug>();
+	}
+	else
+	if (command == UI::Command::OpenOptions)
+	{
+		mUIManager->PushScreen<UI::TestOptionScreen>();
 	}
 
 	return nullptr;

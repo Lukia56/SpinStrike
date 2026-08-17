@@ -19,10 +19,8 @@ namespace UI
 
 		/// <summary>
 		/// 使用前準備処理
-		/// 基底ではカーソル位置をリセットする
-		/// <para>プールから取得された際に呼ぶ</para>
 		/// </summary>
-		virtual void Setup();
+		virtual void Setup() override;
 
 	protected:
 

@@ -9,5 +9,6 @@ namespace UI
 	{
 		None = -1,
 		ExitTestScene,
+		OpenOptions,
 	};
 }

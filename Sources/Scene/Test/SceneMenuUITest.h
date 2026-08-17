@@ -4,7 +4,7 @@
 
 namespace UI
 {
-	class TestMenuScreen;
+	class UIManager;
 }
 
 class SceneMenuUITest : public SceneBase
@@ -20,5 +20,5 @@ public:
 
 private:
 
-	UI::TestMenuScreen* mScreen;
+	UI::UIManager* mUIManager;
 };
