@@ -34,14 +34,14 @@ namespace UI
 
 	bool MenuScreen::InvokeSubmit()
 	{
-		if (mMenuItems.empty()) return;
+		if (mMenuItems.empty()) return true;
 
 		return mMenuItems[mCursorPos]->InvokeSubmit();
 	}
 
 	bool MenuScreen::InvokeCancel()
 	{
-		if (mMenuItems.empty()) return;
+		if (mMenuItems.empty()) return true;
 
 		return mMenuItems[mCursorPos]->InvokeCancel();
 	}
