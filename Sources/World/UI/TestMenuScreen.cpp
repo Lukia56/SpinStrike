@@ -30,6 +30,8 @@ namespace UI
 		startItem->GetRectTransform()->localPosition.y = 0.0f;
 		startItem->GetRectTransform()->SetFullRectAsFixed(Vector2(160.0f, 32.0f));
 		TextObject* startText = startItem->CreateToChild<TextObject>(kFontPath, kStartText);
+		startText->SetHolizontalAlignment(HolizontalAlignment::Center);
+		startText->SetVerticalAlignment(VerticalAlignment::Middle);
 		startText->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
 		
 		startItem->SetSelectCallback([startText]() { startText->SetColor(Color::yellow); });
@@ -40,6 +42,8 @@ namespace UI
 		optionItem->GetRectTransform()->localPosition.y = 100.0f;
 		optionItem->GetRectTransform()->SetFullRectAsFixed(Vector2(160.0f, 32.0f));
 		TextObject* optionText = optionItem->CreateToChild<TextObject>(kFontPath, kOptionText);
+		optionText->SetHolizontalAlignment(HolizontalAlignment::Center);
+		optionText->SetVerticalAlignment(VerticalAlignment::Middle);
 		optionText->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
 
 		optionItem->SetSelectCallback([optionText]() { optionText->SetColor(Color::yellow); });
@@ -50,6 +54,8 @@ namespace UI
 		exitItem->GetRectTransform()->localPosition.y = 200.0f;
 		exitItem->GetRectTransform()->SetFullRectAsFixed(Vector2(160.0f, 32.0f));
 		TextObject* exitText = exitItem->CreateToChild<TextObject>(kFontPath, kExitText);
+		exitText->SetHolizontalAlignment(HolizontalAlignment::Center);
+		exitText->SetVerticalAlignment(VerticalAlignment::Middle);
 		exitText->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
 
 		exitItem->SetSelectCallback([exitText]() { exitText->SetColor(Color::yellow); });

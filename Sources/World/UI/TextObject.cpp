@@ -2,6 +2,7 @@
 #include <memory>
 #include <string>
 #include "../Component/RectTransform.h"
+#include "../Component/Rendering/TextAlignment.h"
 #include "../Component/Rendering/TextRenderer.h"
 #include "Utility/Color.h"
 
@@ -35,5 +36,15 @@ namespace UI
 	void TextObject::SetColor(const Color& color)
 	{
 		mRenderer->SetColor(color);
+	}
+
+	void TextObject::SetHolizontalAlignment(HolizontalAlignment alignment)
+	{
+		mRenderer->SetHolizontalAlignment(alignment);
+	}
+
+	void TextObject::SetVerticalAlignment(VerticalAlignment alignment)
+	{
+		mRenderer->SetVerticalAlignment(alignment);
 	}
 }

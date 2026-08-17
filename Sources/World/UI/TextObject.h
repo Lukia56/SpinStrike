@@ -3,6 +3,7 @@
 #include "UIObject.h"
 #include <string>
 #include "Utility/Color.h"
+#include "../Component/Rendering/TextAlignment.h"
 
 class TextRenderer;
 
@@ -29,6 +30,8 @@ namespace UI
 
 		void SetDisplayText(const std::string& displayText);
 		void SetColor(const Color& color);
+		void SetHolizontalAlignment(HolizontalAlignment alignment);
+		void SetVerticalAlignment(VerticalAlignment alignment);
 
 	private:
 

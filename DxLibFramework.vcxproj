@@ -244,6 +244,7 @@
     <ClInclude Include="Sources\World\Component\EffectAnimator.h" />
     <ClInclude Include="Sources\World\Component\RectTransform.h" />
     <ClInclude Include="Sources\World\Component\Rendering\ModelInstance.h" />
+    <ClInclude Include="Sources\World\Component\Rendering\TextAlignment.h" />
     <ClInclude Include="Sources\World\Test\EffectTest.h" />
     <ClInclude Include="Sources\Scene\Test\SceneEffekseerTest.h" />
     <ClInclude Include="Sources\System\EffekseerManager.h" />

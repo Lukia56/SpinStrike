@@ -638,5 +638,8 @@
     <ClInclude Include="Sources\World\UI\TestMenuScreen.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\World\Component\Rendering\TextAlignment.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
