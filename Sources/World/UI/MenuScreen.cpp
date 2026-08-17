@@ -32,18 +32,18 @@ namespace UI
 		mCursorPos = Math::Clamp(mCursorPos, 0, static_cast<int>(mMenuItems.size()) - 1);
 	}
 
-	void MenuScreen::InvokeSubmit()
+	bool MenuScreen::InvokeSubmit()
 	{
 		if (mMenuItems.empty()) return;
 
-		mMenuItems[mCursorPos]->InvokeSubmit();
+		return mMenuItems[mCursorPos]->InvokeSubmit();
 	}
 
-	void MenuScreen::InvokeCancel()
+	bool MenuScreen::InvokeCancel()
 	{
 		if (mMenuItems.empty()) return;
 
-		mMenuItems[mCursorPos]->InvokeCancel();
+		return mMenuItems[mCursorPos]->InvokeCancel();
 	}
 
 	void MenuScreen::AddMenuItem(MenuItem* menuItem)

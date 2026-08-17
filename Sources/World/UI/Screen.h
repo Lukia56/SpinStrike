@@ -21,7 +21,7 @@ namespace UI
 		Screen();
 		virtual ~Screen() = default;
 
-		virtual void ProcessInput(const Input::UIInputState&) {};
+		virtual bool ProcessInput(const Input::UIInputState&) {};
 
 		/// <summary>
 		/// コマンドを取得し、初期値へ戻す

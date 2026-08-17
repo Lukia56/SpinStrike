@@ -29,8 +29,18 @@ namespace UI
 
 		void MoveCursorNext();
 		void MoveCursorPrev();
-		void InvokeSubmit();
-		void InvokeCancel();
+
+		/// <summary>
+		/// 決定時のコールバックを呼び出す
+		/// </summary>
+		/// <returns>画面を閉じるならfalseを返す</returns>
+		bool InvokeSubmit();
+
+		/// <summary>
+		/// キャンセル時のコールバックを呼び出す
+		/// </summary>
+		/// <returns>画面を閉じるならfalseを返す</returns>
+		bool InvokeCancel();
 
 		void AddMenuItem(MenuItem* menuItem);
 
