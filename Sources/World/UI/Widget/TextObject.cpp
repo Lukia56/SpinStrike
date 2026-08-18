@@ -8,10 +8,10 @@
 
 namespace UI
 {
-	TextObject::TextObject(const std::string& fontPath, const std::string& displayText, const Color& color) :
+	TextObject::TextObject(const std::string& fontPath, const std::string& displayText, const Color& color, HolizontalAlignment hAlign, VerticalAlignment vAlign) :
 		mRenderer(nullptr)
 	{
-		mRenderer = std::make_unique<TextRenderer>(this, mRectTransform, displayText, color);
+		mRenderer = std::make_unique<TextRenderer>(this, mRectTransform, displayText, color, hAlign, vAlign);
 		mRenderer->Load(fontPath);
 	}
 

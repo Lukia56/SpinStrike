@@ -6,12 +6,12 @@
 #include "Utility/Color.h"
 #include "Utility/Rect.h"
 
-TextRenderer::TextRenderer(GameObject* owner, RectTransform* rectTransform, const std::string& displayText, const Color& color) :
+TextRenderer::TextRenderer(GameObject* owner, RectTransform* rectTransform, const std::string& displayText, const Color& color, HolizontalAlignment hAlign, VerticalAlignment vAlign) :
 	Renderer(owner),
 	mDisplayText(displayText),
 	mColor(color),
-	mHolizontalAlignment(HolizontalAlignment::Left),
-	mVerticalAlignment(VerticalAlignment::Top),
+	mHolizontalAlignment(hAlign),
+	mVerticalAlignment(vAlign),
 	mRectTransform(rectTransform)
 {
 }

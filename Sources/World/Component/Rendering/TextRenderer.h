@@ -20,7 +20,8 @@ class TextRenderer : public Renderer<Resource::Font>
 {
 public:
 
-	TextRenderer(GameObject* owner, RectTransform* rectTransform, const std::string& displayText = "", const Color& color = Color::white);
+	TextRenderer(GameObject* owner, RectTransform* rectTransform, const std::string& displayText = "", const Color& color = Color::white,
+		HolizontalAlignment hAlign = HolizontalAlignment::Left, VerticalAlignment vAlign = VerticalAlignment::Top);
 	~TextRenderer() = default;
 
 	/// <summary>
