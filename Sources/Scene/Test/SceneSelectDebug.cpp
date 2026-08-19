@@ -6,6 +6,7 @@
 #include "SceneMenuUITest.h"
 #include "SceneStageTest.h"
 #include "SceneUITest.h"
+#include "../SceneTitle.h"
 #include "System/InputManager.h"
 #include "System/Input/Mouse.h"
 #include "Utility/Color.h"
@@ -41,6 +42,10 @@ void SceneSelectDebug::OnInit()
 
 	info.name = "MenuUITest";
 	info.createSceneFunc = []() { return std::make_unique<SceneMenuUITest>(); };
+	mSceneList.emplace_back(info);
+
+	info.name = "Title";
+	info.createSceneFunc = []() { return std::make_unique<SceneTitle>(); };
 	mSceneList.emplace_back(info);
 
 	Mouse::GetInstance().SetMode(Mouse::Mode::Absolute);

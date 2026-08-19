@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\Scene\SceneTitle.cpp" />
     <ClCompile Include="Sources\Scene\Test\SceneMenuUITest.cpp" />
     <ClCompile Include="Sources\Scene\Test\SceneUITest.cpp" />
     <ClCompile Include="Sources\System\Resource\Effect.cpp" />
@@ -232,8 +233,10 @@
     <ClCompile Include="Sources\World\UI\Test\TestScreen.cpp" />
     <ClCompile Include="Sources\World\UI\Core\UIManager.cpp" />
     <ClCompile Include="Sources\World\UI\Test\TestOptionScreen.cpp" />
+    <ClCompile Include="Sources\World\UI\Screen\TitleMenuScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\Scene\SceneTitle.h" />
     <ClInclude Include="Sources\Scene\Test\SceneMenuUITest.h" />
     <ClInclude Include="Sources\Scene\Test\SceneUITest.h" />
     <ClInclude Include="Sources\System\Input\Literal\InputState.h" />
@@ -354,6 +357,7 @@
     <ClInclude Include="Sources\World\UI\Core\UIRoot.h" />
     <ClInclude Include="Sources\World\UI\Core\UIManager.h" />
     <ClInclude Include="Sources\World\UI\Test\TestOptionScreen.h" />
+    <ClInclude Include="Sources\World\UI\Screen\TitleMenuScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
