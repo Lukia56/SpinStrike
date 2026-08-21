@@ -3,6 +3,7 @@
 #include "../SceneBase.h"
 
 class Player;
+class Enemy;
 
 class SceneStageTest : public SceneBase
 {
@@ -19,4 +20,6 @@ public:
 private:
 
 	Player* mPlayer;
+
+	Enemy* mEnemy;
 };

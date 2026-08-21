@@ -2,6 +2,7 @@
 #include "SceneSelectDebug.h"
 #include "World/Character/Player.h"
 #include "World/Character/PlayerBulletManager.h"
+#include "World/Character/Enemy.h"
 #include "World/Other/RootObject.h"
 #include "World/Other/StageManager.h"
 #include "Camera/CameraFollow.h"
@@ -15,7 +16,8 @@ namespace
 }
 
 SceneStageTest::SceneStageTest() :
-	mPlayer(nullptr)
+	mPlayer(nullptr),
+	mEnemy(nullptr)
 {
 }
 
@@ -31,6 +33,9 @@ void SceneStageTest::OnInit()
 
 	mPlayer = objectRoot->CreateToChild<Player>(bulletManager);
 	mPlayer->GetTransform()->localPosition.y = 200.0f;
+
+	mEnemy = objectRoot->CreateToChild<Enemy>();
+	mEnemy->GetTransform()->localPosition = Vector3(0.0f, 100.0f, 0.0f);
 	
 	objectRoot->CreateToChild<StageManager>(kStageObjectDataPath);
 
