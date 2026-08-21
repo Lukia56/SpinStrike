@@ -25,6 +25,7 @@ public:
 		Player,
 		Terrain,
 		Tornado,
+		Enemy,
 	};
 
 	virtual void Init() = 0;

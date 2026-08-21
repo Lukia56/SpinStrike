@@ -15,9 +15,9 @@ public:
 
 	void Finalize() override;
 
-	void PhysicsUpdate() override;
-
 	void Update() override;
+
+	void PhysicsUpdate() override;
 
 	void Draw() override;
 
@@ -26,6 +26,13 @@ public:
 	void ResolveCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider) override;
 
 private:
+
+	/// <summary>
+	/// 吸い込みに耐えるタイマー
+	/// </summary>
+	float mEnduranceTimer;
+
+	bool mIsHitTornado;
 
 	std::unique_ptr<Collider3D> mCollider;
 };
