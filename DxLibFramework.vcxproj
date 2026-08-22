@@ -248,6 +248,8 @@
     <ClInclude Include="Sources\System\Resource\Model.h" />
     <ClInclude Include="Sources\System\Resource\Texture.h" />
     <ClInclude Include="Sources\Utility\Rect.h" />
+    <ClInclude Include="Sources\State\IState.h" />
+    <ClInclude Include="Sources\State\StateContext.h" />
     <ClInclude Include="Sources\World\Component\EffectAnimator.h" />
     <ClInclude Include="Sources\World\Component\RectTransform.h" />
     <ClInclude Include="Sources\World\Component\Rendering\ModelInstance.h" />
