@@ -8,7 +8,7 @@ class Enemy : public GameObject
 {
 public:
 
-	Enemy();
+	Enemy(Transform* playerTransform);
 	~Enemy() = default;
 
 	void Init() override;
@@ -27,6 +27,16 @@ public:
 
 private:
 
+	void ResolvePush();
+
+private:
+
+	Vector3 mVelocity;
+
+	Vector3 mMoveVec;
+
+	Vector3 mCollisionPush;
+
 	/// <summary>
 	/// 吸い込みに耐えるタイマー
 	/// </summary>
@@ -35,4 +45,6 @@ private:
 	bool mIsHitTornado;
 
 	std::unique_ptr<Collider3D> mCollider;
+
+	Transform* mPlayerTransform;
 };

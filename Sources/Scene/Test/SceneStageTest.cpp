@@ -34,7 +34,7 @@ void SceneStageTest::OnInit()
 	mPlayer = objectRoot->CreateToChild<Player>(bulletManager);
 	mPlayer->GetTransform()->localPosition.y = 200.0f;
 
-	mEnemy = objectRoot->CreateToChild<Enemy>();
+	mEnemy = objectRoot->CreateToChild<Enemy>(mPlayer->GetTransform());
 	mEnemy->GetTransform()->localPosition = Vector3(0.0f, 100.0f, 0.0f);
 	
 	objectRoot->CreateToChild<StageManager>(kStageObjectDataPath);
