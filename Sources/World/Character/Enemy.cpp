@@ -4,6 +4,8 @@
 #include <memory>
 #include <DxLib.h>
 #include <imgui.h>
+#include "State/StateContext.h"
+#include "State/Enemy/StateEnemyFollow.h"
 #include "../Character/PlayerTornado.h"
 #include "../Component/Collider3D.h"
 #include "Collision/Collision3D.h"
@@ -11,8 +13,6 @@
 
 namespace
 {
-	constexpr float kMoveSpeed = 100.0f;
-
 	constexpr Vector3 kCollisionSize{ 50.0f, 50.0f, 50.0f };
 
 	constexpr float kEnduranceTime = 0.5f;
@@ -22,6 +22,7 @@ Enemy::Enemy(Transform* playerTransform) :
 	mEnduranceTimer(0.0f),
 	mIsHitTornado(false),
 	mCollider(nullptr),
+	mStateContext(nullptr),
 	mPlayerTransform(playerTransform)
 {
 	SetTag(Tag::Enemy);
@@ -30,6 +31,8 @@ Enemy::Enemy(Transform* playerTransform) :
 				std::make_unique<Collision::AABB3D>(kCollisionSize),
 				this,
 				Collision::Tag::Body);
+
+	mStateContext = std::make_unique<StateContext<Enemy>>(this, std::make_unique<StateEnemyFollow>());
 }
 
 void Enemy::Init()
@@ -44,14 +47,7 @@ void Enemy::Update()
 {
 	ResolvePush();
 
-	Vector3 vecToPlayer = mPlayerTransform->localPosition - mTransform->localPosition;
-	Vector3 ToPlayerNorm = vecToPlayer.GetNormalize();
-	ToPlayerNorm.y = 0.0f;
-
-	float moveDir = mTransform->CalculateWorldRotation().y;
-	mMoveVec = Vector3(std::cos(moveDir), 0.0f, std::sin(moveDir));
-
-	mVelocity = ToPlayerNorm * kMoveSpeed;
+	mStateContext->Update();
 
 	if (mIsHitTornado)
 	{
@@ -84,6 +80,9 @@ void Enemy::DebugDraw()
 
 	if (ImGui::Begin("Enemy"))
 	{
+		float velPtr[] = { mVelocity.x, mVelocity.y, mVelocity.z};
+		ImGui::InputFloat3("Velocity", velPtr, "%.1f");
+
 		ImGui::Text("EnduranceTimer : %f", mEnduranceTimer);
 
 		ImGui::End();
