@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\State\Enemy\Action\EnemyActionBase.cpp" />
     <ClCompile Include="Sources\World\Character\Enemy.cpp" />
     <ClCompile Include="Sources\Scene\SceneTitle.cpp" />
     <ClCompile Include="Sources\Scene\Test\SceneMenuUITest.cpp" />
@@ -239,6 +240,7 @@
     <ClCompile Include="Sources\State\Enemy\StateEnemyPatrolling.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\State\Enemy\Action\EnemyActionBase.h" />
     <ClInclude Include="Sources\World\Character\Enemy.h" />
     <ClInclude Include="Sources\Scene\SceneTitle.h" />
     <ClInclude Include="Sources\Scene\Test\SceneMenuUITest.h" />
