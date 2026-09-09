@@ -1,0 +1,55 @@
+{
+    "waypointGroupID": 0,
+    "isLoop": true,
+    "waypointActions": [
+        {
+            "waypointID": 0,
+            "actions": [
+                {
+                    "actionType": "moveForward",
+                    "arguments": { "move": 10 }
+                },
+                {
+                    "actionType": "resetPos",
+                    "arguments": {}
+                },
+                {
+                    "actionType": "if",
+                    "arguments": {
+                        "left": "distancePlayer",
+                        "right": "200",
+                        "operator": "<",
+                        "endPos": 4
+                    }
+                },
+                {
+                    "actionType": "moveForward",
+                    "arguments": { "move": 25 }
+                },
+                {
+                    "actionType": "endIf",
+                    "arguments": {}
+                },
+                {
+                    "actionType": "wait",
+                    "arguments": { "second": 1.5 }
+                },
+                {
+                    "actionType": "repeat",
+                    "arguments": {
+                        "number": 5,
+                        "endPos": 8
+                    }
+                },
+                {
+                    "actionType": "moveForward",
+                    "arguments": { "move": 25 }
+                },
+                {
+                    "actionType": "endRepeat",
+                    "arguments": {}
+                }
+            ]
+        }
+    ]
+}

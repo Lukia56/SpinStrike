@@ -4,6 +4,7 @@
 #include "../Data.h"
 #include "Param/TempParam.h"
 #include "Utility/Vector.h"
+#include "State/Enemy/Action/EnemyActionTest.h"
 
 namespace Data
 {
@@ -99,6 +100,7 @@ inline void from_json(const Data::Json::JsonObject& j, std::unique_ptr<EnemyActi
 	std::string actionType = j.at("actionType").get<std::string>();
 
 	// アクションタイプに応じたアクションを生成
+	action = std::make_unique<EnemyActionTest>();
 }
 
 inline void from_json(const Data::Json::JsonObject& j, WaypointActionData& waypointAction)
