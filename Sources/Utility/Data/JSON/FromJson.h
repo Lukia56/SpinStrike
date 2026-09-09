@@ -53,5 +53,20 @@ namespace Data
 				return param;
 			}
 		};
+
+		template <>
+		struct FromJson<EnemyPatrollingData>
+		{
+			static EnemyPatrollingData Binding(const JsonObject& json)
+			{
+				EnemyPatrollingData data;
+
+				data.waypointGroupID = Get<int>(json, "waypointGroupID");
+				data.isLoop = Get<bool>(json, "isLoop");
+				data.waypointActions = Get<std::vector<WaypointActionData>>(json, "waypointActions");
+
+				return data;
+			}
+		};
 	}
 }

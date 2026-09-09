@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include "../Data.h"
 #include "Param/TempParam.h"
 #include "Utility/Vector.h"
@@ -91,4 +92,18 @@ inline void from_json(const Data::Json::JsonObject& j, TempBounds& val)
 		assert(false && "from_json() // 要素が不足しているためVector3に変換できませんでした");
 		val = {};
 	}
+}
+
+inline void from_json(const Data::Json::JsonObject& j, std::unique_ptr<EnemyActionBase>& action)
+{
+	std::string actionType = j.at("actionType").get<std::string>();
+
+	// アクションタイプに応じたアクションを生成
+}
+
+inline void from_json(const Data::Json::JsonObject& j, WaypointActionData& waypointAction)
+{
+	waypointAction.waypointID = j.at("waypointID").get<int>();
+
+	waypointAction.actions = std::move(j.at("actions").get<std::vector<std::unique_ptr<EnemyActionBase>>>());
 }

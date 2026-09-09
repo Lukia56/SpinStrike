@@ -79,7 +79,7 @@ struct WaypointActionData
 	std::vector<std::unique_ptr<EnemyActionBase>> actions;
 };
 
-struct PatrollingData
+struct EnemyPatrollingData
 {
 	int waypointGroupID = -1;
 
