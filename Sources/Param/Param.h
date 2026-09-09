@@ -5,6 +5,7 @@
 #include "Collision/CollisionTag.h"
 #include "Utility/Vector.h"
 #include "World/Component/Transform.h"
+#include "State/Enemy/Action/EnemyActionBase.h"
 
 struct WindowConfigs
 {
@@ -69,4 +70,20 @@ struct StageModelData
 {
 	std::string objectName = "";
 	std::string filePath = "";
+};
+
+struct WaypointActionData
+{
+	int waypointID = -1;
+
+	std::vector<std::unique_ptr<EnemyActionBase>> actions;
+};
+
+struct PatrollingData
+{
+	int waypointGroupID = -1;
+
+	bool isLoop = false;
+
+	std::vector<WaypointActionData> waypointActions;
 };
