@@ -109,3 +109,8 @@ inline void from_json(const Data::Json::JsonObject& j, WaypointActionData& waypo
 
 	waypointAction.actions = std::move(j.at("actions").get<std::vector<std::unique_ptr<EnemyActionBase>>>());
 }
+
+inline void from_json(const Data::Json::JsonObject& j, Waypoint& waypoint)
+{
+	waypoint.position = j.at("position").get<Vector3>();
+}

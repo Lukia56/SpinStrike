@@ -87,3 +87,13 @@ struct EnemyPatrollingData
 
 	std::vector<WaypointActionData> waypointActions;
 };
+
+struct Waypoint
+{
+	Vector3 position{};
+};
+
+struct WaypointGroup
+{
+	std::vector<Waypoint> waypoints;
+};

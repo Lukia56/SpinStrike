@@ -68,5 +68,19 @@ namespace Data
 				return data;
 			}
 		};
+
+		template <>
+		struct FromJson<WaypointGroup>
+		{
+			static WaypointGroup Binding(const JsonObject& json)
+			{
+				WaypointGroup data;
+
+				//data.waypoints = Get<std::vector<Waypoint>>(json, "waypointActions");
+				data.waypoints = json.get<std::vector<Waypoint>>();
+
+				return data;
+			}
+		};
 	}
 }
