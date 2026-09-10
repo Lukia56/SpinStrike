@@ -38,6 +38,25 @@ namespace Data
 				return T{};
 			}
 		}
+		/// <summary>
+		/// 匿名型用の安全な値の取得処理
+		/// </summary>
+		template <typename T>
+		T Get(const JsonObject& json)
+		{
+			try
+			{
+				T value = json.get<T>();
+
+				return value;
+			}
+			catch (JsonObject::out_of_range)
+			{
+				assert(false && "Data::Json::Get // 存在しないパラメータ名のため値の取得に失敗しました");
+
+				return T{};
+			}
+		}
 
 		template <>
 		struct FromJson<StageObjectParam>
@@ -76,8 +95,7 @@ namespace Data
 			{
 				WaypointGroup data;
 
-				//data.waypoints = Get<std::vector<Waypoint>>(json, "waypointActions");
-				data.waypoints = json.get<std::vector<Waypoint>>();
+				data.waypoints = Get<std::vector<Waypoint>>(json);
 
 				return data;
 			}
