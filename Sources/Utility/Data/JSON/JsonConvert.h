@@ -78,65 +78,33 @@ namespace Data
 
 inline void from_json(const Data::Json::JsonObject& j, Vector2& val)
 {
-	try
-	{
-		val.x = j.at("x").get<float>();
-		val.y = j.at("y").get<float>();
-	}
-	catch (Data::Json::JsonObject::out_of_range e)
-	{
-		assert(false && "from_json() // 要素が不足しているためVector2に変換できませんでした");
-		val = Vector2::Zero;
-	}
+	val.x = Data::Json::Get<float>(j, "x");
+	val.y = Data::Json::Get<float>(j, "y");
 }
 
 inline void from_json(const Data::Json::JsonObject& j, Vector3& val)
 {
-	try
-	{
-		val.x = j.at("x").get<float>();
-		val.y = j.at("y").get<float>();
-		val.z = j.at("z").get<float>();
-	}
-	catch (Data::Json::JsonObject::out_of_range e)
-	{
-		assert(false && "from_json() // 要素が不足しているためVector3に変換できませんでした");
-		val = Vector3::Zero;
-	}
+	val.x = Data::Json::Get<float>(j, "x");
+	val.y = Data::Json::Get<float>(j, "y");
+	val.z = Data::Json::Get<float>(j, "z");
 }
 
 inline void from_json(const Data::Json::JsonObject& j, TempTransform& val)
 {
-	try
-	{
-		val.position = j.at("position").get<Vector3>();
-		val.rotation = j.at("rotation").get<Vector3>();
-		val.scale = j.at("scale").get<Vector3>();
-	}
-	catch (Data::Json::JsonObject::out_of_range e)
-	{
-		assert(false && "from_json() // 要素が不足しているためVector3に変換できませんでした");
-		val = {};
-	}
+	val.position = Data::Json::Get<Vector3>(j, "position");
+	val.rotation = Data::Json::Get<Vector3>(j, "rotation");
+	val.scale = Data::Json::Get<Vector3>(j, "scale");
 }
 
 inline void from_json(const Data::Json::JsonObject& j, TempBounds& val)
 {
-	try
-	{
-		val.size = j.at("size").get<Vector3>();
-		val.offsetPos = j.at("offsetPos").get<Vector3>();
-	}
-	catch (Data::Json::JsonObject::out_of_range e)
-	{
-		assert(false && "from_json() // 要素が不足しているためVector3に変換できませんでした");
-		val = {};
-	}
+	val.size = Data::Json::Get<Vector3>(j, "size");
+	val.offsetPos = Data::Json::Get<Vector3>(j, "offsetPos");
 }
 
 inline void from_json(const Data::Json::JsonObject& j, std::unique_ptr<EnemyActionBase>& action)
 {
-	std::string actionType = j.at("actionType").get<std::string>();
+	std::string actionType = Data::Json::Get<std::string>(j, "actionType");
 
 	// アクションタイプに応じたアクションを生成
 	action = std::make_unique<EnemyActionTest>();
@@ -144,12 +112,12 @@ inline void from_json(const Data::Json::JsonObject& j, std::unique_ptr<EnemyActi
 
 inline void from_json(const Data::Json::JsonObject& j, WaypointActionData& waypointAction)
 {
-	waypointAction.waypointID = j.at("waypointID").get<int>();
+	waypointAction.waypointID = Data::Json::Get<int>(j, "waypointID");
 
-	waypointAction.actions = std::move(j.at("actions").get<std::vector<std::unique_ptr<EnemyActionBase>>>());
+	waypointAction.actions = Data::Json::Get<std::vector<std::unique_ptr<EnemyActionBase>>>(j, "actions");
 }
 
 inline void from_json(const Data::Json::JsonObject& j, Waypoint& waypoint)
 {
-	waypoint.position = j.at("position").get<Vector3>();
+	waypoint.position = Data::Json::Get<Vector3>(j, "position");
 }
