@@ -28,6 +28,45 @@ namespace Data
 				return T{};
 			}
 		}
+
+		/// <summary>
+		/// 安全な値の取得処理
+		/// </summary>
+		template <typename T>
+		T Get(const JsonObject& json, const std::string& key)
+		{
+			try
+			{
+				T value = Convert<T>(json.at(key));
+
+				return value;
+			}
+			catch (JsonObject::out_of_range)
+			{
+				assert(false && "Data::Json::Get // 存在しないパラメータ名のため値の取得に失敗しました");
+
+				return T{};
+			}
+		}
+		/// <summary>
+		/// 匿名型用の安全な値の取得処理
+		/// </summary>
+		template <typename T>
+		T Get(const JsonObject& json)
+		{
+			try
+			{
+				T value = json.get<T>();
+
+				return value;
+			}
+			catch (JsonObject::out_of_range)
+			{
+				assert(false && "Data::Json::Get // 存在しないパラメータ名のため値の取得に失敗しました");
+
+				return T{};
+			}
+		}
 	}
 }
 
