@@ -1,5 +1,6 @@
 #include "StateEnemyFollow.h"
 #include "StateEnemyPatrolling.h"
+#include "../StateContext.h"
 #include "World/Character/Enemy.h"
 
 namespace
@@ -17,7 +18,7 @@ void StateEnemyFollow::Enter(Enemy& owner)
 {
 }
 
-std::unique_ptr<IState<Enemy>> StateEnemyFollow::Update(Enemy& owner)
+void StateEnemyFollow::Update(Enemy& owner, StateContext<Enemy>& context)
 {
 	Transform* transform = owner.GetTransform();
 
@@ -28,7 +29,8 @@ std::unique_ptr<IState<Enemy>> StateEnemyFollow::Update(Enemy& owner)
 		if (vecToPlayer.GetSqLength() > Math::Sqr(kLostRange))
 		{
 			owner.SetVelocity(Vector3::Zero);
-			return std::make_unique<StateEnemyPatrolling>();
+			context.ChangeState<StateEnemyPatrolling>();
+			return;
 		}
 
 		Vector3 ToPlayerNorm = vecToPlayer.GetNormalize();
@@ -36,8 +38,6 @@ std::unique_ptr<IState<Enemy>> StateEnemyFollow::Update(Enemy& owner)
 
 		owner.SetVelocity(ToPlayerNorm * kMoveSpeed);
 	}
-
-	return nullptr;
 }
 
 void StateEnemyFollow::Exit(Enemy& owner)

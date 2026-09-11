@@ -6,6 +6,7 @@
 #include <imgui.h>
 #include "State/StateContext.h"
 #include "State/Enemy/StateEnemyFollow.h"
+#include "State/Enemy/StateEnemyPatrolling.h"
 #include "../Character/PlayerTornado.h"
 #include "../Component/Collider3D.h"
 #include "Collision/Collision3D.h"
@@ -32,7 +33,11 @@ Enemy::Enemy(Transform* playerTransform) :
 				this,
 				Collision::Tag::Body);
 
-	mStateContext = std::make_unique<StateContext<Enemy>>(this, std::make_unique<StateEnemyFollow>());
+	mStateContext = std::make_unique<StateContext<Enemy>>(this);
+	mStateContext->AddStateToPool(std::make_unique<StateEnemyFollow>());
+	mStateContext->AddStateToPool(std::make_unique<StateEnemyPatrolling>());
+
+	mStateContext->PushState<StateEnemyPatrolling>();
 }
 
 void Enemy::Init()

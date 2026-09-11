@@ -1,5 +1,6 @@
 #include "StateEnemyPatrolling.h"
 #include "StateEnemyFollow.h"
+#include "../StateContext.h"
 #include "Utility/Math.h"
 #include "World/Character/Enemy.h"
 
@@ -16,7 +17,7 @@ void StateEnemyPatrolling::Enter(Enemy& owner)
 {
 }
 
-std::unique_ptr<IState<Enemy>> StateEnemyPatrolling::Update(Enemy& owner)
+void StateEnemyPatrolling::Update(Enemy& owner, StateContext<Enemy>& context)
 {
 	Transform* player = owner.GetPlayerTransform();
 	Transform* enemy = owner.GetTransform();
@@ -26,10 +27,9 @@ std::unique_ptr<IState<Enemy>> StateEnemyPatrolling::Update(Enemy& owner)
 	// プレイヤーが認識範囲にいるなら
 	if (vecToPlayer.GetSqLength() <= Math::Sqr(kSearchRange))
 	{
-		return std::make_unique<StateEnemyFollow>();
+		context.ChangeState<StateEnemyFollow>();
+		return;
 	}
-
-	return nullptr;
 }
 
 void StateEnemyPatrolling::Exit(Enemy& owner)

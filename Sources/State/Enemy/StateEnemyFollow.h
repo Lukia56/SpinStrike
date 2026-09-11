@@ -13,7 +13,7 @@ public:
 
 	void Enter(Enemy& owner) override;
 
-	std::unique_ptr<IState<Enemy>> Update(Enemy& owner) override;
+	void Update(Enemy& owner, StateContext<Enemy>& context) override;
 
 	void Exit(Enemy& owner) override;
 };
