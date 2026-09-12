@@ -1,7 +1,10 @@
 #pragma once
 
 #include "../GameObject.h"
+#include <vector>
 
+struct EnemyPatrollingData;
+struct WaypointGroup;
 class Collider3D;
 template <class T>
 class StateContext;
@@ -10,7 +13,7 @@ class Enemy : public GameObject
 {
 public:
 
-	Enemy(Transform* playerTransform);
+	Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, const std::vector<WaypointGroup>& waypointGroups);
 	~Enemy() = default;
 
 	void Init() override;

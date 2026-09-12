@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClCompile Include="Sources\State\Enemy\Action\EnemyActionTest.cpp" />
     <ClCompile Include="Sources\State\Enemy\Action\EnemyActionBase.cpp" />
+    <ClCompile Include="Sources\State\Enemy\StateEnemyPatrollingMove.cpp" />
     <ClCompile Include="Sources\World\Character\Enemy.cpp" />
     <ClCompile Include="Sources\Scene\SceneTitle.cpp" />
     <ClCompile Include="Sources\Scene\Test\SceneMenuUITest.cpp" />
@@ -243,6 +244,7 @@
   <ItemGroup>
     <ClInclude Include="Sources\State\Enemy\Action\EnemyActionTest.h" />
     <ClInclude Include="Sources\State\Enemy\Action\EnemyActionBase.h" />
+    <ClInclude Include="Sources\State\Enemy\StateEnemyPatrollingMove.h" />
     <ClInclude Include="Sources\World\Character\Enemy.h" />
     <ClInclude Include="Sources\Scene\SceneTitle.h" />
     <ClInclude Include="Sources\Scene\Test\SceneMenuUITest.h" />

@@ -312,6 +312,9 @@
     <ClCompile Include="Sources\State\Enemy\Action\EnemyActionTest.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\State\Enemy\StateEnemyPatrollingMove.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Application.h">
@@ -699,6 +702,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Sources\State\Enemy\Action\EnemyActionTest.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\State\Enemy\StateEnemyPatrollingMove.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
