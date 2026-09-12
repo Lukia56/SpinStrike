@@ -72,6 +72,13 @@ struct StageModelData
 	std::string filePath = "";
 };
 
+struct WaypointMoveData
+{
+	int waypointGroupID = -1;
+
+	bool isLoop = false;
+};
+
 struct WaypointActionData
 {
 	int waypointID = -1;
@@ -81,9 +88,7 @@ struct WaypointActionData
 
 struct EnemyPatrollingData
 {
-	int waypointGroupID = -1;
-
-	bool isLoop = false;
+	WaypointMoveData moveData;
 
 	std::vector<WaypointActionData> waypointActions;
 };
