@@ -41,8 +41,8 @@ namespace Data
 			{
 				EnemyPatrollingData data;
 
-				data.waypointGroupID = Get<int>(json, "waypointGroupID");
-				data.isLoop = Get<bool>(json, "isLoop");
+				data.moveData.waypointGroupID = Get<int>(json, "waypointGroupID");
+				data.moveData.isLoop = Get<bool>(json, "isLoop");
 				data.waypointActions = Get<std::vector<WaypointActionData>>(json, "waypointActions");
 
 				return data;
