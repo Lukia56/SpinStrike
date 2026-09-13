@@ -24,15 +24,17 @@ private:
 
 	Vector3 CalculateNextWaypointNormal(Enemy& enemy);
 
-	int GetNextWaypointID(Enemy& enemy) const;
+	int GetNextWaypointID(Enemy& enemy);
 
-	bool IsReachWaypoint(Enemy& enemy) const;
+	bool IsReachWaypoint(Enemy& enemy);
 
 private:
 
 	int mWaypointGroupID;
 
 	bool mIsLoop;
+
+	bool mIsFlipped;
 
 	Vector3 mMoveDir;
 

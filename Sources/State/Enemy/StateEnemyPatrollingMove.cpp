@@ -11,6 +11,7 @@ namespace
 StateEnemyPatrollingMove::StateEnemyPatrollingMove(WaypointMoveData& moveData, const WaypointGroup& waypointGroup) :
 	mWaypointGroupID(moveData.waypointGroupID),
 	mIsLoop(moveData.isLoop),
+	mIsFlipped(false),
 	mWaypointGroup(waypointGroup)
 {
 }
@@ -50,20 +51,38 @@ Vector3 StateEnemyPatrollingMove::CalculateNextWaypointNormal(Enemy& enemy)
 	return (endPos - startPos).GetNormalize();
 }
 
-int StateEnemyPatrollingMove::GetNextWaypointID(Enemy& enemy) const
+int StateEnemyPatrollingMove::GetNextWaypointID(Enemy& enemy)
 {
-	int id = enemy.GetCurrentWaypointID() + 1;
+	int id = enemy.GetCurrentWaypointID();
 
-	// 1Žü‚µ‚½‚çÅ‰‚©‚ç
-	if (id >= mWaypointGroup.waypoints.size())
+	size_t waypointNum = mWaypointGroup.waypoints.size();
+
+	if (mIsLoop)
 	{
-		id = 0;
+		id++;
+		id = (id + waypointNum) % waypointNum;
+	}
+	else
+	{
+		if (!mIsFlipped) id++;
+		else id--;
+
+		if (!mIsFlipped && id >= waypointNum)
+		{
+			id = waypointNum - 2;
+			mIsFlipped = true;
+		}
+		if (id < 0)
+		{
+			id = 1;
+			mIsFlipped = false;
+		}
 	}
 
 	return id;
 }
 
-bool StateEnemyPatrollingMove::IsReachWaypoint(Enemy& enemy) const
+bool StateEnemyPatrollingMove::IsReachWaypoint(Enemy& enemy)
 {
 	Vector3 goalWaypointPos = mWaypointGroup.waypoints[GetNextWaypointID(enemy)].position;
 
