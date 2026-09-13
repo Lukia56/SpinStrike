@@ -22,17 +22,15 @@ public:
 
 private:
 
-	Vector3 CalculateNextWaypointDistance(Transform* transform);
+	Vector3 CalculateNextWaypointNormal(Enemy& enemy);
 
-	int GetNextWaypointID() const;
+	int GetNextWaypointID(Enemy& enemy) const;
 
-	bool IsReachWaypoint(Transform* transform) const;
+	bool IsReachWaypoint(Enemy& enemy) const;
 
 private:
 
 	int mWaypointGroupID;
-
-	int mCurrentWaypointID;
 
 	bool mIsLoop;
 

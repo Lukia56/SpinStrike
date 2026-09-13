@@ -35,6 +35,9 @@ public:
 	const Vector3& GetVelocity() const { return mVelocity; }
 	void SetVelocity(const Vector3& vel) { mVelocity = vel; }
 
+	int GetCurrentWaypointID() const { return mCurrentWaypointID; }
+	void SetCurrentWaypointID(int waypointID) { mCurrentWaypointID = waypointID; }
+
 	Transform* GetPlayerTransform() const { return mPlayerTransform; }
 
 private:
@@ -55,6 +58,8 @@ private:
 	float mEnduranceTimer;
 
 	bool mIsHitTornado;
+
+	int mCurrentWaypointID;
 
 	std::unique_ptr<Collider3D> mCollider;
 

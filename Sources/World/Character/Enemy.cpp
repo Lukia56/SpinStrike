@@ -4,8 +4,8 @@
 #include <imgui.h>
 #include "State/StateContext.h"
 #include "State/Enemy/StateEnemyFollow.h"
-//#include "State/Enemy/StateEnemyPatrolling.h"
 #include "State/Enemy/StateEnemyPatrollingMove.h"
+#include "State/Enemy/StateEnemyPatrollingInterpreter.h"
 #include "../Character/PlayerTornado.h"
 #include "../Component/Collider3D.h"
 #include "Collision/Collision3D.h"
@@ -26,6 +26,7 @@ namespace
 Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, const std::vector<WaypointGroup>& waypointGroups) :
 	mEnduranceTimer(0.0f),
 	mIsHitTornado(false),
+	mCurrentWaypointID(0),
 	mCollider(nullptr),
 	mStateContext(nullptr),
 	mPlayerTransform(playerTransform)
@@ -46,6 +47,7 @@ Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, con
 	mStateContext = std::make_unique<StateContext<Enemy>>(this);
 	mStateContext->AddStateToPool(std::make_unique<StateEnemyFollow>());
 	mStateContext->AddStateToPool(std::make_unique<StateEnemyPatrollingMove>(patrollingData.moveData, waypointGroup));
+	mStateContext->AddStateToPool(std::make_unique<StateEnemyPatrollingInterpreter>(std::move(patrollingData.waypointActions)));
 
 	mStateContext->PushState<StateEnemyPatrollingMove>();
 }

@@ -1,4 +1,6 @@
 #include "StateEnemyPatrollingMove.h"
+#include "StateEnemyPatrollingInterpreter.h"
+#include "../StateContext.h"
 #include "Param/Param.h"
 
 namespace
@@ -8,7 +10,6 @@ namespace
 
 StateEnemyPatrollingMove::StateEnemyPatrollingMove(WaypointMoveData& moveData, const WaypointGroup& waypointGroup) :
 	mWaypointGroupID(moveData.waypointGroupID),
-	mCurrentWaypointID(0),
 	mIsLoop(moveData.isLoop),
 	mWaypointGroup(waypointGroup)
 {
@@ -18,11 +19,9 @@ void StateEnemyPatrollingMove::Enter(Enemy& owner)
 {
 	if (mWaypointGroup.waypoints.empty()) return;
 
-	Vector3 distance = CalculateNextWaypointDistance(owner.GetTransform());
-
 	mMoveStartPos = owner.GetTransform()->CalculateWorldPosition();
 
-	mMoveDir = distance.GetNormalize();
+	mMoveDir = CalculateNextWaypointNormal(owner);
 }
 
 void StateEnemyPatrollingMove::Update(Enemy& owner, StateContext<Enemy>& context)
@@ -31,34 +30,29 @@ void StateEnemyPatrollingMove::Update(Enemy& owner, StateContext<Enemy>& context
 
 	owner.SetVelocity(mMoveDir * kMoveSpeed);
 
-	if (IsReachWaypoint(owner.GetTransform()))
+	if (IsReachWaypoint(owner))
 	{
-		mCurrentWaypointID = GetNextWaypointID();
-
-		Vector3 distance = CalculateNextWaypointDistance(owner.GetTransform());
-
-		mMoveStartPos = owner.GetTransform()->CalculateWorldPosition();
-
-		mMoveDir = distance.GetNormalize();
+		context.PushState<StateEnemyPatrollingInterpreter>();
+		return;
 	}
 }
 
 void StateEnemyPatrollingMove::Exit(Enemy& owner)
 {
-
+	owner.SetCurrentWaypointID(GetNextWaypointID(owner));
 }
 
-Vector3 StateEnemyPatrollingMove::CalculateNextWaypointDistance(Transform* transform)
+Vector3 StateEnemyPatrollingMove::CalculateNextWaypointNormal(Enemy& enemy)
 {
-	Vector3 startPos = transform->CalculateWorldPosition();
-	Vector3 endPos = mWaypointGroup.waypoints[GetNextWaypointID()].position;
+	Vector3 startPos = enemy.GetTransform()->CalculateWorldPosition();
+	Vector3 endPos = mWaypointGroup.waypoints[GetNextWaypointID(enemy)].position;
 
-	return endPos - startPos;
+	return (endPos - startPos).GetNormalize();
 }
 
-int StateEnemyPatrollingMove::GetNextWaypointID() const
+int StateEnemyPatrollingMove::GetNextWaypointID(Enemy& enemy) const
 {
-	int id = mCurrentWaypointID + 1;
+	int id = enemy.GetCurrentWaypointID() + 1;
 
 	// 1Žü‚µ‚½‚çÅ‰‚©‚ç
 	if (id >= mWaypointGroup.waypoints.size())
@@ -69,12 +63,12 @@ int StateEnemyPatrollingMove::GetNextWaypointID() const
 	return id;
 }
 
-bool StateEnemyPatrollingMove::IsReachWaypoint(Transform* transform) const
+bool StateEnemyPatrollingMove::IsReachWaypoint(Enemy& enemy) const
 {
-	Vector3 goalWaypointPos = mWaypointGroup.waypoints[GetNextWaypointID()].position;
+	Vector3 goalWaypointPos = mWaypointGroup.waypoints[GetNextWaypointID(enemy)].position;
 
 	float waypointSqDistance = (goalWaypointPos - mMoveStartPos).GetSqLength();
-	float traveledSqDistance = (transform->CalculateWorldPosition() - mMoveStartPos).GetSqLength();
+	float traveledSqDistance = (enemy.GetTransform()->CalculateWorldPosition() - mMoveStartPos).GetSqLength();
 
 	return traveledSqDistance >= waypointSqDistance;
 }
