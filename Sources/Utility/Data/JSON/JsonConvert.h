@@ -5,6 +5,7 @@
 #include "Param/TempParam.h"
 #include "Utility/Vector.h"
 #include "State/Enemy/Action/EnemyActionTest.h"
+#include "State/Enemy/Action/EnemyActionWait.h"
 
 namespace Data
 {
@@ -102,12 +103,24 @@ inline void from_json(const Data::Json::JsonObject& j, TempBounds& val)
 	val.offsetPos = Data::Json::Get<Vector3>(j, "offsetPos");
 }
 
+inline void from_json(const Data::Json::JsonObject& j, EnemyActionWait::Arguments& arguments)
+{
+	arguments.time = Data::Json::Get<float>(j, "second");
+}
+
 inline void from_json(const Data::Json::JsonObject& j, std::unique_ptr<EnemyActionBase>& action)
 {
 	std::string actionType = Data::Json::Get<std::string>(j, "actionType");
 
 	// アクションタイプに応じたアクションを生成
-	action = std::make_unique<EnemyActionTest>();
+	if (actionType == "wait")
+	{
+		action = std::make_unique<EnemyActionWait>(Data::Json::Get<EnemyActionWait::Arguments>(j, "arguments"));
+	}
+	else
+	{
+		action = std::make_unique<EnemyActionTest>();
+	}
 }
 
 inline void from_json(const Data::Json::JsonObject& j, WaypointActionData& waypointAction)

@@ -41,6 +41,7 @@ void StateEnemyPatrollingMove::Update(Enemy& owner, StateContext<Enemy>& context
 void StateEnemyPatrollingMove::Exit(Enemy& owner)
 {
 	owner.SetCurrentWaypointID(GetNextWaypointID(owner));
+	owner.SetVelocity(Vector3::Zero);
 }
 
 Vector3 StateEnemyPatrollingMove::CalculateNextWaypointNormal(Enemy& enemy)
