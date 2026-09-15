@@ -23,6 +23,8 @@ void StateEnemyPatrollingMove::Enter(Enemy& owner)
 	mMoveStartPos = owner.GetTransform()->CalculateWorldPosition();
 
 	mMoveDir = CalculateNextWaypointNormal(owner);
+
+	owner.SetTargetYaw(std::atan2(mMoveDir.x, -mMoveDir.z));
 }
 
 void StateEnemyPatrollingMove::Update(Enemy& owner, StateContext<Enemy>& context)

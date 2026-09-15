@@ -35,6 +35,8 @@ public:
 	const Vector3& GetVelocity() const { return mVelocity; }
 	void SetVelocity(const Vector3& vel) { mVelocity = vel; }
 
+	void SetTargetYaw(float targetYaw) { mTargetYaw = targetYaw; }
+
 	int GetCurrentWaypointID() const { return mCurrentWaypointID; }
 	void SetCurrentWaypointID(int waypointID) { mCurrentWaypointID = waypointID; }
 
@@ -51,6 +53,8 @@ private:
 	Vector3 mMoveVec;
 
 	Vector3 mCollisionPush;
+
+	float mTargetYaw;
 
 	/// <summary>
 	/// 吸い込みに耐えるタイマー

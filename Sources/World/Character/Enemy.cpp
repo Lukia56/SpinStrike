@@ -11,6 +11,7 @@
 #include "Collision/Collision3D.h"
 #include "Param/Param.h"
 #include "System/TimeManager.h"
+#include "Utility/Math.h"
 
 namespace
 {
@@ -21,9 +22,14 @@ namespace
 	const char* const kPatrollingDataPath = "Resources\\MasterData\\TestEnemyMoveData.json";
 
 	const char* const kWaypointDataPath = "Resources\\MasterData\\TestStageWaypoint0.json";
+
+	constexpr float kYawLatency = 0.1f;
+
+	constexpr float kDebugForwardLineLen = 50.0f;
 }
 
 Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, const std::vector<WaypointGroup>& waypointGroups) :
+	mTargetYaw(0.0f),
 	mEnduranceTimer(0.0f),
 	mIsHitTornado(false),
 	mCurrentWaypointID(0),
@@ -66,6 +72,9 @@ void Enemy::Update()
 
 	mStateContext->Update();
 
+	float yawDif = mTargetYaw - mTransform->localRotation.y;
+	mTransform->localRotation.y += Math::NormalizeRadian(yawDif) * kYawLatency;
+
 	if (mIsHitTornado)
 	{
 		mEnduranceTimer += TimeManager::GetDeltaTime();
@@ -93,6 +102,13 @@ void Enemy::Draw()
 
 void Enemy::DebugDraw()
 {
+	Vector3 worldPos = mTransform->CalculateWorldPosition();
+	float worldYaw = mTransform->CalculateWorldRotation().y;
+	Vector3 forward = Vector3(std::sin(worldYaw), 0.0f, -std::cos(worldYaw));
+
+	// ³–Ê•ûŒü‚Éü‚ðˆø‚­
+	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + forward * kDebugForwardLineLen).GetAsDxLibVector(), Color::red.GetAsHexRGB());
+
 	mCollider->GetShape()->DebugDraw(mIsHitTornado ? Color::red : Color::white);
 
 	if (ImGui::Begin("Enemy"))
