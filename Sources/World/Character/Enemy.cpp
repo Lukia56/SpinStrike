@@ -25,6 +25,9 @@ namespace
 
 	constexpr float kYawLatency = 0.1f;
 
+	constexpr float kFOV = 80.0f;
+	constexpr float kSearchRange = 100.0f;
+
 	constexpr float kDebugForwardLineLen = 50.0f;
 }
 
@@ -55,7 +58,7 @@ Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, con
 	mStateContext->AddStateToPool(std::make_unique<StateEnemyPatrollingMove>(patrollingData.moveData, waypointGroup));
 	mStateContext->AddStateToPool(std::make_unique<StateEnemyPatrollingInterpreter>(std::move(patrollingData.waypointActions)));
 
-	mStateContext->PushState<StateEnemyPatrollingMove>();
+	//mStateContext->PushState<StateEnemyPatrollingMove>();
 }
 
 void Enemy::Init()
@@ -109,6 +112,11 @@ void Enemy::DebugDraw()
 	// 正面方向に線を引く
 	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + forward * kDebugForwardLineLen).GetAsDxLibVector(), Color::red.GetAsHexRGB());
 
+	Vector3 fovVec = Vector3(-std::sin(worldYaw + kFOV * 0.5f), 0.0f, std::cos(worldYaw + kFOV * 0.5f));
+	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + fovVec * kSearchRange).GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
+	fovVec = Vector3(-std::sin(worldYaw - kFOV * 0.5f), 0.0f, std::cos(worldYaw - kFOV * 0.5f));
+	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + fovVec * kSearchRange).GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
+
 	mCollider->GetShape()->DebugDraw(mIsHitTornado ? Color::red : Color::white);
 
 	if (ImGui::Begin("Enemy"))
@@ -117,6 +125,8 @@ void Enemy::DebugDraw()
 		ImGui::InputFloat3("Velocity", velPtr, "%.1f");
 
 		ImGui::Text("EnduranceTimer : %f", mEnduranceTimer);
+
+		ImGui::Text("IsFoundPlayer : %d", IsFoundPlayer());
 
 		ImGui::End();
 	}
@@ -162,6 +172,33 @@ void Enemy::ResolveCollision(const Collision::Result& result, const Collider3D* 
 		break;
 	}
 	}
+}
+
+bool Enemy::IsFoundPlayer() const
+{
+	// 正面ベクトルを計算
+	float worldYaw = mTransform->CalculateWorldRotation().y;
+	Vector3 forward = Vector3(-std::sin(worldYaw), 0.0f, std::cos(worldYaw));
+
+	// 敵とプレイヤーの座標を平面上で取得
+	Vector3 myPos = mTransform->CalculateWorldPosition();
+	myPos.y = 0.0f;
+	Vector3 playerPos = GetPlayerTransform()->CalculateWorldPosition();
+	playerPos.y = 0.0f;
+
+	// 重なっていたらtrue
+	if (myPos == playerPos) return true;
+
+	float distance = (playerPos - myPos).GetLength();
+	// 検知範囲外ならfalse
+	if (distance >= kSearchRange) return false;
+
+	// 敵からプレイヤーへの法線を計算
+	Vector3 toPlayerNorm = (playerPos - myPos) / distance;
+
+	// 視野内かどうか判定
+	float dot = forward.Dot(toPlayerNorm);
+	return dot < std::cos(kFOV * 0.5f);
 }
 
 void Enemy::ResolvePush()

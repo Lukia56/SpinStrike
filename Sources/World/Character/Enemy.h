@@ -30,6 +30,8 @@ public:
 
 	void ResolveCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider) override;
 
+	bool IsFoundPlayer() const;
+
 public:
 
 	const Vector3& GetVelocity() const { return mVelocity; }
