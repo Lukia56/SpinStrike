@@ -25,8 +25,8 @@ namespace
 
 	constexpr float kYawLatency = 0.1f;
 
-	constexpr float kFOV = 90.0f;
-	constexpr float kSearchRange = 100.0f;
+	constexpr float kFOV = 80.0f;
+	constexpr float kSearchRange = 200.0f;
 
 	constexpr float kDebugForwardLineLen = 50.0f;
 
@@ -194,8 +194,9 @@ bool Enemy::IsFoundPlayer() const
 	float worldYaw = mTransform->CalculateWorldRotation().y;
 	Vector3 forward = Vector3(-std::sin(worldYaw), 0.0f, std::cos(worldYaw));
 
+	// Ž‹–ì“à‚©‚Ç‚¤‚©”»’è
 	float dot = forward.Dot(toPlayerNorm);
-	return dot < std::cos(Math::ToRadian(kFOV) * 0.5f + Math::kPiOver2);
+	return dot < std::cos(Math::ToRadian(kFOV * 0.5f) + Math::kPiOver2);
 }
 
 void Enemy::ResolvePush()
@@ -210,22 +211,25 @@ void Enemy::ResolvePush()
 void Enemy::DebugDrawFOV()
 {
 	Vector3 worldPos = mTransform->CalculateWorldPosition();
-	float worldYaw = mTransform->CalculateWorldRotation().y;
+	float worldYaw = -mTransform->CalculateWorldRotation().y;
 
-	float fovRad = Math::ToRadian(kFOV);
+	constexpr float fovRad = Math::ToRadian(kFOV);
 
-	Vector3 fovVec = Vector3(std::cos(worldYaw - fovRad * 0.5f + Math::kPiOver2), 0.0f, -std::sin(worldYaw - fovRad * 0.5f + Math::kPiOver2));
-	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + fovVec * kSearchRange).GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
-	fovVec = Vector3(std::cos(worldYaw + fovRad * 0.5f + Math::kPiOver2), 0.0f, -std::sin(worldYaw + fovRad * 0.5f + Math::kPiOver2));
-	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + fovVec * kSearchRange).GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
+	float startRot = worldYaw - fovRad * 0.5f + Math::kPiOver2;
 
-	float arc = Math::ToRadian(kFOV / kDebugFOVQuolity);
+	Vector3 fovLeftVec = Vector3(std::cos(startRot), 0.0f, -std::sin(startRot)) * kSearchRange;
+	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + fovLeftVec).GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
+
+	Vector3 fovRightVec = Vector3(std::cos(startRot + fovRad), 0.0f, -std::sin(startRot + fovRad)) * kSearchRange;
+	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + fovRightVec).GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
+
+	constexpr float arc = Math::ToRadian(kFOV / kDebugFOVQuolity);
 	for (int i = 0; i < kDebugFOVQuolity; i++)
 	{
-		float rot0 = worldYaw - fovRad * 0.5f + Math::kPiOver2 + arc * i;
+		float rot0 = startRot + arc * i;
 		Vector3 point0 = worldPos + Vector3(std::cos(rot0), 0.0f, -std::sin(rot0)) * kSearchRange;
 
-		float rot1 = worldYaw - fovRad * 0.5f + Math::kPiOver2 + arc * (i + 1);
+		float rot1 = startRot + arc * (i + 1);
 		Vector3 point1 = worldPos + Vector3(std::cos(rot1), 0.0f, -std::sin(rot1)) * kSearchRange;
 
 		DrawLine3D(point0.GetAsDxLibVector(), point1.GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
