@@ -48,6 +48,8 @@ private:
 
 	void ResolvePush();
 
+	void DebugDrawFOV();
+
 private:
 
 	Vector3 mVelocity;

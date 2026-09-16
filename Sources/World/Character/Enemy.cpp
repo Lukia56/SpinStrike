@@ -25,10 +25,12 @@ namespace
 
 	constexpr float kYawLatency = 0.1f;
 
-	constexpr float kFOV = 80.0f;
+	constexpr float kFOV = 90.0f;
 	constexpr float kSearchRange = 100.0f;
 
 	constexpr float kDebugForwardLineLen = 50.0f;
+
+	constexpr int kDebugFOVQuolity = 16;
 }
 
 Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, const std::vector<WaypointGroup>& waypointGroups) :
@@ -58,7 +60,7 @@ Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, con
 	mStateContext->AddStateToPool(std::make_unique<StateEnemyPatrollingMove>(patrollingData.moveData, waypointGroup));
 	mStateContext->AddStateToPool(std::make_unique<StateEnemyPatrollingInterpreter>(std::move(patrollingData.waypointActions)));
 
-	//mStateContext->PushState<StateEnemyPatrollingMove>();
+	mStateContext->PushState<StateEnemyPatrollingMove>();
 }
 
 void Enemy::Init()
@@ -112,10 +114,8 @@ void Enemy::DebugDraw()
 	// 正面方向に線を引く
 	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + forward * kDebugForwardLineLen).GetAsDxLibVector(), Color::red.GetAsHexRGB());
 
-	Vector3 fovVec = Vector3(-std::sin(worldYaw + kFOV * 0.5f), 0.0f, std::cos(worldYaw + kFOV * 0.5f));
-	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + fovVec * kSearchRange).GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
-	fovVec = Vector3(-std::sin(worldYaw - kFOV * 0.5f), 0.0f, std::cos(worldYaw - kFOV * 0.5f));
-	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + fovVec * kSearchRange).GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
+	// 視野範囲を描画
+	DebugDrawFOV();
 
 	mCollider->GetShape()->DebugDraw(mIsHitTornado ? Color::red : Color::white);
 
@@ -176,29 +176,26 @@ void Enemy::ResolveCollision(const Collision::Result& result, const Collider3D* 
 
 bool Enemy::IsFoundPlayer() const
 {
-	// 正面ベクトルを計算
-	float worldYaw = mTransform->CalculateWorldRotation().y;
-	Vector3 forward = Vector3(-std::sin(worldYaw), 0.0f, std::cos(worldYaw));
-
-	// 敵とプレイヤーの座標を平面上で取得
+	// 検知範囲を水平方向だけ調べるために、敵とプレイヤーの座標を平面上で取得
 	Vector3 myPos = mTransform->CalculateWorldPosition();
 	myPos.y = 0.0f;
 	Vector3 playerPos = GetPlayerTransform()->CalculateWorldPosition();
 	playerPos.y = 0.0f;
 
-	// 重なっていたらtrue
+	// 重なっていると0割りが発生するためチェック
 	if (myPos == playerPos) return true;
 
+	// 検知範囲外かチェック
 	float distance = (playerPos - myPos).GetLength();
-	// 検知範囲外ならfalse
-	if (distance >= kSearchRange) return false;
+	if (distance > kSearchRange) return false;
 
-	// 敵からプレイヤーへの法線を計算
 	Vector3 toPlayerNorm = (playerPos - myPos) / distance;
 
-	// 視野内かどうか判定
+	float worldYaw = mTransform->CalculateWorldRotation().y;
+	Vector3 forward = Vector3(-std::sin(worldYaw), 0.0f, std::cos(worldYaw));
+
 	float dot = forward.Dot(toPlayerNorm);
-	return dot < std::cos(kFOV * 0.5f);
+	return dot < std::cos(Math::ToRadian(kFOV) * 0.5f + Math::kPiOver2);
 }
 
 void Enemy::ResolvePush()
@@ -207,5 +204,30 @@ void Enemy::ResolvePush()
 	{
 		mTransform->localPosition += mCollisionPush;
 		mCollisionPush = Vector3::Zero;
+	}
+}
+
+void Enemy::DebugDrawFOV()
+{
+	Vector3 worldPos = mTransform->CalculateWorldPosition();
+	float worldYaw = mTransform->CalculateWorldRotation().y;
+
+	float fovRad = Math::ToRadian(kFOV);
+
+	Vector3 fovVec = Vector3(std::cos(worldYaw - fovRad * 0.5f + Math::kPiOver2), 0.0f, -std::sin(worldYaw - fovRad * 0.5f + Math::kPiOver2));
+	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + fovVec * kSearchRange).GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
+	fovVec = Vector3(std::cos(worldYaw + fovRad * 0.5f + Math::kPiOver2), 0.0f, -std::sin(worldYaw + fovRad * 0.5f + Math::kPiOver2));
+	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + fovVec * kSearchRange).GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
+
+	float arc = Math::ToRadian(kFOV / kDebugFOVQuolity);
+	for (int i = 0; i < kDebugFOVQuolity; i++)
+	{
+		float rot0 = worldYaw - fovRad * 0.5f + Math::kPiOver2 + arc * i;
+		Vector3 point0 = worldPos + Vector3(std::cos(rot0), 0.0f, -std::sin(rot0)) * kSearchRange;
+
+		float rot1 = worldYaw - fovRad * 0.5f + Math::kPiOver2 + arc * (i + 1);
+		Vector3 point1 = worldPos + Vector3(std::cos(rot1), 0.0f, -std::sin(rot1)) * kSearchRange;
+
+		DrawLine3D(point0.GetAsDxLibVector(), point1.GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
 	}
 }
