@@ -60,12 +60,11 @@ Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, con
 	mStateContext->AddStateToPool(std::make_unique<StateEnemyFollow>());
 	mStateContext->AddStateToPool(std::make_unique<StateEnemyPatrollingMove>(patrollingData.moveData, waypointGroup));
 	mStateContext->AddStateToPool(std::make_unique<StateEnemyPatrollingInterpreter>(std::move(patrollingData.waypointActions)));
-
-	mStateContext->PushState<StateEnemyPatrollingMove>();
 }
 
 void Enemy::Init()
 {
+	mStateContext->PushState<StateEnemyPatrollingMove>();
 }
 
 void Enemy::Finalize()
