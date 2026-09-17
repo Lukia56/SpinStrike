@@ -25,7 +25,8 @@ namespace
 
 	constexpr float kYawLatency = 0.1f;
 
-	constexpr float kFOV = 80.0f;
+	constexpr float kFovHAngle = 80.0f;
+	constexpr float kFovVDistance = 80.0f;
 	constexpr float kSearchRange = 200.0f;
 
 	constexpr float kDebugForwardLineLen = 50.0f;
@@ -176,10 +177,16 @@ void Enemy::ResolveCollision(const Collision::Result& result, const Collider3D* 
 
 bool Enemy::IsFoundPlayer() const
 {
-	// 検知範囲を水平方向だけ調べるために、敵とプレイヤーの座標を平面上で取得
+	// ゲームシステム上垂直方向を内積で計算する必要はないため、
+	// 視野の範囲は扇形の柱状として処理する
+
 	Vector3 myPos = mTransform->CalculateWorldPosition();
-	myPos.y = 0.0f;
 	Vector3 playerPos = GetPlayerTransform()->CalculateWorldPosition();
+
+	if (std::abs(playerPos.y - myPos.y) > kFovVDistance) return false;
+
+	// 検知範囲を水平方向だけ調べるために、敵とプレイヤーの座標を平面上にいるものとする
+	myPos.y = 0.0f;
 	playerPos.y = 0.0f;
 
 	// 重なっていると0割りが発生するためチェック
@@ -196,7 +203,7 @@ bool Enemy::IsFoundPlayer() const
 
 	// 視野内かどうか判定
 	float dot = forward.Dot(toPlayerNorm);
-	return dot < std::cos(Math::ToRadian(kFOV * 0.5f) + Math::kPiOver2);
+	return dot < std::cos(Math::ToRadian(kFovHAngle * 0.5f) + Math::kPiOver2);
 }
 
 void Enemy::ResolvePush()
@@ -213,25 +220,41 @@ void Enemy::DebugDrawFOV()
 	Vector3 worldPos = mTransform->CalculateWorldPosition();
 	float worldYaw = -mTransform->CalculateWorldRotation().y;
 
-	constexpr float fovRad = Math::ToRadian(kFOV);
+	constexpr float fovRad = Math::ToRadian(kFovHAngle);
 
 	float startRot = worldYaw - fovRad * 0.5f + Math::kPiOver2;
 
-	Vector3 fovLeftVec = Vector3(std::cos(startRot), 0.0f, -std::sin(startRot)) * kSearchRange;
-	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + fovLeftVec).GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
-
-	Vector3 fovRightVec = Vector3(std::cos(startRot + fovRad), 0.0f, -std::sin(startRot + fovRad)) * kSearchRange;
-	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + fovRightVec).GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
-
-	constexpr float arc = Math::ToRadian(kFOV / kDebugFOVQuolity);
-	for (int i = 0; i < kDebugFOVQuolity; i++)
+	Vector3 originPoint = worldPos;
+	// 上下と中心に扇形を描画
+	for (int i = 0; i < 3; i++)
 	{
-		float rot0 = startRot + arc * i;
-		Vector3 point0 = worldPos + Vector3(std::cos(rot0), 0.0f, -std::sin(rot0)) * kSearchRange;
+		originPoint.y = worldPos.y + kFovVDistance * (i - 1);
 
-		float rot1 = startRot + arc * (i + 1);
-		Vector3 point1 = worldPos + Vector3(std::cos(rot1), 0.0f, -std::sin(rot1)) * kSearchRange;
+		// 半径を描画
+		Vector3 fovLeftEdgePoint = originPoint + Vector3(std::cos(startRot), 0.0f, -std::sin(startRot)) * kSearchRange;
+		DrawLine3D(originPoint.GetAsDxLibVector(), fovLeftEdgePoint.GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
+		Vector3 fovRightEdgePoint = originPoint + Vector3(std::cos(startRot + fovRad), 0.0f, -std::sin(startRot + fovRad)) * kSearchRange;
+		DrawLine3D(originPoint.GetAsDxLibVector(), fovRightEdgePoint.GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
 
-		DrawLine3D(point0.GetAsDxLibVector(), point1.GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
+		// 各扇形を繋ぐ線を描画
+		if (i < 2)
+		{
+			DrawLine3D(originPoint.GetAsDxLibVector(), (originPoint + Vector3(0.0f, kFovVDistance, 0.0f)).GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
+			DrawLine3D(fovLeftEdgePoint.GetAsDxLibVector(), (fovLeftEdgePoint + Vector3(0.0f, kFovVDistance, 0.0f)).GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
+			DrawLine3D(fovRightEdgePoint.GetAsDxLibVector(), (fovRightEdgePoint + Vector3(0.0f, kFovVDistance, 0.0f)).GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
+		}
+
+		// 弧を描画
+		constexpr float arc = Math::ToRadian(kFovHAngle / kDebugFOVQuolity);
+		for (int j = 0; j < kDebugFOVQuolity; j++)
+		{
+			float rot0 = startRot + arc * j;
+			Vector3 point0 = originPoint + Vector3(std::cos(rot0), 0.0f, -std::sin(rot0)) * kSearchRange;
+
+			float rot1 = startRot + arc * (j + 1);
+			Vector3 point1 = originPoint + Vector3(std::cos(rot1), 0.0f, -std::sin(rot1)) * kSearchRange;
+
+			DrawLine3D(point0.GetAsDxLibVector(), point1.GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
+		}
 	}
 }
