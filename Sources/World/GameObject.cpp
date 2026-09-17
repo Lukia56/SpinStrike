@@ -6,6 +6,7 @@
 
 GameObject::GameObject() :
 	mTransform(nullptr),
+	mIsCalledInit(false),
 	mIsCalledDestroy(false),
 	mIsActive(true),
 	mTag(Tag::None)
@@ -15,6 +16,7 @@ GameObject::GameObject() :
 
 GameObject::GameObject(std::unique_ptr<Transform> transform) :
 	mTransform(std::move(transform)),
+	mIsCalledInit(false),
 	mIsCalledDestroy(false),
 	mIsActive(true),
 	mTag(Tag::None)
@@ -23,6 +25,22 @@ GameObject::GameObject(std::unique_ptr<Transform> transform) :
 
 GameObject::~GameObject()
 {
+}
+
+void GameObject::CheckInit()
+{
+	if (!mIsCalledInit)
+	{
+		Init();
+
+		mIsCalledInit = true;
+	}
+
+	// 子オブジェクトについて再帰
+	for (auto& it : mTransform->GetChildren())
+	{
+		it->CheckInit();
+	}
 }
 
 bool GameObject::CheckDestroy()

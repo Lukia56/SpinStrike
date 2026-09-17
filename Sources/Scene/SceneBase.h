@@ -102,7 +102,6 @@ requires std::derived_from<T, GameObject>
 inline T* SceneBase::CreateToRoot(Args&&... args)
 {
 	auto ptr = std::make_unique<T>(std::forward<Args>(args)...);
-	ptr->Init();
 
 	T* rawPtr = ptr.get();
 
@@ -116,8 +115,6 @@ requires std::derived_from<T, GameObject>
 inline T* SceneBase::AddToRoot(std::unique_ptr<T> object)
 {
 	if (!object) return nullptr;
-
-	object->Init();
 
 	T* rawPtr = object.get();
 

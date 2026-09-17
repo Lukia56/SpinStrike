@@ -76,6 +76,11 @@ void SceneBase::UpdateRootObjects()
 {
 	for (const auto& it : mRootObjects)
 	{
+		it->CheckInit();
+	}
+
+	for (const auto& it : mRootObjects)
+	{
 		UpdateGameObject(it.get());
 	}
 

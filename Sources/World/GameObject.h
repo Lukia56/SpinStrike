@@ -44,6 +44,12 @@ public:
 	virtual void DebugDraw() {};
 
 	/// <summary>
+	/// 初期化処理が呼ばれたことがないかチェックし
+	/// 1度も呼ばれたことがなければ初期化処理を呼ぶ
+	/// </summary>
+	void CheckInit();
+
+	/// <summary>
 	/// 削除処理が呼ばれているかチェックし
 	/// 呼ばれていたら削除を行う
 	/// </summary>
@@ -90,6 +96,8 @@ protected:
 
 private:
 
+	bool mIsCalledInit;
+
 	bool mIsCalledDestroy;
 
 	/// <summary>
@@ -106,7 +114,6 @@ requires std::derived_from<T, GameObject>
 inline T* GameObject::CreateToChild(Args&&... args)
 {
 	auto ptr = std::make_unique<T>(std::forward<Args>(args)...);
-	ptr->Init();
 
 	T* rawPtr = ptr.get();
 
@@ -120,8 +127,6 @@ requires std::derived_from<T, GameObject>
 inline T* GameObject::AddToChild(std::unique_ptr<T> object)
 {
 	if (!object) return nullptr;
-
-	object->Init();
 
 	T* rawPtr = object.get();
 
