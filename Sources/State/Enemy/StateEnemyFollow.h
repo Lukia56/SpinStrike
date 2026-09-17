@@ -4,6 +4,9 @@
 
 class Enemy;
 
+/// <summary>
+/// ƒvƒŒƒCƒ„[‚ğ’ÇÕ‚·‚é
+/// </summary>
 class StateEnemyFollow : public IState<Enemy>
 {
 public:
@@ -11,9 +14,19 @@ public:
 	StateEnemyFollow();
 	~StateEnemyFollow() = default;
 
-	void Enter(Enemy& owner) override;
+	void Enter(Enemy& enemy) override;
 
-	void Update(Enemy& owner, StateContext<Enemy>& context) override;
+	void Update(Enemy& enemy, StateContext<Enemy>& context) override;
 
-	void Exit(Enemy& owner) override;
+	void Exit(Enemy& enemy) override;
+
+private:
+
+	void CountLostTimer(const Enemy& enemy);
+
+	bool IsLostPlayer() const;
+
+private:
+
+	float mLostTimer;
 };
