@@ -16,8 +16,6 @@ PlayerTornado::PlayerTornado(PlayerBulletManager* bulletManager) :
 	mCollider(nullptr),
 	mBulletManager(bulletManager)
 {
-	SetTag(Tag::Tornado);
-
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(kCollisionSize, kCollisionOffsetPos),
 		this,
@@ -32,6 +30,7 @@ PlayerTornado::~PlayerTornado()
 
 void PlayerTornado::Init()
 {
+	SetTag(Tag::Tornado);
 }
 
 void PlayerTornado::Finalize()

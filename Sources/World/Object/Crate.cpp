@@ -25,17 +25,11 @@ Crate::Crate() :
 	mIsHitTornado(false),
 	mModel(nullptr)
 {
-	SetTag(Tag::Terrain);
-
-	mModel = std::make_unique<ModelRenderer>(this);
-
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(kCollisionSize),
 		this,
 		Collision::Tag::Body
 	);
-
-	mTransform->localScale = kSize;
 }
 
 Crate::~Crate()
@@ -44,7 +38,12 @@ Crate::~Crate()
 
 void Crate::Init()
 {
+	SetTag(Tag::Terrain);
+
+	mModel = std::make_unique<ModelRenderer>(this);
 	mModel->Load(kModelPath);
+
+	mTransform->localScale = kSize;
 }
 
 void Crate::Finalize()

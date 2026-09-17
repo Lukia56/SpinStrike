@@ -44,15 +44,11 @@ Player::Player(PlayerBulletManager* bulletManager) :
 	mAnimator(nullptr),
 	mTornado(nullptr)
 {
-	SetTag(Tag::Player);
-
 	mParam = Data::Csv::LoadCsvAs<PlayerParam>(kPlayerParamPath)[0];
 
 	mModel = std::make_unique<ModelRenderer>(this);
 	mModel->Load(kModelHandlePath);
 	mModel->DisableMovement("root");
-
-	mAnimator = std::make_unique<ModelAnimator>(mModel.get(), 30.0f);
 
 	mTornado = CreateToChild<PlayerTornado>(bulletManager);
 	mTornado->SetActive(false);
@@ -67,8 +63,6 @@ Player::Player(PlayerBulletManager* bulletManager) :
 				param.collisionTag
 			));
 	}
-
-	CreateToChild<DebugGround>();
 }
 
 Player::~Player()
@@ -77,6 +71,11 @@ Player::~Player()
 
 void Player::Init()
 {
+	SetTag(Tag::Player);
+
+	mAnimator = std::make_unique<ModelAnimator>(mModel.get(), 30.0f);
+
+	CreateToChild<DebugGround>();
 }
 
 void Player::Finalize()

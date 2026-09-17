@@ -10,8 +10,6 @@ namespace
 
 TestBox::TestBox()
 {
-	SetTag(Tag::Terrain);
-
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(kCollisionSize),
 		this,
@@ -21,8 +19,6 @@ TestBox::TestBox()
 
 TestBox::TestBox(const Vector3& scale)
 {
-	SetTag(Tag::Terrain);
-
 	mTransform->localScale = scale;
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(scale),
@@ -37,6 +33,7 @@ TestBox::~TestBox()
 
 void TestBox::Init()
 {
+	SetTag(Tag::Terrain);
 }
 
 void TestBox::Finalize()

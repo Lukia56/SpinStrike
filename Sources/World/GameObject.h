@@ -28,6 +28,10 @@ public:
 		Enemy,
 	};
 
+	/// <summary>
+	/// 重い処理の初期化を行う
+	/// 外部から値を受け取る必要がないときなど基本的にここで初期化する
+	/// </summary>
 	virtual void Init() = 0;
 
 	virtual void Finalize() {};

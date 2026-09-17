@@ -43,8 +43,6 @@ Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, con
 	mStateContext(nullptr),
 	mPlayerTransform(playerTransform)
 {
-	SetTag(Tag::Enemy);
-
 	mCollider = std::make_unique<Collider3D>(
 				std::make_unique<Collision::AABB3D>(kCollisionSize),
 				this,
@@ -64,6 +62,8 @@ Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, con
 
 void Enemy::Init()
 {
+	SetTag(Tag::Enemy);
+
 	mStateContext->PushState<StateEnemyPatrollingMove>();
 }
 
