@@ -1,4 +1,5 @@
 #include "StateEnemyPatrollingMove.h"
+#include "StateEnemyFollow.h"
 #include "StateEnemyPatrollingInterpreter.h"
 #include "../StateContext.h"
 #include "Param/Param.h"
@@ -29,6 +30,12 @@ void StateEnemyPatrollingMove::Enter(Enemy& owner)
 
 void StateEnemyPatrollingMove::Update(Enemy& owner, StateContext<Enemy>& context)
 {
+	if (owner.IsFoundPlayer())
+	{
+		context.PushState<StateEnemyFollow>();
+		return;
+	}
+
 	if (mWaypointGroup.waypoints.empty()) return;
 
 	owner.SetVelocity(mMoveDir * kMoveSpeed);
@@ -58,7 +65,7 @@ int StateEnemyPatrollingMove::GetNextWaypointID(Enemy& enemy)
 {
 	int id = enemy.GetCurrentWaypointID();
 
-	size_t waypointNum = mWaypointGroup.waypoints.size();
+	int waypointNum = static_cast<int>(mWaypointGroup.waypoints.size());
 
 	if (mIsLoop)
 	{

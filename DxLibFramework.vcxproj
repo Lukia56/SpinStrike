@@ -241,7 +241,6 @@
     <ClCompile Include="Sources\World\UI\Test\TestOptionScreen.cpp" />
     <ClCompile Include="Sources\World\UI\Screen\TitleMenuScreen.cpp" />
     <ClCompile Include="Sources\State\Enemy\StateEnemyFollow.cpp" />
-    <ClCompile Include="Sources\State\Enemy\StateEnemyPatrolling.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\State\Enemy\Action\EnemyActionWait.h" />
@@ -375,7 +374,6 @@
     <ClInclude Include="Sources\World\UI\Test\TestOptionScreen.h" />
     <ClInclude Include="Sources\World\UI\Screen\TitleMenuScreen.h" />
     <ClInclude Include="Sources\State\Enemy\StateEnemyFollow.h" />
-    <ClInclude Include="Sources\State\Enemy\StateEnemyPatrolling.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

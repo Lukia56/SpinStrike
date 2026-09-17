@@ -1,5 +1,6 @@
 #include "StateEnemyPatrollingInterpreter.h"
 #include <vector>
+#include "StateEnemyFollow.h"
 #include "../StateContext.h"
 #include "Action/EnemyActionBase.h"
 #include "Param/Param.h"
@@ -26,6 +27,12 @@ void StateEnemyPatrollingInterpreter::Enter(Enemy& owner)
 
 void StateEnemyPatrollingInterpreter::Update(Enemy& owner, StateContext<Enemy>& context)
 {
+	if (owner.IsFoundPlayer())
+	{
+		context.ChangeState<StateEnemyFollow>();
+		return;
+	}
+
 	if (mActionDataIndex == -1)
 	{
 		context.PopState();

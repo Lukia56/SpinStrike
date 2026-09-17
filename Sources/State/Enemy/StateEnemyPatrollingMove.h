@@ -3,8 +3,6 @@
 #include "../IState.h"
 #include "Param/Param.h"
 
-struct WaypointMoveData;
-struct WaypointGroup;
 class Enemy;
 
 class StateEnemyPatrollingMove : public IState<Enemy>
