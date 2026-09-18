@@ -2,6 +2,8 @@
 #include <memory>
 #include "Param/Param.h"
 #include "Stage/StageModelDataBase.h"
+#include "System/ResourceManager.h"
+#include "System/Resource/Model.h"
 #include "World/Object/StageObject.h"
 
 StageObjectCreator::StageObjectCreator(Stage::StageModelDataBase* modelDataBase) :
@@ -12,7 +14,10 @@ StageObjectCreator::StageObjectCreator(Stage::StageModelDataBase* modelDataBase)
 
 std::unique_ptr<GameObject> StageObjectCreator::CreateInstance()
 {
-    auto instance = std::make_unique<StageObject>(mParam, mModelDataBase->GetFilePath(mParam.name));
+    std::string modelPath = mModelDataBase->GetFilePath(mParam.name);
+    std::shared_ptr<Resource::ResourceBase> model = ResourceManager::GetInstance().GetResource<Resource::Model>(modelPath);
+
+    auto instance = std::make_unique<StageObject>(mParam, model);
 
     return std::move(instance);
 }

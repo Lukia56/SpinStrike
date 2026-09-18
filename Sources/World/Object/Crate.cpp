@@ -4,7 +4,7 @@
 #include "../Component/Rendering/ModelRenderer.h"
 #include "Collision/Collision3D.h"
 #include "System/TimeManager.h"
-#include "Utility/Math.h"
+#include "System/Resource/ResourceBase.h"
 #include "Utility/Random.h"
 
 namespace
@@ -23,8 +23,26 @@ namespace
 Crate::Crate() :
 	mEnduranceTimer(0.0f),
 	mIsHitTornado(false),
-	mModel(nullptr)
+	mModel(nullptr),
+	mCollider(nullptr)
 {
+	mModel = std::make_unique<ModelRenderer>(this, nullptr);
+
+	mCollider = std::make_unique<Collider3D>(
+		std::make_unique<Collision::AABB3D>(kCollisionSize),
+		this,
+		Collision::Tag::Body
+	);
+}
+
+Crate::Crate(std::shared_ptr<Resource::ResourceBase> model) :
+	mEnduranceTimer(0.0f),
+	mIsHitTornado(false),
+	mModel(nullptr),
+	mCollider(nullptr)
+{
+	mModel = std::make_unique<ModelRenderer>(this, model);
+
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(kCollisionSize),
 		this,
@@ -39,9 +57,6 @@ Crate::~Crate()
 void Crate::Init()
 {
 	SetTag(Tag::Terrain);
-
-	mModel = std::make_unique<ModelRenderer>(this);
-	mModel->Load(kModelPath);
 
 	mTransform->localScale = kSize;
 }

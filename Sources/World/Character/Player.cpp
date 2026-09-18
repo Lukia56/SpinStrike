@@ -12,6 +12,7 @@
 #include "Collision/Collision3D.h"
 #include "System/InputManager.h"
 #include "System/TimeManager.h"
+#include "System/Resource/ResourceBase.h"
 #include "Utility/Color.h"
 #include "Utility/Data/CSV/CsvLoader.h"
 #include "Utility/Math.h"
@@ -23,11 +24,9 @@ namespace
 	const char* const kPlayerParamPath = "Resources\\MasterData\\PlayerParam.csv";
 
 	const char* const kAABBParamPath = "Resources\\MasterData\\PlayerAABBColliderParam.csv";
-
-	const char* const kModelHandlePath = "Resources\\Model\\Hero.x";
 }
 
-Player::Player(PlayerBulletManager* bulletManager) :
+Player::Player(std::shared_ptr<Resource::ResourceBase> model, PlayerBulletManager* bulletManager) :
 	mLastMoveVec(Vector3::XAxis),
 	mCanJumpTimer(0.0f),
 	mIsJumping(false),
@@ -46,8 +45,7 @@ Player::Player(PlayerBulletManager* bulletManager) :
 {
 	mParam = Data::Csv::LoadCsvAs<PlayerParam>(kPlayerParamPath)[0];
 
-	mModel = std::make_unique<ModelRenderer>(this);
-	mModel->Load(kModelHandlePath);
+	mModel = std::make_unique<ModelRenderer>(this, model);
 	mModel->DisableMovement("root");
 
 	mTornado = CreateToChild<PlayerTornado>(bulletManager);

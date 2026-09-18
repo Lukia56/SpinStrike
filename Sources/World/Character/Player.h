@@ -9,12 +9,16 @@ class PlayerBulletManager;
 class ModelRenderer;
 class Collider3D;
 class ModelAnimator;
+namespace Resource
+{
+	class ResourceBase;
+}
 
 class Player : public GameObject
 {
 public:
 
-	Player(PlayerBulletManager* bulletManager);
+	Player(std::shared_ptr<Resource::ResourceBase> model, PlayerBulletManager* bulletManager);
 	~Player();
 
 	void Init() override;

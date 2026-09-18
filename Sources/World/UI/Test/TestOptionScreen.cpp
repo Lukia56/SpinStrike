@@ -4,7 +4,9 @@
 #include "../Widget/ImageObject.h"
 #include "../Widget/MenuItem.h"
 #include "../Widget/TextObject.h"
+#include "System/ResourceManager.h"
 #include "System/Input/Literal/InputState.h"
+#include "System/Resource/Font.h"
 
 namespace
 {
@@ -24,11 +26,13 @@ namespace UI
 	{
 		UI::UIRoot* itemRoot = GetMenuItemRoot();
 
+		std::shared_ptr<Resource::ResourceBase> font = ResourceManager::GetInstance().GetResource<Resource::Font>(kFontPath);
+
 		// BGMƒ{ƒ^ƒ“
 		auto bgmItem = itemRoot->CreateToChild<MenuItem>();
 		bgmItem->GetRectTransform()->localPosition.y = 50.0f;
 		bgmItem->GetRectTransform()->SetFullRectAsFixed(Vector2(160.0f, 32.0f));
-		TextObject* bgmText = bgmItem->CreateToChild<TextObject>(kFontPath, kBGMVolumeText);
+		TextObject* bgmText = bgmItem->CreateToChild<TextObject>(font, kBGMVolumeText);
 		bgmText->SetHolizontalAlignment(HolizontalAlignment::Center);
 		bgmText->SetVerticalAlignment(VerticalAlignment::Middle);
 		bgmText->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
@@ -41,7 +45,7 @@ namespace UI
 		auto seItem = itemRoot->CreateToChild<MenuItem>();
 		seItem->GetRectTransform()->localPosition.y = 150.0f;
 		seItem->GetRectTransform()->SetFullRectAsFixed(Vector2(160.0f, 32.0f));
-		TextObject* seText = seItem->CreateToChild<TextObject>(kFontPath, kSEVolumeText);
+		TextObject* seText = seItem->CreateToChild<TextObject>(font, kSEVolumeText);
 		seText->SetHolizontalAlignment(HolizontalAlignment::Center);
 		seText->SetVerticalAlignment(VerticalAlignment::Middle);
 		seText->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);

@@ -8,6 +8,8 @@
 #include "World/Other/StageManager.h"
 #include "Camera/CameraFollow.h"
 #include "Camera/CameraManager.h"
+#include "System/ResourceManager.h"
+#include "System/Resource/Model.h"
 #include "System/Input/Keyboard.h"
 #include "System/Input/Mouse.h"
 #include "Utility/Data/JSON/JsonLoader.h"
@@ -19,6 +21,8 @@ namespace
 	const char* const kWaypointDataPath = "Resources\\MasterData\\TestStageWaypoint0.json";
 
 	const char* const kPatrollingDataPath = "Resources\\MasterData\\TestEnemyMoveData.json";
+
+	const char* const kPlayerModelPath = "Resources\\Model\\Hero.x";
 }
 
 SceneStageTest::SceneStageTest() :
@@ -35,9 +39,11 @@ void SceneStageTest::OnInit()
 {
 	auto objectRoot = CreateToRoot<RootObject>();
 
+	auto playerModel = ResourceManager::GetInstance().GetResource<Resource::Model>(kPlayerModelPath);
+
 	PlayerBulletManager* bulletManager = objectRoot->CreateToChild<PlayerBulletManager>();
 
-	mPlayer = objectRoot->CreateToChild<Player>(bulletManager);
+	mPlayer = objectRoot->CreateToChild<Player>(playerModel, bulletManager);
 	mPlayer->GetTransform()->localPosition.y = 200.0f;
 
 

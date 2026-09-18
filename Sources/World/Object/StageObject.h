@@ -5,6 +5,10 @@
 
 class ModelRenderer;
 class Collider3D;
+namespace Resource
+{
+	class ResourceBase;
+}
 
 /// <summary>
 /// ステージ上の静的なオブジェクト
@@ -13,7 +17,7 @@ class StageObject : public GameObject
 {
 public:
 
-	StageObject(const StageObjectParam& param, const std::string& modelPath);
+	StageObject(const StageObjectParam& param, std::shared_ptr<Resource::ResourceBase> model);
 	~StageObject() = default;
 
 	void Init() override;
@@ -27,4 +31,3 @@ private:
 
 	std::unique_ptr<Collider3D> mCollider;
 };
-

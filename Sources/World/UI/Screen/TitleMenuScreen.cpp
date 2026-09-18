@@ -3,7 +3,9 @@
 #include "../Widget/ImageObject.h"
 #include "../Widget/MenuItem.h"
 #include "../Widget/TextObject.h"
+#include "System/ResourceManager.h"
 #include "System/Input/Literal/InputState.h"
+#include "System/Resource/Font.h"
 
 namespace
 {
@@ -21,12 +23,14 @@ void TitleMenuScreen::Init()
 {
 	UI::UIRoot* itemRoot = GetMenuItemRoot();
 
+	std::shared_ptr<Resource::ResourceBase> font = ResourceManager::GetInstance().GetResource<Resource::Font>(kFontPath);
+
 	// 開始ボタン
 	auto startButton = itemRoot->CreateToChild<UI::MenuItem>();
 	startButton->GetRectTransform()->localPosition.y = 160.0f;
 	startButton->GetRectTransform()->SetFullRectAsFixed(Vector2(160.0f, 32.0f));
 
-	UI::TextObject* startText = startButton->CreateToChild<UI::TextObject>(kFontPath, kStartText, Color::white, HolizontalAlignment::Center, VerticalAlignment::Middle);
+	UI::TextObject* startText = startButton->CreateToChild<UI::TextObject>(font, kStartText, Color::white, HolizontalAlignment::Center, VerticalAlignment::Middle);
 	startText->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
 	
 	startButton->SetSelectCallback([startText]() { startText->SetColor(Color::cyan); });
@@ -37,7 +41,7 @@ void TitleMenuScreen::Init()
 	optionButton->GetRectTransform()->localPosition.y = 240.0f;
 	optionButton->GetRectTransform()->SetFullRectAsFixed(Vector2(160.0f, 32.0f));
 
-	UI::TextObject* optionText = optionButton->CreateToChild<UI::TextObject>(kFontPath, kOptionText, Color::white, HolizontalAlignment::Center, VerticalAlignment::Middle);
+	UI::TextObject* optionText = optionButton->CreateToChild<UI::TextObject>(font, kOptionText, Color::white, HolizontalAlignment::Center, VerticalAlignment::Middle);
 	optionText->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
 
 	optionButton->SetSelectCallback([optionText]() { optionText->SetColor(Color::cyan); });

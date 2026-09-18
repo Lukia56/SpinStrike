@@ -6,6 +6,10 @@
 #include "World/Component/Rendering/TextAlignment.h"
 
 class TextRenderer;
+namespace Resource
+{
+	class ResourceBase;
+}
 
 namespace UI
 {
@@ -17,7 +21,7 @@ namespace UI
 	{
 	public:
 
-		TextObject(const std::string& fontPath, const std::string& displayText, const Color& color = Color::white,
+		TextObject(std::shared_ptr<Resource::ResourceBase> font, const std::string& displayText, const Color& color = Color::white,
 			HolizontalAlignment hAlign = HolizontalAlignment::Left, VerticalAlignment vAlign = VerticalAlignment::Top);
 		~TextObject() = default;
 

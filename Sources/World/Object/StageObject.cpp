@@ -3,12 +3,9 @@
 #include "../Component/Rendering/ModelRenderer.h"
 #include "Collision/Collision3D.h"
 #include "Param/Param.h"
+#include "System/Resource/ResourceBase.h"
 
-namespace
-{
-}
-
-StageObject::StageObject(const StageObjectParam& param, const std::string& modelPath) :
+StageObject::StageObject(const StageObjectParam& param, std::shared_ptr<Resource::ResourceBase> model) :
 	mModel(nullptr),
 	mCollider(nullptr)
 {
@@ -16,8 +13,7 @@ StageObject::StageObject(const StageObjectParam& param, const std::string& model
 	mTransform->localRotation = param.transform.rotation;
 	mTransform->localScale = param.transform.scale;
 
-	mModel = std::make_unique<ModelRenderer>(this);
-	mModel->Load(modelPath);
+	mModel = std::make_unique<ModelRenderer>(this, model);
 
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(param.bounds.size, param.bounds.offsetPos),

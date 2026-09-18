@@ -4,12 +4,17 @@
 
 class ModelRenderer;
 class Collider3D;
+namespace Resource
+{
+	class ResourceBase;
+}
 
 class Crate : public GameObject
 {
 public:
 
 	Crate();
+	Crate(std::shared_ptr<Resource::ResourceBase> model);
 	~Crate();
 
 	void Init() override;

@@ -1,16 +1,15 @@
 #include "ImageObject.h"
 #include <memory>
-#include <string>
+#include "System/Resource/ResourceBase.h"
 #include "World/Component/RectTransform.h"
 #include "World/Component/Rendering/UIImageRenderer.h"
 
 namespace UI
 {
-	ImageObject::ImageObject(const std::string& texturePath) :
+	ImageObject::ImageObject(std::shared_ptr<Resource::ResourceBase> texture) :
 		mRenderer(nullptr)
 	{
-		mRenderer = std::make_unique<UIImageRenderer>(this, mRectTransform);
-		mRenderer->Load(texturePath);
+		mRenderer = std::make_unique<UIImageRenderer>(this, texture, mRectTransform);
 
 		SetRectSizeToTexSize();
 	}

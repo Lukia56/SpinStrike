@@ -1,9 +1,12 @@
 #pragma once
 
 #include "../Core/UIObject.h"
-#include <string>
 
 class UIImageRenderer;
+namespace Resource
+{
+	class ResourceBase;
+}
 
 namespace UI
 {
@@ -15,7 +18,7 @@ namespace UI
 	{
 	public:
 
-		ImageObject(const std::string& texturePath);
+		ImageObject(std::shared_ptr<Resource::ResourceBase> texture);
 		~ImageObject() = default;
 
 		void Init() override;

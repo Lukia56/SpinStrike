@@ -4,7 +4,9 @@
 #include "../Widget/ImageObject.h"
 #include "../Widget/MenuItem.h"
 #include "../Widget/TextObject.h"
+#include "System/ResourceManager.h"
 #include "System/Input/Literal/InputState.h"
+#include "System/Resource/Font.h"
 
 namespace
 {
@@ -25,12 +27,14 @@ namespace UI
 	{
 		UI::UIRoot* itemRoot = GetMenuItemRoot();
 
+		std::shared_ptr<Resource::ResourceBase> font = ResourceManager::GetInstance().GetResource<Resource::Font>(kFontPath);
+
 		// 開始ボタン
 		auto startItem = itemRoot->CreateToChild<MenuItem>();
 		startItem->GetRectTransform()->localPosition.y = 0.0f;
 		startItem->GetRectTransform()->SetFullRectAsFixed(Vector2(160.0f, 32.0f));
 
-		TextObject* startText = startItem->CreateToChild<TextObject>(kFontPath, kStartText, Color::white, HolizontalAlignment::Center, VerticalAlignment::Middle);
+		TextObject* startText = startItem->CreateToChild<TextObject>(font, kStartText, Color::white, HolizontalAlignment::Center, VerticalAlignment::Middle);
 		startText->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
 		
 		startItem->SetSelectCallback([startText]() { startText->SetColor(Color::yellow); });
@@ -41,7 +45,7 @@ namespace UI
 		optionItem->GetRectTransform()->localPosition.y = 100.0f;
 		optionItem->GetRectTransform()->SetFullRectAsFixed(Vector2(160.0f, 32.0f));
 
-		TextObject* optionText = optionItem->CreateToChild<TextObject>(kFontPath, kOptionText, Color::white, HolizontalAlignment::Center, VerticalAlignment::Middle);
+		TextObject* optionText = optionItem->CreateToChild<TextObject>(font, kOptionText, Color::white, HolizontalAlignment::Center, VerticalAlignment::Middle);
 		optionText->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
 
 		optionItem->SetSelectCallback([optionText]() { optionText->SetColor(Color::yellow); });
@@ -57,7 +61,7 @@ namespace UI
 		exitItem->GetRectTransform()->localPosition.y = 200.0f;
 		exitItem->GetRectTransform()->SetFullRectAsFixed(Vector2(160.0f, 32.0f));
 
-		TextObject* exitText = exitItem->CreateToChild<TextObject>(kFontPath, kExitText, Color::white, HolizontalAlignment::Center, VerticalAlignment::Middle);
+		TextObject* exitText = exitItem->CreateToChild<TextObject>(font, kExitText, Color::white, HolizontalAlignment::Center, VerticalAlignment::Middle);
 		exitText->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
 
 		exitItem->SetSelectCallback([exitText]() { exitText->SetColor(Color::yellow); });
