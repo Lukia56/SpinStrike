@@ -1,21 +1,19 @@
 #pragma once
 
 #include "Renderer.h"
-#include "System/Resource/Model.h"
+#include <string>
 
 class ModelInstance;
 
 /// <summary>
 /// モデルの描画を行う
 /// </summary>
-class ModelRenderer : public Renderer<Resource::Model>
+class ModelRenderer : public Renderer
 {
 public:
 
-	ModelRenderer(GameObject* owner);
+	ModelRenderer(GameObject* owner, std::shared_ptr<Resource::ResourceBase> resource);
 	~ModelRenderer();
-
-	void Load(const std::string& filePath) override;
 
 	/// <summary>
 	/// モデルをゲームオブジェクトのトランスフォームで描画する

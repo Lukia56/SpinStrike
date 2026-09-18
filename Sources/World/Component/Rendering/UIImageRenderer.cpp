@@ -1,24 +1,19 @@
 #include "UIImageRenderer.h"
 #include <DxLib.h>
 #include "../RectTransform.h"
+#include "System/Resource/ResourceBase.h"
 #include "Utility/Rect.h"
 #include "Utility/Vector.h"
 
-UIImageRenderer::UIImageRenderer(GameObject* owner, RectTransform* rectTransform) :
-	Renderer(owner),
+UIImageRenderer::UIImageRenderer(GameObject* owner, std::shared_ptr<Resource::ResourceBase> resource, RectTransform* rectTransform) :
+	Renderer(owner, resource),
 	mTexSize(Vector2::Zero),
 	mRectTransform(rectTransform)
 {
-}
-
-void UIImageRenderer::Load(const std::string& filePath)
-{
-	Renderer::Load(filePath);
-
-	// “Ç‚Ýž‚Ý‚ÉŽ¸”s‚µ‚½‚ç‘ŠúƒŠƒ^[ƒ“
-	if (!mResource) return;
-
-	GetGraphSizeF(mResource->GetHandle(), &mTexSize.x, &mTexSize.y);
+	if (resource)
+	{
+		GetGraphSizeF(resource->GetHandle(), &mTexSize.x, &mTexSize.y);
+	}
 }
 
 void UIImageRenderer::Draw() const

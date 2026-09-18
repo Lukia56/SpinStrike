@@ -1,24 +1,18 @@
 #include "SpriteRenderer.h"
 #include <DxLib.h>
-#include "../../GameObject.h"
-#include "Utility/Vector.h"
+#include "System/Resource/ResourceBase.h"
+#include "World/GameObject.h"
 
-SpriteRenderer::SpriteRenderer(GameObject* owner) :
-	Renderer(owner),
+SpriteRenderer::SpriteRenderer(GameObject* owner, std::shared_ptr<Resource::ResourceBase> resource) :
+	Renderer(owner, resource),
 	mTexHalfSize(Vector2::One)
 {
-}
-
-void SpriteRenderer::Load(const std::string& filePath)
-{
-	Renderer::Load(filePath);
-
-	// “Ç‚Ýž‚Ý‚ÉŽ¸”s‚µ‚½‚ç‘ŠúƒŠƒ^[ƒ“
-	if (!mResource) return;
-
-	// ‰æ‘œ‚Ì”¼Œa‚ðŽæ“¾
-	GetGraphSizeF(mResource->GetHandle(), &mTexHalfSize.x, &mTexHalfSize.y);
-	mTexHalfSize *= 0.5f;
+	if (resource)
+	{
+		// ‰æ‘œ‚Ì”¼Œa‚ðŽæ“¾
+		GetGraphSizeF(resource->GetHandle(), &mTexHalfSize.x, &mTexHalfSize.y);
+		mTexHalfSize *= 0.5f;
+	}
 }
 
 void SpriteRenderer::Draw() const

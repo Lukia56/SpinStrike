@@ -1,26 +1,22 @@
 #pragma once
 
 #include "Renderer.h"
+#include <string>
 #include "TextAlignment.h"
-#include "System/Resource/Font.h"
 #include "Utility/Color.h"
 #include "Utility/Rect.h"
 
 class RectTransform;
-namespace Resource
-{
-	class Font;
-}
 
 /// <summary>
 /// テキストの描画を行う
 /// 配置を変えたときの複数行は未想定
 /// </summary>
-class TextRenderer : public Renderer<Resource::Font>
+class TextRenderer : public Renderer
 {
 public:
 
-	TextRenderer(GameObject* owner, RectTransform* rectTransform, const std::string& displayText = "", const Color& color = Color::white,
+	TextRenderer(GameObject* owner, std::shared_ptr<Resource::ResourceBase> resource, RectTransform* rectTransform, const std::string& displayText = "", const Color& color = Color::white,
 		HolizontalAlignment hAlign = HolizontalAlignment::Left, VerticalAlignment vAlign = VerticalAlignment::Top);
 	~TextRenderer() = default;
 

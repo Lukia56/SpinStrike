@@ -2,12 +2,13 @@
 #include <DxLib.h>
 #include "TextAlignment.h"
 #include "../RectTransform.h"
-#include "../../GameObject.h"
+#include "System/Resource/ResourceBase.h"
 #include "Utility/Color.h"
 #include "Utility/Rect.h"
+#include "World/GameObject.h"
 
-TextRenderer::TextRenderer(GameObject* owner, RectTransform* rectTransform, const std::string& displayText, const Color& color, HolizontalAlignment hAlign, VerticalAlignment vAlign) :
-	Renderer(owner),
+TextRenderer::TextRenderer(GameObject* owner, std::shared_ptr<Resource::ResourceBase> resource, RectTransform* rectTransform, const std::string& displayText, const Color& color, HolizontalAlignment hAlign, VerticalAlignment vAlign) :
+	Renderer(owner, resource),
 	mDisplayText(displayText),
 	mColor(color),
 	mHolizontalAlignment(hAlign),

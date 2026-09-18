@@ -1,40 +1,24 @@
 #pragma once
 
-#include <cassert>
-#include <string>
-#include "System/ResourceManager.h"
-#include "System/Resource/ResourceBase.h"
+#include <memory>
 #include "Utility/Vector.h"
 
 class GameObject;
+namespace Resource
+{
+	class ResourceBase;
+}
 
 /// <summary>
 /// グラフィックリソースの描画を行う基底
 /// </summary>
-template<class T>
-requires std::derived_from<T, Resource::ResourceBase>
 class Renderer
 {
 public:
 
-	Renderer(GameObject* owner) : mResource(nullptr), mOwner(owner) {}
-	virtual ~Renderer()
-	{
-		mResource = nullptr;
-		mOwner = nullptr;
-	}
+	Renderer(GameObject* owner, std::shared_ptr<Resource::ResourceBase> resource);
+	virtual ~Renderer() = default;
 
-	/// <summary>
-	/// クラスのテンプレート引数のリソースの読み込みを行う
-	/// </summary>
-	virtual void Load(const std::string& filePath)
-	{
-		mResource = ResourceManager::GetInstance().GetResource<T>(filePath);
-	}
-
-	/// <summary>
-	/// リソースの描画処理を実装する
-	/// </summary>
 	virtual void Draw() const = 0;
 
 public:

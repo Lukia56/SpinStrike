@@ -318,6 +318,9 @@
     <ClCompile Include="Sources\State\Enemy\Action\EnemyActionWait.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\World\Component\Rendering\Renderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Application.h">

@@ -1,26 +1,21 @@
 #include "ModelRenderer.h"
 #include <DxLib.h>
 #include "ModelInstance.h"
-#include "../../GameObject.h"
-#include "System/Resource/Model.h"
+#include "System/Resource/ResourceBase.h"
+#include "World/GameObject.h"
 
-ModelRenderer::ModelRenderer(GameObject* owner) :
-	Renderer(owner),
+ModelRenderer::ModelRenderer(GameObject* owner, std::shared_ptr<Resource::ResourceBase> resource) :
+	Renderer(owner, resource),
 	mModelInstance(nullptr)
 {
+	if (resource)
+	{
+		mModelInstance = std::make_unique<ModelInstance>(resource);
+	}
 }
 
 ModelRenderer::~ModelRenderer()
 {
-}
-
-void ModelRenderer::Load(const std::string& filePath)
-{
-	Renderer::Load(filePath);
-
-	if (!mResource) return;
-
-	mModelInstance = std::make_unique<ModelInstance>(mResource);
 }
 
 void ModelRenderer::Draw() const
