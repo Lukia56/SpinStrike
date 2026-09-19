@@ -1,32 +1,22 @@
 #include "Player.h"
-#include <cassert>
 #include <memory>
 #include <DxLib.h>
 #include <imgui.h>
-#include "PlayerBulletManager.h"
-#include "PlayerTornado.h"
 #include "../Component/ModelAnimator.h"
 #include "../Component/Collider3D.h"
 #include "../Component/Rendering/ModelRenderer.h"
 #include "../Object/DebugGround.h"
 #include "Collision/Collision3D.h"
+#include "Param/Param.h"
 #include "System/InputManager.h"
 #include "System/TimeManager.h"
 #include "System/Resource/ResourceBase.h"
 #include "Utility/Color.h"
-#include "Utility/Data/CSV/CsvLoader.h"
 #include "Utility/Math.h"
 
 #include "System/Input/Keyboard.h"
 
-namespace
-{
-	const char* const kPlayerParamPath = "Resources\\MasterData\\PlayerParam.csv";
-
-	const char* const kAABBParamPath = "Resources\\MasterData\\PlayerAABBColliderParam.csv";
-}
-
-Player::Player(std::shared_ptr<Resource::ResourceBase> model, PlayerBulletManager* bulletManager) :
+Player::Player(std::shared_ptr<Resource::ResourceBase> model, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, GameObject* tornado) :
 	mLastMoveVec(Vector3::XAxis),
 	mCanJumpTimer(0.0f),
 	mIsJumping(false),
@@ -39,19 +29,14 @@ Player::Player(std::shared_ptr<Resource::ResourceBase> model, PlayerBulletManage
 	mSpinStamina(0.0f),
 	mSpinPreStartTimer(0.0f),
 	mSpinCooldownTimer(0.0f),
+	mParam(param),
 	mModel(nullptr),
 	mAnimator(nullptr),
-	mTornado(nullptr)
+	mTornado(tornado)
 {
-	mParam = Data::Csv::LoadCsvAs<PlayerParam>(kPlayerParamPath)[0];
-
 	mModel = std::make_unique<ModelRenderer>(this, model);
 	mModel->DisableMovement("root");
 
-	mTornado = CreateToChild<PlayerTornado>(bulletManager);
-	mTornado->SetActive(false);
-
-	auto aabbParam = Data::Csv::LoadCsvAs<AABBColliderParam>(kAABBParamPath);
 	for (const auto& param : aabbParam)
 	{
 		mColliders.emplace_back(

@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\Factory\PlayerCreator.cpp" />
     <ClCompile Include="Sources\State\Enemy\Action\EnemyActionWait.cpp" />
     <ClCompile Include="Sources\State\Enemy\Action\EnemyActionTest.cpp" />
     <ClCompile Include="Sources\State\Enemy\Action\EnemyActionBase.cpp" />
@@ -244,6 +245,7 @@
     <ClCompile Include="Sources\State\Enemy\StateEnemyFollow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\Factory\PlayerCreator.h" />
     <ClInclude Include="Sources\State\Enemy\Action\EnemyActionWait.h" />
     <ClInclude Include="Sources\State\Enemy\Action\EnemyActionTest.h" />
     <ClInclude Include="Sources\State\Enemy\Action\EnemyActionBase.h" />

@@ -1,11 +1,12 @@
 #pragma once
 
 #include "../GameObject.h"
+#include <vector>
 #include "Camera/CameraProperty.h"
 #include "Param/Param.h"
 
-class PlayerTornado;
-class PlayerBulletManager;
+struct PlayerParam;
+struct AABBColliderParam;
 class ModelRenderer;
 class Collider3D;
 class ModelAnimator;
@@ -18,7 +19,7 @@ class Player : public GameObject
 {
 public:
 
-	Player(std::shared_ptr<Resource::ResourceBase> model, PlayerBulletManager* bulletManager);
+	Player(std::shared_ptr<Resource::ResourceBase> model, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, GameObject* tornado);
 	~Player();
 
 	void Init() override;
@@ -99,7 +100,7 @@ private:
 	
 	std::vector<std::unique_ptr<Collider3D>> mColliders;
 
-	PlayerTornado* mTornado;
+	GameObject* mTornado;
 
 	Camera::View mCameraView;
 };

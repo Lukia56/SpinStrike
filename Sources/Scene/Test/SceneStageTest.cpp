@@ -1,8 +1,10 @@
 #include "SceneStageTest.h"
 #include <vector>
 #include "SceneSelectDebug.h"
+#include "Factory/PlayerCreator.h"
 #include "World/Character/Player.h"
 #include "World/Character/PlayerBulletManager.h"
+#include "World/Character/PlayerTornado.h"
 #include "World/Character/Enemy.h"
 #include "World/Other/RootObject.h"
 #include "World/Other/StageManager.h"
@@ -16,13 +18,15 @@
 
 namespace
 {
+	const char* const kPlayerModelPath = "Resources\\Model\\Hero.x";
+	const char* const kPlayerParamPath = "Resources\\MasterData\\PlayerParam.csv";
+	const char* const kPlayerAABBParamPath = "Resources\\MasterData\\PlayerAABBColliderParam.csv";
+
 	const char* const kStageObjectDataPath = "Resources\\MasterData\\TestStage0.json";
 
 	const char* const kWaypointDataPath = "Resources\\MasterData\\TestStageWaypoint0.json";
 
 	const char* const kPatrollingDataPath = "Resources\\MasterData\\TestEnemyMoveData.json";
-
-	const char* const kPlayerModelPath = "Resources\\Model\\Hero.x";
 }
 
 SceneStageTest::SceneStageTest() :
@@ -39,12 +43,19 @@ void SceneStageTest::OnInit()
 {
 	auto objectRoot = CreateToRoot<RootObject>();
 
-	auto playerModel = ResourceManager::GetInstance().GetResource<Resource::Model>(kPlayerModelPath);
-
+	// ƒvƒŒƒCƒ„[‚ð¶¬‚·‚é
 	PlayerBulletManager* bulletManager = objectRoot->CreateToChild<PlayerBulletManager>();
 
-	mPlayer = objectRoot->CreateToChild<Player>(playerModel, bulletManager);
+	auto tornado = std::make_unique<PlayerTornado>(bulletManager);
+	tornado->SetActive(false);
+
+	std::unique_ptr<PlayerCreator> playerCreator = std::make_unique<PlayerCreator>(kPlayerModelPath, kPlayerParamPath, kPlayerAABBParamPath, tornado.get());
+	mPlayer = objectRoot->AddToChild(std::move(playerCreator->CreateInstance()));
+	mPlayer->AddToChild(std::move(tornado));
 	mPlayer->GetTransform()->localPosition.y = 200.0f;
+
+
+
 
 
 	std::vector<WaypointGroup> waypointGroups = Data::Json::LoadJsonAs<WaypointGroup>(kWaypointDataPath);
