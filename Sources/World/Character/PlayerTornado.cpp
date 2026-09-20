@@ -6,9 +6,9 @@
 
 namespace
 {
-	constexpr Vector3 kCollisionSize{ 300.0f, 100.0f, 300.0f };
+	constexpr float kCollisionRadius = 150.0f;
 
-	constexpr Vector3 kCollisionOffsetPos{ 0.0f, kCollisionSize.y / 2.0f, 0.0f };
+	constexpr Vector3 kCollisionOffsetPos{ 0.0f, kCollisionRadius / 2.0f, 0.0f };
 }
 
 PlayerTornado::PlayerTornado(PlayerBulletManager* bulletManager) :
@@ -17,7 +17,7 @@ PlayerTornado::PlayerTornado(PlayerBulletManager* bulletManager) :
 	mBulletManager(bulletManager)
 {
 	mCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(kCollisionSize, kCollisionOffsetPos),
+		std::make_unique<Collision::Sphere3D>(kCollisionRadius, kCollisionOffsetPos),
 		this,
 		Collision::Tag::Body,
 		false
