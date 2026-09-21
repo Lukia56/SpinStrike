@@ -138,16 +138,16 @@ void Enemy::ResolveCollision(const Collision::Result& result, const Collider3D* 
 	{
 	case Tag::Terrain:
 
-		//mCollisionPush += result.normal * result.penetration;
+		mCollisionPush += result.normal * result.penetration;
 
 		// ï«Ç∆ÇÃè’ìÀ
 		if (!Math::IsNearZero(result.normal.x))
 		{
-			//mVelocity.x = 0.0f;
+			mVelocity.x = 0.0f;
 		}
 		if (!Math::IsNearZero(result.normal.z))
 		{
-			//mVelocity.z = 0.0f;
+			mVelocity.z = 0.0f;
 		}
 
 		// ínñ Ç∆ÇÃè’ìÀ

@@ -44,6 +44,8 @@ public:
 
 	Transform* GetPlayerTransform() const { return mPlayerTransform; }
 
+	Collider3D* GetCollider() const { return mCollider.get(); }
+
 private:
 
 	void ResolvePush();

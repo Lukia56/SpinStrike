@@ -3,6 +3,8 @@
 #include "StateEnemyPatrollingInterpreter.h"
 #include "../StateContext.h"
 #include "Param/Param.h"
+#include "World/Character/Enemy.h"
+#include "World/Component/Collider3D.h"
 
 namespace
 {
@@ -26,6 +28,8 @@ void StateEnemyPatrollingMove::Enter(Enemy& owner)
 	mMoveDir = CalculateNextWaypointNormal(owner);
 
 	owner.SetTargetYaw(std::atan2(mMoveDir.x, -mMoveDir.z));
+
+	owner.GetCollider()->SetDynamic(false);
 }
 
 void StateEnemyPatrollingMove::Update(Enemy& owner, StateContext<Enemy>& context)
@@ -51,6 +55,8 @@ void StateEnemyPatrollingMove::Exit(Enemy& owner)
 {
 	owner.SetCurrentWaypointID(GetNextWaypointID(owner));
 	owner.SetVelocity(Vector3::Zero);
+
+	owner.GetCollider()->SetDynamic(true);
 }
 
 Vector3 StateEnemyPatrollingMove::CalculateNextWaypointNormal(Enemy& enemy)

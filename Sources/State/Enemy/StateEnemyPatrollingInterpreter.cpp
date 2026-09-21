@@ -4,6 +4,8 @@
 #include "../StateContext.h"
 #include "Action/EnemyActionBase.h"
 #include "Param/Param.h"
+#include "World/Character/Enemy.h"
+#include "World/Component/Collider3D.h"
 
 StateEnemyPatrollingInterpreter::StateEnemyPatrollingInterpreter(std::vector<WaypointActionData> actionData) :
 	mActionIndex(-1),
@@ -23,6 +25,8 @@ void StateEnemyPatrollingInterpreter::Enter(Enemy& owner)
 
 		mActionDataIndex = i;
 	}
+
+	owner.GetCollider()->SetDynamic(false);
 }
 
 void StateEnemyPatrollingInterpreter::Update(Enemy& owner, StateContext<Enemy>& context)
@@ -60,4 +64,5 @@ void StateEnemyPatrollingInterpreter::Update(Enemy& owner, StateContext<Enemy>& 
 
 void StateEnemyPatrollingInterpreter::Exit(Enemy& owner)
 {
+	owner.GetCollider()->SetDynamic(true);
 }
