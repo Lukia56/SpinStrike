@@ -18,7 +18,9 @@ StageObject::StageObject(const StageObjectParam& param, std::shared_ptr<Resource
 	mCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::AABB3D>(param.bounds.size, param.bounds.offsetPos),
 		this,
-		Collision::Tag::Body
+		Collision::Tag::Body,
+		true,
+		false
 	);
 	mCollider->GetShape()->SetPosition(mTransform->CalculateWorldPosition());
 }
