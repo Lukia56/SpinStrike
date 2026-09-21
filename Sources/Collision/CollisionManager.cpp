@@ -6,7 +6,6 @@
 
 void CollisionManager::CheckAllCollision()
 {
-	// TODO: コライダに静的フラグを追加し、静的コライダ同士は計算しないようにする
 	for (size_t i = 0; i < mColliders.size(); i++)
 	{
 		const Collider3D* colliderA = mColliders[i];
@@ -20,6 +19,9 @@ void CollisionManager::CheckAllCollision()
 		{
 			const Collider3D* colliderB = mColliders[j];
 			if (!colliderB) continue;
+
+			// お互いが静的なら衝突を調べない
+			if (!colliderA->IsDynamic() && !colliderB->IsDynamic()) continue;
 
 			GameObject* ownerB = colliderB->GetOwner();
 			if (!ownerB) continue;
