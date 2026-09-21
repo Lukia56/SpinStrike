@@ -8,7 +8,8 @@ namespace Resource
 }
 
 /// <summary>
-/// DXライブラリのモデルハンドルを複製して管理する
+/// DXライブラリのモデルデータには様々な情報が入っており、
+/// 複数オブジェクトで共有できないため、モデルハンドルを複製して管理する
 /// </summary>
 class ModelInstance
 {

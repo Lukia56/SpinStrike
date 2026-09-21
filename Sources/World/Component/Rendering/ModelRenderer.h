@@ -12,7 +12,7 @@ class ModelRenderer : public Renderer
 {
 public:
 
-	ModelRenderer(GameObject* owner, std::shared_ptr<Resource::ResourceBase> resource);
+	ModelRenderer(GameObject* owner, std::shared_ptr<Resource::ResourceBase> resource, std::shared_ptr<Resource::ResourceBase> animation = nullptr);
 	~ModelRenderer();
 
 	/// <summary>
@@ -27,9 +27,16 @@ public:
 
 public:
 
-	int GetHandle() const;
+	int GetModelHandle() const;
+
+	int GetAnimModelHandle() const;
 
 private:
 
 	std::unique_ptr<ModelInstance> mModelInstance;
+
+	/// <summary>
+	/// アニメーション参照用でモデルを複製する必要がないため直で管理
+	/// </summary>
+	std::shared_ptr<Resource::ResourceBase> mAnimModel;
 };

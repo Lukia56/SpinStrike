@@ -4,9 +4,10 @@
 #include "System/Resource/ResourceBase.h"
 #include "World/GameObject.h"
 
-ModelRenderer::ModelRenderer(GameObject* owner, std::shared_ptr<Resource::ResourceBase> resource) :
+ModelRenderer::ModelRenderer(GameObject* owner, std::shared_ptr<Resource::ResourceBase> resource, std::shared_ptr<Resource::ResourceBase> animation) :
 	Renderer(owner, resource),
-	mModelInstance(nullptr)
+	mModelInstance(nullptr),
+	mAnimModel(animation)
 {
 	if (resource)
 	{
@@ -48,9 +49,16 @@ void ModelRenderer::DisableMovement(const std::string& rootName)
 	MV1SetFrameUserLocalMatrix(handle, rootFrameIndex, rootMtx);
 }
 
-int ModelRenderer::GetHandle() const
+int ModelRenderer::GetModelHandle() const
 {
 	if (!mModelInstance) return -1;
 
 	return mModelInstance->GetHandle();
+}
+
+int ModelRenderer::GetAnimModelHandle() const
+{
+	if (!mAnimModel) return GetModelHandle();
+	
+	return mAnimModel->GetHandle();
 }
