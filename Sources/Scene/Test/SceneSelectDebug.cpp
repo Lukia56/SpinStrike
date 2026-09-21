@@ -6,6 +6,7 @@
 #include "SceneMenuUITest.h"
 #include "SceneStageTest.h"
 #include "SceneUITest.h"
+#include "SceneModelAnimTest.h"
 #include "../SceneTitle.h"
 #include "System/InputManager.h"
 #include "System/Input/Mouse.h"
@@ -42,6 +43,10 @@ void SceneSelectDebug::OnInit()
 
 	info.name = "MenuUITest";
 	info.createSceneFunc = []() { return std::make_unique<SceneMenuUITest>(); };
+	mSceneList.emplace_back(info);
+
+	info.name = "ModelAnimTest";
+	info.createSceneFunc = []() { return std::make_unique<SceneModelAnimTest>(); };
 	mSceneList.emplace_back(info);
 
 	info.name = "Title";
