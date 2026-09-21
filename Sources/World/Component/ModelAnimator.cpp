@@ -28,7 +28,7 @@ void ModelAnimator::Update()
 	if (!mRenderer) return;
 	if (!mIsPlaying) return;
 
-	MV1SetAttachAnimTime(mRenderer->GetHandle(), mAttachIndex, mTime);
+	MV1SetAttachAnimTime(mRenderer->GetModelHandle(), mAttachIndex, mTime);
 
 	mTime += mPlaySpeed * mFPS * TimeManager::GetDeltaTime();
 	if (mTime > mTotalTime)
@@ -54,19 +54,20 @@ void ModelAnimator::Play(const AnimationParam& param)
 		assert(false && "ModelAnimator // モデルレンダラがnullのためアニメーションを更新できませんでした");
 		return;
 	}
-
+	
 	if (IsPlayingOneShotAnim()) return;
 	if (IsPlayingSameAnim(param.animIndex)) return;
 
-	int handle = mRenderer->GetHandle();
+	int modelHandle = mRenderer->GetModelHandle();
+	int animModelHandle = mRenderer->GetAnimModelHandle();
 	
-	if (mAttachIndex != -1) MV1DetachAnim(handle, mAttachIndex);
-	mAttachIndex = MV1AttachAnim(handle, param.animIndex, -1, false);
+	if (mAttachIndex != -1) MV1DetachAnim(modelHandle, mAttachIndex);
+	mAttachIndex = MV1AttachAnim(modelHandle, param.animIndex, animModelHandle, true);
 
 	mAnimIndex = param.animIndex;
 
 	mTime = 0.0f;
-	mTotalTime = MV1GetAttachAnimTotalTime(handle, mAttachIndex);
+	mTotalTime = MV1GetAttachAnimTotalTime(modelHandle, mAttachIndex);
 
 	mIsPlaying = true;
 	mIsLoop = param.isLoop;
