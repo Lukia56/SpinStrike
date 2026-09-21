@@ -182,8 +182,6 @@ void Player::ResolveCollision(const Collision::Result& result, const Collider3D*
 
 		mLastCollideNormal = result.normal;
 
-		// TODO: 壁ジャンプと同時に壁と反対に入力すると壁に向かって壁ジャンプするバグ修正
-		
 		// 壁との衝突
 		if (!Math::IsNearZero(result.normal.x))
 		{
