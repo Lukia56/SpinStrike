@@ -16,7 +16,7 @@ class Collider3D
 {
 public:
 
-	Collider3D(std::unique_ptr<Collision::IShape3D> shape, GameObject* owner, Collision::Tag tag, bool enable = true);
+	Collider3D(std::unique_ptr<Collision::IShape3D> shape, GameObject* owner, Collision::Tag tag, bool enable = true, bool isDynamic = true);
 	~Collider3D();
 
 	/// <summary>
@@ -33,6 +33,9 @@ public:
 
 	bool IsEnabled() const { return mIsEnable; }
 
+	void SetDynamic(bool isDynamic) { mIsDynamic = isDynamic; }
+	bool IsDynamic() const { return mIsDynamic; }
+
 	Collision::IShape3D* GetShape() const { return mShape.get(); }
 
 	GameObject* GetOwner() const { return mOwner; }
@@ -42,6 +45,11 @@ public:
 private:
 
 	bool mIsEnable;
+
+	/// <summary>
+	/// もしfalse(= 静的)なら静的なコライダとの衝突を行わなくなる
+	/// </summary>
+	bool mIsDynamic;
 
 	std::unique_ptr<Collision::IShape3D> mShape;
 
