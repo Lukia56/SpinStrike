@@ -15,7 +15,7 @@
 
 namespace
 {
-	const char* const kWindowConfigPath = "Resources\\MasterData\\WindowConfigs.csv";
+	const char* const kWindowConfigPath = "Resources\\MasterData\\Config\\WindowConfigs.csv";
 }
 
 Application::Application() :

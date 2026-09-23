@@ -9,7 +9,7 @@
 
 namespace
 {
-	const char* const kStageObjectDataPath = "Resources\\MasterData\\TestLevel.json";
+	const char* const kStageObjectDataPath = "Resources\\MasterData\\Stage\\TestStage\\StageData.json";
 }
 
 SceneLoadStageTest::SceneLoadStageTest() :

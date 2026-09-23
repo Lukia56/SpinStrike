@@ -4,7 +4,7 @@
 
 namespace
 {
-	const char* const kDataPath = "Resources\\MasterData\\StageModelData.csv";
+	const char* const kDataPath = "Resources\\MasterData\\Stage\\StageModelData.csv";
 }
 
 Stage::StageModelDataBase::StageModelDataBase()

@@ -10,8 +10,6 @@
 #include "World/Other/StageManager.h"
 #include "Camera/CameraFollow.h"
 #include "Camera/CameraManager.h"
-#include "System/ResourceManager.h"
-#include "System/Resource/Model.h"
 #include "System/Input/Keyboard.h"
 #include "System/Input/Mouse.h"
 #include "Utility/Data/JSON/JsonLoader.h"
@@ -19,14 +17,14 @@
 namespace
 {
 	const char* const kPlayerModelPath = "Resources\\Model\\Hero.x";
-	const char* const kPlayerParamPath = "Resources\\MasterData\\PlayerParam.csv";
-	const char* const kPlayerAABBParamPath = "Resources\\MasterData\\PlayerAABBColliderParam.csv";
+	const char* const kPlayerParamPath = "Resources\\MasterData\\Player\\PlayerParam.csv";
+	const char* const kPlayerAABBParamPath = "Resources\\MasterData\\Player\\PlayerAABBColliderParam.csv";
 
-	const char* const kStageObjectDataPath = "Resources\\MasterData\\TestStage0.json";
+	const char* const kStageObjectDataPath = "Resources\\MasterData\\Stage\\TestStage\\StageData.json";
 
-	const char* const kWaypointDataPath = "Resources\\MasterData\\TestStageWaypoint0.json";
+	const char* const kWaypointDataPath = "Resources\\MasterData\\Stage\\TestStage\\WaypointData.json";
 
-	const char* const kPatrollingDataPath = "Resources\\MasterData\\TestEnemyMoveData.json";
+	const char* const kPatrollingDataPath = "Resources\\MasterData\\Enemy\\TestEnemy\\WaypointActionData.json";
 }
 
 SceneStageTest::SceneStageTest() :
