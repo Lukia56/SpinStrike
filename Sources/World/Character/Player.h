@@ -7,6 +7,7 @@
 
 struct PlayerParam;
 struct AABBColliderParam;
+struct PlayerInitData;
 class ModelRenderer;
 class Collider3D;
 class ModelAnimator;
@@ -19,7 +20,7 @@ class Player : public GameObject
 {
 public:
 
-	Player(std::shared_ptr<Resource::ResourceBase> model, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, GameObject* tornado);
+	Player(std::shared_ptr<Resource::ResourceBase> model, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, const PlayerInitData& initData, GameObject* tornado);
 	~Player();
 
 	void Init() override;

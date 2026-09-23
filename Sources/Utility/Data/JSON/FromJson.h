@@ -61,5 +61,18 @@ namespace Data
 				return data;
 			}
 		};
+
+		template <>
+		struct FromJson<PlayerInitData>
+		{
+			static PlayerInitData Binding(const JsonObject& json)
+			{
+				PlayerInitData data;
+
+				data.transform = Get<TempTransform>(json, "transform");
+
+				return data;
+			}
+		};
 	}
 }

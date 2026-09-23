@@ -16,7 +16,7 @@
 
 #include "System/Input/Keyboard.h"
 
-Player::Player(std::shared_ptr<Resource::ResourceBase> model, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, GameObject* tornado) :
+Player::Player(std::shared_ptr<Resource::ResourceBase> model, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, const PlayerInitData& initData, GameObject* tornado) :
 	mLastMoveVec(Vector3::XAxis),
 	mCanJumpTimer(0.0f),
 	mIsJumping(false),
@@ -34,6 +34,10 @@ Player::Player(std::shared_ptr<Resource::ResourceBase> model, const PlayerParam&
 	mAnimator(nullptr),
 	mTornado(tornado)
 {
+	mTransform->localPosition = initData.transform.position;
+	mTransform->localRotation = initData.transform.rotation;
+	mTransform->localScale = initData.transform.scale;
+
 	mModel = std::make_unique<ModelRenderer>(this, model);
 	mModel->DisableMovement("root");
 

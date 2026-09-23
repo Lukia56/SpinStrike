@@ -21,8 +21,8 @@ namespace
 	const char* const kPlayerAABBParamPath = "Resources\\MasterData\\Player\\PlayerAABBColliderParam.csv";
 
 	const char* const kStageObjectDataPath = "Resources\\MasterData\\Stage\\TestStage\\StageData.json";
-
 	const char* const kWaypointDataPath = "Resources\\MasterData\\Stage\\TestStage\\WaypointData.json";
+	const char* const kPlayerInitDataPath = "Resources\\MasterData\\Stage\\TestStage\\PlayerInitData.json";
 
 	const char* const kPatrollingDataPath = "Resources\\MasterData\\Enemy\\TestEnemy\\WaypointActionData.json";
 }
@@ -47,7 +47,7 @@ void SceneStageTest::OnInit()
 	auto tornado = std::make_unique<PlayerTornado>(bulletManager);
 	tornado->SetActive(false);
 
-	std::unique_ptr<PlayerCreator> playerCreator = std::make_unique<PlayerCreator>(kPlayerModelPath, kPlayerParamPath, kPlayerAABBParamPath, tornado.get());
+	std::unique_ptr<PlayerCreator> playerCreator = std::make_unique<PlayerCreator>(kPlayerModelPath, kPlayerParamPath, kPlayerAABBParamPath, kPlayerInitDataPath, tornado.get());
 	mPlayer = objectRoot->AddToChild(std::move(playerCreator->CreateInstance()));
 	mPlayer->AddToChild(std::move(tornado));
 	mPlayer->GetTransform()->localPosition.y = 200.0f;

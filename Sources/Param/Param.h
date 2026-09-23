@@ -102,3 +102,8 @@ struct WaypointGroup
 {
 	std::vector<Waypoint> waypoints;
 };
+
+struct PlayerInitData
+{
+	TempTransform transform;
+};
