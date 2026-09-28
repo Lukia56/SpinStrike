@@ -19,6 +19,10 @@ namespace
 
 	constexpr float kEnduranceTime = 0.5f;
 
+	constexpr int kMaxHP = 5;
+
+	constexpr float kInvincibleTime = 1.0f;
+
 	const char* const kPatrollingDataPath = "Resources\\MasterData\\TestEnemyMoveData.json";
 
 	const char* const kWaypointDataPath = "Resources\\MasterData\\TestStageWaypoint0.json";
@@ -36,8 +40,8 @@ namespace
 
 Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, const std::vector<WaypointGroup>& waypointGroups) :
 	mTargetYaw(0.0f),
-	mEnduranceTimer(0.0f),
-	mIsHitTornado(false),
+	mHP(kMaxHP),
+	mInvincibleTimer(0.0f),
 	mCurrentWaypointID(0),
 	mCollider(nullptr),
 	mStateContext(nullptr),
@@ -80,13 +84,9 @@ void Enemy::Update()
 	float yawDif = mTargetYaw - mTransform->localRotation.y;
 	mTransform->localRotation.y += Math::NormalizeRadian(yawDif) * kYawLatency;
 
-	if (mIsHitTornado)
+	if (mInvincibleTimer > 0.0f)
 	{
-		mEnduranceTimer += TimeManager::GetDeltaTime();
-	}
-	else
-	{
-		mEnduranceTimer = 0.0f;
+		mInvincibleTimer -= TimeManager::GetDeltaTime();
 	}
 }
 
@@ -97,8 +97,6 @@ void Enemy::PhysicsUpdate()
 	Vector3 worldPos = mTransform->CalculateWorldPosition();
 
 	mCollider->GetShape()->SetPosition(worldPos);
-
-	mIsHitTornado = false;
 }
 
 void Enemy::Draw()
@@ -117,15 +115,14 @@ void Enemy::DebugDraw()
 	// Ž‹–ì”ÍˆÍ‚ð•`‰æ
 	DebugDrawFOV();
 
-	mCollider->GetShape()->DebugDraw(mIsHitTornado ? Color::red : Color::white);
+	mCollider->GetShape()->DebugDraw();
 
 	if (ImGui::Begin("Enemy"))
 	{
 		float velPtr[] = { mVelocity.x, mVelocity.y, mVelocity.z};
 		ImGui::InputFloat3("Velocity", velPtr, "%.1f");
 
-		ImGui::Text("EnduranceTimer : %f", mEnduranceTimer);
-
+		ImGui::Text("HP : %d", mHP);
 		ImGui::Text("IsFoundPlayer : %d", IsFoundPlayer());
 
 		ImGui::End();
@@ -159,9 +156,13 @@ void Enemy::ResolveCollision(const Collision::Result& result, const Collider3D* 
 
 	case Tag::Tornado:
 	{
-		mIsHitTornado = true;
+		if (mInvincibleTimer > 0.0f) break;
 
-		if (mEnduranceTimer > kEnduranceTime)
+		mHP--;
+
+		mInvincibleTimer = kInvincibleTime;
+
+		if (mHP <= 0)
 		{
 			PlayerTornado* tornado = dynamic_cast<PlayerTornado*>(oppCollider->GetOwner());
 

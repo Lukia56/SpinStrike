@@ -62,12 +62,9 @@ private:
 
 	float mTargetYaw;
 
-	/// <summary>
-	/// 吸い込みに耐えるタイマー
-	/// </summary>
-	float mEnduranceTimer;
+	int mHP;
 
-	bool mIsHitTornado;
+	float mInvincibleTimer;
 
 	int mCurrentWaypointID;
 
