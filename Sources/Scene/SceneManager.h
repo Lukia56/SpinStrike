@@ -41,6 +41,8 @@ private:
 
 private:
 
+	bool mIsSceneTransitioned;
+
 	std::unique_ptr<SceneBase> mCurrentScene;
 };
 

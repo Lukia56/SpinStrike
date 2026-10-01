@@ -5,6 +5,7 @@
 #include "Camera/CameraManager.h"
 
 SceneManager::SceneManager() :
+	mIsSceneTransitioned(false),
 	mCurrentScene(nullptr)
 {
 }
@@ -25,6 +26,8 @@ void SceneManager::Finalize()
 
 void SceneManager::Update()
 {
+	mIsSceneTransitioned = false;
+
 	auto nextScene = mCurrentScene->Update();
 	if (nextScene == nullptr) return;
 
@@ -32,19 +35,27 @@ void SceneManager::Update()
 	nextScene->Init();
 	mCurrentScene->Finalize();
 	mCurrentScene = std::move(nextScene);
+
+	mIsSceneTransitioned = true;
 }
 
 void SceneManager::PhysicsUpdate()
 {
+	if (mIsSceneTransitioned) return;
+
 	mCurrentScene->PhysicsUpdate();
 }
 
 void SceneManager::Draw()
 {
+	if (mIsSceneTransitioned) return;
+
 	mCurrentScene->Draw();
 }
 
 void SceneManager::DebugDraw()
 {
+	if (mIsSceneTransitioned) return;
+
 	mCurrentScene->DebugDraw();
 }
