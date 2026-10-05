@@ -78,6 +78,8 @@ public:
 
 	Transform* GetParent() const { return mParent; }
 
+	GameObject* GetOwner() const { return mOwner; }
+
 private:
 	
 	/// <summary>
