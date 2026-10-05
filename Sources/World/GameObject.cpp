@@ -76,3 +76,15 @@ void GameObject::Destroy(GameObject* deleteTarget)
 	}
 	deleteTarget->mIsCalledDestroy = true;
 }
+
+bool GameObject::IsActive() const
+{
+	Transform* parent = mTransform->GetParent();
+
+	if (parent)
+	{
+		if (!parent->GetOwner()->IsActive()) return false;
+	}
+
+	return mIsActive;
+}
