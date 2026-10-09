@@ -261,6 +261,13 @@ Vector3 Vector3::Approach(const Vector3& dst, float change) const
 	return src + dir * change;
 }
 
+Vector3 Vector3::Lerp(const Vector3& dst, float t) const
+{
+	Vector3 src = *this;
+
+	return src + (dst - src) * t;
+}
+
 float Vector3::GetLength() const
 {
 	return std::sqrt(GetSqLength());

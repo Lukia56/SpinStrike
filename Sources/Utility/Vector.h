@@ -115,6 +115,8 @@ struct Vector3
 	/// </summary>
 	Vector3 Approach(const Vector3& dst, float change) const;
 
+	Vector3 Lerp(const Vector3& dst, float t) const;
+
 	float GetLength() const;
 
 	float GetSqLength() const;
