@@ -24,5 +24,7 @@ private:
 
 	Vector3 mRotation;
 
+	Vector3 mTargetRotation;
+
 	Transform* mTarget;
 };

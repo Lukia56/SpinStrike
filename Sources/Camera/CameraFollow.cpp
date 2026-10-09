@@ -11,11 +11,16 @@ namespace
 
 	constexpr float kMaxPitch = 80.0f;
 	constexpr float kMinPitch = -80.0f;
+
+	constexpr float kMoveViewLatency = 0.25f;
+
+	constexpr float kSensitivity = 0.25f;
 }
 
 CameraFollow::CameraFollow(Transform* target) :
 	mEyePosition(Vector3::Zero),
 	mRotation(Vector3::Zero),
+	mTargetRotation(Vector3::Zero),
 	mTarget(target)
 {
 }
@@ -23,11 +28,13 @@ CameraFollow::CameraFollow(Transform* target) :
 void CameraFollow::Update(Camera::View& view)
 {
 	// 視点を移動する
-	Vector2 relative = Mouse::GetInstance().GetRelativePos();
-	mRotation += Vector3(relative.y, relative.x, 0.0f) * Math::ToRadian(1.0f);
+	Vector2 relative = Mouse::GetInstance().GetRelativePos() * kSensitivity;
+	mTargetRotation += Vector3(relative.y, relative.x, 0.0f) * Math::ToRadian(1.0f);
 
 	// ピッチを制限する
-	mRotation.x = Math::Clamp(mRotation.x, Math::ToRadian(kMinPitch), Math::ToRadian(kMaxPitch));
+	mTargetRotation.x = Math::Clamp(mTargetRotation.x, Math::ToRadian(kMinPitch), Math::ToRadian(kMaxPitch));
+
+	mRotation = mRotation.Lerp(mTargetRotation, kMoveViewLatency);
 
 	Vector3 targetPos = mTarget->CalculateWorldPosition();
 
