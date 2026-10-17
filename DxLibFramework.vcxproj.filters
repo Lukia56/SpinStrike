@@ -734,5 +734,8 @@
     <ClInclude Include="Sources\World\Test\ModelTest.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\Utility\Data\JSON\JsonExporter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

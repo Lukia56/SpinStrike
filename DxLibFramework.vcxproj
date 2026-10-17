@@ -254,6 +254,7 @@
     <ClInclude Include="Sources\State\Enemy\Action\EnemyActionBase.h" />
     <ClInclude Include="Sources\State\Enemy\StateEnemyPatrollingInterpreter.h" />
     <ClInclude Include="Sources\State\Enemy\StateEnemyPatrollingMove.h" />
+    <ClInclude Include="Sources\Utility\Data\JSON\JsonExporter.h" />
     <ClInclude Include="Sources\World\Character\Enemy.h" />
     <ClInclude Include="Sources\Scene\SceneTitle.h" />
     <ClInclude Include="Sources\Scene\Test\SceneMenuUITest.h" />
