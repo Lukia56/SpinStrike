@@ -39,13 +39,10 @@ void SceneStageTest::OnInit()
 
 	// ƒvƒŒƒCƒ„[‚ð¶¬‚·‚é
 	PlayerBulletManager* bulletManager = objectRoot->CreateToChild<PlayerBulletManager>();
+	std::unique_ptr<PlayerTornado> tornado = std::make_unique<PlayerTornado>(bulletManager);
 
-	auto tornado = std::make_unique<PlayerTornado>(bulletManager);
-	tornado->SetActive(false);
-
-	std::unique_ptr<PlayerCreator> playerCreator = std::make_unique<PlayerCreator>(kPlayerInitDataPath, tornado.get());
+	std::unique_ptr<PlayerCreator> playerCreator = std::make_unique<PlayerCreator>(kPlayerInitDataPath, std::move(tornado));
 	mPlayer = objectRoot->AddToChild(std::move(playerCreator->CreateInstance()));
-	mPlayer->AddToChild(std::move(tornado));
 
 
 	std::vector<WaypointGroup> waypointGroups = Data::Json::LoadJsonAs<WaypointGroup>(kWaypointDataPath);

@@ -2,6 +2,7 @@
 #include <memory>
 #include <DxLib.h>
 #include <imgui.h>
+#include "PlayerTornado.h"
 #include "../Component/ModelAnimator.h"
 #include "../Component/Collider3D.h"
 #include "../Component/Rendering/ModelRenderer.h"
@@ -17,7 +18,7 @@
 
 #include "System/Input/Keyboard.h"
 
-Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> shadowTexture, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, const PlayerInitData& initData, GameObject* tornado) :
+Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> shadowTexture, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, const PlayerInitData& initData, std::unique_ptr<PlayerTornado> tornado) :
 	mLastMoveVec(Vector3::XAxis),
 	mCanJumpTimer(0.0f),
 	mIsJumping(false),
@@ -26,14 +27,10 @@ Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Re
 	mOnCancelStickWall(false),
 	mStickWallCancelTimer(0.0f),
 	mIgnoreMoveInputTimer(0.0f),
-	mIsSpinning(false),
-	mSpinStamina(0.0f),
-	mSpinPreStartTimer(0.0f),
-	mSpinCooldownTimer(0.0f),
 	mParam(param),
 	mModel(nullptr),
 	mAnimator(nullptr),
-	mTornado(tornado)
+	mTornado(tornado.get())
 {
 	mTransform->localPosition = initData.transform.position;
 	mTransform->localRotation = initData.transform.rotation;
@@ -43,6 +40,8 @@ Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Re
 	mModel->DisableMovement("root");
 
 	CreateToChild<BlobShadow>(shadowTexture);
+
+	AddToChild(std::move(tornado));
 
 	for (const auto& param : aabbParam)
 	{
@@ -80,13 +79,12 @@ void Player::Update()
 
 	ResolvePush();
 
-	SpinAction(deltaTime);
 	MoveHorizontal(deltaTime);
 	MoveVertical(deltaTime);
 
-	if (!mOnGround && mCanJumpTimer > 0.0f) mCanJumpTimer -= TimeManager::GetDeltaTime();
+	if (!mOnGround && mCanJumpTimer > 0.0f) mCanJumpTimer -= deltaTime;
 
-	if (mIgnoreMoveInputTimer > 0.0f) mIgnoreMoveInputTimer -= TimeManager::GetDeltaTime();
+	if (mIgnoreMoveInputTimer > 0.0f) mIgnoreMoveInputTimer -= deltaTime;
 
 	if (Keyboard::GetInstance().IsDown(KEY_INPUT_1)) mAnimator->Play(AnimationParam{ .animIndex = 0, .isLoop = true, .isForcePlay = false });
 	if (Keyboard::GetInstance().IsDown(KEY_INPUT_2)) mAnimator->Play(AnimationParam{ .animIndex = 1, .isLoop = true, .isForcePlay = true });
@@ -135,12 +133,8 @@ void Player::DebugDraw()
 
 		//ImGui::Text("CanJumpTimer: %f", mCanJumpTimer);
 		//ImGui::Text("StickWallCancelTimer: %f", mStickWallCancelTimer);
-		ImGui::Text("SpinStamina: %f", mSpinStamina);
-		ImGui::Text("SpinCooldownTimer: %f", mSpinCooldownTimer);
-		ImGui::Text("SpinPreStartTimer: %f", mSpinPreStartTimer);
 
 		ImGui::Text("IsJumping: %d", mIsJumping);
-		ImGui::Text("IsSpinning: %d", mIsSpinning);
 		ImGui::Text("OnGround: %d", mOnGround);
 		ImGui::Text("OnWall: %d", mOnWall);
 
@@ -227,71 +221,6 @@ void Player::ResolvePush()
 	}
 }
 
-void Player::SpinAction(float deltaTime)
-{
-	// クールダウン中は処理を行わない
-	if (mSpinCooldownTimer > 0.0f)
-	{
-		mSpinCooldownTimer -= deltaTime;
-		return;
-	}
-
-	if (InputManager::GetInstance().IsPressed(Input::Action::Spin))
-	{
-		mIsSpinning = true;
-
-		mSpinPreStartTimer = mParam.spinPreStartTime;
-
-		mSpinStamina = mParam.spinStaminaDuration;
-	}
-	
-	ActivateSpin(deltaTime);
-
-	if (mTornado->IsActive())
-	{
-		// スタミナを消費する
-		if (mSpinStamina > 0.0f)
-		{
-			mSpinStamina -= deltaTime;
-		}
-		
-		DeactivateSpin();
-	}
-}
-
-void Player::ActivateSpin(float deltaTime)
-{
-	if (mTornado->IsActive()) return;
-	if (!mIsSpinning) return;
-
-	if (mSpinPreStartTimer > 0.0f)
-	{
-		mSpinPreStartTimer -= deltaTime;
-	}
-	else
-	{
-		mTornado->SetActive(true);
-	}
-}
-
-void Player::DeactivateSpin()
-{
-	if (mSpinStamina < 0.0f
-	|| !InputManager::GetInstance().IsDown(Input::Action::Spin))
-	{
-		EndSpin();
-	}
-}
-
-void Player::EndSpin()
-{
-	mIsSpinning = false;
-
-	mSpinCooldownTimer = mParam.spinCooldownTime;
-
-	mTornado->SetActive(false);
-}
-
 void Player::MoveHorizontal(float deltaTime)
 {
 	if (mIgnoreMoveInputTimer > 0.0f) return;
@@ -299,7 +228,7 @@ void Player::MoveHorizontal(float deltaTime)
 	float targetSpeed = mParam.walkSpeed;
 	float accel = mParam.walkAccel;
 
-	if (mIsSpinning)
+	if (mTornado->IsSpinning())
 	{
 		targetSpeed = mParam.spinMoveSpeed;
 		accel = mParam.spinMoveAccel;

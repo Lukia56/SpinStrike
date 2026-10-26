@@ -19,9 +19,9 @@ namespace
 	const char* const kBlobShadowTexturePath = "Resources\\Sprite\\BlobShadow.png";
 }
 
-PlayerCreator::PlayerCreator(const std::string& initData, PlayerTornado* tornado) :
+PlayerCreator::PlayerCreator(const std::string& initData, std::unique_ptr<PlayerTornado> tornado) :
 	mInitDataPath(initData),
-	mTornado(tornado)
+	mTornado(std::move(tornado))
 {
 }
 
@@ -35,7 +35,7 @@ std::unique_ptr<Player> PlayerCreator::CreateInstance()
 
 	std::shared_ptr<Resource::ResourceBase> blobShadowTexture = ResourceManager::GetInstance().GetResource<Resource::Texture>(kBlobShadowTexturePath);
 
-	auto instance = std::make_unique<Player>(model, blobShadowTexture, param, aabbParam, initData, mTornado);
+	auto instance = std::make_unique<Player>(model, blobShadowTexture, param, aabbParam, initData, std::move(mTornado));
 
 	return instance;
 }

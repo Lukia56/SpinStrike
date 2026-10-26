@@ -10,11 +10,11 @@ class PlayerTornado : public GameObject
 public:
 
 	PlayerTornado(PlayerBulletManager* bulletManager);
-	~PlayerTornado();
+	~PlayerTornado() = default;
 
 	void Init() override;
-	void Finalize() override;
 	void Update() override;
+	void PhysicsUpdate() override;
 	void Draw() override;
 	void DebugDraw() override;
 
@@ -24,16 +24,36 @@ public:
 
 public:
 
-	void SetActive(bool flag);
+	bool IsSpinning() const { return mIsSpinning; }
 
 private:
+
+	void SpinAction(float deltaTime);
+
+	void ActivateSpin(float deltaTime);
+
+	void StartSpin();
+
+	void DeactivateSpin();
+
+	void EndSpin();
+
+private:
+
+	bool mIsSpinning;
+
+	float mSpinStamina;
+
+	float mSpinPreStartTimer;
+
+	float mSpinCooldownTimer;
 
 	/// <summary>
 	/// ãzÇ¢çûÇÒÇæêî
 	/// </summary>
 	int mPulledNum;
 
-	std::unique_ptr<Collider3D> mCollider;
+	std::unique_ptr<Collider3D> mAttackCollider;
 
 	PlayerBulletManager* mBulletManager;
 };

@@ -1,13 +1,10 @@
 #pragma once
 
 #include "../GameObject.h"
-#include <vector>
 #include "Camera/CameraProperty.h"
 #include "Param/Param.h"
 
-struct PlayerParam;
-struct AABBColliderParam;
-struct PlayerInitData;
+class PlayerTornado;
 class ModelRenderer;
 class Collider3D;
 class ModelAnimator;
@@ -20,7 +17,7 @@ class Player : public GameObject
 {
 public:
 
-	Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> shadowTexture, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, const PlayerInitData& initData, GameObject* tornado);
+	Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> shadowTexture, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, const PlayerInitData& initData, std::unique_ptr<PlayerTornado> tornado);
 	~Player();
 
 	void Init() override;
@@ -44,14 +41,6 @@ public:
 private:
 
 	void ResolvePush();
-
-	void SpinAction(float deltaTime);
-
-	void ActivateSpin(float deltaTime);
-
-	void DeactivateSpin();
-
-	void EndSpin();
 
 	void MoveHorizontal(float deltaTime);
 
@@ -85,14 +74,6 @@ private:
 
 	float mIgnoreMoveInputTimer;
 
-	bool mIsSpinning;
-
-	float mSpinStamina;
-
-	float mSpinPreStartTimer;
-
-	float mSpinCooldownTimer;
-
 	PlayerParam mParam;
 
 	std::unique_ptr<ModelRenderer> mModel;
@@ -101,7 +82,7 @@ private:
 	
 	std::vector<std::unique_ptr<Collider3D>> mColliders;
 
-	GameObject* mTornado;
+	PlayerTornado* mTornado;
 
 	Camera::View mCameraView;
 };

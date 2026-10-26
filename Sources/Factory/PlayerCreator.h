@@ -10,7 +10,7 @@ class PlayerCreator : public Creator<Player>
 {
 public:
 
-	PlayerCreator(const std::string& initData, PlayerTornado* tornado);
+	PlayerCreator(const std::string& initData, std::unique_ptr<PlayerTornado> tornado);
 	virtual ~PlayerCreator() = default;
 
 	std::unique_ptr<Player> CreateInstance() override;
@@ -19,5 +19,5 @@ private:
 
 	std::string mInitDataPath;
 
-	PlayerTornado* mTornado;
+	std::unique_ptr<PlayerTornado> mTornado;
 };
