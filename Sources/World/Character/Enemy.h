@@ -6,6 +6,7 @@
 struct EnemyPatrollingData;
 struct WaypointGroup;
 class Collider3D;
+class EnemyAttackCollider;
 template <class T>
 class StateContext;
 
@@ -31,6 +32,8 @@ public:
 	bool IsFoundPlayer() const;
 
 	void Damage(int damage);
+
+	void StartAttack(float duration, const Vector3& offsetPos);
 
 public:
 
@@ -77,6 +80,8 @@ private:
 	std::unique_ptr<Collider3D> mCollider;
 
 	std::unique_ptr<StateContext<Enemy>> mStateContext;
+
+	EnemyAttackCollider* mAttackCollider;
 
 	Transform* mPlayerTransform;
 };

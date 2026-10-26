@@ -2,7 +2,9 @@
 #include <memory>
 #include <DxLib.h>
 #include <imgui.h>
+#include "EnemyAttackCollider.h"
 #include "State/StateContext.h"
+#include "State/Enemy/StateEnemyAttack.h"
 #include "State/Enemy/StateEnemyDamage.h"
 #include "State/Enemy/StateEnemyFollow.h"
 #include "State/Enemy/StateEnemyPatrollingMove.h"
@@ -31,6 +33,8 @@ namespace
 	constexpr float kDebugForwardLineLen = 50.0f;
 
 	constexpr int kDebugFOVQuolity = 16;
+
+	constexpr float kAttackColliderRadius = 30.0f;
 }
 
 Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, const std::vector<WaypointGroup>& waypointGroups) :
@@ -54,6 +58,7 @@ Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, con
 	}
 	
 	mStateContext = std::make_unique<StateContext<Enemy>>(this);
+	mStateContext->AddStateToPool(std::make_unique<StateEnemyAttack>());
 	mStateContext->AddStateToPool(std::make_unique<StateEnemyDamage>());
 	mStateContext->AddStateToPool(std::make_unique<StateEnemyFollow>());
 	mStateContext->AddStateToPool(std::make_unique<StateEnemyPatrollingMove>(patrollingData.moveData, waypointGroup));
@@ -65,6 +70,8 @@ void Enemy::Init()
 	SetTag(Tag::Enemy);
 
 	mStateContext->PushState<StateEnemyPatrollingMove>();
+
+	mAttackCollider = CreateToChild<EnemyAttackCollider>(kAttackColliderRadius);
 }
 
 void Enemy::Update()
@@ -192,6 +199,13 @@ bool Enemy::IsFoundPlayer() const
 void Enemy::Damage(int damage)
 {
 	mHP -= damage;
+}
+
+void Enemy::StartAttack(float duration, const Vector3& offsetPos)
+{
+	mAttackCollider->GetTransform()->localPosition = offsetPos;
+
+	mAttackCollider->Setup(duration);
 }
 
 void Enemy::ResolvePush()

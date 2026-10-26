@@ -1,4 +1,5 @@
 #include "StateEnemyFollow.h"
+#include "StateEnemyAttack.h"
 #include "StateEnemyPatrollingMove.h"
 #include "../StateContext.h"
 #include "System/TimeManager.h"
@@ -11,6 +12,8 @@ namespace
 
 	// Ž‹–ì‚©‚çŠO‚ê‚ÄŒ©Ž¸‚¤‚Ü‚Å‚ÌŽžŠÔ
 	constexpr float kLostTime = 3.0f;
+
+	constexpr float kStartAttackRange = 100.0f;
 }
 
 StateEnemyFollow::StateEnemyFollow() :
@@ -28,6 +31,7 @@ void StateEnemyFollow::Update(Enemy& enemy, StateContext<Enemy>& context)
 	Transform* transform = enemy.GetTransform();
 
 	Vector3 toPlayerVec = enemy.GetPlayerTransform()->CalculateWorldPosition() - transform->CalculateWorldPosition();
+	toPlayerVec.y = 0.0f;
 	if (toPlayerVec == Vector3::Zero) return;
 	
 	CountLostTimer(enemy);
@@ -38,8 +42,13 @@ void StateEnemyFollow::Update(Enemy& enemy, StateContext<Enemy>& context)
 		return;
 	}
 
+	if (toPlayerVec.GetSqLength() < Math::Sqr(kStartAttackRange))
+	{
+		context.ChangeState<StateEnemyAttack>();
+		return;
+	}
+
 	Vector3 toPlayerNorm = toPlayerVec.GetNormalize();
-	toPlayerNorm.y = 0.0f;
 
 	enemy.SetTargetYaw(std::atan2(toPlayerNorm.x, -toPlayerNorm.z));
 	enemy.SetVelocity(toPlayerNorm * kMoveSpeed);

@@ -9,5 +9,6 @@ namespace Collision
 		Foot,
 		CheckWall,
 		Sensor,
+		Attack,
 	};
 }

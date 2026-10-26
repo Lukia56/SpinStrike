@@ -29,9 +29,9 @@ void StateEnemyDamage::Enter(Enemy& enemy)
 	Transform* transform = enemy.GetTransform();
 
 	Vector3 toPlayerVec = enemy.GetPlayerTransform()->CalculateWorldPosition() - transform->CalculateWorldPosition();
+	toPlayerVec.y = 0.0f;
 	if (toPlayerVec == Vector3::Zero) return;
 
-	toPlayerVec.y = 0.0f;
 	Vector3 toPlayerNorm = toPlayerVec.GetNormalize();
 
 	float yaw = std::atan2(toPlayerNorm.x, -toPlayerNorm.z);
