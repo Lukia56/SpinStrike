@@ -89,7 +89,7 @@ public:
 	Transform* GetTransform() const { return mTransform.get(); }
 
 	bool IsActive() const;
-	virtual void SetActive(bool flag) { mIsActive = flag; }
+	void SetActive(bool flag) { mIsActive = flag; }
 
 	Tag GetTag() const { return mTag; }
 	void SetTag(Tag tag) { mTag = tag; }
