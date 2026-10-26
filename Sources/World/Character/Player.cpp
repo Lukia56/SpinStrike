@@ -5,6 +5,7 @@
 #include "../Component/ModelAnimator.h"
 #include "../Component/Collider3D.h"
 #include "../Component/Rendering/ModelRenderer.h"
+#include "../Other/BlobShadow.h"
 #include "../Object/DebugGround.h"
 #include "Collision/Collision3D.h"
 #include "Param/Param.h"
@@ -16,7 +17,7 @@
 
 #include "System/Input/Keyboard.h"
 
-Player::Player(std::shared_ptr<Resource::ResourceBase> model, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, const PlayerInitData& initData, GameObject* tornado) :
+Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> shadowTexture, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, const PlayerInitData& initData, GameObject* tornado) :
 	mLastMoveVec(Vector3::XAxis),
 	mCanJumpTimer(0.0f),
 	mIsJumping(false),
@@ -40,6 +41,8 @@ Player::Player(std::shared_ptr<Resource::ResourceBase> model, const PlayerParam&
 
 	mModel = std::make_unique<ModelRenderer>(this, model);
 	mModel->DisableMovement("root");
+
+	CreateToChild<BlobShadow>(shadowTexture);
 
 	for (const auto& param : aabbParam)
 	{

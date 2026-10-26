@@ -20,7 +20,7 @@ class Player : public GameObject
 {
 public:
 
-	Player(std::shared_ptr<Resource::ResourceBase> model, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, const PlayerInitData& initData, GameObject* tornado);
+	Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> shadowTexture, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, const PlayerInitData& initData, GameObject* tornado);
 	~Player();
 
 	void Init() override;

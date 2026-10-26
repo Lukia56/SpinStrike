@@ -4,10 +4,16 @@
 #include "Param/Param.h"
 #include "System/ResourceManager.h"
 #include "System/Resource/Model.h"
+#include "System/Resource/Texture.h"
 #include "Utility/Data/CSV/CsvLoader.h"
 #include "Utility/Data/JSON/JsonLoader.h"
 #include "World/Character/Player.h"
 #include "World/Character/PlayerTornado.h"
+
+namespace
+{
+	const char* const kBlobShadowTexturePath = "Resources\\Sprite\\BlobShadow.png";
+}
 
 PlayerCreator::PlayerCreator(const std::string& modelPath, const std::string& playerParamPath, const std::string& aabbParamPath, const std::string& initData, PlayerTornado* tornado) :
 	mModelPath(modelPath),
@@ -25,7 +31,9 @@ std::unique_ptr<Player> PlayerCreator::CreateInstance()
 	std::vector<AABBColliderParam> aabbParam = Data::Csv::LoadCsvAs<AABBColliderParam>(mAABBParamPath);
 	PlayerInitData initData = Data::Json::LoadJsonAs<PlayerInitData>(mInitDataPath)[0];
 
-	auto instance = std::make_unique<Player>(model, param, aabbParam, initData, mTornado);
+	std::shared_ptr<Resource::ResourceBase> blobShadowTexture = ResourceManager::GetInstance().GetResource<Resource::Texture>(kBlobShadowTexturePath);
+
+	auto instance = std::make_unique<Player>(model, blobShadowTexture, param, aabbParam, initData, mTornado);
 
 	return instance;
 }
