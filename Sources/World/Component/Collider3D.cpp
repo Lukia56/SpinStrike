@@ -15,7 +15,7 @@ Collider3D::Collider3D(std::unique_ptr<Collision::IShape3D> shape, GameObject* o
 
 Collider3D::~Collider3D()
 {
-	Disable();
+	CollisionManager::GetInstance().Unregister(this);
 }
 
 void Collider3D::Enable()
