@@ -737,5 +737,8 @@
     <ClInclude Include="Sources\Utility\Data\JSON\JsonExporter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\Collision\Ray.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
