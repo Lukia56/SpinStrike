@@ -12,13 +12,14 @@
 
 namespace
 {
+	const char* const kModelPath = "Resources\\Model\\Hero.x";
+	const char* const kParamPath = "Resources\\MasterData\\Player\\PlayerParam.csv";
+	const char* const kAABBParamPath = "Resources\\MasterData\\Player\\PlayerAABBColliderParam.csv";
+
 	const char* const kBlobShadowTexturePath = "Resources\\Sprite\\BlobShadow.png";
 }
 
-PlayerCreator::PlayerCreator(const std::string& modelPath, const std::string& playerParamPath, const std::string& aabbParamPath, const std::string& initData, PlayerTornado* tornado) :
-	mModelPath(modelPath),
-	mPlayerParamPath(playerParamPath),
-	mAABBParamPath(aabbParamPath),
+PlayerCreator::PlayerCreator(const std::string& initData, PlayerTornado* tornado) :
 	mInitDataPath(initData),
 	mTornado(tornado)
 {
@@ -26,9 +27,10 @@ PlayerCreator::PlayerCreator(const std::string& modelPath, const std::string& pl
 
 std::unique_ptr<Player> PlayerCreator::CreateInstance()
 {
-	std::shared_ptr<Resource::ResourceBase> model = ResourceManager::GetInstance().GetResource<Resource::Model>(mModelPath);
-	PlayerParam param = Data::Csv::LoadCsvAs<PlayerParam>(mPlayerParamPath)[0];
-	std::vector<AABBColliderParam> aabbParam = Data::Csv::LoadCsvAs<AABBColliderParam>(mAABBParamPath);
+	std::shared_ptr<Resource::ResourceBase> model = ResourceManager::GetInstance().GetResource<Resource::Model>(kModelPath);
+	PlayerParam param = Data::Csv::LoadCsvAs<PlayerParam>(kParamPath)[0];
+	std::vector<AABBColliderParam> aabbParam = Data::Csv::LoadCsvAs<AABBColliderParam>(kAABBParamPath);
+
 	PlayerInitData initData = Data::Json::LoadJsonAs<PlayerInitData>(mInitDataPath)[0];
 
 	std::shared_ptr<Resource::ResourceBase> blobShadowTexture = ResourceManager::GetInstance().GetResource<Resource::Texture>(kBlobShadowTexturePath);
