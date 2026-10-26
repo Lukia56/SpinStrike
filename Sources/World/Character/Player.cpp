@@ -20,10 +20,15 @@
 
 namespace
 {
+	constexpr int kMaxHP = 20;
+
+	constexpr float kInvincibleTime = 1.0f;
+
 	constexpr float kYawLatency = 0.25f;
 }
 
 Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> shadowTexture, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, const PlayerInitData& initData, std::unique_ptr<PlayerTornado> tornado) :
+	mHP(kMaxHP),
 	mLastMoveVec(Vector3::XAxis),
 	mCanJumpTimer(0.0f),
 	mIsJumping(false),
@@ -99,6 +104,8 @@ void Player::Update()
 
 	if (mIgnoreMoveInputTimer > 0.0f) mIgnoreMoveInputTimer -= deltaTime;
 
+	if (mInvincibleTimer > 0.0f) mInvincibleTimer -= deltaTime;
+
 	if (Keyboard::GetInstance().IsDown(KEY_INPUT_1)) mAnimator->Play(AnimationParam{ .animIndex = 0, .isLoop = true, .isForcePlay = false });
 	if (Keyboard::GetInstance().IsDown(KEY_INPUT_2)) mAnimator->Play(AnimationParam{ .animIndex = 1, .isLoop = true, .isForcePlay = true });
 
@@ -134,6 +141,8 @@ void Player::DebugDraw()
 
 	if (ImGui::Begin("Player"))
 	{
+		ImGui::Text("HP: %d", mHP);
+
 		float posPtr[] = {pos.x, pos.y, pos.z};
 		ImGui::InputFloat3("Position", posPtr, "%.1f");
 		
@@ -191,7 +200,7 @@ void Player::ResolveCollision(const Collision::Result& result, const Collider3D*
 	switch (oppCollider->GetOwner()->GetTag())
 	{
 	case Tag::Terrain:
-
+	{
 		// ‰Ÿ‚µo‚µ—Ê‚ª‘½‚¢¬•ª‚¾‚¯Žæ“¾‚·‚é
 		Vector3 tempPush = result.normal * result.penetration;
 		mCollisionPush.x = (std::abs(tempPush.x) > std::abs(mCollisionPush.x) ? tempPush.x : mCollisionPush.x);
@@ -220,6 +229,16 @@ void Player::ResolveCollision(const Collision::Result& result, const Collider3D*
 		{
 			mVelocity.y = Math::Min(mVelocity.y, 0.0f);
 		}
+		break;
+	}
+	case Tag::Enemy:
+
+		if (oppCollider->GetTag() != Collision::Tag::Attack) break;
+		if (mInvincibleTimer > 0.0f) break;
+
+		mHP--;
+		mInvincibleTimer = kInvincibleTime;
+
 		break;
 	}
 }

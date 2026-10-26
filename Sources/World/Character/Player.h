@@ -52,6 +52,10 @@ private:
 
 private:
 
+	int mHP;
+
+	float mInvincibleTimer;
+
 	Vector3 mVelocity;
 
 	Vector3 mLastMoveVec;
