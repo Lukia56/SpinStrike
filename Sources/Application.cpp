@@ -125,7 +125,9 @@ void Application::ProcessOutput()
 				ImGui::End();
 			}
 
+			SetUseLighting(false);
 			mSceneManager->DebugDraw();
+			SetUseLighting(true);
 		});
 #endif
 
