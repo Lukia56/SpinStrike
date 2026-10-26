@@ -43,6 +43,35 @@ void CollisionManager::CheckAllCollision()
 	}
 }
 
+std::vector<Collision::RaycastResult> CollisionManager::Raycast(const Collision::Ray& ray)
+{
+	return Raycast(ray, [](Collider3D*) { return true; });
+}
+
+std::vector<Collision::RaycastResult> CollisionManager::Raycast(const Collision::Ray& ray, std::function<bool(Collider3D*)> pred)
+{
+	std::vector<Collision::RaycastResult> results;
+
+	for (const auto& collider : mColliders)
+	{
+		if (!pred(collider)) continue;
+
+		Collision::RaycastResult result = collider->GetShape()->Raycast(ray);
+
+		if (!result.isHit) continue;
+
+		results.emplace_back(result);
+	}
+
+	// ‹——£‚Ì¸‡‚É•À‚Ñ‘Ö‚¦
+	std::sort(results.begin(), results.end(), [](const Collision::RaycastResult& a, const Collision::RaycastResult& b)
+		{
+			return a.distance < b.distance;
+		});
+
+	return results;
+}
+
 void CollisionManager::Register(Collider3D* collider)
 {
 	mColliders.emplace_back(collider);
