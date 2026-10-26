@@ -48,7 +48,7 @@ void PlayerTornado::Update()
 
 void PlayerTornado::PhysicsUpdate()
 {
-	mAttackCollider->GetShape()->SetPosition(mTransform->CalculateWorldPosition());
+	mAttackCollider->Update();
 }
 
 void PlayerTornado::Draw()
@@ -57,7 +57,7 @@ void PlayerTornado::Draw()
 
 void PlayerTornado::DebugDraw()
 {
-	if (mAttackCollider->IsEnabled()) mAttackCollider->GetShape()->DebugDraw();
+	mAttackCollider->DebugDraw();
 
 	if (ImGui::Begin("Tornado"))
 	{

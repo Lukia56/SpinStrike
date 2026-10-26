@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "Collision/CollisionTag.h"
+#include "Utility/Color.h"
 
 class GameObject;
 namespace Collision
@@ -18,6 +19,10 @@ public:
 
 	Collider3D(std::unique_ptr<Collision::IShape3D> shape, GameObject* owner, Collision::Tag tag, bool enable = true, bool isDynamic = true);
 	~Collider3D();
+
+	void Update();
+
+	void DebugDraw(const Color& color = Color::white);
 
 	/// <summary>
 	/// コライダを有効にし、マネージャーに登録する

@@ -42,7 +42,7 @@ void TestBox::Finalize()
 
 void TestBox::Update()
 {
-	mCollider->GetShape()->SetPosition(mTransform->CalculateWorldPosition());
+	mCollider->Update();
 }
 
 void TestBox::Draw()
@@ -51,5 +51,5 @@ void TestBox::Draw()
 
 void TestBox::DebugDraw()
 {
-	mCollider->GetShape()->DebugDraw();
+	mCollider->DebugDraw();
 }

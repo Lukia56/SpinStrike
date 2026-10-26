@@ -78,14 +78,14 @@ void Crate::Update()
 	}
 	mIsHitTornado = false;
 
-	mCollider->GetShape()->SetPosition(mTransform->CalculateWorldPosition());
+	mCollider->Update();
 }
 
 void Crate::Draw()
 {
 	mModel->Draw();
 
-	mCollider->GetShape()->DebugDraw();
+	mCollider->DebugDraw();
 }
 
 void Crate::ResolveCollision(const Collision::Result& result, const Collider3D* myCollider, const Collider3D* oppCollider)

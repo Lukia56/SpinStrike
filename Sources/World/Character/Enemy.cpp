@@ -94,9 +94,7 @@ void Enemy::PhysicsUpdate()
 {
 	mTransform->localPosition += mVelocity * TimeManager::GetDeltaTime();
 
-	Vector3 worldPos = mTransform->CalculateWorldPosition();
-
-	mCollider->GetShape()->SetPosition(worldPos);
+	mCollider->Update();
 }
 
 void Enemy::Draw()
@@ -115,7 +113,7 @@ void Enemy::DebugDraw()
 	// Ž‹–ì”ÍˆÍ‚ð•`‰æ
 	DebugDrawFOV();
 
-	mCollider->GetShape()->DebugDraw();
+	mCollider->DebugDraw();
 
 	if (ImGui::Begin("Enemy"))
 	{

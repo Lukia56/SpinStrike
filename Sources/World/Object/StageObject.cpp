@@ -22,7 +22,7 @@ StageObject::StageObject(const StageObjectParam& param, std::shared_ptr<Resource
 		true,
 		false
 	);
-	mCollider->GetShape()->SetPosition(mTransform->CalculateWorldPosition());
+	mCollider->Update();
 }
 
 void StageObject::Init()
@@ -41,5 +41,5 @@ void StageObject::Draw()
 
 void StageObject::DebugDraw()
 {
-	mCollider->GetShape()->DebugDraw();
+	mCollider->DebugDraw();
 }

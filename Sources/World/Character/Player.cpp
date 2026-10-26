@@ -109,10 +109,9 @@ void Player::PhysicsUpdate()
 {
 	mTransform->localPosition += mVelocity * TimeManager::GetDeltaTime();
 
-	Vector3 worldPos = mTransform->CalculateWorldPosition();
 	for (const auto& collider : mColliders)
 	{
-		collider->GetShape()->SetPosition(worldPos);
+		collider->Update();
 	}
 
 	mOnGround = false;
@@ -156,7 +155,7 @@ void Player::DebugDraw()
 
 	for (const auto& collider : mColliders)
 	{
-		collider->GetShape()->DebugDraw();
+		collider->DebugDraw();
 	}
 }
 
