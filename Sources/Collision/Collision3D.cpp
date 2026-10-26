@@ -1,4 +1,5 @@
 #include "Collision3D.h"
+#include <cfloat>
 #include <DxLib.h>
 #include "Utility/Color.h"
 #include "Utility/Geometry.h"
@@ -200,6 +201,66 @@ namespace Collision
 		mOffsetPos(offset),
 		mHalfSize(size * 0.5f)
 	{
+	}
+
+	Collision::RaycastResult AABB3D::Raycast(const Ray& ray) const
+	{
+		Collision::RaycastResult result;
+
+		Vector3 aabbMinPos = GetWorldPos() - GetHalfSize();
+		Vector3 aabbMaxPos = GetWorldPos() + GetHalfSize();
+
+		float tMin = -FLT_MAX;
+		float tMax = FLT_MAX;
+
+		// Še²‚ÅŒvZ‚·‚é
+		for (int i = 0; i < kDimensionNum; i++)
+		{
+			// ƒŒƒC‚ª²‚É•½s
+			if (Math::IsNearZero(ray.direction[i]))
+			{
+				if (ray.position[i] < aabbMinPos[i] || ray.position[i] > aabbMaxPos[i]) return result;
+
+				continue;
+			}
+
+			// “ü‚èŠÔŠuAoŠÔŠu‚ğŒvZ‚·‚é
+			float odd = 1.0f / ray.direction[i];
+			float t1 = (aabbMinPos[i] - ray.position[i]) * odd;
+			float t2 = (aabbMaxPos[i] - ray.position[i]) * odd;
+
+			// t1‚ğ¬‚³‚¢‚Ù‚¤‚É‚·‚é
+			if (t1 > t2)
+			{
+				std::swap(t1, t2);
+			}
+
+			// “’B‚ª’x‚¢•û‚ğŒó•â“ü‚èŠÔŠu‚É‚·‚é
+			if (t1 > tMin)
+			{
+				tMin = t1;
+			}
+			// “’B‚ª‘‚¢•û‚ğŒó•âoŠÔŠu‚É‚·‚é
+			if (t2 < tMax)
+			{
+				tMax = t2;
+			}
+
+			// Œğ·‚µ‚Ä‚¢‚È‚¢
+			if (tMin >= tMax) return result;
+
+			if (tMin < -Math::Epsilon) return result;
+
+			// ƒŒƒC‚Ì‹——£ŒÀŠE‚ğ’´‚¦‚Ä‚¢‚é
+			if (tMin > ray.maxDistance) return result;
+		}
+
+		// Œğ·‚µ‚Ä‚¢‚é
+		result.isHit = true;
+		result.collidePos = ray.position + ray.direction * tMin;
+		result.distance = tMin;
+
+		return result;
 	}
 
 	void AABB3D::DebugDraw(const Color& color) const

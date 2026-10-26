@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CollisionResult.h"
+#include "Ray.h"
 #include "Utility/Color.h"
 #include "Utility/Vector.h"
 
@@ -27,6 +28,8 @@ namespace Collision
 		/// <param name="other">Õ“Ë”»’è‚ğ’²‚×‚éŒ`ó</param>
 		/// <returns>Õ“Ëî•ñ</returns>
 		virtual Collision::Result CheckCollision(const IShape3D* other) const = 0;
+
+		virtual Collision::RaycastResult Raycast(const Ray& ray) const { return Collision::RaycastResult{}; }
 
 		virtual void DebugDraw(const Color& color = Color::white) const = 0;
 
@@ -124,6 +127,8 @@ namespace Collision
 		~AABB3D() = default;
 
 		Collision::Result CheckCollision(const IShape3D* other) const override { return other->Check(this); }
+
+		Collision::RaycastResult Raycast(const Ray& ray) const override;
 
 		void DebugDraw(const Color& color = Color::white) const override;
 
