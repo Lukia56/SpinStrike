@@ -18,6 +18,11 @@
 
 #include "System/Input/Keyboard.h"
 
+namespace
+{
+	constexpr float kYawLatency = 0.25f;
+}
+
 Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> shadowTexture, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, const PlayerInitData& initData, std::unique_ptr<PlayerTornado> tornado) :
 	mLastMoveVec(Vector3::XAxis),
 	mCanJumpTimer(0.0f),
@@ -81,6 +86,14 @@ void Player::Update()
 
 	MoveHorizontal(deltaTime);
 	MoveVertical(deltaTime);
+
+	// Šp“x‚ðÝ’è‚·‚é
+	if (mLastMoveVec != Vector3::Zero)
+	{
+		float targetYaw = std::atan2(mLastMoveVec.x, mLastMoveVec.z) + Math::kPi;
+		float yawDiff = targetYaw - mTransform->CalculateWorldRotation().y;
+		mTransform->localRotation.y += Math::NormalizeRadian(yawDiff) * kYawLatency;
+	}
 
 	if (!mOnGround && mCanJumpTimer > 0.0f) mCanJumpTimer -= deltaTime;
 
