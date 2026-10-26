@@ -1,4 +1,5 @@
 #include "PlayerTornado.h"
+#include <cmath>
 #include <imgui.h>
 #include "PlayerBulletManager.h"
 #include "../Component/Collider3D.h"
@@ -71,15 +72,6 @@ void PlayerTornado::DebugDraw()
 	}
 }
 
-void PlayerTornado::CreateBullet(const Vector3& moveVec)
-{
-	if (mPulledNum <= 0) return;
-
-	mBulletManager->CreateBullet(mTransform->CalculateWorldPosition(), moveVec);
-
-	mPulledNum = 0;
-}
-
 void PlayerTornado::SpinAction(float deltaTime)
 {
 	// クールダウン中は処理を行わない
@@ -147,4 +139,18 @@ void PlayerTornado::EndSpin()
 	mSpinCooldownTimer = kSpinCooldownTime;
 
 	mAttackCollider->Disable();
+
+	CreateBullet();
+}
+
+void PlayerTornado::CreateBullet()
+{
+	if (mPulledNum <= 0) return;
+
+	float yaw = mTransform->GetParent()->CalculateWorldRotation().y;
+	Vector3 moveVec = Vector3(-std::sin(yaw), 0.0f, -std::cos(yaw));
+
+	mBulletManager->CreateBullet(mTransform->CalculateWorldPosition(), moveVec);
+
+	mPulledNum = 0;
 }

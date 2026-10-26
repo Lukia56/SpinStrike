@@ -18,8 +18,6 @@ public:
 	void Draw() override;
 	void DebugDraw() override;
 
-	void CreateBullet(const Vector3& moveVec);
-
 	void AddPulledNum() { mPulledNum++; }
 
 public:
@@ -37,6 +35,8 @@ private:
 	void DeactivateSpin();
 
 	void EndSpin();
+
+	void CreateBullet();
 
 private:
 
