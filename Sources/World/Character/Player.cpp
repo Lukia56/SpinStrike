@@ -185,7 +185,12 @@ void Player::ResolveCollision(const Collision::Result& result, const Collider3D*
 	switch (oppCollider->GetOwner()->GetTag())
 	{
 	case Tag::Terrain:
-		mCollisionPush += result.normal * result.penetration;
+
+		// ‰Ÿ‚µo‚µ—Ê‚ª‘½‚¢¬•ª‚¾‚¯Žæ“¾‚·‚é
+		Vector3 tempPush = result.normal * result.penetration;
+		mCollisionPush.x = (std::abs(tempPush.x) > std::abs(mCollisionPush.x) ? tempPush.x : mCollisionPush.x);
+		mCollisionPush.y = (std::abs(tempPush.y) > std::abs(mCollisionPush.y) ? tempPush.y : mCollisionPush.y);
+		mCollisionPush.z = (std::abs(tempPush.z) > std::abs(mCollisionPush.z) ? tempPush.z : mCollisionPush.z);
 
 		mLastCollideNormal = result.normal;
 
