@@ -3,6 +3,7 @@
 #include <DxLib.h>
 #include <imgui.h>
 #include "State/StateContext.h"
+#include "State/Enemy/StateEnemyDamage.h"
 #include "State/Enemy/StateEnemyFollow.h"
 #include "State/Enemy/StateEnemyPatrollingMove.h"
 #include "State/Enemy/StateEnemyPatrollingInterpreter.h"
@@ -17,15 +18,9 @@ namespace
 {
 	constexpr Vector3 kCollisionSize{ 50.0f, 50.0f, 50.0f };
 
-	constexpr float kEnduranceTime = 0.5f;
+	constexpr int kMaxHP = 3;
 
-	constexpr int kMaxHP = 5;
-
-	constexpr float kInvincibleTime = 1.0f;
-
-	const char* const kPatrollingDataPath = "Resources\\MasterData\\TestEnemyMoveData.json";
-
-	const char* const kWaypointDataPath = "Resources\\MasterData\\TestStageWaypoint0.json";
+	constexpr float kKnockbackDamping = 4.0f;
 
 	constexpr float kYawLatency = 0.1f;
 
@@ -41,7 +36,7 @@ namespace
 Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, const std::vector<WaypointGroup>& waypointGroups) :
 	mTargetYaw(0.0f),
 	mHP(kMaxHP),
-	mInvincibleTimer(0.0f),
+	mIsInvincible(false),
 	mCurrentWaypointID(0),
 	mCollider(nullptr),
 	mStateContext(nullptr),
@@ -59,6 +54,7 @@ Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, con
 	}
 	
 	mStateContext = std::make_unique<StateContext<Enemy>>(this);
+	mStateContext->AddStateToPool(std::make_unique<StateEnemyDamage>());
 	mStateContext->AddStateToPool(std::make_unique<StateEnemyFollow>());
 	mStateContext->AddStateToPool(std::make_unique<StateEnemyPatrollingMove>(patrollingData.moveData, waypointGroup));
 	mStateContext->AddStateToPool(std::make_unique<StateEnemyPatrollingInterpreter>(std::move(patrollingData.waypointActions)));
@@ -71,10 +67,6 @@ void Enemy::Init()
 	mStateContext->PushState<StateEnemyPatrollingMove>();
 }
 
-void Enemy::Finalize()
-{
-}
-
 void Enemy::Update()
 {
 	ResolvePush();
@@ -83,11 +75,6 @@ void Enemy::Update()
 
 	float yawDif = mTargetYaw - mTransform->localRotation.y;
 	mTransform->localRotation.y += Math::NormalizeRadian(yawDif) * kYawLatency;
-
-	if (mInvincibleTimer > 0.0f)
-	{
-		mInvincibleTimer -= TimeManager::GetDeltaTime();
-	}
 }
 
 void Enemy::PhysicsUpdate()
@@ -154,11 +141,9 @@ void Enemy::ResolveCollision(const Collision::Result& result, const Collider3D* 
 
 	case Tag::Tornado:
 	{
-		if (mInvincibleTimer > 0.0f) break;
+		if (mIsInvincible) break;
 
-		mHP--;
-
-		mInvincibleTimer = kInvincibleTime;
+		mStateContext->ChangeState<StateEnemyDamage>();
 
 		if (mHP <= 0)
 		{
@@ -204,12 +189,23 @@ bool Enemy::IsFoundPlayer() const
 	return dot < std::cos(Math::ToRadian(kFovHAngle * 0.5f) + Math::kPiOver2);
 }
 
+void Enemy::Damage(int damage)
+{
+	mHP -= damage;
+}
+
 void Enemy::ResolvePush()
 {
 	if (mCollisionPush != Vector3::Zero)
 	{
-		mTransform->localPosition += mCollisionPush;
+		mTransform->Translate(mCollisionPush);
 		mCollisionPush = Vector3::Zero;
+	}
+
+	if (mKnockbackPush != Vector3::Zero)
+	{
+		mTransform->Translate(mKnockbackPush);
+		mKnockbackPush -= mKnockbackPush * kKnockbackDamping * TimeManager::GetDeltaTime();
 	}
 }
 

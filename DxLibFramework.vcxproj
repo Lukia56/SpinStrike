@@ -246,6 +246,7 @@
     <ClCompile Include="Sources\World\UI\Screen\TitleMenuScreen.cpp" />
     <ClCompile Include="Sources\State\Enemy\StateEnemyFollow.cpp" />
     <ClCompile Include="Sources\World\Test\ModelTest.cpp" />
+    <ClCompile Include="Sources\State\Enemy\StateEnemyDamage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Collision\Ray.h" />
@@ -385,6 +386,7 @@
     <ClInclude Include="Sources\World\UI\Screen\TitleMenuScreen.h" />
     <ClInclude Include="Sources\State\Enemy\StateEnemyFollow.h" />
     <ClInclude Include="Sources\World\Test\ModelTest.h" />
+    <ClInclude Include="Sources\State\Enemy\StateEnemyDamage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

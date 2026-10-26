@@ -18,8 +18,6 @@ public:
 
 	void Init() override;
 
-	void Finalize() override;
-
 	void Update() override;
 
 	void PhysicsUpdate() override;
@@ -32,12 +30,18 @@ public:
 
 	bool IsFoundPlayer() const;
 
+	void Damage(int damage);
+
 public:
 
 	const Vector3& GetVelocity() const { return mVelocity; }
 	void SetVelocity(const Vector3& vel) { mVelocity = vel; }
 
+	void AddKnockbackPush(const Vector3& push) { mKnockbackPush += push; }
+
 	void SetTargetYaw(float targetYaw) { mTargetYaw = targetYaw; }
+
+	void SetInvincible(bool flag) { mIsInvincible = flag; }
 
 	int GetCurrentWaypointID() const { return mCurrentWaypointID; }
 	void SetCurrentWaypointID(int waypointID) { mCurrentWaypointID = waypointID; }
@@ -60,11 +64,13 @@ private:
 
 	Vector3 mCollisionPush;
 
+	Vector3 mKnockbackPush;
+
 	float mTargetYaw;
 
 	int mHP;
 
-	float mInvincibleTimer;
+	bool mIsInvincible;
 
 	int mCurrentWaypointID;
 

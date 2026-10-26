@@ -1,4 +1,5 @@
 #include "StateEnemyFollow.h"
+#include "StateEnemyPatrollingMove.h"
 #include "../StateContext.h"
 #include "System/TimeManager.h"
 #include "Utility/Math.h"
@@ -33,7 +34,7 @@ void StateEnemyFollow::Update(Enemy& enemy, StateContext<Enemy>& context)
 
 	if (IsLostPlayer())
 	{
-		context.PopState();
+		context.ChangeState<StateEnemyPatrollingMove>();
 		return;
 	}
 

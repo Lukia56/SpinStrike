@@ -36,7 +36,7 @@ void StateEnemyPatrollingMove::Update(Enemy& owner, StateContext<Enemy>& context
 {
 	if (owner.IsFoundPlayer())
 	{
-		context.PushState<StateEnemyFollow>();
+		context.ChangeState<StateEnemyFollow>();
 		return;
 	}
 
@@ -46,7 +46,7 @@ void StateEnemyPatrollingMove::Update(Enemy& owner, StateContext<Enemy>& context
 
 	if (IsReachWaypoint(owner))
 	{
-		context.PushState<StateEnemyPatrollingInterpreter>();
+		context.ChangeState<StateEnemyPatrollingInterpreter>();
 		return;
 	}
 }

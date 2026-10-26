@@ -1,6 +1,7 @@
 #include "StateEnemyPatrollingInterpreter.h"
 #include <vector>
 #include "StateEnemyFollow.h"
+#include "StateEnemyPatrollingMove.h"
 #include "../StateContext.h"
 #include "Action/EnemyActionBase.h"
 #include "Param/Param.h"
@@ -39,7 +40,7 @@ void StateEnemyPatrollingInterpreter::Update(Enemy& owner, StateContext<Enemy>& 
 
 	if (mActionDataIndex == -1)
 	{
-		context.PopState();
+		context.ChangeState<StateEnemyPatrollingMove>();
 		return;
 	}
 
@@ -57,7 +58,7 @@ void StateEnemyPatrollingInterpreter::Update(Enemy& owner, StateContext<Enemy>& 
 
 	if (mActionIndex >= actions.size())
 	{
-		context.PopState();
+		context.ChangeState<StateEnemyPatrollingMove>();
 		return;
 	}
 }
