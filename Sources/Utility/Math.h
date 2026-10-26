@@ -14,7 +14,7 @@ namespace Math
 	constexpr float kPiOver2 = kPi / 2.0f;
 
 	// ¬”‚ÌŒë·‹–—e”ÍˆÍ
-	constexpr float Epsilon = 0.00001f;
+	constexpr float Epsilon = 0.0001f;
 
 	template <std::floating_point T>
 	constexpr T ToRadian(const T degree)
