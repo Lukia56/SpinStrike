@@ -2,17 +2,20 @@
 
 #include "MenuScreen.h"
 
-class TitleMenuScreen : public UI::MenuScreen
+namespace UI
 {
-public:
+	class TitleMenuScreen : public MenuScreen
+	{
+	public:
 
-	TitleMenuScreen();
-	~TitleMenuScreen() = default;
+		TitleMenuScreen();
+		~TitleMenuScreen() = default;
 
-	void Init() override;
-	void Update() override;
+		void Init() override;
+		void Update() override;
 
-	void Setup() override;
+		void Setup() override;
 
-	bool ProcessInput(const Input::UIInputState& input);
-};
+		bool ProcessInput(const Input::UIInputState& input);
+	};
+}

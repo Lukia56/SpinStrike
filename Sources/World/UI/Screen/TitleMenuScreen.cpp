@@ -12,77 +12,96 @@ namespace
 	const char* const kFontPath = "Resources\\Font\\NicoKaku.dft";
 
 	const char* const kStartText = "ゲーム開始";
+	constexpr Vector3 kStartButtonPos{ 0.0f, 160.0f, 0.0f };
+
 	const char* const kOptionText = "設定";
+	constexpr Vector3 kOptionButtonPos{ 0.0f, 240.0f, 0.0f };
+
+	const char* const kExitText = "ゲーム終了";
+	constexpr Vector3 kExitButtonPos{ 0.0f, 320.0f, 0.0f };
 }
 
-TitleMenuScreen::TitleMenuScreen()
+namespace UI
 {
-}
+	TitleMenuScreen::TitleMenuScreen()
+	{
+		UI::UIRoot* itemRoot = GetMenuItemRoot();
 
-void TitleMenuScreen::Init()
-{
-	UI::UIRoot* itemRoot = GetMenuItemRoot();
+		std::shared_ptr<Resource::ResourceBase> font = ResourceManager::GetInstance().GetResource<Resource::Font>(kFontPath);
 
-	std::shared_ptr<Resource::ResourceBase> font = ResourceManager::GetInstance().GetResource<Resource::Font>(kFontPath);
-
-	// 開始ボタン
-	auto startButton = itemRoot->CreateToChild<UI::MenuItem>();
-	startButton->GetRectTransform()->localPosition.y = 160.0f;
-	startButton->GetRectTransform()->SetFullRectAsFixed(Vector2(160.0f, 32.0f));
-
-	UI::TextObject* startText = startButton->CreateToChild<UI::TextObject>(font, kStartText, Color::white, HolizontalAlignment::Center, VerticalAlignment::Middle);
-	startText->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
-	
-	startButton->SetSelectCallback([startText]() { startText->SetColor(Color::cyan); });
-	startButton->SetDeselectCallback([startText]() { startText->SetColor(Color::white); });
-
-	// 設定ボタン
-	auto optionButton = itemRoot->CreateToChild<UI::MenuItem>();
-	optionButton->GetRectTransform()->localPosition.y = 240.0f;
-	optionButton->GetRectTransform()->SetFullRectAsFixed(Vector2(160.0f, 32.0f));
-
-	UI::TextObject* optionText = optionButton->CreateToChild<UI::TextObject>(font, kOptionText, Color::white, HolizontalAlignment::Center, VerticalAlignment::Middle);
-	optionText->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
-
-	optionButton->SetSelectCallback([optionText]() { optionText->SetColor(Color::cyan); });
-	optionButton->SetDeselectCallback([optionText]() { optionText->SetColor(Color::white); });
-	optionButton->SetSubmitCallback([this]()
+		// 開始ボタン
+		MenuItem* startButton = itemRoot->CreateToChild<UI::MenuItem>();
 		{
-			this->SetCommand(UI::Command::OpenOptions);
-			return true;
-		});
+			startButton->GetRectTransform()->localPosition = kStartButtonPos;
 
-	AddMenuItem(startButton);
-	AddMenuItem(optionButton);
-}
+			UI::TextObject* text = startButton->CreateToChild<UI::TextObject>(font, kStartText, Color::white, HolizontalAlignment::Center, VerticalAlignment::Middle);
+			text->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
 
-void TitleMenuScreen::Update()
-{
-}
+			startButton->SetSelectCallback([text]() { text->SetColor(Color::cyan); });
+			startButton->SetDeselectCallback([text]() { text->SetColor(Color::white); });
+		}
 
-void TitleMenuScreen::Setup()
-{
-	MenuScreen::Setup();
-}
+		// 設定ボタン
+		MenuItem* optionButton = itemRoot->CreateToChild<UI::MenuItem>();
+		{
+			optionButton->GetRectTransform()->localPosition = kOptionButtonPos;
 
-bool TitleMenuScreen::ProcessInput(const Input::UIInputState& input)
-{
-	if (input.up)
-	{
-		MoveCursorPrev();
+			UI::TextObject* text = optionButton->CreateToChild<UI::TextObject>(font, kOptionText, Color::white, HolizontalAlignment::Center, VerticalAlignment::Middle);
+			text->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
+
+			optionButton->SetSelectCallback([text]() { text->SetColor(Color::cyan); });
+			optionButton->SetDeselectCallback([text]() { text->SetColor(Color::white); });
+		}
+
+		// 終了ボタン
+		MenuItem* exitButton = itemRoot->CreateToChild<UI::MenuItem>();
+		{
+			exitButton->GetRectTransform()->localPosition = kExitButtonPos;
+
+			UI::TextObject* text = exitButton->CreateToChild<UI::TextObject>(font, kExitText, Color::white, HolizontalAlignment::Center, VerticalAlignment::Middle);
+			text->GetRectTransform()->SetAnchor(RectTransform::Anchor::FullStretch);
+
+			exitButton->SetSelectCallback([text]() { text->SetColor(Color::cyan); });
+			exitButton->SetDeselectCallback([text]() { text->SetColor(Color::white); });
+		}
+
+		AddMenuItem(startButton);
+		AddMenuItem(optionButton);
+		AddMenuItem(exitButton);
 	}
-	if (input.down)
+
+	void TitleMenuScreen::Init()
 	{
-		MoveCursorNext();
-	}
-	if (input.submit)
-	{
-		if (!InvokeSubmit()) return false;
-	}
-	if (input.cancel)
-	{
-		if (!InvokeCancel()) return false;
 	}
 
-	return true;
+	void TitleMenuScreen::Update()
+	{
+	}
+
+	void TitleMenuScreen::Setup()
+	{
+		MenuScreen::Setup();
+	}
+
+	bool TitleMenuScreen::ProcessInput(const Input::UIInputState& input)
+	{
+		if (input.up)
+		{
+			MoveCursorPrev();
+		}
+		if (input.down)
+		{
+			MoveCursorNext();
+		}
+		if (input.submit)
+		{
+			if (!InvokeSubmit()) return false;
+		}
+		if (input.cancel)
+		{
+			if (!InvokeCancel()) return false;
+		}
+
+		return true;
+	}
 }
