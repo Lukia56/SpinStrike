@@ -11,6 +11,9 @@ namespace
 	constexpr Vector2 kBarPivot{ 0.0f, 1.0f };
 
 	constexpr float kFadeSpeed = 2.0f;
+
+	constexpr Color kBarColor{ 1.0f, 0.894f, 0.015f };
+	constexpr Color kMaxBarColor{ 0.3f, 0.3f, 0.3f };
 }
 
 namespace UI
@@ -27,13 +30,13 @@ namespace UI
 	{
 		mRectTransform->SetAnchor(RectTransform::Anchor::FullStretch);
 
-		mMaxStaminaBar = CreateToChild<UI::BoxObject>(Color::red);
+		mMaxStaminaBar = CreateToChild<UI::BoxObject>(kMaxBarColor);
 		mMaxStaminaBar->GetRectTransform()->localPosition = kBarPos;
 		mMaxStaminaBar->GetRectTransform()->SetAnchor(RectTransform::Anchor::CenterMiddle);
 		mMaxStaminaBar->GetRectTransform()->SetPivot(kBarPivot);
 		mMaxStaminaBar->GetRectTransform()->SetFullRectAsFixed(kBarSize);
 
-		mStaminaBar = CreateToChild<UI::BoxObject>(Color::yellow);
+		mStaminaBar = CreateToChild<UI::BoxObject>(kBarColor);
 		mStaminaBar->GetRectTransform()->localPosition = kBarPos;
 		mStaminaBar->GetRectTransform()->SetAnchor(RectTransform::Anchor::CenterMiddle);
 		mStaminaBar->GetRectTransform()->SetPivot(kBarPivot);

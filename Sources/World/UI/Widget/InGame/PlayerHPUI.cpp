@@ -5,9 +5,12 @@
 
 namespace
 {
-	constexpr Vector3 kBarPos{ 200.0f, 75.0f, 0.0f };
-	constexpr Vector2 kBarSize{ 400.0f, 75.0f };
-	constexpr Vector2 kBarPivot{ 0.0f, 0.0f };
+	constexpr Vector3 kBarPos{ 200.0f, -75.0f, 0.0f };
+	constexpr Vector2 kBarSize{ 300.0f, 50.0f };
+	constexpr Vector2 kBarPivot{ 0.0f, 1.0f };
+
+	constexpr Color kBarColor{ 0.239f, 0.87f, 0.09f };
+	constexpr Color kMaxBarColor{ 0.3f, 0.3f, 0.3f };
 }
 
 namespace UI
@@ -23,15 +26,15 @@ namespace UI
 	{
 		mRectTransform->SetAnchor(RectTransform::Anchor::FullStretch);
 
-		mMaxHPBar = CreateToChild<UI::BoxObject>(Color::red);
+		mMaxHPBar = CreateToChild<UI::BoxObject>(kMaxBarColor);
 		mMaxHPBar->GetRectTransform()->localPosition = kBarPos;
-		mMaxHPBar->GetRectTransform()->SetAnchor(RectTransform::Anchor::LeftTop);
+		mMaxHPBar->GetRectTransform()->SetAnchor(RectTransform::Anchor::LeftBottom);
 		mMaxHPBar->GetRectTransform()->SetPivot(kBarPivot);
 		mMaxHPBar->GetRectTransform()->SetFullRectAsFixed(kBarSize);
 
-		mHPBar = CreateToChild<UI::BoxObject>(Color::green);
+		mHPBar = CreateToChild<UI::BoxObject>(kBarColor);
 		mHPBar->GetRectTransform()->localPosition = kBarPos;
-		mHPBar->GetRectTransform()->SetAnchor(RectTransform::Anchor::LeftTop);
+		mHPBar->GetRectTransform()->SetAnchor(RectTransform::Anchor::LeftBottom);
 		mHPBar->GetRectTransform()->SetPivot(kBarPivot);
 		mHPBar->GetRectTransform()->SetFullRectAsFixed(kBarSize);
 	}
