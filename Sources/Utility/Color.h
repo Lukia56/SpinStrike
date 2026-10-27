@@ -55,11 +55,15 @@ struct Color
 	constexpr unsigned int GetAsHexRGB() const
 	{
 		// 16i”‚É•ÏŠ·
-		unsigned int red = static_cast<unsigned int>(r * 65536);	// 2 ^ 16
-		unsigned int green = static_cast<unsigned int>(g * 256);	// 2 ^ 8
-		unsigned int blue = static_cast<unsigned int>(b);			// 2 ^ 0
+		unsigned int red = static_cast<unsigned int>(r * 255);
+		unsigned int green = static_cast<unsigned int>(g * 255);
+		unsigned int blue = static_cast<unsigned int>(b * 255);
 
-		unsigned int color = (red + green + blue) * 255;
+		// Œ…ˆÚ“®
+		red *= 65536;
+		green *= 256;
+
+		unsigned int color = red + green + blue;
 
 		return color;
 	}
@@ -70,12 +74,17 @@ struct Color
 	constexpr unsigned int GetAsHexRGBA() const
 	{
 		// 16i”‚É•ÏŠ·
-		unsigned int red = static_cast<unsigned int>(r * 16777216);	// 2 ^ 24
-		unsigned int green = static_cast<unsigned int>(g * 65536);	// 2 ^ 16
-		unsigned int blue = static_cast<unsigned int>(b * 256);		// 2 ^ 8
-		unsigned int alpha = static_cast<unsigned int>(a);			// 2 ^ 0
+		unsigned int red = static_cast<unsigned int>(r * 255);
+		unsigned int green = static_cast<unsigned int>(g * 255);
+		unsigned int blue = static_cast<unsigned int>(b * 255);
+		unsigned int alpha = static_cast<unsigned int>(a * 255);
 
-		unsigned int color = (red + green + blue + alpha) * 255;
+		// Œ…ˆÚ“®
+		red *= 16777216;
+		green *= 65536;
+		blue *= 256;
+
+		unsigned int color = red + green + blue + alpha;
 
 		return color;
 	}
