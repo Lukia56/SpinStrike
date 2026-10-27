@@ -78,19 +78,20 @@ bool InputManager::Initialize()
 	Bind(Input::Action::Left, Input::Device::Keyboard, KeyCode::Button::LeftArrow);
 	Bind(Input::Action::Right, Input::Device::Keyboard, KeyCode::Button::D);
 	Bind(Input::Action::Right, Input::Device::Keyboard, KeyCode::Button::RightArrow);
-	Bind(Input::Action::Up, Input::Device::Gamepad, KeyCode::Button::GpFaceUp);
-	Bind(Input::Action::Down, Input::Device::Gamepad, KeyCode::Button::GpFaceDown);
-	Bind(Input::Action::Left, Input::Device::Gamepad, KeyCode::Button::GpFaceLeft);
-	Bind(Input::Action::Right, Input::Device::Gamepad, KeyCode::Button::GpFaceRight);
-	Bind(Input::Action::Submit, Input::Device::Keyboard, KeyCode::Button::Enter);
+	Bind(Input::Action::Up, Input::Device::Gamepad, KeyCode::Button::GpDPadUp);
+	Bind(Input::Action::Down, Input::Device::Gamepad, KeyCode::Button::GpDPadDown);
+	Bind(Input::Action::Left, Input::Device::Gamepad, KeyCode::Button::GpDPadLeft);
+	Bind(Input::Action::Right, Input::Device::Gamepad, KeyCode::Button::GpDPadRight);
+	Bind(Input::Action::Submit, Input::Device::Keyboard, KeyCode::Button::Space);
 	Bind(Input::Action::Submit, Input::Device::Keyboard, KeyCode::Button::Z);
 	Bind(Input::Action::Submit, Input::Device::Gamepad, KeyCode::Button::GpFaceRight);
-	Bind(Input::Action::Cancel, Input::Device::Keyboard, KeyCode::Button::Shift);
+	Bind(Input::Action::Cancel, Input::Device::Keyboard, KeyCode::Button::Escape);
+	Bind(Input::Action::Cancel, Input::Device::Keyboard, KeyCode::Button::X);
 	Bind(Input::Action::Cancel, Input::Device::Gamepad, KeyCode::Button::GpFaceDown);
 
 	Bind(Input::Action::Fly, Input::Device::Keyboard, KeyCode::Button::Space);
 	Bind(Input::Action::Fly, Input::Device::Keyboard, KeyCode::Button::LShift, { std::make_shared<InputModifierNegate>(true, false, false) });
-	Bind(Input::Action::Fly, Input::Device::Gamepad, KeyCode::Button::GpFaceRight);
+	Bind(Input::Action::Fly, Input::Device::Gamepad, KeyCode::Button::GpLeftThumbPress);
 	Bind(Input::Action::Fly, Input::Device::Gamepad, KeyCode::Button::GpFaceDown, { std::make_shared<InputModifierNegate>(true, false, false) });
 
 	return true;
