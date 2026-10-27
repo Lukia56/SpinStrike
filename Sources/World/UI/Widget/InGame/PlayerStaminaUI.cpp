@@ -25,13 +25,17 @@ namespace UI
 
 	void PlayerStaminaUI::Init()
 	{
+		mRectTransform->SetAnchor(RectTransform::Anchor::FullStretch);
+
 		mMaxStaminaBar = CreateToChild<UI::BoxObject>(Color::red);
 		mMaxStaminaBar->GetRectTransform()->localPosition = kBarPos;
+		mMaxStaminaBar->GetRectTransform()->SetAnchor(RectTransform::Anchor::CenterMiddle);
 		mMaxStaminaBar->GetRectTransform()->SetPivot(kBarPivot);
 		mMaxStaminaBar->GetRectTransform()->SetFullRectAsFixed(kBarSize);
 
 		mStaminaBar = CreateToChild<UI::BoxObject>(Color::yellow);
 		mStaminaBar->GetRectTransform()->localPosition = kBarPos;
+		mStaminaBar->GetRectTransform()->SetAnchor(RectTransform::Anchor::CenterMiddle);
 		mStaminaBar->GetRectTransform()->SetPivot(kBarPivot);
 		mStaminaBar->GetRectTransform()->SetFullRectAsFixed(kBarSize);
 	}

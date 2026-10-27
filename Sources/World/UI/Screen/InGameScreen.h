@@ -6,8 +6,6 @@ class Player;
 
 namespace UI
 {
-    class BoxObject;
-
     class InGameScreen : public Screen
     {
     public:
@@ -20,9 +18,6 @@ namespace UI
         void Update() override;
 
     private:
-
-        BoxObject* mHPBar;
-        BoxObject* mMaxHPBar;
 
         Player* mPlayer;
     };
