@@ -8,6 +8,7 @@
 #include "System/EffekseerManager.h"
 #include "System/ImGuiRenderer.h"
 #include "System/InputManager.h"
+#include "System/PlayerDataManager.h"
 #include "System/ResourceManager.h"
 #include "System/TimeManager.h"
 #include "Utility/Random.h"
@@ -51,6 +52,8 @@ bool Application::Initialize()
 	ResourceManager::GetInstance().Initialize();
 
 	Random::Init();
+
+	PlayerDataManager::GetInstance().Initialize();
 
 	// ‚±‚±‚Ü‚Å–â‘è‚ª‹N‚«‚È‚©‚Á‚½‚çtrue
 	return true;
