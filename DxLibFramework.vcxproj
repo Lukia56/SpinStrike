@@ -235,6 +235,7 @@
     <ClCompile Include="Sources\Main.cpp" />
     <ClCompile Include="Sources\Scene\SceneBase.cpp" />
     <ClCompile Include="Sources\Scene\SceneManager.cpp" />
+    <ClCompile Include="Sources\World\UI\Widget\BoxObject.cpp" />
     <ClCompile Include="Sources\World\UI\Widget\ImageObject.cpp" />
     <ClCompile Include="Sources\World\UI\Screen\MenuScreen.cpp" />
     <ClCompile Include="Sources\World\UI\Core\Screen.cpp" />
@@ -380,6 +381,7 @@
     <ClInclude Include="Sources\Scene\SceneBase.h" />
     <ClInclude Include="Sources\Scene\SceneManager.h" />
     <ClInclude Include="Sources\World\UI\Core\Command.h" />
+    <ClInclude Include="Sources\World\UI\Widget\BoxObject.h" />
     <ClInclude Include="Sources\World\UI\Widget\ImageObject.h" />
     <ClInclude Include="Sources\World\UI\Screen\MenuScreen.h" />
     <ClInclude Include="Sources\World\UI\Test\TestMenuScreen.h" />
