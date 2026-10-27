@@ -20,6 +20,7 @@ namespace UI
 
 	public:
 
+		const Color& GetColor() const { return mColor; }
 		void SetColor(const Color& color) { mColor = color; };
 
 	private:
