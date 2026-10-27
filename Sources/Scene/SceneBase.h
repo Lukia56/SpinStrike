@@ -32,6 +32,8 @@ public:
 
 	CameraManager* GetCameraManager() const { return mCameraManager.get(); }
 
+	bool IsQuitApp() const { return mIsQuitApp; }
+
 protected:
 
 	/// <summary>
@@ -78,6 +80,10 @@ protected:
 	requires std::derived_from<T, GameObject>
 	T* AddToRoot(std::unique_ptr<T> object);
 
+protected:
+
+	void SetQuitApp(bool flag) { mIsQuitApp = flag; }
+
 private:
 
 	void UpdateRootObjects();
@@ -95,6 +101,8 @@ private:
 	GameObjectContainer mRootObjects;
 
 	std::unique_ptr<CameraManager> mCameraManager;
+
+	bool mIsQuitApp;
 };
 
 template<class T, class ...Args>

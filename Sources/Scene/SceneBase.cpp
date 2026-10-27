@@ -7,7 +7,8 @@
 #include "Collision/CollisionManager.h"
 
 SceneBase::SceneBase() :
-	mCameraManager(nullptr)
+	mCameraManager(nullptr),
+	mIsQuitApp(false)
 {
 	mCameraManager = std::make_unique<CameraManager>();
 	mCameraManager->AddCamera(Camera::Type::Static, std::make_unique<CameraStatic>());

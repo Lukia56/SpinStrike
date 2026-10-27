@@ -25,7 +25,8 @@ public:
 	/// シーンの更新処理
 	/// シーン遷移の判定も行う
 	/// </summary>
-	void Update();
+	/// <returns>アプリを実行し続けるかどうか</returns>
+	bool Update();
 
 	void PhysicsUpdate();
 

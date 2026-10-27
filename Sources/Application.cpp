@@ -76,7 +76,7 @@ void Application::GameLoop()
 	while (ProcessMessage() == 0)
 	{
 		ProcessInput();
-		Update();
+		if (!Update()) break;
 		ProcessOutput();
 
 #ifdef _DEBUG
@@ -90,7 +90,7 @@ void Application::ProcessInput()
 	InputManager::GetInstance().Update();
 }
 
-void Application::Update()
+bool Application::Update()
 {
 	using namespace std::chrono;
 	while (duration_cast<microseconds>(steady_clock::now() - TimeManager::GetPrevTime()) < microseconds(TimeManager::GetFixedDeltaTimeMs())) {}
@@ -98,9 +98,11 @@ void Application::Update()
 
 	mSceneManager->PhysicsUpdate();
 
-	mSceneManager->Update();
+	if (!mSceneManager->Update()) return false;
 
 	EffekseerManager::Update();
+
+	return true;
 }
 
 void Application::ProcessOutput()

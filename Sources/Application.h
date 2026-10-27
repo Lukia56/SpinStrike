@@ -37,7 +37,7 @@ public:
 private:
 
 	void ProcessInput();
-	void Update();
+	bool Update();
 	void ProcessOutput();
 
 	bool InitDxLib();

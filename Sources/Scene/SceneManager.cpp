@@ -24,12 +24,14 @@ void SceneManager::Finalize()
 	mCurrentScene.reset();
 }
 
-void SceneManager::Update()
+bool SceneManager::Update()
 {
 	mIsSceneTransitioned = false;
 
 	auto nextScene = mCurrentScene->Update();
-	if (nextScene == nullptr) return;
+
+	if (mCurrentScene->IsQuitApp()) return false;
+	if (nextScene == nullptr) return true;
 
 	// ƒV[ƒ“‚ðØ‚è‘Ö‚¦‚é
 	nextScene->Init();
@@ -37,6 +39,8 @@ void SceneManager::Update()
 	mCurrentScene = std::move(nextScene);
 
 	mIsSceneTransitioned = true;
+
+	return true;
 }
 
 void SceneManager::PhysicsUpdate()
