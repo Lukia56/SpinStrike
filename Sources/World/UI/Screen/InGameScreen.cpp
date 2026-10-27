@@ -1,5 +1,6 @@
 #include "InGameScreen.h"
 #include "../Widget/BoxObject.h"
+#include "../Widget/InGame/PlayerStaminaUI.h"
 #include "World/Character/Player.h"
 
 namespace
@@ -31,6 +32,8 @@ namespace UI
 		mHPBar->GetRectTransform()->SetAnchor(RectTransform::Anchor::LeftTop);
 		mHPBar->GetRectTransform()->SetPivot(kHPBarPivot);
 		mHPBar->GetRectTransform()->SetFullRectAsFixed(kHPBarSize);
+
+		CreateToChild<UI::PlayerStaminaUI>(mPlayer);
 	}
 
 	void InGameScreen::Update()

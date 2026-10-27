@@ -248,6 +248,16 @@ void Player::ResolveCollision(const Collision::Result& result, const Collider3D*
 	}
 }
 
+float Player::GetSpinStamina() const
+{
+	return mTornado->GetSpinStamina();
+}
+
+bool Player::IsSpinning() const
+{
+	return mTornado->IsSpinning();
+}
+
 void Player::ResolvePush()
 {
 	if (mCollisionPush != Vector3::Zero)

@@ -243,6 +243,7 @@
     <ClCompile Include="Sources\World\UI\Test\TestMenuScreen.cpp" />
     <ClCompile Include="Sources\World\UI\Core\UIObject.cpp" />
     <ClCompile Include="Sources\World\Component\Rendering\UIImageRenderer.cpp" />
+    <ClCompile Include="Sources\World\UI\Widget\InGame\PlayerStaminaUI.cpp" />
     <ClCompile Include="Sources\World\UI\Widget\TextObject.cpp" />
     <ClCompile Include="Sources\World\UI\Widget\MenuItem.cpp" />
     <ClCompile Include="Sources\World\UI\Test\TestScreen.cpp" />
@@ -389,6 +390,7 @@
     <ClInclude Include="Sources\World\UI\Test\TestMenuScreen.h" />
     <ClInclude Include="Sources\World\UI\Core\UIObject.h" />
     <ClInclude Include="Sources\World\Component\Rendering\UIImageRenderer.h" />
+    <ClInclude Include="Sources\World\UI\Widget\InGame\PlayerStaminaUI.h" />
     <ClInclude Include="Sources\World\UI\Widget\TextObject.h" />
     <ClInclude Include="Sources\World\UI\Widget\MenuItem.h" />
     <ClInclude Include="Sources\World\UI\Core\Screen.h" />

@@ -27,7 +27,6 @@ std::unique_ptr<SceneBase> SceneTitle::OnUpdate()
 		break;
 
 	case UI::Command::OpenOptions:
-		//mUIManager->PushScreen<OptionScreen>();
 		break;
 
 	case UI::Command::QuitGame:
