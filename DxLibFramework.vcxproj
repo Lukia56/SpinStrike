@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\Observer\Subject.cpp" />
     <ClCompile Include="Sources\Scene\Test\SceneModelAnimTest.cpp" />
     <ClCompile Include="Sources\Factory\PlayerCreator.cpp" />
     <ClCompile Include="Sources\State\Enemy\Action\EnemyActionWait.cpp" />
@@ -252,6 +253,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Collision\Ray.h" />
+    <ClInclude Include="Sources\Observer\IObserver.h" />
+    <ClInclude Include="Sources\Observer\ObserverEvent.h" />
+    <ClInclude Include="Sources\Observer\Subject.h" />
     <ClInclude Include="Sources\Scene\Test\SceneModelAnimTest.h" />
     <ClInclude Include="Sources\Factory\PlayerCreator.h" />
     <ClInclude Include="Sources\State\Enemy\Action\EnemyActionWait.h" />
