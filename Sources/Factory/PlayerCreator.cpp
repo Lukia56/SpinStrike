@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include "Param/Param.h"
-#include "System/PlayerDataManager.h"
 #include "System/ResourceManager.h"
 #include "System/Resource/Model.h"
 #include "System/Resource/Texture.h"
@@ -13,8 +12,6 @@
 namespace
 {
 	const char* const kModelPath = "Resources\\Model\\Hero.x";
-	const char* const kParamPath = "Resources\\MasterData\\Player\\PlayerParam.csv";
-	const char* const kAABBParamPath = "Resources\\MasterData\\Player\\PlayerAABBColliderParam.csv";
 
 	const char* const kBlobShadowTexturePath = "Resources\\Sprite\\BlobShadow.png";
 }
@@ -27,16 +24,12 @@ PlayerCreator::PlayerCreator(const std::string& initData, std::unique_ptr<Player
 
 std::unique_ptr<Player> PlayerCreator::CreateInstance()
 {
-	std::shared_ptr<Resource::ResourceBase> model = ResourceManager::GetInstance().GetResource<Resource::Model>(kModelPath);
-
-	const PlayerParam& param = PlayerDataManager::GetInstance().GetPlayerParam();
-	const std::vector<AABBColliderParam>& aabbParam = PlayerDataManager::GetInstance().GetAABBParams();
-
 	PlayerInitData initData = Data::Json::LoadJsonAs<PlayerInitData>(mInitDataPath)[0];
 
+	std::shared_ptr<Resource::ResourceBase> model = ResourceManager::GetInstance().GetResource<Resource::Model>(kModelPath);
 	std::shared_ptr<Resource::ResourceBase> blobShadowTexture = ResourceManager::GetInstance().GetResource<Resource::Texture>(kBlobShadowTexturePath);
 
-	auto instance = std::make_unique<Player>(model, blobShadowTexture, param, aabbParam, initData, std::move(mTornado));
+	auto instance = std::make_unique<Player>(model, blobShadowTexture, initData, std::move(mTornado));
 
 	return instance;
 }

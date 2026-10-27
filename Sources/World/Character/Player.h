@@ -2,8 +2,8 @@
 
 #include "../GameObject.h"
 #include "Camera/CameraProperty.h"
-#include "Param/Param.h"
 
+struct PlayerInitData;
 class PlayerTornado;
 class ModelRenderer;
 class Collider3D;
@@ -21,7 +21,7 @@ class Player : public GameObject
 {
 public:
 
-	Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> shadowTexture, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, const PlayerInitData& initData, std::unique_ptr<PlayerTornado> tornado);
+	Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> shadowTexture, const PlayerInitData& initData, std::unique_ptr<PlayerTornado> tornado);
 	~Player();
 
 	void Init() override;
@@ -91,8 +91,6 @@ private:
 	float mStickWallCancelTimer;
 
 	float mIgnoreMoveInputTimer;
-
-	PlayerParam mParam;
 
 	std::unique_ptr<ModelRenderer> mModel;
 

@@ -12,6 +12,7 @@
 #include "Observer/Subject.h"
 #include "Param/Param.h"
 #include "System/InputManager.h"
+#include "System/PlayerDataManager.h"
 #include "System/TimeManager.h"
 #include "System/Resource/ResourceBase.h"
 #include "Utility/Color.h"
@@ -26,8 +27,8 @@ namespace
 	constexpr float kYawLatency = 0.25f;
 }
 
-Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> shadowTexture, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, const PlayerInitData& initData, std::unique_ptr<PlayerTornado> tornado) :
-	mHP(param.maxHp),
+Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> shadowTexture, const PlayerInitData& initData, std::unique_ptr<PlayerTornado> tornado) :
+	mHP(0),
 	mInvincibleTimer(0.0f),
 	mLastMoveVec(Vector3::XAxis),
 	mCanJumpTimer(0.0f),
@@ -37,7 +38,6 @@ Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Re
 	mOnCancelStickWall(false),
 	mStickWallCancelTimer(0.0f),
 	mIgnoreMoveInputTimer(0.0f),
-	mParam(param),
 	mModel(nullptr),
 	mAnimator(nullptr),
 	mEventSubject(nullptr),
@@ -54,6 +54,9 @@ Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Re
 
 	AddToChild(std::move(tornado));
 
+	mHP = PlayerDataManager::GetInstance().GetPlayerParam().maxHp;
+
+	const std::vector<AABBColliderParam>& aabbParam = PlayerDataManager::GetInstance().GetAABBParams();
 	for (const auto& param : aabbParam)
 	{
 		mColliders.emplace_back(
@@ -133,7 +136,7 @@ void Player::Draw()
 {
 	Vector3 worldPos = mTransform->CalculateWorldPosition();
 
-	mModel->Draw();
+	//mModel->Draw();
 
 	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + mLastMoveVec * 100.0f).GetAsDxLibVector(), Color::red.GetAsHexRGB());
 }
@@ -180,7 +183,7 @@ void Player::ResolveCollision(const Collision::Result& result, const Collider3D*
 		if (result.normal.y < 0.0f || Math::IsNearZero(result.normal.y)) return;
 		
 		// 地面との衝突
-		mCanJumpTimer = mParam.jumpBufferTime;
+		mCanJumpTimer = PlayerDataManager::GetInstance().GetPlayerParam().jumpBufferTime;
 		mOnGround = true;
 		mIsJumping = false;
 
@@ -268,19 +271,21 @@ void Player::MoveHorizontal(float deltaTime)
 {
 	if (mIgnoreMoveInputTimer > 0.0f) return;
 
-	float targetSpeed = mParam.walkSpeed;
-	float accel = mParam.walkAccel;
+	const PlayerParam& param = PlayerDataManager::GetInstance().GetPlayerParam();
+
+	float targetSpeed = param.walkSpeed;
+	float accel = param.walkAccel;
 
 	if (mTornado->IsSpinning())
 	{
-		targetSpeed = mParam.spinMoveSpeed;
-		accel = mParam.spinMoveAccel;
+		targetSpeed = param.spinMoveSpeed;
+		accel = param.spinMoveAccel;
 	}
 	else
 	if (InputManager::GetInstance().IsDown(Input::Action::Dash))
 	{
-		targetSpeed = mParam.dashSpeed;
-		accel = mParam.dashAccel;
+		targetSpeed = param.dashSpeed;
+		accel = param.dashAccel;
 	}
 
 	Vector3 moveVec = InputManager::GetInstance().GetAsVector3(Input::Action::Move);
@@ -300,7 +305,7 @@ void Player::MoveHorizontal(float deltaTime)
 		// 壁と逆方向に入力していたらタイマーをカウントアップ
 		vec.z = -vec.z;
 		Vector3 inputVec = moveVec.Cross(vec);
-		if (inputVec.y > mParam.stickWallCancelMoveVectorThreshold)
+		if (inputVec.y > param.stickWallCancelMoveVectorThreshold)
 		{
 			mStickWallCancelTimer += deltaTime;
 
@@ -312,7 +317,7 @@ void Player::MoveHorizontal(float deltaTime)
 			mStickWallCancelTimer = 0.0f;
 		}
 		// 壁ずりキャンセル
-		if (mStickWallCancelTimer > mParam.stickWallCancelTimeThreshold)
+		if (mStickWallCancelTimer > param.stickWallCancelTimeThreshold)
 		{
 			mStickWallCancelTimer = 0.0f;
 			mOnWall = false;
@@ -323,7 +328,7 @@ void Player::MoveHorizontal(float deltaTime)
 		moveVec = vec * moveVec.Dot(vec);
 	}
 
-	float accelCoef = mOnGround ? 1.0f : mParam.airResistanceCoef;
+	float accelCoef = mOnGround ? 1.0f : param.airResistanceCoef;
 
 	// XとZ成分だけ補間させる
 	Vector3 vel = Vector3(mVelocity.x, 0.0f, mVelocity.z);
@@ -335,21 +340,23 @@ void Player::MoveHorizontal(float deltaTime)
 
 void Player::MoveVertical(float deltaTime)
 {
+	const PlayerParam& param = PlayerDataManager::GetInstance().GetPlayerParam();
+
 	// ジャンプ
 	if (InputManager::GetInstance().IsPressed(Input::Action::Jump) && CanJump())
 	{
-		mVelocity.y = mParam.jumpForce;
+		mVelocity.y = param.jumpForce;
 		mIsJumping = true;
 		mCanJumpTimer = 0.0f;
 
 		// 壁ジャンプ
 		if (mOnWall && !mOnGround)
 		{
-			mVelocity = mLastCollideNormal * mParam.wallJumpHorizontalForce;
-			mVelocity.y = mParam.wallJumpVerticalForce;
+			mVelocity = mLastCollideNormal * param.wallJumpHorizontalForce;
+			mVelocity.y = param.wallJumpVerticalForce;
 			mLastMoveVec = mLastCollideNormal;
 
-			mIgnoreMoveInputTimer = mParam.wallJumpIgnoreMoveInputTime;
+			mIgnoreMoveInputTimer = param.wallJumpIgnoreMoveInputTime;
 
 			mOnWall = false;
 		}
@@ -357,7 +364,7 @@ void Player::MoveVertical(float deltaTime)
 	// ジャンプキャンセル
 	if (InputManager::GetInstance().IsReleased(Input::Action::Jump) && CanCancelJump())
 	{
-		mVelocity.y = mParam.jumpCancelThreshold;
+		mVelocity.y = param.jumpCancelThreshold;
 		mIsJumping = false;
 	}
 
@@ -366,11 +373,11 @@ void Player::MoveVertical(float deltaTime)
 	{
 		if (mOnWall)
 		{
-			mVelocity.y = Math::Max(mVelocity.y - mParam.gravity * deltaTime, -mParam.stickWallFallSpeed);
+			mVelocity.y = Math::Max(mVelocity.y - param.gravity * deltaTime, -param.stickWallFallSpeed);
 		}
 		else
 		{
-			mVelocity.y -= mParam.gravity * deltaTime;
+			mVelocity.y -= param.gravity * deltaTime;
 		}
 	}
 }
@@ -382,7 +389,7 @@ bool Player::CanJump() const
 
 bool Player::CanCancelJump() const
 {
-	return mIsJumping && mVelocity.y > mParam.jumpCancelThreshold;
+	return mIsJumping && mVelocity.y > PlayerDataManager::GetInstance().GetPlayerParam().jumpCancelThreshold;
 }
 
 void Player::Damage()

@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "../Data.h"
-#include "Param/TempParam.h"
+#include "Param/Param.h"
 #include "Utility/Vector.h"
 #include "State/Enemy/Action/EnemyActionTest.h"
 #include "State/Enemy/Action/EnemyActionWait.h"
