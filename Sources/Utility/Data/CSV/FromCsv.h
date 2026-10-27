@@ -82,6 +82,9 @@ namespace Data
 				param.spinCooldownTime = Get<float>(row, "spinCooldownTime");
 				param.spinPreStartTime = Get<float>(row, "spinPreStartTime");
 				param.spinStaminaDuration = Get<float>(row, "spinStaminaDuration");
+				param.spinTornadoRadius = Get<float>(row, "spinTornadoRadius");
+
+				param.maxHp = Get<int>(row, "maxHp");
 
 				param.airResistanceCoef = Get<float>(row, "airResistanceCoef");
 				param.gravity = Get<float>(row, "gravity");

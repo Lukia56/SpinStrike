@@ -2,10 +2,10 @@
 #include <string>
 #include <vector>
 #include "Param/Param.h"
+#include "System/PlayerDataManager.h"
 #include "System/ResourceManager.h"
 #include "System/Resource/Model.h"
 #include "System/Resource/Texture.h"
-#include "Utility/Data/CSV/CsvLoader.h"
 #include "Utility/Data/JSON/JsonLoader.h"
 #include "World/Character/Player.h"
 #include "World/Character/PlayerTornado.h"
@@ -28,8 +28,9 @@ PlayerCreator::PlayerCreator(const std::string& initData, std::unique_ptr<Player
 std::unique_ptr<Player> PlayerCreator::CreateInstance()
 {
 	std::shared_ptr<Resource::ResourceBase> model = ResourceManager::GetInstance().GetResource<Resource::Model>(kModelPath);
-	PlayerParam param = Data::Csv::LoadCsvAs<PlayerParam>(kParamPath)[0];
-	std::vector<AABBColliderParam> aabbParam = Data::Csv::LoadCsvAs<AABBColliderParam>(kAABBParamPath);
+
+	const PlayerParam& param = PlayerDataManager::GetInstance().GetPlayerParam();
+	const std::vector<AABBColliderParam>& aabbParam = PlayerDataManager::GetInstance().GetAABBParams();
 
 	PlayerInitData initData = Data::Json::LoadJsonAs<PlayerInitData>(mInitDataPath)[0];
 

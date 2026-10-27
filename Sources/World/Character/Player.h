@@ -41,7 +41,6 @@ public:
 public:
 
 	int GetHP() const { return mHP; }
-	int GetMaxHP() const { return mMaxHP; }
 
 	float GetSpinStamina() const;
 
@@ -68,8 +67,6 @@ private:
 private:
 
 	int mHP;
-
-	int mMaxHP;
 
 	float mInvincibleTimer;
 

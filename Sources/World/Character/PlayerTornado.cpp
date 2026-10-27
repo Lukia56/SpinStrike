@@ -5,18 +5,8 @@
 #include "../Component/Collider3D.h"
 #include "Collision/Collision3D.h"
 #include "System/InputManager.h"
+#include "System/PlayerDataManager.h"
 #include "System/TimeManager.h"
-
-namespace
-{
-	constexpr float kCollisionRadius = 150.0f;
-
-	constexpr Vector3 kCollisionOffsetPos{ 0.0f, kCollisionRadius / 2.0f, 0.0f };
-
-	constexpr float kSpinCooldownTime = 0.75f;
-	constexpr float kSpinPreStartTime = 0.1f;
-	constexpr float kSpinStaminaDuration = 3.5f;
-}
 
 PlayerTornado::PlayerTornado(PlayerBulletManager* bulletManager) :
 	mIsSpinning(false),
@@ -33,8 +23,12 @@ void PlayerTornado::Init()
 {
 	SetTag(Tag::Tornado);
 
+	const PlayerParam& param = PlayerDataManager::GetInstance().GetPlayerParam();
+	
+	Vector3 collisionOffset = Vector3(0.0f, param.spinTornadoRadius, 0.0f);
+
 	mAttackCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::Sphere3D>(kCollisionRadius, kCollisionOffsetPos),
+		std::make_unique<Collision::Sphere3D>(param.spinTornadoRadius, collisionOffset),
 		this,
 		Collision::Tag::Body,
 		false
@@ -119,8 +113,8 @@ void PlayerTornado::StartSpin()
 	
 	mIsSpinning = true;
 
-	mSpinPreStartTimer = kSpinPreStartTime;
-	mSpinStamina = kSpinStaminaDuration;
+	mSpinPreStartTimer = PlayerDataManager::GetInstance().GetPlayerParam().spinPreStartTime;
+	mSpinStamina = PlayerDataManager::GetInstance().GetPlayerParam().spinStaminaDuration;
 }
 
 void PlayerTornado::DeactivateSpin()
@@ -136,7 +130,7 @@ void PlayerTornado::EndSpin()
 {
 	mIsSpinning = false;
 
-	mSpinCooldownTimer = kSpinCooldownTime;
+	mSpinCooldownTimer = PlayerDataManager::GetInstance().GetPlayerParam().spinCooldownTime;
 
 	mAttackCollider->Disable();
 

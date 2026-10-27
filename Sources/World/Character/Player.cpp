@@ -21,16 +21,13 @@
 
 namespace
 {
-	constexpr int kMaxHP = 5;
-
 	constexpr float kInvincibleTime = 1.0f;
 
 	constexpr float kYawLatency = 0.25f;
 }
 
 Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> shadowTexture, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, const PlayerInitData& initData, std::unique_ptr<PlayerTornado> tornado) :
-	mHP(kMaxHP),
-	mMaxHP(kMaxHP),
+	mHP(param.maxHp),
 	mInvincibleTimer(0.0f),
 	mLastMoveVec(Vector3::XAxis),
 	mCanJumpTimer(0.0f),

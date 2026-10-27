@@ -1,5 +1,6 @@
 #include "PlayerStaminaUI.h"
 #include "../BoxObject.h"
+#include "System/PlayerDataManager.h"
 #include "System/TimeManager.h"
 #include "World/Character/Player.h"
 
@@ -10,8 +11,6 @@ namespace
 	constexpr Vector2 kBarPivot{ 0.0f, 1.0f };
 
 	constexpr float kFadeSpeed = 2.0f;
-
-	constexpr float kPlayerStamina = 3.5f;
 }
 
 namespace UI
@@ -47,7 +46,7 @@ namespace UI
 		// スタミナ量反映
 		if (mPlayer->IsSpinning())
 		{
-			float staminaRate = mPlayer->GetSpinStamina() / kPlayerStamina;
+			float staminaRate = mPlayer->GetSpinStamina() / PlayerDataManager::GetInstance().GetPlayerParam().spinStaminaDuration;
 			mStaminaBar->GetRectTransform()->SetRectHeightAsFixed(kBarSize.y * staminaRate);
 			mAlpha = 1.0f;
 		}

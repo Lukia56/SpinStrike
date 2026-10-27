@@ -40,6 +40,9 @@ struct PlayerParam
 	float spinCooldownTime = 0.0f;
 	float spinPreStartTime = 0.0f;
 	float spinStaminaDuration = 0.0f;
+	float spinTornadoRadius = 0.0f;
+
+	int maxHp = 0;
 
 	float airResistanceCoef = 0.0f;
 	float gravity = 0.0f;

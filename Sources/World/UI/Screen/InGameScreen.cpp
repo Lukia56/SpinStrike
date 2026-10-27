@@ -1,6 +1,7 @@
 #include "InGameScreen.h"
 #include "../Widget/BoxObject.h"
 #include "../Widget/InGame/PlayerStaminaUI.h"
+#include "System/PlayerDataManager.h"
 #include "World/Character/Player.h"
 
 namespace
@@ -38,7 +39,7 @@ namespace UI
 
 	void InGameScreen::Update()
 	{
-		float hpRate = static_cast<float>(mPlayer->GetHP()) / static_cast<float>(mPlayer->GetMaxHP());
+		float hpRate = static_cast<float>(mPlayer->GetHP()) / static_cast<float>(PlayerDataManager::GetInstance().GetPlayerParam().maxHp);
 		mHPBar->GetRectTransform()->SetRectWidthAsFixed(kHPBarSize.x * hpRate);
 	}
 }
