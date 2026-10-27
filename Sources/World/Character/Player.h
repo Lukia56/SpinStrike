@@ -43,6 +43,10 @@ public:
 	int GetHP() const { return mHP; }
 	int GetMaxHP() const { return mMaxHP; }
 
+	float GetSpinStamina() const;
+
+	bool IsSpinning() const;
+
 	Observer::Subject* GetEventSubject() const { return mEventSubject.get(); }
 
 	void SetCameraView(const Camera::View& view) { mCameraView = view; }

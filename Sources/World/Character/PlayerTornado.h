@@ -24,6 +24,8 @@ public:
 
 	bool IsSpinning() const { return mIsSpinning; }
 
+	float GetSpinStamina() const { return mSpinStamina; }
+
 private:
 
 	void SpinAction(float deltaTime);
