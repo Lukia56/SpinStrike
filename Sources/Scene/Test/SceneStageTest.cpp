@@ -10,6 +10,8 @@
 #include "World/Character/Enemy.h"
 #include "World/Other/RootObject.h"
 #include "World/Other/StageManager.h"
+#include "World/UI/Core/UIManager.h"
+#include "World/UI/Screen/InGameScreen.h"
 #include "Camera/CameraFollow.h"
 #include "Camera/CameraManager.h"
 #include "System/Input/Keyboard.h"
@@ -56,6 +58,10 @@ void SceneStageTest::OnInit()
 
 
 	objectRoot->CreateToChild<StageManager>(kStageObjectDataPath);
+
+	UI::UIManager* uiManager = CreateToRoot<UI::UIManager>();
+	uiManager->AddScreenToPool(std::make_unique<UI::InGameScreen>(mPlayer));
+	uiManager->PushScreen<UI::InGameScreen>();
 
 	mGameOverObserver = std::make_unique<Observer::GameOverObserver>(mPlayer);
 

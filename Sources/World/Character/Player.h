@@ -40,6 +40,9 @@ public:
 
 public:
 
+	int GetHP() const { return mHP; }
+	int GetMaxHP() const { return mMaxHP; }
+
 	Observer::Subject* GetEventSubject() const { return mEventSubject.get(); }
 
 	void SetCameraView(const Camera::View& view) { mCameraView = view; }
@@ -61,6 +64,8 @@ private:
 private:
 
 	int mHP;
+
+	int mMaxHP;
 
 	float mInvincibleTimer;
 
