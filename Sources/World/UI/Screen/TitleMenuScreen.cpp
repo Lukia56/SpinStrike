@@ -39,6 +39,11 @@ namespace UI
 
 			startButton->SetSelectCallback([text]() { text->SetColor(Color::cyan); });
 			startButton->SetDeselectCallback([text]() { text->SetColor(Color::white); });
+			startButton->SetSubmitCallback([this]()
+				{
+					this->SetCommand(UI::Command::StartGame);
+					return true;
+				});
 		}
 
 		// İ’èƒ{ƒ^ƒ“

@@ -1,4 +1,5 @@
 #include "SceneTitle.h"
+#include "Test/SceneStageTest.h"
 #include "System/InputManager.h"
 #include "World/UI/Core/UIManager.h"
 #include "World/UI/Screen/TitleMenuScreen.h"
@@ -24,7 +25,8 @@ std::unique_ptr<SceneBase> SceneTitle::OnUpdate()
 	switch (command)
 	{
 	case UI::Command::StartGame:
-		break;
+		// TODO: ステージ1に遷移させる
+		return std::make_unique<SceneStageTest>();
 
 	case UI::Command::OpenOptions:
 		break;
