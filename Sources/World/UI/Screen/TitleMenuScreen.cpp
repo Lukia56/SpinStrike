@@ -63,6 +63,11 @@ namespace UI
 
 			exitButton->SetSelectCallback([text]() { text->SetColor(Color::cyan); });
 			exitButton->SetDeselectCallback([text]() { text->SetColor(Color::white); });
+			exitButton->SetSubmitCallback([this]()
+				{
+					this->SetCommand(UI::Command::QuitGame);
+					return true;
+				});
 		}
 
 		AddMenuItem(startButton);

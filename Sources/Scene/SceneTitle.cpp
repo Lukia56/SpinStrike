@@ -23,8 +23,15 @@ std::unique_ptr<SceneBase> SceneTitle::OnUpdate()
 	UI::Command command = mUIManager->ConsumeCommand();
 	switch (command)
 	{
+	case UI::Command::StartGame:
+		break;
+
 	case UI::Command::OpenOptions:
 		//mUIManager->PushScreen<OptionScreen>();
+		break;
+
+	case UI::Command::QuitGame:
+		SetQuitApp(true);
 		break;
 	}
 
