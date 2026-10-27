@@ -4,5 +4,7 @@ namespace Observer
 {
 	enum class Event
 	{
+		PlayerDamaged,
+		PlayerDead,
 	};
 }

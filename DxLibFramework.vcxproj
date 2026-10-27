@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\Observer\GameOverObserver.cpp" />
     <ClCompile Include="Sources\Observer\Subject.cpp" />
     <ClCompile Include="Sources\Scene\Test\SceneModelAnimTest.cpp" />
     <ClCompile Include="Sources\Factory\PlayerCreator.cpp" />
@@ -252,6 +253,7 @@
     <ClCompile Include="Sources\State\Enemy\StateEnemyAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\Observer\GameOverObserver.h" />
     <ClInclude Include="Sources\Collision\Ray.h" />
     <ClInclude Include="Sources\Observer\IObserver.h" />
     <ClInclude Include="Sources\Observer\ObserverEvent.h" />

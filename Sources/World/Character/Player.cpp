@@ -9,6 +9,7 @@
 #include "../Other/BlobShadow.h"
 #include "../Object/DebugGround.h"
 #include "Collision/Collision3D.h"
+#include "Observer/Subject.h"
 #include "Param/Param.h"
 #include "System/InputManager.h"
 #include "System/TimeManager.h"
@@ -29,6 +30,7 @@ namespace
 
 Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> shadowTexture, const PlayerParam& param, const std::vector<AABBColliderParam>& aabbParam, const PlayerInitData& initData, std::unique_ptr<PlayerTornado> tornado) :
 	mHP(kMaxHP),
+	mInvincibleTimer(0.0f),
 	mLastMoveVec(Vector3::XAxis),
 	mCanJumpTimer(0.0f),
 	mIsJumping(false),
@@ -40,6 +42,7 @@ Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Re
 	mParam(param),
 	mModel(nullptr),
 	mAnimator(nullptr),
+	mEventSubject(nullptr),
 	mTornado(tornado.get())
 {
 	mTransform->localPosition = initData.transform.position;
@@ -62,6 +65,8 @@ Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Re
 				param.collisionTag
 			));
 	}
+
+	mEventSubject = std::make_unique<Observer::Subject>();
 }
 
 Player::~Player()
@@ -236,8 +241,7 @@ void Player::ResolveCollision(const Collision::Result& result, const Collider3D*
 		if (oppCollider->GetTag() != Collision::Tag::Attack) break;
 		if (mInvincibleTimer > 0.0f) break;
 
-		mHP--;
-		mInvincibleTimer = kInvincibleTime;
+		Damage();
 
 		break;
 	}
@@ -371,4 +375,15 @@ bool Player::CanJump() const
 bool Player::CanCancelJump() const
 {
 	return mIsJumping && mVelocity.y > mParam.jumpCancelThreshold;
+}
+
+void Player::Damage()
+{
+	mHP--;
+	mInvincibleTimer = kInvincibleTime;
+	mEventSubject->Notify(Observer::Event::PlayerDamaged);
+
+	if (mHP > 0) return;
+
+	mEventSubject->Notify(Observer::Event::PlayerDead);
 }

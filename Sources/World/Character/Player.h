@@ -12,6 +12,10 @@ namespace Resource
 {
 	class ResourceBase;
 }
+namespace Observer
+{
+	class Subject;
+}
 
 class Player : public GameObject
 {
@@ -36,6 +40,8 @@ public:
 
 public:
 
+	Observer::Subject* GetEventSubject() const { return mEventSubject.get(); }
+
 	void SetCameraView(const Camera::View& view) { mCameraView = view; }
 
 private:
@@ -49,6 +55,8 @@ private:
 	bool CanJump() const;
 
 	bool CanCancelJump() const;
+
+	void Damage();
 
 private:
 
@@ -85,6 +93,8 @@ private:
 	std::unique_ptr<ModelAnimator> mAnimator;
 	
 	std::vector<std::unique_ptr<Collider3D>> mColliders;
+
+	std::unique_ptr<Observer::Subject> mEventSubject;
 
 	PlayerTornado* mTornado;
 

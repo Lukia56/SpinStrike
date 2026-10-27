@@ -2,6 +2,8 @@
 #include <vector>
 #include "SceneSelectDebug.h"
 #include "Factory/PlayerCreator.h"
+#include "Observer/GameOverObserver.h"
+#include "Observer/Subject.h"
 #include "World/Character/Player.h"
 #include "World/Character/PlayerBulletManager.h"
 #include "World/Character/PlayerTornado.h"
@@ -54,6 +56,10 @@ void SceneStageTest::OnInit()
 
 
 	objectRoot->CreateToChild<StageManager>(kStageObjectDataPath);
+
+	mGameOverObserver = std::make_unique<Observer::GameOverObserver>(mPlayer);
+
+	mPlayer->GetEventSubject()->RegisterObserver(mGameOverObserver.get());
 
 	GetCameraManager()->AddCamera(Camera::Type::Follow, std::make_unique<CameraFollow>(mPlayer->GetTransform()));
 	GetCameraManager()->SetCurrentCameraType(Camera::Type::Follow);
