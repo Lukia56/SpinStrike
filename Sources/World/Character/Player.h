@@ -9,7 +9,7 @@ struct PlayerInitData;
 class PlayerTornado;
 class ModelRenderer;
 class Collider3D;
-class ModelAnimator;
+class PlayerModelAnimator;
 namespace Resource
 {
 	class ResourceBase;
@@ -48,6 +48,10 @@ public:
 
 	bool IsSpinning() const;
 
+	bool OnGround() const { return mOnGround; }
+
+	bool OnWall() const { return mOnWall; }
+
 	Observer::Subject* GetEventSubject() const { return mEventSubject.get(); }
 
 	void SetCameraView(const Camera::View& view) { mCameraView = view; }
@@ -59,8 +63,6 @@ private:
 	void MoveHorizontal(float deltaTime);
 
 	void MoveVertical(float deltaTime);
-
-	void AnimationUpdate();
 
 	bool CanJump() const;
 
@@ -96,11 +98,9 @@ private:
 
 	float mIgnoreMoveInputTimer;
 
-	PlayerAnimation mCurrentAnimation;
-
 	std::unique_ptr<ModelRenderer> mModel;
 
-	std::unique_ptr<ModelAnimator> mAnimator;
+	std::unique_ptr<PlayerModelAnimator> mModelAnimator;
 	
 	std::vector<std::unique_ptr<Collider3D>> mColliders;
 

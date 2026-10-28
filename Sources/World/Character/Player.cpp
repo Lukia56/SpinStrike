@@ -4,7 +4,7 @@
 #include <imgui.h>
 #include "PlayerAnimation.h"
 #include "PlayerTornado.h"
-#include "../Component/ModelAnimator.h"
+#include "../Component/PlayerModelAnimator.h"
 #include "../Component/Collider3D.h"
 #include "../Component/Rendering/ModelRenderer.h"
 #include "../Other/BlobShadow.h"
@@ -44,7 +44,7 @@ Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Re
 	mStickWallCancelTimer(0.0f),
 	mIgnoreMoveInputTimer(0.0f),
 	mModel(nullptr),
-	mAnimator(nullptr),
+	mModelAnimator(nullptr),
 	mEventSubject(nullptr),
 	mTornado(tornado.get())
 {
@@ -83,7 +83,7 @@ void Player::Init()
 {
 	SetTag(Tag::Player);
 
-	mAnimator = std::make_unique<ModelAnimator>(mModel.get(), 30.0f);
+	mModelAnimator = std::make_unique<PlayerModelAnimator>(this, mModel.get(), 30.0f);
 
 	CreateToChild<DebugGround>();
 }
@@ -117,10 +117,10 @@ void Player::Update()
 
 	if (mInvincibleTimer > 0.0f) mInvincibleTimer -= deltaTime;
 
-	if (Keyboard::GetInstance().IsDown(KEY_INPUT_1)) mAnimator->Play(AnimationParam{ .animIndex = 0, .isLoop = true, .isForcePlay = false });
-	if (Keyboard::GetInstance().IsDown(KEY_INPUT_2)) mAnimator->Play(AnimationParam{ .animIndex = 1, .isLoop = true, .isForcePlay = true });
+	if (Keyboard::GetInstance().IsDown(KEY_INPUT_1)) mModelAnimator->Play(AnimationParam{ .animIndex = 0, .isLoop = true, .isForcePlay = false });
+	if (Keyboard::GetInstance().IsDown(KEY_INPUT_2)) mModelAnimator->Play(AnimationParam{ .animIndex = 1, .isLoop = true, .isForcePlay = true });
 
-	AnimationUpdate();
+	mModelAnimator->Update();
 }
 
 void Player::PhysicsUpdate()
@@ -391,61 +391,6 @@ void Player::MoveVertical(float deltaTime)
 			mVelocity.y -= param.gravity * deltaTime;
 		}
 	}
-}
-
-void Player::AnimationUpdate()
-{
-	PlayerAnimation nextAnim = PlayerAnimation::Idle;
-
-	if (IsSpinning())
-	{
-		nextAnim = PlayerAnimation::Spin;
-		mModel->Rotate(kSpinRotate);
-	}
-	else
-	{
-		mModel->SetRotation(Vector3::Zero);
-
-		if (mOnGround)
-		{
-			if (InputManager::GetInstance().IsPressed(Input::Action::Jump))
-			{
-				nextAnim = PlayerAnimation::JumpIn;
-			}
-			else
-			if (InputManager::GetInstance().GetAsVector3(Input::Action::Move) != Vector3::Zero)
-			{
-				if (InputManager::GetInstance().IsDown(Input::Action::Dash))
-				{
-					nextAnim = PlayerAnimation::Run;
-				}
-				else
-				{
-					nextAnim = PlayerAnimation::Walk;
-				}
-			}
-			else
-			if (mCurrentAnimation == PlayerAnimation::JumpLoop
-			|| (mCurrentAnimation == PlayerAnimation::Land && mAnimator->IsPlaying()))	// ‹­§Ä¶‚¾‚ÆRun‚âJumpIn‚ªÄ¶‚Å‚«‚È‚­‚È‚é‚½‚ß•Ê“r•ªŠò
-			{
-				nextAnim = PlayerAnimation::Land;
-			}
-		}
-		else
-		{
-			nextAnim = PlayerAnimation::JumpLoop;
-		}
-	}
-
-	if (mCurrentAnimation != nextAnim)
-	{
-		if (mAnimator->Play(PlayerDataManager::GetInstance().GetAnimationParam(nextAnim)))
-		{
-			mCurrentAnimation = nextAnim;
-		}
-	}
-
-	mAnimator->Update();
 }
 
 bool Player::CanJump() const

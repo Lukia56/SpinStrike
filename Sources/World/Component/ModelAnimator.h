@@ -15,7 +15,7 @@ public:
 	ModelAnimator(ModelRenderer* renderer, float fps = TimeManager::kFPS);
 	~ModelAnimator();
 
-	void Update();
+	virtual void Update();
 
 	bool Play(const AnimationParam& param);
 
@@ -28,6 +28,10 @@ public:
 	bool IsForcePlay() const { return mIsForcePlay; }
 
 	void SetPlaySpeed(const float speed) { mPlaySpeed = speed; }
+
+protected:
+
+	ModelRenderer* GetModelRenderer() const { return mRenderer; }
 
 private:
 
