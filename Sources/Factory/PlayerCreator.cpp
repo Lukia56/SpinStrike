@@ -11,7 +11,7 @@
 
 namespace
 {
-	const char* const kModelPath = "Resources\\Model\\Hero.x";
+	const char* const kModelPath = "Resources\\Model\\Player.mv1";
 
 	const char* const kBlobShadowTexturePath = "Resources\\Sprite\\BlobShadow.png";
 }
