@@ -12,7 +12,7 @@ class ModelRenderer : public Renderer
 {
 public:
 
-	ModelRenderer(GameObject* owner, std::shared_ptr<Resource::ResourceBase> resource, std::shared_ptr<Resource::ResourceBase> animation = nullptr);
+	ModelRenderer(GameObject* owner, std::shared_ptr<Resource::ResourceBase> resource, float scale = 1.0f, std::shared_ptr<Resource::ResourceBase> animation = nullptr);
 	~ModelRenderer();
 
 	/// <summary>
@@ -32,6 +32,8 @@ public:
 	int GetAnimModelHandle() const;
 
 private:
+
+	float mScale;
 
 	std::unique_ptr<ModelInstance> mModelInstance;
 

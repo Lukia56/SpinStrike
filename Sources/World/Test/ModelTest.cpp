@@ -6,7 +6,7 @@
 ModelTest::ModelTest(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> anim, int index) :
 	mModel(nullptr)
 {
-	mModel = std::make_unique<ModelRenderer>(this, model, anim);
+	mModel = std::make_unique<ModelRenderer>(this, model, 1.0f, anim);
 
 	mAnimator = std::make_unique<ModelAnimator>(mModel.get(), 30.0f);
 	mAnimator->Play(AnimationParam{ .animIndex = index, .isLoop = true, .isForcePlay = false });

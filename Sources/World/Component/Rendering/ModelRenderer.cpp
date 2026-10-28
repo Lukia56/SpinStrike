@@ -4,8 +4,9 @@
 #include "System/Resource/ResourceBase.h"
 #include "World/GameObject.h"
 
-ModelRenderer::ModelRenderer(GameObject* owner, std::shared_ptr<Resource::ResourceBase> resource, std::shared_ptr<Resource::ResourceBase> animation) :
+ModelRenderer::ModelRenderer(GameObject* owner, std::shared_ptr<Resource::ResourceBase> resource, float scale, std::shared_ptr<Resource::ResourceBase> animation) :
 	Renderer(owner, resource),
+	mScale(scale),
 	mModelInstance(nullptr),
 	mAnimModel(animation)
 {
@@ -27,7 +28,7 @@ void ModelRenderer::Draw() const
 
 	const VECTOR pos = (mOwner->GetTransform()->CalculateWorldPosition() + mOffsetPos).GetAsDxLibVector();
 	const VECTOR rot = mOwner->GetTransform()->CalculateWorldRotation().GetAsDxLibVector();
-	const VECTOR scale = mOwner->GetTransform()->CalculateWorldScale().GetAsDxLibVector();
+	const VECTOR scale = (mOwner->GetTransform()->CalculateWorldScale() * mScale).GetAsDxLibVector();
 
 	int handle = mModelInstance->GetHandle();
 

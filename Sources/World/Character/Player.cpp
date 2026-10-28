@@ -25,6 +25,8 @@ namespace
 	constexpr float kInvincibleTime = 1.0f;
 
 	constexpr float kYawLatency = 0.25f;
+
+	constexpr float kModelScale = 0.3f;
 }
 
 Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> shadowTexture, const PlayerInitData& initData, std::unique_ptr<PlayerTornado> tornado) :
@@ -47,8 +49,8 @@ Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Re
 	mTransform->localRotation = initData.transform.rotation;
 	mTransform->localScale = initData.transform.scale;
 
-	mModel = std::make_unique<ModelRenderer>(this, model);
-	mModel->DisableMovement("root");
+	mModel = std::make_unique<ModelRenderer>(this, model, kModelScale);
+	mModel->DisableMovement("Root");
 
 	CreateToChild<BlobShadow>(shadowTexture);
 
@@ -115,7 +117,7 @@ void Player::Update()
 	if (Keyboard::GetInstance().IsDown(KEY_INPUT_1)) mAnimator->Play(AnimationParam{ .animIndex = 0, .isLoop = true, .isForcePlay = false });
 	if (Keyboard::GetInstance().IsDown(KEY_INPUT_2)) mAnimator->Play(AnimationParam{ .animIndex = 1, .isLoop = true, .isForcePlay = true });
 
-	mAnimator->Update();
+	AnimationUpdate();
 }
 
 void Player::PhysicsUpdate()
@@ -136,7 +138,7 @@ void Player::Draw()
 {
 	Vector3 worldPos = mTransform->CalculateWorldPosition();
 
-	//mModel->Draw();
+	mModel->Draw();
 
 	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + mLastMoveVec * 100.0f).GetAsDxLibVector(), Color::red.GetAsHexRGB());
 }
