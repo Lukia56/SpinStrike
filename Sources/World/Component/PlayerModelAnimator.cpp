@@ -7,6 +7,8 @@
 namespace
 {
 	constexpr Vector3 kSpinRotate{ 0.0f, Math::ToRadian(20.0f), 0.0f };
+
+	constexpr float kStickWallAnimTime = 20.0f;
 }
 
 PlayerModelAnimator::PlayerModelAnimator(Player* player, ModelRenderer* renderer, float fps) :
@@ -59,6 +61,13 @@ void PlayerModelAnimator::Update()
 			if (mPlayer->OnWall())
 			{
 				nextAnim = PlayerAnimation::StickWall;
+
+				SetTime(kStickWallAnimTime);
+
+				// •Ç‚ðŒü‚©‚¹‚é
+				Vector3 worldRot = mPlayer->GetTransform()->CalculateWorldRotation();
+				Vector3 wallNormalRot = Vector3(0.0f, std::atan2(mPlayer->GetLastCollideNormal().x, mPlayer->GetLastCollideNormal().z), 0.0f);
+				GetModelRenderer()->SetRotation(wallNormalRot - worldRot);
 			}
 			else
 			{

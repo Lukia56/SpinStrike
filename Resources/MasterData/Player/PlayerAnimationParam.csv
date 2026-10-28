@@ -5,5 +5,5 @@ animIndex,_selectAnim,isLoop,isForcePlay
 6,JumpIn,0,1
 7,JumpLoop,1,0
 8,Land,0,0
-16,StickWall,1,0
+10,StickWall,1,0
 7,Spin,1,1

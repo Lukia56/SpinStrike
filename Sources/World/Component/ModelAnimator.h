@@ -33,6 +33,8 @@ protected:
 
 	ModelRenderer* GetModelRenderer() const { return mRenderer; }
 
+	void SetTime(float time) { mTime = time; }
+
 private:
 
 	bool IsPlayingOneShotAnim() const;

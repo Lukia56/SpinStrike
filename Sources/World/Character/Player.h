@@ -52,6 +52,8 @@ public:
 
 	bool OnWall() const { return mOnWall; }
 
+	const Vector3& GetLastCollideNormal() const { return mLastCollideNormal; }
+
 	Observer::Subject* GetEventSubject() const { return mEventSubject.get(); }
 
 	void SetCameraView(const Camera::View& view) { mCameraView = view; }
