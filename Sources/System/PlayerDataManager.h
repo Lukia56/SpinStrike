@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Param/Param.h"
+#include "World/Character/PlayerAnimation.h"
 
 class PlayerDataManager
 {
@@ -26,9 +27,13 @@ public:
 
 	const std::vector<AABBColliderParam>& GetAABBParams() const { return mAABBParams; }
 
+	const AnimationParam& GetAnimationParam(PlayerAnimation animID) const;
+
 private:
 
 	PlayerParam mPlayerParam;
 
 	std::vector<AABBColliderParam> mAABBParams;
+
+	std::vector<AnimationParam> mAnimationParams;
 };

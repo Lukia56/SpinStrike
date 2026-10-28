@@ -54,6 +54,19 @@ namespace Data
 		};
 
 		template <>
+		struct FromCsv<AnimationParam>
+		{
+			static AnimationParam Binding(const Row& row)
+			{
+				AnimationParam param;
+				param.animIndex = Get<int>(row, "animIndex");
+				param.isLoop = Get<bool>(row, "isLoop");
+				param.isForcePlay = Get<bool>(row, "isForcePlay");
+				return param;
+			}
+		};
+
+		template <>
 		struct FromCsv<PlayerParam>
 		{
 			static PlayerParam Binding(const Row& row)

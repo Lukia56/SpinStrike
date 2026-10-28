@@ -261,6 +261,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Observer\GoalObserver.h" />
+    <ClInclude Include="Sources\World\Character\PlayerAnimation.h" />
     <ClInclude Include="Sources\World\Object\GoalObject.h" />
     <ClInclude Include="Sources\World\UI\Widget\InGame\PlayerHPUI.h" />
     <ClInclude Include="Sources\System\PlayerDataManager.h" />
