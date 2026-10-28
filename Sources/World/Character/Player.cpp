@@ -397,6 +397,11 @@ void Player::AnimationUpdate()
 
 	if (mOnGround)
 	{
+		if (InputManager::GetInstance().IsPressed(Input::Action::Jump))
+		{
+			nextAnim = PlayerAnimation::JumpIn;
+		}
+		else
 		if (InputManager::GetInstance().GetAsVector3(Input::Action::Move) != Vector3::Zero)
 		{
 			if (InputManager::GetInstance().IsDown(Input::Action::Dash))
@@ -407,6 +412,19 @@ void Player::AnimationUpdate()
 			{
 				nextAnim = PlayerAnimation::Walk;
 			}
+		}
+		else
+		if (mCurrentAnimation == PlayerAnimation::JumpLoop
+		|| (mCurrentAnimation == PlayerAnimation::Land && mAnimator->IsPlaying()))	// ‹­§Ä¶‚¾‚ÆRun‚âJumpIn‚ªÄ¶‚Å‚«‚È‚­‚È‚é‚½‚ß•Ê“r•ªŠò
+		{
+			nextAnim = PlayerAnimation::Land;
+		}
+	}
+	else
+	{
+		if (mCurrentAnimation != PlayerAnimation::JumpIn && !mAnimator->IsPlaying())
+		{
+			nextAnim = PlayerAnimation::JumpLoop;
 		}
 	}
 
