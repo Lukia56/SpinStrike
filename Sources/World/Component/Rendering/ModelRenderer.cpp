@@ -27,7 +27,7 @@ void ModelRenderer::Draw() const
 	if (!mModelInstance) return;
 
 	const VECTOR pos = (mOwner->GetTransform()->CalculateWorldPosition() + mOffsetPos).GetAsDxLibVector();
-	const VECTOR rot = mOwner->GetTransform()->CalculateWorldRotation().GetAsDxLibVector();
+	const VECTOR rot = (mOwner->GetTransform()->CalculateWorldRotation() + mRotation).GetAsDxLibVector();
 	const VECTOR scale = (mOwner->GetTransform()->CalculateWorldScale() * mScale).GetAsDxLibVector();
 
 	int handle = mModelInstance->GetHandle();

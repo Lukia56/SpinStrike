@@ -27,11 +27,16 @@ public:
 
 public:
 
+	void SetRotation(const Vector3& rot) { mRotation = rot; }
+	void Rotate(const Vector3& rot) { mRotation += rot; }
+
 	int GetModelHandle() const;
 
 	int GetAnimModelHandle() const;
 
 private:
+
+	Vector3 mRotation;
 
 	float mScale;
 
