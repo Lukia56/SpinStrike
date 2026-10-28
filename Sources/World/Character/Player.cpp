@@ -395,6 +395,21 @@ void Player::AnimationUpdate()
 {
 	PlayerAnimation nextAnim = PlayerAnimation::Idle;
 
+	if (mOnGround)
+	{
+		if (InputManager::GetInstance().GetAsVector3(Input::Action::Move) != Vector3::Zero)
+		{
+			if (InputManager::GetInstance().IsDown(Input::Action::Dash))
+			{
+				nextAnim = PlayerAnimation::Run;
+			}
+			else
+			{
+				nextAnim = PlayerAnimation::Walk;
+			}
+		}
+	}
+
 	if (mCurrentAnimation != nextAnim)
 	{
 		mCurrentAnimation = nextAnim;
