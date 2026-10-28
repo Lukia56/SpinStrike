@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\World\Object\GoalObject.cpp" />
     <ClCompile Include="Sources\World\UI\Widget\InGame\PlayerHPUI.cpp" />
     <ClCompile Include="Sources\System\PlayerDataManager.cpp" />
     <ClCompile Include="Sources\Observer\GameOverObserver.cpp" />
@@ -258,6 +259,7 @@
     <ClCompile Include="Sources\State\Enemy\StateEnemyAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\World\Object\GoalObject.h" />
     <ClInclude Include="Sources\World\UI\Widget\InGame\PlayerHPUI.h" />
     <ClInclude Include="Sources\System\PlayerDataManager.h" />
     <ClInclude Include="Sources\Observer\GameOverObserver.h" />

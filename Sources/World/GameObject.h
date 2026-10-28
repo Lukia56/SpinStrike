@@ -26,6 +26,7 @@ public:
 		Terrain,
 		Tornado,
 		Enemy,
+		Goal,
 	};
 
 	/// <summary>
