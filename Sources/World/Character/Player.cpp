@@ -2,6 +2,7 @@
 #include <memory>
 #include <DxLib.h>
 #include <imgui.h>
+#include "PlayerAnimation.h"
 #include "PlayerTornado.h"
 #include "../Component/ModelAnimator.h"
 #include "../Component/Collider3D.h"
@@ -388,6 +389,20 @@ void Player::MoveVertical(float deltaTime)
 			mVelocity.y -= param.gravity * deltaTime;
 		}
 	}
+}
+
+void Player::AnimationUpdate()
+{
+	PlayerAnimation nextAnim = PlayerAnimation::Idle;
+
+	if (mCurrentAnimation != nextAnim)
+	{
+		mCurrentAnimation = nextAnim;
+
+		mAnimator->Play(PlayerDataManager::GetInstance().GetAnimationParam(nextAnim));
+	}
+
+	mAnimator->Update();
 }
 
 bool Player::CanJump() const

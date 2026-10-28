@@ -1,8 +1,10 @@
 #pragma once
 
 #include "../GameObject.h"
+#include "PlayerAnimation.h"
 #include "Camera/CameraProperty.h"
 
+struct AnimationParam;
 struct PlayerInitData;
 class PlayerTornado;
 class ModelRenderer;
@@ -58,6 +60,8 @@ private:
 
 	void MoveVertical(float deltaTime);
 
+	void AnimationUpdate();
+
 	bool CanJump() const;
 
 	bool CanCancelJump() const;
@@ -91,6 +95,8 @@ private:
 	float mStickWallCancelTimer;
 
 	float mIgnoreMoveInputTimer;
+
+	PlayerAnimation mCurrentAnimation;
 
 	std::unique_ptr<ModelRenderer> mModel;
 
