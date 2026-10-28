@@ -17,7 +17,7 @@ public:
 
 	void Update();
 
-	void Play(const AnimationParam& param);
+	bool Play(const AnimationParam& param);
 
 public:
 

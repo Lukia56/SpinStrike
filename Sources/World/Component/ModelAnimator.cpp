@@ -47,16 +47,16 @@ void ModelAnimator::Update()
 	}
 }
 
-void ModelAnimator::Play(const AnimationParam& param)
+bool ModelAnimator::Play(const AnimationParam& param)
 {
 	if (!mRenderer)
 	{
 		assert(false && "ModelAnimator // モデルレンダラがnullのためアニメーションを更新できませんでした");
-		return;
+		return false;
 	}
 	
-	if (IsPlayingOneShotAnim()) return;
-	if (IsPlayingSameAnim(param.animIndex)) return;
+	if (IsPlayingOneShotAnim()) return false;
+	if (IsPlayingSameAnim(param.animIndex)) return false;
 
 	int modelHandle = mRenderer->GetModelHandle();
 	int animModelHandle = mRenderer->GetAnimModelHandle();
@@ -74,6 +74,8 @@ void ModelAnimator::Play(const AnimationParam& param)
 
 	// ループするならワンショットアニメーションにしない
 	if (!mIsLoop) mIsForcePlay = param.isForcePlay;
+
+	return true;
 }
 
 bool ModelAnimator::IsPlayingOneShotAnim() const

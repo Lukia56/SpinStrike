@@ -28,6 +28,8 @@ namespace
 	constexpr float kYawLatency = 0.25f;
 
 	constexpr float kModelScale = 0.3f;
+
+	constexpr Vector3 kSpinRotate{ 0.0f, Math::ToRadian(20.0f), 0.0f};
 }
 
 Player::Player(std::shared_ptr<Resource::ResourceBase> model, std::shared_ptr<Resource::ResourceBase> shadowTexture, const PlayerInitData& initData, std::unique_ptr<PlayerTornado> tornado) :
@@ -395,34 +397,41 @@ void Player::AnimationUpdate()
 {
 	PlayerAnimation nextAnim = PlayerAnimation::Idle;
 
-	if (mOnGround)
+	if (IsSpinning())
 	{
-		if (InputManager::GetInstance().IsPressed(Input::Action::Jump))
-		{
-			nextAnim = PlayerAnimation::JumpIn;
-		}
-		else
-		if (InputManager::GetInstance().GetAsVector3(Input::Action::Move) != Vector3::Zero)
-		{
-			if (InputManager::GetInstance().IsDown(Input::Action::Dash))
-			{
-				nextAnim = PlayerAnimation::Run;
-			}
-			else
-			{
-				nextAnim = PlayerAnimation::Walk;
-			}
-		}
-		else
-		if (mCurrentAnimation == PlayerAnimation::JumpLoop
-		|| (mCurrentAnimation == PlayerAnimation::Land && mAnimator->IsPlaying()))	// ‹­§Ä¶‚¾‚ÆRun‚âJumpIn‚ªÄ¶‚Å‚«‚È‚­‚È‚é‚½‚ß•Ê“r•ªŠò
-		{
-			nextAnim = PlayerAnimation::Land;
-		}
+		nextAnim = PlayerAnimation::Spin;
+		mModel->Rotate(kSpinRotate);
 	}
 	else
 	{
-		if (mCurrentAnimation != PlayerAnimation::JumpIn && !mAnimator->IsPlaying())
+		mModel->SetRotation(Vector3::Zero);
+
+		if (mOnGround)
+		{
+			if (InputManager::GetInstance().IsPressed(Input::Action::Jump))
+			{
+				nextAnim = PlayerAnimation::JumpIn;
+			}
+			else
+			if (InputManager::GetInstance().GetAsVector3(Input::Action::Move) != Vector3::Zero)
+			{
+				if (InputManager::GetInstance().IsDown(Input::Action::Dash))
+				{
+					nextAnim = PlayerAnimation::Run;
+				}
+				else
+				{
+					nextAnim = PlayerAnimation::Walk;
+				}
+			}
+			else
+			if (mCurrentAnimation == PlayerAnimation::JumpLoop
+			|| (mCurrentAnimation == PlayerAnimation::Land && mAnimator->IsPlaying()))	// ‹­§Ä¶‚¾‚ÆRun‚âJumpIn‚ªÄ¶‚Å‚«‚È‚­‚È‚é‚½‚ß•Ê“r•ªŠò
+			{
+				nextAnim = PlayerAnimation::Land;
+			}
+		}
+		else
 		{
 			nextAnim = PlayerAnimation::JumpLoop;
 		}
@@ -430,9 +439,10 @@ void Player::AnimationUpdate()
 
 	if (mCurrentAnimation != nextAnim)
 	{
-		mCurrentAnimation = nextAnim;
-
-		mAnimator->Play(PlayerDataManager::GetInstance().GetAnimationParam(nextAnim));
+		if (mAnimator->Play(PlayerDataManager::GetInstance().GetAnimationParam(nextAnim)))
+		{
+			mCurrentAnimation = nextAnim;
+		}
 	}
 
 	mAnimator->Update();
