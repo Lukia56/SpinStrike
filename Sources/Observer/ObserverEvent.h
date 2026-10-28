@@ -6,5 +6,6 @@ namespace Observer
 	{
 		PlayerDamaged,
 		PlayerDead,
+		PlayerGoal,
 	};
 }

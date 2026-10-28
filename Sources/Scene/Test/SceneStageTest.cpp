@@ -3,11 +3,13 @@
 #include "SceneSelectDebug.h"
 #include "Factory/PlayerCreator.h"
 #include "Observer/GameOverObserver.h"
+#include "Observer/GoalObserver.h"
 #include "Observer/Subject.h"
 #include "World/Character/Player.h"
 #include "World/Character/PlayerBulletManager.h"
 #include "World/Character/PlayerTornado.h"
 #include "World/Character/Enemy.h"
+#include "World/Object/GoalObject.h"
 #include "World/Other/RootObject.h"
 #include "World/Other/StageManager.h"
 #include "World/UI/Core/UIManager.h"
@@ -25,11 +27,15 @@ namespace
 	const char* const kPlayerInitDataPath = "Resources\\MasterData\\Stage\\TestStage\\PlayerInitData.json";
 
 	const char* const kPatrollingDataPath = "Resources\\MasterData\\Enemy\\TestEnemy\\WaypointActionData.json";
+
+	constexpr Vector3 kGoalPos{ 0.0f, 250.0f, 500.0f };
 }
 
 SceneStageTest::SceneStageTest() :
 	mPlayer(nullptr),
-	mEnemy(nullptr)
+	mEnemy(nullptr),
+	mGameOverObserver(nullptr),
+	mGoalObserver(nullptr)
 {
 }
 
@@ -58,14 +64,18 @@ void SceneStageTest::OnInit()
 
 
 	objectRoot->CreateToChild<StageManager>(kStageObjectDataPath);
+	GoalObject* goal = objectRoot->CreateToChild<GoalObject>();
+	goal->GetTransform()->localPosition = kGoalPos;
 
 	UI::UIManager* uiManager = CreateToRoot<UI::UIManager>();
 	uiManager->AddScreenToPool(std::make_unique<UI::InGameScreen>(mPlayer));
 	uiManager->PushScreen<UI::InGameScreen>();
 
 	mGameOverObserver = std::make_unique<Observer::GameOverObserver>(mPlayer);
+	mGoalObserver = std::make_unique<Observer::GoalObserver>(mPlayer);
 
 	mPlayer->GetEventSubject()->RegisterObserver(mGameOverObserver.get());
+	mPlayer->GetEventSubject()->RegisterObserver(mGoalObserver.get());
 
 	GetCameraManager()->AddCamera(Camera::Type::Follow, std::make_unique<CameraFollow>(mPlayer->GetTransform()));
 	GetCameraManager()->SetCurrentCameraType(Camera::Type::Follow);

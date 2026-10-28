@@ -245,6 +245,12 @@ void Player::ResolveCollision(const Collision::Result& result, const Collider3D*
 		Damage();
 
 		break;
+
+	case Tag::Goal:
+
+		mEventSubject->Notify(Observer::Event::PlayerGoal);
+
+		break;
 	}
 }
 

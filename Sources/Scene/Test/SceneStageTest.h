@@ -7,6 +7,7 @@ class Enemy;
 namespace Observer
 {
 	class GameOverObserver;
+	class GoalObserver;
 }
 
 class SceneStageTest : public SceneBase
@@ -28,4 +29,5 @@ private:
 	Enemy* mEnemy;
 
 	std::unique_ptr<Observer::GameOverObserver> mGameOverObserver;
+	std::unique_ptr<Observer::GoalObserver> mGoalObserver;
 };
