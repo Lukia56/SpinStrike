@@ -1,17 +1,25 @@
 #include "CameraFollow.h"
 #include <imgui.h>
+#include "Collision/CollisionManager.h"
 #include "System/InputManager.h"
 #include "System/Input/Mouse.h"
 #include "Utility/Math.h"
+#include "World/GameObject.h"
 #include "World/Component/Transform.h"
+#include "World/Component/Collider3D.h"
 
 namespace
 {
+	constexpr Vector3 kOffsetPos{ 0.0f, 100.0f, 0.0f };
+
 	constexpr float kDistance = 400.0f;
 
 	constexpr float kMaxPitch = 80.0f;
 	constexpr float kMinPitch = -80.0f;
 
+	constexpr float kRaycastCollidePointDistance = -16.0f;
+
+	constexpr float kMoveEyeLatency = 0.5f;
 	constexpr float kMoveViewLatency = 0.25f;
 
 	constexpr float kSensitivity = 0.25f;
@@ -36,7 +44,7 @@ void CameraFollow::Update(Camera::View& view)
 
 	mRotation = mRotation.Lerp(mTargetRotation, kMoveViewLatency);
 
-	Vector3 targetPos = mTarget->CalculateWorldPosition();
+	Vector3 targetPos = mTarget->CalculateWorldPosition() + kOffsetPos;
 
 	float yawSinParam = std::sin(mRotation.y);
 	float yawCosParam = std::cos(mRotation.y);
@@ -45,13 +53,26 @@ void CameraFollow::Update(Camera::View& view)
 
 	// 回転させたカメラの座標を計算
 	Vector3 rotatedOffsetPos;
-	rotatedOffsetPos.x = pitchCosParam * yawSinParam * kDistance;
-	rotatedOffsetPos.y = pitchSinParam * kDistance;
-	rotatedOffsetPos.z = pitchCosParam * yawCosParam * kDistance;
+	rotatedOffsetPos.x = pitchCosParam * yawSinParam;
+	rotatedOffsetPos.y = pitchSinParam;
+	rotatedOffsetPos.z = pitchCosParam * yawCosParam;
 
-	mEyePosition = targetPos + rotatedOffsetPos;
+	mEyePosition = targetPos + rotatedOffsetPos * kDistance;
 
-	view.eyePosition = mEyePosition;
+	// 地形をすり抜けないようにする
+	Collision::Ray ray = Collision::Ray{ .position = targetPos, .direction = rotatedOffsetPos.GetNormalize(), .maxDistance = kDistance};
+	auto result = CollisionManager::GetInstance().Raycast(ray,
+		[](Collider3D* collider)
+		{
+			return collider->GetOwner()->GetTag() == GameObject::Tag::Terrain;
+		});
+
+	if (!result.empty())
+	{
+		mEyePosition = targetPos + rotatedOffsetPos * (result[0].distance + kRaycastCollidePointDistance);
+	}
+
+	view.eyePosition = view.eyePosition.Lerp(mEyePosition, kMoveEyeLatency);
 	view.targetPosition = targetPos;
 }
 
