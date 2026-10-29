@@ -1,0 +1,5 @@
+animIndex,_selectAnim,isLoop,isForcePlay
+5,Idle,1,0
+8,Walk,1,0
+0,Attack,0,1
+4,Damage,0,1
