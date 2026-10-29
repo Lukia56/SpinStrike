@@ -3,6 +3,7 @@
 #include "../IState.h"
 
 class Enemy;
+class EnemyModelAnimator;
 
 /// <summary>
 /// ÉvÉåÉCÉÑÅ[Çí«ê’Ç∑ÇÈ
@@ -11,7 +12,7 @@ class StateEnemyFollow : public IState<Enemy>
 {
 public:
 
-	StateEnemyFollow();
+	StateEnemyFollow(EnemyModelAnimator* modelAnimator);
 	~StateEnemyFollow() = default;
 
 	void Enter(Enemy& enemy) override;
@@ -29,4 +30,6 @@ private:
 private:
 
 	float mLostTimer;
+
+	EnemyModelAnimator* mModelAnimator;
 };

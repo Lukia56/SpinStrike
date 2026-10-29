@@ -5,6 +5,7 @@
 #include "System/TimeManager.h"
 #include "Utility/Math.h"
 #include "World/Character/Enemy.h"
+#include "World/Component/EnemyModelAnimator.h"
 
 namespace
 {
@@ -16,8 +17,9 @@ namespace
 	constexpr float kStartAttackRange = 100.0f;
 }
 
-StateEnemyFollow::StateEnemyFollow() :
-	mLostTimer(0.0f)
+StateEnemyFollow::StateEnemyFollow(EnemyModelAnimator* modelAnimator) :
+	mLostTimer(0.0f),
+	mModelAnimator(modelAnimator)
 {
 }
 
@@ -50,8 +52,10 @@ void StateEnemyFollow::Update(Enemy& enemy, StateContext<Enemy>& context)
 
 	Vector3 toPlayerNorm = toPlayerVec.GetNormalize();
 
-	enemy.SetTargetYaw(std::atan2(toPlayerNorm.x, -toPlayerNorm.z));
+	enemy.SetTargetYaw(std::atan2(-toPlayerNorm.x, -toPlayerNorm.z));
 	enemy.SetVelocity(toPlayerNorm * kMoveSpeed);
+
+	mModelAnimator->SetNextAnimation(EnemyAnimation::Walk);
 }
 
 void StateEnemyFollow::Exit(Enemy& enemy)

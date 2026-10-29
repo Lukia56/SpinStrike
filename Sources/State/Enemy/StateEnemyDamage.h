@@ -3,12 +3,13 @@
 #include "../IState.h"
 
 class Enemy;
+class EnemyModelAnimator;
 
 class StateEnemyDamage : public IState<Enemy>
 {
 public:
 
-	StateEnemyDamage();
+	StateEnemyDamage(EnemyModelAnimator* modelAnimator);
 	~StateEnemyDamage() = default;
 
 	void Enter(Enemy& enemy) override;
@@ -20,4 +21,6 @@ public:
 private:
 
 	float mStunTimer;
+
+	EnemyModelAnimator* mModelAnimator;
 };

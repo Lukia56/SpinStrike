@@ -1,10 +1,18 @@
 #include "SceneStageTest.h"
 #include <vector>
 #include "SceneSelectDebug.h"
+#include "Camera/CameraFollow.h"
+#include "Camera/CameraManager.h"
 #include "Factory/PlayerCreator.h"
 #include "Observer/GameOverObserver.h"
 #include "Observer/GoalObserver.h"
 #include "Observer/Subject.h"
+#include "System/ResourceManager.h"
+#include "System/Resource/Model.h"
+#include "System/Input/Keyboard.h"
+#include "System/Input/Mouse.h"
+#include "Utility/Data/CSV/CsvLoader.h"
+#include "Utility/Data/JSON/JsonLoader.h"
 #include "World/Character/Player.h"
 #include "World/Character/PlayerBulletManager.h"
 #include "World/Character/PlayerTornado.h"
@@ -14,11 +22,6 @@
 #include "World/Other/StageManager.h"
 #include "World/UI/Core/UIManager.h"
 #include "World/UI/Screen/InGameScreen.h"
-#include "Camera/CameraFollow.h"
-#include "Camera/CameraManager.h"
-#include "System/Input/Keyboard.h"
-#include "System/Input/Mouse.h"
-#include "Utility/Data/JSON/JsonLoader.h"
 
 namespace
 {
@@ -27,6 +30,9 @@ namespace
 	const char* const kPlayerInitDataPath = "Resources\\MasterData\\Stage\\TestStage\\PlayerInitData.json";
 
 	const char* const kPatrollingDataPath = "Resources\\MasterData\\Enemy\\TestEnemy\\WaypointActionData.json";
+
+	const char* const kSkullEnemyModelPath = "Resources\\Model\\Skull.mv1";
+	const char* const kSkullEnemyAnimParamPath = "Resources\\MasterData\\Enemy\\Skull\\AnimationParam.csv";
 
 	constexpr Vector3 kGoalPos{ 0.0f, 250.0f, 500.0f };
 }
@@ -55,12 +61,17 @@ void SceneStageTest::OnInit()
 	mPlayer = objectRoot->AddToChild(std::move(playerCreator->CreateInstance()));
 
 
-	std::vector<WaypointGroup> waypointGroups = Data::Json::LoadJsonAs<WaypointGroup>(kWaypointDataPath);
+	{
+		std::vector<WaypointGroup> waypointGroups = Data::Json::LoadJsonAs<WaypointGroup>(kWaypointDataPath);
 
-	std::vector<EnemyPatrollingData> patrollingData = std::move(Data::Json::LoadJsonAs<EnemyPatrollingData>(kPatrollingDataPath));
+		std::vector<EnemyPatrollingData> patrollingData = std::move(Data::Json::LoadJsonAs<EnemyPatrollingData>(kPatrollingDataPath));
 
-	mEnemy = objectRoot->CreateToChild<Enemy>(mPlayer->GetTransform(), std::move(patrollingData[0]), waypointGroups);
-	mEnemy->GetTransform()->localPosition = Vector3(0.0f, 100.0f, 0.0f);
+		std::shared_ptr<Resource::ResourceBase> model = ResourceManager::GetInstance().GetResource<Resource::Model>(kSkullEnemyModelPath);
+		std::vector<AnimationParam> animParam = Data::Csv::LoadCsvAs<AnimationParam>(kSkullEnemyAnimParamPath);
+
+		mEnemy = objectRoot->CreateToChild<Enemy>(mPlayer->GetTransform(), std::move(patrollingData[0]), waypointGroups, model, animParam);
+		mEnemy->GetTransform()->localPosition = Vector3(0.0f, 100.0f, 0.0f);
+	}
 
 
 	objectRoot->CreateToChild<StageManager>(kStageObjectDataPath);

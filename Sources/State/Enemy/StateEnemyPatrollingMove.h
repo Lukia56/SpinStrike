@@ -4,12 +4,13 @@
 #include "Param/Param.h"
 
 class Enemy;
+class EnemyModelAnimator;
 
 class StateEnemyPatrollingMove : public IState<Enemy>
 {
 public:
 
-	StateEnemyPatrollingMove(WaypointMoveData& moveData, const WaypointGroup& waypointGroup);
+	StateEnemyPatrollingMove(WaypointMoveData& moveData, const WaypointGroup& waypointGroup, EnemyModelAnimator* modelAnimator);
 	~StateEnemyPatrollingMove() = default;
 
 	void Enter(Enemy& owner) override;
@@ -39,4 +40,6 @@ private:
 	Vector3 mMoveStartPos;
 
 	WaypointGroup mWaypointGroup;
+
+	EnemyModelAnimator* mModelAnimator;
 };

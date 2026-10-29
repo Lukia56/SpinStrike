@@ -3,6 +3,8 @@
 #include <DxLib.h>
 #include <imgui.h>
 #include "EnemyAttackCollider.h"
+#include "../Component/EnemyModelAnimator.h"
+#include "../Component/Rendering/ModelRenderer.h"
 #include "State/StateContext.h"
 #include "State/Enemy/StateEnemyAttack.h"
 #include "State/Enemy/StateEnemyDamage.h"
@@ -14,6 +16,7 @@
 #include "Collision/Collision3D.h"
 #include "Param/Param.h"
 #include "System/TimeManager.h"
+#include "System/Resource/ResourceBase.h"
 #include "Utility/Math.h"
 
 namespace
@@ -37,15 +40,23 @@ namespace
 	constexpr float kAttackColliderRadius = 30.0f;
 }
 
-Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, const std::vector<WaypointGroup>& waypointGroups) :
+Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, const std::vector<WaypointGroup>& waypointGroups, std::shared_ptr<Resource::ResourceBase> model, const std::vector<AnimationParam>& animParam) :
 	mTargetYaw(0.0f),
 	mHP(kMaxHP),
 	mIsInvincible(false),
 	mCurrentWaypointID(0),
+	mModel(nullptr),
+	mModelAnimator(nullptr),
+	mAnimationParams(animParam),
 	mCollider(nullptr),
 	mStateContext(nullptr),
+	mAttackCollider(nullptr),
 	mPlayerTransform(playerTransform)
 {
+	mModel = std::make_unique<ModelRenderer>(this, model, 0.3f);
+
+	mModelAnimator = std::make_unique<EnemyModelAnimator>(mAnimationParams, mModel.get(), 30.0f);
+
 	mCollider = std::make_unique<Collider3D>(
 				std::make_unique<Collision::AABB3D>(kCollisionSize),
 				this,
@@ -58,11 +69,11 @@ Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, con
 	}
 	
 	mStateContext = std::make_unique<StateContext<Enemy>>(this);
-	mStateContext->AddStateToPool(std::make_unique<StateEnemyAttack>());
-	mStateContext->AddStateToPool(std::make_unique<StateEnemyDamage>());
-	mStateContext->AddStateToPool(std::make_unique<StateEnemyFollow>());
-	mStateContext->AddStateToPool(std::make_unique<StateEnemyPatrollingMove>(patrollingData.moveData, waypointGroup));
-	mStateContext->AddStateToPool(std::make_unique<StateEnemyPatrollingInterpreter>(std::move(patrollingData.waypointActions)));
+	mStateContext->AddStateToPool(std::make_unique<StateEnemyAttack>(mModelAnimator.get()));
+	mStateContext->AddStateToPool(std::make_unique<StateEnemyDamage>(mModelAnimator.get()));
+	mStateContext->AddStateToPool(std::make_unique<StateEnemyFollow>(mModelAnimator.get()));
+	mStateContext->AddStateToPool(std::make_unique<StateEnemyPatrollingMove>(patrollingData.moveData, waypointGroup, mModelAnimator.get()));
+	mStateContext->AddStateToPool(std::make_unique<StateEnemyPatrollingInterpreter>(std::move(patrollingData.waypointActions), mModelAnimator.get()));
 }
 
 void Enemy::Init()
@@ -82,6 +93,8 @@ void Enemy::Update()
 
 	float yawDif = mTargetYaw - mTransform->localRotation.y;
 	mTransform->localRotation.y += Math::NormalizeRadian(yawDif) * kYawLatency;
+
+	mModelAnimator->Update();
 }
 
 void Enemy::PhysicsUpdate()
@@ -93,13 +106,14 @@ void Enemy::PhysicsUpdate()
 
 void Enemy::Draw()
 {
+	mModel->Draw();
 }
 
 void Enemy::DebugDraw()
 {
 	Vector3 worldPos = mTransform->CalculateWorldPosition();
 	float worldYaw = mTransform->CalculateWorldRotation().y;
-	Vector3 forward = Vector3(std::sin(worldYaw), 0.0f, -std::cos(worldYaw));
+	Vector3 forward = Vector3(-std::sin(worldYaw), 0.0f, -std::cos(worldYaw));
 
 	// ê≥ñ ï˚å¸Ç…ê¸Çà¯Ç≠
 	DrawLine3D(worldPos.GetAsDxLibVector(), (worldPos + forward * kDebugForwardLineLen).GetAsDxLibVector(), Color::red.GetAsHexRGB());
@@ -239,9 +253,9 @@ void Enemy::DebugDrawFOV()
 		originPoint.y = worldPos.y + kFovVDistance * (i - 1);
 
 		// îºåaÇï`âÊ
-		Vector3 fovLeftEdgePoint = originPoint + Vector3(std::cos(startRot), 0.0f, -std::sin(startRot)) * kSearchRange;
+		Vector3 fovLeftEdgePoint = originPoint + Vector3(-std::cos(startRot), 0.0f, -std::sin(startRot)) * kSearchRange;
 		DrawLine3D(originPoint.GetAsDxLibVector(), fovLeftEdgePoint.GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
-		Vector3 fovRightEdgePoint = originPoint + Vector3(std::cos(startRot + fovRad), 0.0f, -std::sin(startRot + fovRad)) * kSearchRange;
+		Vector3 fovRightEdgePoint = originPoint + Vector3(-std::cos(startRot + fovRad), 0.0f, -std::sin(startRot + fovRad)) * kSearchRange;
 		DrawLine3D(originPoint.GetAsDxLibVector(), fovRightEdgePoint.GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
 
 		// äeêÓå`ÇåqÇÆê¸Çï`âÊ
@@ -257,10 +271,10 @@ void Enemy::DebugDrawFOV()
 		for (int j = 0; j < kDebugFOVQuolity; j++)
 		{
 			float rot0 = startRot + arc * j;
-			Vector3 point0 = originPoint + Vector3(std::cos(rot0), 0.0f, -std::sin(rot0)) * kSearchRange;
+			Vector3 point0 = originPoint + Vector3(-std::cos(rot0), 0.0f, -std::sin(rot0)) * kSearchRange;
 
 			float rot1 = startRot + arc * (j + 1);
-			Vector3 point1 = originPoint + Vector3(std::cos(rot1), 0.0f, -std::sin(rot1)) * kSearchRange;
+			Vector3 point1 = originPoint + Vector3(-std::cos(rot1), 0.0f, -std::sin(rot1)) * kSearchRange;
 
 			DrawLine3D(point0.GetAsDxLibVector(), point1.GetAsDxLibVector(), Color::yellow.GetAsHexRGB());
 		}

@@ -5,6 +5,7 @@
 
 struct WaypointActionData;
 class Enemy;
+class EnemyModelAnimator;
 
 /// <summary>
 /// 敵のウェイポイント到着時の行動データを読み取って実行する
@@ -13,7 +14,7 @@ class StateEnemyPatrollingInterpreter : public IState<Enemy>
 {
 public:
 	
-	StateEnemyPatrollingInterpreter(std::vector<WaypointActionData> actionData);
+	StateEnemyPatrollingInterpreter(std::vector<WaypointActionData> actionData, EnemyModelAnimator* modelAnimator);
 	~StateEnemyPatrollingInterpreter() = default;
 
 	void Enter(Enemy& owner) override;
@@ -29,4 +30,6 @@ private:
 	int mActionDataIndex;
 
 	std::vector<WaypointActionData> mActionData;
+
+	EnemyModelAnimator* mModelAnimator;
 };

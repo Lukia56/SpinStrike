@@ -3,6 +3,7 @@
 #include "../StateContext.h"
 #include "System/TimeManager.h"
 #include "World/Character/Enemy.h"
+#include "World/Component/EnemyModelAnimator.h"
 
 namespace
 {
@@ -13,8 +14,9 @@ namespace
 	constexpr float kKnockbackForce = 10.0f;
 }
 
-StateEnemyDamage::StateEnemyDamage() :
-	mStunTimer(0.0f)
+StateEnemyDamage::StateEnemyDamage(EnemyModelAnimator* modelAnimator) :
+	mStunTimer(0.0f),
+	mModelAnimator(modelAnimator)
 {
 }
 
@@ -34,12 +36,14 @@ void StateEnemyDamage::Enter(Enemy& enemy)
 
 	Vector3 toPlayerNorm = toPlayerVec.GetNormalize();
 
-	float yaw = std::atan2(toPlayerNorm.x, -toPlayerNorm.z);
+	float yaw = std::atan2(-toPlayerNorm.x, -toPlayerNorm.z);
 	transform->localRotation.y = yaw;
 	enemy.SetTargetYaw(yaw);
 
 	// ノックバック
 	enemy.AddKnockbackPush(toPlayerNorm * -kKnockbackForce);
+
+	mModelAnimator->SetNextAnimation(EnemyAnimation::Damage);
 }
 
 void StateEnemyDamage::Update(Enemy& enemy, StateContext<Enemy>& context)

@@ -7,11 +7,13 @@
 #include "Param/Param.h"
 #include "World/Character/Enemy.h"
 #include "World/Component/Collider3D.h"
+#include "World/Component/EnemyModelAnimator.h"
 
-StateEnemyPatrollingInterpreter::StateEnemyPatrollingInterpreter(std::vector<WaypointActionData> actionData) :
+StateEnemyPatrollingInterpreter::StateEnemyPatrollingInterpreter(std::vector<WaypointActionData> actionData, EnemyModelAnimator* modelAnimator) :
 	mActionIndex(-1),
 	mActionDataIndex(-1),
-	mActionData(std::move(actionData))
+	mActionData(std::move(actionData)),
+	mModelAnimator(modelAnimator)
 {
 }
 

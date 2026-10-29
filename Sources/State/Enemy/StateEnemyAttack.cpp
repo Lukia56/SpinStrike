@@ -3,6 +3,7 @@
 #include "../StateContext.h"
 #include "System/TimeManager.h"
 #include "World/Character/Enemy.h"
+#include "World/Component/EnemyModelAnimator.h"
 
 namespace
 {
@@ -12,8 +13,9 @@ namespace
 	constexpr float kAttackColliderOffset = 50.0f;
 }
 
-StateEnemyAttack::StateEnemyAttack() :
-	mAttackCooldownTimer(0.0f)
+StateEnemyAttack::StateEnemyAttack(EnemyModelAnimator* modelAnimator) :
+	mAttackCooldownTimer(0.0f),
+	mModelAnimator(modelAnimator)
 {
 }
 
@@ -27,12 +29,14 @@ void StateEnemyAttack::Enter(Enemy& enemy)
 
 	Vector3 toPlayerNorm = toPlayerVec.GetNormalize();
 
-	float yaw = std::atan2(toPlayerNorm.x, -toPlayerNorm.z);
+	float yaw = std::atan2(-toPlayerNorm.x, -toPlayerNorm.z);
 	enemy.SetTargetYaw(yaw);
 
 	enemy.StartAttack(kAttackDuration, toPlayerNorm * kAttackColliderOffset);
 
 	mAttackCooldownTimer = kAttackCooldownTime;
+
+	mModelAnimator->SetNextAnimation(EnemyAnimation::Attack);
 }
 
 void StateEnemyAttack::Update(Enemy& enemy, StateContext<Enemy>& context)

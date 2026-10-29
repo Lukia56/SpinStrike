@@ -3,12 +3,13 @@
 #include "../IState.h"
 
 class Enemy;
+class EnemyModelAnimator;
 
 class StateEnemyAttack : public IState<Enemy>
 {
 public:
 
-	StateEnemyAttack();
+	StateEnemyAttack(EnemyModelAnimator* modelAnimator);
 	~StateEnemyAttack() = default;
 
 	void Enter(Enemy& enemy) override;
@@ -20,4 +21,6 @@ public:
 private:
 
 	float mAttackCooldownTimer;
+
+	EnemyModelAnimator* mModelAnimator;
 };

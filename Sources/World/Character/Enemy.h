@@ -5,16 +5,23 @@
 
 struct EnemyPatrollingData;
 struct WaypointGroup;
+struct AnimationParam;
+class ModelRenderer;
+class EnemyModelAnimator;
 class Collider3D;
 class EnemyAttackCollider;
 template <class T>
 class StateContext;
+namespace Resource
+{
+	class ResourceBase;
+}
 
 class Enemy : public GameObject
 {
 public:
 
-	Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, const std::vector<WaypointGroup>& waypointGroups);
+	Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, const std::vector<WaypointGroup>& waypointGroups, std::shared_ptr<Resource::ResourceBase> model, const std::vector<AnimationParam>& animParam);
 	~Enemy() = default;
 
 	void Init() override;
@@ -76,6 +83,11 @@ private:
 	bool mIsInvincible;
 
 	int mCurrentWaypointID;
+
+	std::unique_ptr<ModelRenderer> mModel;
+
+	std::unique_ptr<EnemyModelAnimator> mModelAnimator;
+	std::vector<AnimationParam> mAnimationParams;
 
 	std::unique_ptr<Collider3D> mCollider;
 

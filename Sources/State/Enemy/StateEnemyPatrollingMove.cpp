@@ -5,17 +5,19 @@
 #include "Param/Param.h"
 #include "World/Character/Enemy.h"
 #include "World/Component/Collider3D.h"
+#include "World/Component/EnemyModelAnimator.h"
 
 namespace
 {
 	constexpr float kMoveSpeed = 100.0f;
 }
 
-StateEnemyPatrollingMove::StateEnemyPatrollingMove(WaypointMoveData& moveData, const WaypointGroup& waypointGroup) :
+StateEnemyPatrollingMove::StateEnemyPatrollingMove(WaypointMoveData& moveData, const WaypointGroup& waypointGroup, EnemyModelAnimator* modelAnimator) :
 	mWaypointGroupID(moveData.waypointGroupID),
 	mIsLoop(moveData.isLoop),
 	mIsFlipped(false),
-	mWaypointGroup(waypointGroup)
+	mWaypointGroup(waypointGroup),
+	mModelAnimator(modelAnimator)
 {
 }
 
@@ -27,7 +29,7 @@ void StateEnemyPatrollingMove::Enter(Enemy& owner)
 
 	mMoveDir = CalculateNextWaypointNormal(owner);
 
-	owner.SetTargetYaw(std::atan2(mMoveDir.x, -mMoveDir.z));
+	owner.SetTargetYaw(std::atan2(-mMoveDir.x, -mMoveDir.z));
 
 	owner.GetCollider()->SetDynamic(false);
 }
@@ -43,6 +45,8 @@ void StateEnemyPatrollingMove::Update(Enemy& owner, StateContext<Enemy>& context
 	if (mWaypointGroup.waypoints.empty()) return;
 
 	owner.SetVelocity(mMoveDir * kMoveSpeed);
+
+	mModelAnimator->SetNextAnimation(EnemyAnimation::Walk);
 
 	if (IsReachWaypoint(owner))
 	{
