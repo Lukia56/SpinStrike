@@ -13,7 +13,7 @@ class ModelAnimator
 public:
 
 	ModelAnimator(ModelRenderer* renderer, float fps = TimeManager::kFPS);
-	~ModelAnimator();
+	virtual ~ModelAnimator();
 
 	virtual void Update();
 
