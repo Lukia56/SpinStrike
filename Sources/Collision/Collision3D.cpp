@@ -248,12 +248,12 @@ namespace Collision
 
 			// Œğ·‚µ‚Ä‚¢‚È‚¢
 			if (tMin >= tMax) return result;
-
-			if (tMin < -Math::Epsilon) return result;
-
-			// ƒŒƒC‚Ì‹——£ŒÀŠE‚ğ’´‚¦‚Ä‚¢‚é
-			if (tMin > ray.maxDistance) return result;
 		}
+
+		if (tMin < -Math::Epsilon) return result;
+
+		// ƒŒƒC‚Ì‹——£ŒÀŠE‚ğ’´‚¦‚Ä‚¢‚é
+		if (tMin > ray.maxDistance) return result;
 
 		// Œğ·‚µ‚Ä‚¢‚é
 		result.isHit = true;
