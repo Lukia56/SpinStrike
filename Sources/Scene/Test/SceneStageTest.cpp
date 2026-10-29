@@ -34,6 +34,8 @@ namespace
 	const char* const kSkullEnemyModelPath = "Resources\\Model\\Skull.mv1";
 	const char* const kSkullEnemyAnimParamPath = "Resources\\MasterData\\Enemy\\Skull\\AnimationParam.csv";
 
+	const char* const kGoalModelPath = "Resources\\Model\\flag_B_red.mv1";
+
 	constexpr Vector3 kGoalPos{ 0.0f, 250.0f, 500.0f };
 }
 
@@ -75,8 +77,11 @@ void SceneStageTest::OnInit()
 
 
 	objectRoot->CreateToChild<StageManager>(kStageObjectDataPath);
-	GoalObject* goal = objectRoot->CreateToChild<GoalObject>();
-	goal->GetTransform()->localPosition = kGoalPos;
+	{
+		std::shared_ptr<Resource::ResourceBase> model = ResourceManager::GetInstance().GetResource<Resource::Model>(kGoalModelPath);
+		GoalObject* goal = objectRoot->CreateToChild<GoalObject>(model);
+		goal->GetTransform()->localPosition = kGoalPos;
+	}
 
 	UI::UIManager* uiManager = CreateToRoot<UI::UIManager>();
 	uiManager->AddScreenToPool(std::make_unique<UI::InGameScreen>(mPlayer));
