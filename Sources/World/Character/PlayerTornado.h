@@ -18,6 +18,8 @@ public:
 	void Draw() override;
 	void DebugDraw() override;
 
+	void EndSpin();
+
 	void AddPulledNum() { mPulledNum++; }
 
 public:
@@ -35,8 +37,6 @@ private:
 	void StartSpin();
 
 	void DeactivateSpin();
-
-	void EndSpin();
 
 	void CreateBullet();
 

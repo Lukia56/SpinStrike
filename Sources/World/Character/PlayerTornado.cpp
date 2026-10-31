@@ -66,6 +66,17 @@ void PlayerTornado::DebugDraw()
 	}
 }
 
+void PlayerTornado::EndSpin()
+{
+	mIsSpinning = false;
+
+	mSpinCooldownTimer = PlayerDataManager::GetInstance().GetPlayerParam().spinCooldownTime;
+
+	mAttackCollider->Disable();
+
+	CreateBullet();
+}
+
 void PlayerTornado::SpinAction(float deltaTime)
 {
 	// クールダウン中は処理を行わない
@@ -124,17 +135,6 @@ void PlayerTornado::DeactivateSpin()
 	{
 		EndSpin();
 	}
-}
-
-void PlayerTornado::EndSpin()
-{
-	mIsSpinning = false;
-
-	mSpinCooldownTimer = PlayerDataManager::GetInstance().GetPlayerParam().spinCooldownTime;
-
-	mAttackCollider->Disable();
-
-	CreateBullet();
 }
 
 void PlayerTornado::CreateBullet()

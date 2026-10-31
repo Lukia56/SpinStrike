@@ -370,6 +370,8 @@ void Player::MoveVertical(float deltaTime)
 			mIgnoreMoveInputTimer = param.wallJumpIgnoreMoveInputTime;
 
 			mOnWall = false;
+
+			mTornado->EndSpin();
 		}
 	}
 	// ジャンプキャンセル
