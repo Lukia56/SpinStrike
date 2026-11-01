@@ -4,6 +4,8 @@
 
 class PlayerBulletManager;
 class Collider3D;
+class ModelRenderer;
+class ModelAnimator;
 
 class PlayerTornado : public GameObject
 {
@@ -54,6 +56,10 @@ private:
 	/// ãzÇ¢çûÇÒÇæêî
 	/// </summary>
 	int mPulledNum;
+
+	std::unique_ptr<ModelRenderer> mModel;
+
+	std::unique_ptr<ModelAnimator> mModelAnimator;
 
 	std::unique_ptr<Collider3D> mAttackCollider;
 

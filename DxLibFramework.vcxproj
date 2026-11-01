@@ -260,6 +260,7 @@
     <ClCompile Include="Sources\World\Test\ModelTest.cpp" />
     <ClCompile Include="Sources\State\Enemy\StateEnemyDamage.cpp" />
     <ClCompile Include="Sources\State\Enemy\StateEnemyAttack.cpp" />
+    <ClCompile Include="Sources\World\Component\TornadoModelAnimator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\World\Character\EnemyAnimation.h" />
@@ -417,6 +418,7 @@
     <ClInclude Include="Sources\World\Test\ModelTest.h" />
     <ClInclude Include="Sources\State\Enemy\StateEnemyDamage.h" />
     <ClInclude Include="Sources\State\Enemy\StateEnemyAttack.h" />
+    <ClInclude Include="Sources\World\Component\TornadoModelAnimator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

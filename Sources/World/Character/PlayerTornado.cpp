@@ -3,10 +3,20 @@
 #include <imgui.h>
 #include "PlayerBulletManager.h"
 #include "../Component/Collider3D.h"
+#include "../Component/TornadoModelAnimator.h"
+#include "../Component/Rendering/ModelRenderer.h"
 #include "Collision/Collision3D.h"
 #include "System/InputManager.h"
 #include "System/PlayerDataManager.h"
 #include "System/TimeManager.h"
+
+#include "System/ResourceManager.h"
+#include "System/Resource/Model.h"
+
+namespace
+{
+	const char* const kModelPath = "Resources\\Model\\Tornado.mv1";
+}
 
 PlayerTornado::PlayerTornado(PlayerBulletManager* bulletManager) :
 	mIsSpinning(false),
@@ -14,6 +24,8 @@ PlayerTornado::PlayerTornado(PlayerBulletManager* bulletManager) :
 	mSpinPreStartTimer(0.0f),
 	mSpinCooldownTimer(0.0f),
 	mPulledNum(0),
+	mModel(nullptr),
+	mModelAnimator(nullptr),
 	mAttackCollider(nullptr),
 	mBulletManager(bulletManager)
 {
@@ -27,6 +39,11 @@ void PlayerTornado::Init()
 	
 	Vector3 collisionOffset = Vector3(0.0f, param.spinTornadoRadius, 0.0f);
 
+	auto model = ResourceManager::GetInstance().GetResource<Resource::Model>(kModelPath);
+	mModel = std::make_unique<ModelRenderer>(this, model, 2.0f);
+
+	mModelAnimator = std::make_unique<TornadoModelAnimator>(this, mModel.get());
+
 	mAttackCollider = std::make_unique<Collider3D>(
 		std::make_unique<Collision::Sphere3D>(param.spinTornadoRadius, collisionOffset),
 		this,
@@ -38,6 +55,11 @@ void PlayerTornado::Init()
 void PlayerTornado::Update()
 {
 	SpinAction(TimeManager::GetDeltaTime());
+
+	// e‚Ì‰ñ“]‚ð–³Œø‰»
+	mTransform->localRotation -= mTransform->CalculateWorldRotation();
+
+	mModelAnimator->Update();
 }
 
 void PlayerTornado::PhysicsUpdate()
@@ -47,6 +69,10 @@ void PlayerTornado::PhysicsUpdate()
 
 void PlayerTornado::Draw()
 {
+	if (mIsSpinning)
+	{
+		mModel->Draw();
+	}
 }
 
 void PlayerTornado::DebugDraw()
