@@ -37,6 +37,8 @@ namespace
 	const char* const kGoalModelPath = "Resources\\Model\\flag_B_red.mv1";
 
 	constexpr Vector3 kGoalPos{ 0.0f, 250.0f, 500.0f };
+
+	constexpr int kBulletMaxNum = 10;
 }
 
 SceneStageTest::SceneStageTest() :
@@ -56,7 +58,7 @@ void SceneStageTest::OnInit()
 	auto objectRoot = CreateToRoot<RootObject>();
 
 	// ƒvƒŒƒCƒ„[‚ð¶¬‚·‚é
-	PlayerBulletManager* bulletManager = objectRoot->CreateToChild<PlayerBulletManager>();
+	PlayerBulletManager* bulletManager = objectRoot->CreateToChild<PlayerBulletManager>(kBulletMaxNum);
 	std::unique_ptr<PlayerTornado> tornado = std::make_unique<PlayerTornado>(bulletManager);
 
 	std::unique_ptr<PlayerCreator> playerCreator = std::make_unique<PlayerCreator>(kPlayerInitDataPath, std::move(tornado));
