@@ -57,13 +57,20 @@ void SceneStageTest::OnInit()
 {
 	auto objectRoot = CreateToRoot<RootObject>();
 
+	objectRoot->CreateToChild<StageManager>(kStageObjectDataPath);
+	{
+		std::shared_ptr<Resource::ResourceBase> model = ResourceManager::GetInstance().GetResource<Resource::Model>(kGoalModelPath);
+		GoalObject* goal = objectRoot->CreateToChild<GoalObject>(model);
+		goal->GetTransform()->localPosition = kGoalPos;
+	}
+
 	// プレイヤーを生成する
+	// 丸影の透明度が自分より前に生成したオブジェクトに対してのみ適用されるため、ステージより後に生成する
 	PlayerBulletManager* bulletManager = objectRoot->CreateToChild<PlayerBulletManager>(kBulletMaxNum);
 	std::unique_ptr<PlayerTornado> tornado = std::make_unique<PlayerTornado>(bulletManager);
 
 	std::unique_ptr<PlayerCreator> playerCreator = std::make_unique<PlayerCreator>(kPlayerInitDataPath, std::move(tornado));
 	mPlayer = objectRoot->AddToChild(std::move(playerCreator->CreateInstance()));
-
 
 	{
 		std::vector<WaypointGroup> waypointGroups = Data::Json::LoadJsonAs<WaypointGroup>(kWaypointDataPath);
@@ -75,14 +82,6 @@ void SceneStageTest::OnInit()
 
 		mEnemy = objectRoot->CreateToChild<Enemy>(mPlayer->GetTransform(), std::move(patrollingData[0]), waypointGroups, model, animParam);
 		mEnemy->GetTransform()->localPosition = Vector3(0.0f, 100.0f, 0.0f);
-	}
-
-
-	objectRoot->CreateToChild<StageManager>(kStageObjectDataPath);
-	{
-		std::shared_ptr<Resource::ResourceBase> model = ResourceManager::GetInstance().GetResource<Resource::Model>(kGoalModelPath);
-		GoalObject* goal = objectRoot->CreateToChild<GoalObject>(model);
-		goal->GetTransform()->localPosition = kGoalPos;
 	}
 
 	UI::UIManager* uiManager = CreateToRoot<UI::UIManager>();
