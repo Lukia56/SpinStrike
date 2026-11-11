@@ -3,7 +3,6 @@
 #include "../SceneBase.h"
 
 class Player;
-class Enemy;
 namespace Observer
 {
 	class GameOverObserver;
@@ -25,8 +24,6 @@ public:
 private:
 
 	Player* mPlayer;
-
-	Enemy* mEnemy;
 
 	std::unique_ptr<Observer::GameOverObserver> mGameOverObserver;
 	std::unique_ptr<Observer::GoalObserver> mGoalObserver;

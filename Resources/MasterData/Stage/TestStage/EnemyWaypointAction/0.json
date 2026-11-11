@@ -1,0 +1,1 @@
+{"waypointGroupID":0,"isLoop":false,"waypointActions":[{"waypointID":0,"actions":[{"actionType":"wait","arguments":{"second":1}}]},{"waypointID":1,"actions":[{"actionType":"wait","arguments":{"second":1}}]},{"waypointID":2,"actions":[{"actionType":"wait","arguments":{"second":1}}]}]}
