@@ -4,7 +4,6 @@
 #include "TempParam.h"
 #include "Collision/CollisionTag.h"
 #include "Utility/Vector.h"
-#include "World/Component/Transform.h"
 #include "State/Enemy/Action/EnemyActionBase.h"
 
 struct WindowConfigs
@@ -78,22 +77,19 @@ struct StageModelData
 struct WaypointMoveData
 {
 	int waypointGroupID = -1;
-
 	bool isLoop = false;
 };
 
 struct WaypointActionData
 {
 	int waypointID = -1;
-
-	std::vector<std::unique_ptr<EnemyActionBase>> actions;
+	std::vector<std::unique_ptr<EnemyActionBase>> actions{};
 };
 
 struct EnemyPatrollingData
 {
-	WaypointMoveData moveData;
-
-	std::vector<WaypointActionData> waypointActions;
+	WaypointMoveData moveData{};
+	std::vector<WaypointActionData> waypointActions{};
 };
 
 struct Waypoint
@@ -103,10 +99,17 @@ struct Waypoint
 
 struct WaypointGroup
 {
-	std::vector<Waypoint> waypoints;
+	std::vector<Waypoint> waypoints{};
 };
 
 struct PlayerInitData
 {
-	TempTransform transform;
+	TempTransform transform{};
+};
+
+struct EnemyInitData
+{
+	TempTransform transform{};
+	int initWaypointID = -1;
+	int patrolDataID = -1;
 };

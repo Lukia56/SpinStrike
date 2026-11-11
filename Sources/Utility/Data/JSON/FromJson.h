@@ -74,5 +74,20 @@ namespace Data
 				return data;
 			}
 		};
+
+		template <>
+		struct FromJson<EnemyInitData>
+		{
+			static EnemyInitData Binding(const JsonObject& json)
+			{
+				EnemyInitData data;
+
+				data.transform = Get<TempTransform>(json, "transform");
+				data.initWaypointID = Get<int>(json, "initWaypointID");
+				data.patrolDataID = Get<int>(json, "patrolDataID");
+
+				return data;
+			}
+		};
 	}
 }
