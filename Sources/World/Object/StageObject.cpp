@@ -10,7 +10,7 @@ StageObject::StageObject(const StageObjectParam& param, std::shared_ptr<Resource
 	mCollider(nullptr)
 {
 	mTransform->localPosition = param.transform.position;
-	mTransform->localRotation = param.transform.rotation;
+	mTransform->localRotation = param.transform.rotation * Math::kPi / 180.0f;
 	mTransform->localScale = param.transform.scale;
 
 	mModel = std::make_unique<ModelRenderer>(this, model);
