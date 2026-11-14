@@ -27,6 +27,8 @@ public:
 
 private:
 
+	bool mCanInhale;
+
 	std::unique_ptr<ModelRenderer> mModel;
 
 	std::unique_ptr<Collider3D> mCollider;

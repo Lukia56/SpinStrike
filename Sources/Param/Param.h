@@ -65,7 +65,9 @@ struct StageObjectParam
 {
 	std::string name = "";
 	TempTransform transform{};
+	bool hasCollision = false;
 	TempBounds bounds{};
+	bool canInhale = false;
 };
 
 struct StageModelData

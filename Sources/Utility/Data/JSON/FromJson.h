@@ -28,7 +28,9 @@ namespace Data
 
 				param.name = Get<std::string>(json, "name");
 				param.transform = Get<TempTransform>(json, "transform");
+				param.hasCollision = Get<bool>(json, "hasCollision");
 				param.bounds = Get<TempBounds>(json, "bounds");
+				param.canInhale = Get<bool>(json, "canInhale");
 
 				return param;
 			}

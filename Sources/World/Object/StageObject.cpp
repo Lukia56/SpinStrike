@@ -6,6 +6,7 @@
 #include "System/Resource/ResourceBase.h"
 
 StageObject::StageObject(const StageObjectParam& param, std::shared_ptr<Resource::ResourceBase> model) :
+	mCanInhale(param.canInhale),
 	mModel(nullptr),
 	mCollider(nullptr)
 {
@@ -15,14 +16,17 @@ StageObject::StageObject(const StageObjectParam& param, std::shared_ptr<Resource
 
 	mModel = std::make_unique<ModelRenderer>(this, model);
 
-	mCollider = std::make_unique<Collider3D>(
-		std::make_unique<Collision::AABB3D>(param.bounds.size, param.bounds.offsetPos),
-		this,
-		Collision::Tag::Body,
-		true,
-		false
-	);
-	mCollider->Update();
+	if (param.hasCollision)
+	{
+		mCollider = std::make_unique<Collider3D>(
+			std::make_unique<Collision::AABB3D>(param.bounds.size, param.bounds.offsetPos),
+			this,
+			Collision::Tag::Body,
+			true,
+			false
+		);
+		mCollider->Update();
+	}
 }
 
 void StageObject::Init()
@@ -41,5 +45,5 @@ void StageObject::Draw()
 
 void StageObject::DebugDraw()
 {
-	mCollider->DebugDraw();
+	if (mCollider) mCollider->DebugDraw();
 }
