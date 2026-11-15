@@ -304,5 +304,209 @@
       }
     },
     "canInhale": false
+  },
+  {
+    "name": "crate",
+    "transform": {
+      "position": {
+        "x": -41.64,
+        "y": 50.0,
+        "z": 328.90000000000003
+      },
+      "rotation": {
+        "x": 180.0,
+        "y": 180.0,
+        "z": 180.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    "hasCollision": true,
+    "bounds": {
+      "size": {
+        "x": 50.0,
+        "y": 50.0,
+        "z": 50.0
+      },
+      "offsetPos": {
+        "x": 0.0,
+        "y": 25.0,
+        "z": 0.0
+      }
+    },
+    "canInhale": true
+  },
+  {
+    "name": "crate",
+    "transform": {
+      "position": {
+        "x": 25.28,
+        "y": 50.0,
+        "z": 289.04
+      },
+      "rotation": {
+        "x": 180.0,
+        "y": 180.0,
+        "z": 180.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    "hasCollision": true,
+    "bounds": {
+      "size": {
+        "x": 50.0,
+        "y": 50.0,
+        "z": 50.0
+      },
+      "offsetPos": {
+        "x": 0.0,
+        "y": 25.0,
+        "z": 0.0
+      }
+    },
+    "canInhale": true
+  },
+  {
+    "name": "barrel",
+    "transform": {
+      "position": {
+        "x": 372.61,
+        "y": 100.0,
+        "z": 356.62
+      },
+      "rotation": {
+        "x": 180.0,
+        "y": 180.0,
+        "z": 180.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    "hasCollision": true,
+    "bounds": {
+      "size": {
+        "x": 40.0,
+        "y": 47.62,
+        "z": 40.0
+      },
+      "offsetPos": {
+        "x": 0.0,
+        "y": 23.81,
+        "z": 0.0
+      }
+    },
+    "canInhale": true
+  },
+  {
+    "name": "barrel",
+    "transform": {
+      "position": {
+        "x": 1178.2,
+        "y": 248.0,
+        "z": 218.85
+      },
+      "rotation": {
+        "x": 180.0,
+        "y": 180.0,
+        "z": 180.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    "hasCollision": true,
+    "bounds": {
+      "size": {
+        "x": 40.0,
+        "y": 47.62,
+        "z": 40.0
+      },
+      "offsetPos": {
+        "x": 0.0,
+        "y": 23.81,
+        "z": 0.0
+      }
+    },
+    "canInhale": true
+  },
+  {
+    "name": "barrel",
+    "transform": {
+      "position": {
+        "x": 1267.63,
+        "y": 248.0,
+        "z": 258.46
+      },
+      "rotation": {
+        "x": 180.0,
+        "y": 180.0,
+        "z": 180.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    "hasCollision": true,
+    "bounds": {
+      "size": {
+        "x": 40.0,
+        "y": 47.62,
+        "z": 40.0
+      },
+      "offsetPos": {
+        "x": 0.0,
+        "y": 23.81,
+        "z": 0.0
+      }
+    },
+    "canInhale": true
+  },
+  {
+    "name": "crate",
+    "transform": {
+      "position": {
+        "x": 1265.19,
+        "y": 248.0,
+        "z": 210.53
+      },
+      "rotation": {
+        "x": 180.0,
+        "y": 180.0,
+        "z": 180.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    "hasCollision": true,
+    "bounds": {
+      "size": {
+        "x": 50.0,
+        "y": 50.0,
+        "z": 50.0
+      },
+      "offsetPos": {
+        "x": 0.0,
+        "y": 25.0,
+        "z": 0.0
+      }
+    },
+    "canInhale": true
   }
 ]

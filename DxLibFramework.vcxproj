@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\World\Object\InhalableStageObject.cpp" />
     <ClCompile Include="Sources\World\Character\EnemyManager.cpp" />
     <ClCompile Include="Sources\World\Component\EnemyModelAnimator.cpp" />
     <ClCompile Include="Sources\World\Component\PlayerModelAnimator.cpp" />
@@ -194,7 +195,6 @@
     <ClCompile Include="Sources\World\Character\PlayerBullet.cpp" />
     <ClCompile Include="Sources\World\Character\PlayerBulletManager.cpp" />
     <ClCompile Include="Sources\World\Character\PlayerTornado.cpp" />
-    <ClCompile Include="Sources\World\Object\Crate.cpp" />
     <ClCompile Include="Sources\Collision\CollisionManager.cpp" />
     <ClCompile Include="Include\ImGui\imgui.cpp" />
     <ClCompile Include="Include\ImGui\imgui_demo.cpp" />
@@ -264,6 +264,7 @@
     <ClCompile Include="Sources\World\Component\TornadoModelAnimator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\World\Object\InhalableStageObject.h" />
     <ClInclude Include="Sources\World\Character\EnemyAnimation.h" />
     <ClInclude Include="Sources\World\Character\EnemyManager.h" />
     <ClInclude Include="Sources\World\Component\EnemyModelAnimator.h" />
@@ -343,7 +344,6 @@
     <ClInclude Include="Sources\Collision\CollisionTag.h" />
     <ClInclude Include="Sources\World\Other\RootObject.h" />
     <ClInclude Include="Sources\World\Character\PlayerTornado.h" />
-    <ClInclude Include="Sources\World\Object\Crate.h" />
     <ClInclude Include="Sources\Collision\CollisionManager.h" />
     <ClInclude Include="Include\ImGui\imconfig.h" />
     <ClInclude Include="Include\ImGui\imgui.h" />
