@@ -21,7 +21,7 @@ class Enemy : public GameObject
 {
 public:
 
-	Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, const std::vector<WaypointGroup>& waypointGroups, std::shared_ptr<Resource::ResourceBase> model, const std::vector<AnimationParam>& animParam);
+	Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, const std::vector<WaypointGroup>& waypointGroups, std::shared_ptr<Resource::ResourceBase> model, const std::vector<AnimationParam>& animParam, int initWaypointID);
 	~Enemy() = default;
 
 	void Init() override;

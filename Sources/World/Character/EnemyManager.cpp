@@ -25,8 +25,8 @@ EnemyManager::EnemyManager(const std::vector<EnemyInitData>& enemyInitData, cons
 	for (auto& data : enemyInitData)
 	{
 		EnemyPatrollingData patrollingData = std::move(Data::Json::LoadJsonAs<EnemyPatrollingData>(kPatrollingDataPath[data.patrolDataID])[0]);
-
-		GameObject* enemy = CreateToChild<Enemy>(playerTransform, std::move(patrollingData), waypointGroups, model, animParam);
+		
+		GameObject* enemy = CreateToChild<Enemy>(playerTransform, std::move(patrollingData), waypointGroups, model, animParam, data.initWaypointID);
 		enemy->GetTransform()->localPosition = data.transform.position;
 	}
 }

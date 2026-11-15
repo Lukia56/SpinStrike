@@ -40,11 +40,11 @@ namespace
 	constexpr float kAttackColliderRadius = 30.0f;
 }
 
-Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, const std::vector<WaypointGroup>& waypointGroups, std::shared_ptr<Resource::ResourceBase> model, const std::vector<AnimationParam>& animParam) :
+Enemy::Enemy(Transform* playerTransform, EnemyPatrollingData patrollingData, const std::vector<WaypointGroup>& waypointGroups, std::shared_ptr<Resource::ResourceBase> model, const std::vector<AnimationParam>& animParam, int initWaypointID) :
 	mTargetYaw(0.0f),
 	mHP(kMaxHP),
 	mIsInvincible(false),
-	mCurrentWaypointID(0),
+	mCurrentWaypointID(initWaypointID),
 	mModel(nullptr),
 	mModelAnimator(nullptr),
 	mAnimationParams(animParam),
